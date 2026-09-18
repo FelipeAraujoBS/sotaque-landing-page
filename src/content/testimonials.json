@@ -1,0 +1,30 @@
+[
+  {
+    "id": "01",
+    "nome": "[PLACEHOLDER] Dra. Ana Lúcia — Clínica Aurora",
+    "cargo": "Diretora clínica",
+    "texto": "[PLACEHOLDER] Depoimento curto sobre confiança e cuidado na comunicação — texto real será coletado com cliente. Hoje placeholder para validar layout e ritmo do carrossel.",
+    "nota": 5
+  },
+  {
+    "id": "02",
+    "nome": "[PLACEHOLDER] Dr. Rafael Melo — Instituto Vital",
+    "cargo": "Coordenador médico",
+    "texto": "[PLACEHOLDER] Depoimento sobre tráfego local que realmente trouxe pacientes da região, não só cliques. Placeholder sinalizado como tal.",
+    "nota": 5
+  },
+  {
+    "id": "03",
+    "nome": "[PLACEHOLDER] Equipe Hospital Santa Clara",
+    "cargo": "Marketing interno",
+    "texto": "[PLACEHOLDER] Depoimento sobre audiovisual humano vs. banco de imagens genérico. Prova social crítica no setor de saúde — placeholder até texto real.",
+    "nota": 5
+  },
+  {
+    "id": "04",
+    "nome": "[PLACEHOLDER] Sócia — Derma Essence",
+    "cargo": "Fundadora",
+    "texto": "[PLACEHOLDER] Depoimento sobre estratégia 360 em 1 página vs. apresentação infinita. Tom confiante e direto, placeholder.",
+    "nota": 5
+  }
+]

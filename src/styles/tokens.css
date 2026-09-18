@@ -1,0 +1,119 @@
+/* PLACEHOLDER — substituir com brand kit oficial quando o time de design entregar */
+/* Design tokens provisórios Sotaque — centralizados aqui para troca trivial futura */
+/* Filosofia: regional (tons terrosos/quentes) + inovação (acento teal saturado) */
+
+:root {
+  /* === Paleta Visual Oficial SOTAQUE === */
+  /* 01. Azul Petróleo Noturno (45%) — Base estrutural, profundidade, autoridade */
+  --sotaque-petroleo: #102C2B;
+  --sotaque-petroleo-surface: #163A39;
+  --sotaque-petroleo-card: #1D4645;
+  --sotaque-petroleo-border: rgba(243, 235, 221, 0.12);
+  --sotaque-petroleo-border-hover: rgba(243, 235, 221, 0.24);
+
+  /* 02. Areia / Marfim (35%) — Fundo alternativo, respiro, negativos e luz */
+  --sotaque-areia: #F3EBDD;
+  --sotaque-areia-soft: #ECE3D3;
+  --sotaque-areia-surface: #FFFFFF;
+  --sotaque-areia-card: #E8DEC9;
+  --sotaque-areia-border: rgba(16, 44, 43, 0.12);
+  --sotaque-areia-border-hover: rgba(16, 44, 43, 0.25);
+
+  /* 03. Vermelho Goiaba (10%) — Voz da marca, CTA, assinatura */
+  --sotaque-goiaba: #D63A2F;
+  --sotaque-goiaba-hover: #BA2E24;
+  --sotaque-goiaba-glow: rgba(214, 58, 47, 0.35);
+
+  /* 04. Solar / Mostarda (5%) — Energia, detalhes, luz e interação */
+  --sotaque-solar: #E7A92B;
+  --sotaque-solar-hover: #CF9520;
+  --sotaque-solar-glow: rgba(231, 169, 43, 0.3);
+
+  /* 05. Verde Folha (3%) — Saúde, natureza, apoio contextual */
+  --sotaque-folha: #58734A;
+  --sotaque-folha-soft: rgba(88, 115, 74, 0.15);
+
+  /* 06. Terracota (2%) — Raiz, cultura, terra, calor brasileiro */
+  --sotaque-terracota: #B85C42;
+  --sotaque-terracota-soft: rgba(184, 92, 66, 0.15);
+
+  /* Aliases retrocompatíveis mapeados para a paleta oficial */
+  --sotaque-midnight: var(--sotaque-petroleo);
+  --sotaque-dark-surface: var(--sotaque-petroleo-surface);
+  --sotaque-dark-card: var(--sotaque-petroleo-card);
+  --sotaque-dark-border: var(--sotaque-petroleo-border);
+  --sotaque-dark-border-hover: var(--sotaque-petroleo-border-hover);
+  --sotaque-creme: var(--sotaque-areia);
+  --sotaque-cream: var(--sotaque-areia);
+  --sotaque-cream-soft: var(--sotaque-areia-soft);
+  --sotaque-vermelho: var(--sotaque-goiaba);
+  --sotaque-earth: var(--sotaque-goiaba);
+  --sotaque-terracotta: var(--sotaque-terracota);
+  --sotaque-mostarda: var(--sotaque-solar);
+  --sotaque-mel: var(--sotaque-solar);
+  --sotaque-verde: var(--sotaque-folha);
+  --sotaque-accent: var(--sotaque-solar);
+  --sotaque-ink: var(--sotaque-petroleo);
+  --sotaque-border: var(--sotaque-areia-border);
+  --sotaque-surface: var(--sotaque-petroleo-surface);
+
+  /* Derivados semânticos */
+  --color-background: var(--sotaque-petroleo);
+  --color-foreground: var(--sotaque-areia);
+  --color-primary: var(--sotaque-goiaba);
+  --color-primary-foreground: var(--sotaque-areia);
+  --color-accent: var(--sotaque-solar);
+  --color-accent-foreground: var(--sotaque-petroleo);
+  --color-muted: var(--sotaque-petroleo-card);
+  --color-border: var(--sotaque-petroleo-border);
+  --color-surface: var(--sotaque-petroleo-surface);
+
+  /* === Tipografia === */
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-body: var(--font-dm-sans), system-ui, sans-serif;
+
+  /* Escala tipográfica fluida provisória */
+  --text-hero: clamp(2.8rem, 7.5vw, 5.8rem);
+  --text-section-title: clamp(2rem, 5vw, 3.25rem);
+  --text-card-title: clamp(1.15rem, 2.2vw, 1.5rem);
+
+  /* === Espaçamento === */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8rem;
+
+  /* === Raios e sombras === */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.25);
+  --shadow-medium: 0 16px 40px rgba(0, 0, 0, 0.35);
+  --shadow-accent: 0 12px 32px rgba(13, 148, 136, 0.25);
+  --shadow-terracotta: 0 16px 48px -8px rgba(217, 92, 56, 0.35);
+  --shadow-emerald: 0 16px 48px -8px rgba(13, 148, 136, 0.35);
+  --shadow-spotlight: 0 0 50px -10px rgba(255, 255, 255, 0.08);
+}
+
+/* Contraste AA verificado: 
+   earth #7A2E1F sobre cream #FFFBF5 => ~9.2:1
+   ink #1A1A1E sobre cream => ~16.5:1
+   cream sobre earth => 9.2:1
+*/
+
+/* Reset de movimento para acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

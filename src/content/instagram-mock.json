@@ -1,0 +1,50 @@
+[
+  {
+    "id": "178414058561",
+    "caption": "[PLACEHOLDER] Bastidores — ensaio da Clínica Aurora, luz natural e equipe real.",
+    "media_url": "/instagram/mock-01.jpg",
+    "permalink": "https://instagram.com/sotaque.mock/p/01",
+    "timestamp": "2026-09-10T14:00:00Z",
+    "media_type": "IMAGE"
+  },
+  {
+    "id": "178414058562",
+    "caption": "[PLACEHOLDER] Carrossel educativo — 3 mitos sobre marketing médico.",
+    "media_url": "/instagram/mock-02.jpg",
+    "permalink": "https://instagram.com/sotaque.mock/p/02",
+    "timestamp": "2026-09-08T14:00:00Z",
+    "media_type": "CAROUSEL_ALBUM"
+  },
+  {
+    "id": "178414058563",
+    "caption": "[PLACEHOLDER] Reel curto — antes/depois de sinalização (vídeo mudo).",
+    "media_url": "/instagram/mock-03.jpg",
+    "permalink": "https://instagram.com/sotaque.mock/p/03",
+    "timestamp": "2026-09-05T14:00:00Z",
+    "media_type": "VIDEO"
+  },
+  {
+    "id": "178414058564",
+    "caption": "[PLACEHOLDER] Making of — gravação Hospital Santa Clara.",
+    "media_url": "/instagram/mock-04.jpg",
+    "permalink": "https://instagram.com/sotaque.mock/p/04",
+    "timestamp": "2026-09-02T14:00:00Z",
+    "media_type": "IMAGE"
+  },
+  {
+    "id": "178414058565",
+    "caption": "[PLACEHOLDER] Dica rápida — como falar de preço sem parecer oferta.",
+    "media_url": "/instagram/mock-05.jpg",
+    "permalink": "https://instagram.com/sotaque.mock/p/05",
+    "timestamp": "2026-08-30T14:00:00Z",
+    "media_type": "IMAGE"
+  },
+  {
+    "id": "178414058566",
+    "caption": "[PLACEHOLDER] Estúdio — mesa de criação, café e referências regionais.",
+    "media_url": "/instagram/mock-06.jpg",
+    "permalink": "https://instagram.com/sotaque.mock/p/06",
+    "timestamp": "2026-08-28T14:00:00Z",
+    "media_type": "IMAGE"
+  }
+]
