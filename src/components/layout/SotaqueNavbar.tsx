@@ -2,9 +2,22 @@
 
 import { useState, useEffect } from "react";
 
-export default function SotaqueNavbar() {
+interface SotaqueNavbarProps {
+  isPlayingSound?: boolean;
+  onToggleSound?: () => void;
+}
+
+export default function SotaqueNavbar({
+  isPlayingSound: externalIsPlaying,
+  onToggleSound,
+}: SotaqueNavbarProps = {}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isPlayingSound, setIsPlayingSound] = useState(false);
+  const [internalIsPlaying, setInternalIsPlaying] = useState(false);
+
+  const isPlayingSound =
+    externalIsPlaying !== undefined ? externalIsPlaying : internalIsPlaying;
+  const handleToggleSound =
+    onToggleSound || (() => setInternalIsPlaying((p) => !p));
 
   // Fecha o menu com tecla ESC
   useEffect(() => {
@@ -62,7 +75,10 @@ export default function SotaqueNavbar() {
           <div className="flex items-center gap-3 sm:gap-4">
             {/* Toggle de som interativo */}
             <button
-              onClick={() => setIsPlayingSound(!isPlayingSound)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleToggleSound();
+              }}
               aria-label={isPlayingSound ? "Desativar ambientação sonora" : "Ativar ambientação sonora"}
               className="group hidden sm:flex items-center gap-2 px-3 py-2 text-[#F3EBDD]/60 hover:text-[#F3EBDD] transition-colors cursor-pointer"
             >

@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import SotaqueNavbar from "@/components/layout/SotaqueNavbar";
 import Hero3DCanvas, {
   Hero3DCanvasHandle,
-  SOTAQUE_MATERIALS,
 } from "@/components/motion/Hero3DCanvas";
 
 type Segment = "left" | "center" | "right";
@@ -62,8 +61,46 @@ export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const canvasHandleRef = useRef<Hero3DCanvasHandle>(null);
   const [segment, setSegment] = useState<Segment>("center");
-  const [activeMaterial, setActiveMaterial] = useState(SOTAQUE_MATERIALS[0]);
+  const [isPlayingSound, setIsPlayingSound] = useState(false);
   const [isClickPopped, setIsClickPopped] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Inicialização do áudio de fundo (bg-audio) com loop contínuo
+  useEffect(() => {
+    const audio = new Audio("/beat/bg-audio.mp3");
+    audio.loop = true;
+    audio.volume = 0.40;
+    audioRef.current = audio;
+
+    const handleEnded = () => setIsPlayingSound(false);
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+      audio.pause();
+      audio.src = "";
+    };
+  }, []);
+
+  const toggleSound = useCallback(() => {
+    if (!audioRef.current) return;
+    setIsClickPopped(true);
+    setTimeout(() => setIsClickPopped(false), 500);
+
+    if (isPlayingSound) {
+      audioRef.current.pause();
+      setIsPlayingSound(false);
+    } else {
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlayingSound(true);
+        })
+        .catch((err) => {
+          console.warn("Reprodução bloqueada pelo navegador:", err);
+        });
+    }
+  }, [isPlayingSound]);
 
   // Rastreamento da posição do ponteiro em 3 zonas (Left, Center, Right)
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -84,16 +121,17 @@ export default function Hero() {
     }
   }, []);
 
-  // Clique em qualquer lugar do Hero altera o material/cor da escultura 3D
-  const handleHeroClick = useCallback(() => {
-    canvasHandleRef.current?.cycleMaterial();
-    setIsClickPopped(true);
-    setTimeout(() => setIsClickPopped(false), 600);
-  }, []);
+  // Clique no Hero ativa ou desativa o áudio de fundo (bg-audio)
+  const handleHeroClick = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      const target = e.target as HTMLElement;
+      // Previne duplo toggle se o clique ocorreu sobre botões ou links
+      if (target.closest("button") || target.closest("a")) return;
 
-  const handleMaterialChange = useCallback((index: number) => {
-    setActiveMaterial(SOTAQUE_MATERIALS[index]);
-  }, []);
+      toggleSound();
+    },
+    [toggleSound]
+  );
 
   return (
     <section
@@ -104,14 +142,13 @@ export default function Hero() {
       className="relative min-h-screen w-full bg-[#102C2B] text-[#F3EBDD] flex flex-col justify-between overflow-hidden cursor-pointer select-none"
       aria-label="Sotaque — Comunicação e Marketing 360 para Saúde"
     >
-      {/* 1. Navbar Suspensa Sotaque */}
-      <SotaqueNavbar />
+      {/* 1. Navbar Suspensa Sotaque com controle de som unificado */}
+      <SotaqueNavbar isPlayingSound={isPlayingSound} onToggleSound={toggleSound} />
 
       {/* 2. WebGL 3D Canvas em tela cheia (Full-Bleed) com paleta oficial SOTAQUE */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Hero3DCanvas
           ref={canvasHandleRef}
-          onMaterialChange={handleMaterialChange}
           className="w-full h-full"
         />
         {/* Vinheta atmosférica profunda em Azul Petróleo Noturno */}
@@ -254,30 +291,52 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Indicadores de Status & Microinteração 3D Oficial */}
+        {/* Indicadores de Status & Microinteração Sonora */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 text-xs font-mono">
-          {/* Badge do Material 3D Oficial */}
-          <div
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#F3EBDD]/20 bg-[#102C2B]/60 backdrop-blur-md transition-all duration-300 shadow-md ${
-              isClickPopped ? "scale-105 border-[#D63A2F] bg-[#D63A2F]/15" : ""
-            }`}
+          {/* Badge Interativo do Som */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleSound();
+            }}
+            className={`flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border transition-all duration-300 shadow-md cursor-pointer ${
+              isPlayingSound
+                ? "border-[#E7A92B] bg-[#E7A92B]/15 text-[#F3EBDD]"
+                : "border-[#F3EBDD]/20 bg-[#102C2B]/60 text-[#F3EBDD]/70 hover:border-[#F3EBDD]/40"
+            } ${isClickPopped ? "scale-105" : ""}`}
+            aria-label={isPlayingSound ? "Desativar áudio de fundo" : "Ativar áudio de fundo"}
           >
-            <span
-              className="w-2.5 h-2.5 rounded-full animate-pulse shadow-[0_0_8px_currentColor]"
-              style={{
-                backgroundColor: activeMaterial.hex,
-                color: activeMaterial.hex,
-              }}
-            />
-            <span className="text-[#F3EBDD] uppercase tracking-wider text-[11px] font-medium">
-              {activeMaterial.name}
+            <div className="flex items-center gap-[2.5px] h-3.5">
+              <span
+                className={`w-[2px] bg-[#E7A92B] rounded-full transition-all duration-300 ${
+                  isPlayingSound ? "h-3.5 animate-pulse" : "h-1 opacity-50"
+                }`}
+              />
+              <span
+                className={`w-[2px] bg-[#D63A2F] rounded-full transition-all duration-300 ${
+                  isPlayingSound ? "h-2 animate-bounce" : "h-1.5 opacity-50"
+                }`}
+              />
+              <span
+                className={`w-[2px] bg-[#58734A] rounded-full transition-all duration-300 ${
+                  isPlayingSound ? "h-3.5 animate-pulse" : "h-2 opacity-50"
+                }`}
+              />
+              <span
+                className={`w-[2px] bg-[#B85C42] rounded-full transition-all duration-300 ${
+                  isPlayingSound ? "h-2.5 animate-bounce" : "h-1 opacity-50"
+                }`}
+              />
+            </div>
+            <span className="uppercase tracking-wider text-[11px] font-medium">
+              {isPlayingSound ? "Som: Ativado" : "Som: Mudo"}
             </span>
-          </div>
+          </button>
 
           {/* Dica de interação */}
           <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#F3EBDD]/15 text-[#F3EBDD]/60 text-[11px] tracking-wide">
             <span className="text-[#E7A92B]">✦</span>
-            <span>Clique para alternar a cor</span>
+            <span>Clique para {isPlayingSound ? "pausar som" : "ativar som"}</span>
           </div>
         </div>
       </div>
