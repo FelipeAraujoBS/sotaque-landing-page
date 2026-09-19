@@ -1,3 +1,4 @@
+import SotaquePreloader from "@/components/ui/SotaquePreloader";
 import Hero from "@/components/sections/Hero";
 import Pillars from "@/components/sections/Pillars";
 import Portfolio from "@/components/sections/Portfolio";
@@ -9,6 +10,7 @@ import ContactForm from "@/components/sections/ContactForm";
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-foreground">
+      <SotaquePreloader />
       <Hero />
       <Pillars />
       <Portfolio />

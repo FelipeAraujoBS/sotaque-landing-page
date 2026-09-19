@@ -31,6 +31,8 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
         touchMultiplier: 1.6,
       });
 
+      (window as any).__lenis = lenis;
+
       lenis.on("scroll", ScrollTrigger.update);
 
       tickerCallback = (time: number) => {
