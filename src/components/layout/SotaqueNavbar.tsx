@@ -17,7 +17,10 @@ export default function SotaqueNavbar({
   const isPlayingSound =
     externalIsPlaying !== undefined ? externalIsPlaying : internalIsPlaying;
   const handleToggleSound =
-    onToggleSound || (() => setInternalIsPlaying((p) => !p));
+    onToggleSound ||
+    (() => {
+      // TEMPORARIAMENTE DESATIVADO PARA TESTE — equalizador sonoro desacoplado quando sem áudio real
+    });
 
   // Fecha o menu com tecla ESC
   useEffect(() => {
@@ -43,14 +46,14 @@ export default function SotaqueNavbar({
   return (
     <>
       {/* Top Navbar Suspensa com Identidade Oficial SOTAQUE */}
-      <header className="fixed top-0 left-0 right-0 z-50 pointer-events-auto px-6 sm:px-10 lg:px-14 py-6 transition-all duration-300">
+      <header className="fixed top-0 left-0 right-0 z-50 pointer-events-auto px-4 sm:px-10 lg:px-14 py-5 sm:py-6 transition-all duration-300">
         <div className="w-full flex items-center justify-between">
           {/* Esquerda: Botão Menu em Pílula */}
           <div>
             <button
               onClick={() => setIsOpen(true)}
               aria-label="Abrir Menu de Navegação Sotaque"
-              className="group flex items-center gap-2 rounded-full border border-[#F3EBDD]/25 px-5 py-2 text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD] backdrop-blur-md bg-[#102C2B]/60 hover:bg-[#F3EBDD] hover:text-[#102C2B] transition-all duration-300 cursor-pointer shadow-lg"
+              className="group flex items-center gap-2 rounded-full border border-[#F3EBDD]/25 px-4 sm:px-5 py-2 text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD] backdrop-blur-md bg-[#102C2B]/60 hover:bg-[#F3EBDD] hover:text-[#102C2B] transition-all duration-300 cursor-pointer shadow-lg"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#E7A92B] group-hover:bg-[#D63A2F] transition-colors" />
               <span>Menu</span>
@@ -64,27 +67,33 @@ export default function SotaqueNavbar({
               aria-label="Sotaque — Início"
               className="text-[#F3EBDD] hover:opacity-90 transition-opacity flex items-center gap-1 group"
             >
-              <span className="font-display font-black tracking-[-0.03em] text-2xl sm:text-[26px] text-[#F3EBDD]">
-                SOTAQUE
+              <span className="font-['Chroma_Venue'] font-chroma tracking-[-0.03em] text-xl sm:text-2xl lg:text-[26px] text-[#F3EBDD]">
+                Sotaque
               </span>
               <span className="w-2 h-2 rounded-full bg-[#D63A2F] shadow-[0_0_10px_#D63A2F] group-hover:scale-125 transition-transform" />
             </a>
           </div>
 
           {/* Direita: Equalizador de Som + Botão Iniciar Projeto */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            {/* Toggle de som interativo */}
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* Toggle de som interativo — Pílula Acessível */}
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 handleToggleSound();
               }}
-              aria-label={isPlayingSound ? "Desativar ambientação sonora" : "Ativar ambientação sonora"}
-              className="group hidden sm:flex items-center gap-2 px-3 py-2 text-[#F3EBDD]/60 hover:text-[#F3EBDD] transition-colors cursor-pointer"
+              aria-label={
+                isPlayingSound
+                  ? "Desativar ambientação sonora"
+                  : "Ativar ambientação sonora"
+              }
+              title={isPlayingSound ? "Pausar som" : "Ativar som"}
+              className={`group flex items-center gap-2 rounded-full border px-3 sm:px-3.5 py-1.5 transition-all duration-300 cursor-pointer shadow-md ${
+                isPlayingSound
+                  ? "border-[#E7A92B]/50 bg-[#E7A92B]/12 text-[#F3EBDD] shadow-[#E7A92B]/20"
+                  : "border-[#F3EBDD]/20 bg-[#102C2B]/60 text-[#F3EBDD]/70 hover:border-[#F3EBDD]/40 hover:text-[#F3EBDD]"
+              }`}
             >
-              <span className="text-[11px] font-mono tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-[#E7A92B]">
-                som
-              </span>
               <div className="flex items-center gap-[2.5px] h-3.5">
                 <span
                   className={`w-[2px] bg-[#E7A92B] rounded-full transition-all duration-300 ${
@@ -107,12 +116,15 @@ export default function SotaqueNavbar({
                   }`}
                 />
               </div>
+              <span className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase font-medium">
+                {isPlayingSound ? "Som: On" : "Som: Off"}
+              </span>
             </button>
 
             {/* Botão de Ação Primário: Vermelho Goiaba (10% - Signature CTA) */}
             <a
               href="#contact"
-              className="rounded-full border border-[#D63A2F] bg-[#D63A2F] px-5 py-2 text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD] font-semibold hover:bg-[#BA2E24] hover:border-[#BA2E24] transition-all duration-300 cursor-pointer shadow-lg shadow-[#D63A2F]/25"
+              className="rounded-full border border-[#D63A2F] bg-[#D63A2F] px-4 sm:px-5 py-2 text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD] font-semibold hover:bg-[#BA2E24] hover:border-[#BA2E24] transition-all duration-300 cursor-pointer shadow-lg shadow-[#D63A2F]/25"
             >
               Iniciar Projeto
             </a>
@@ -123,7 +135,9 @@ export default function SotaqueNavbar({
       {/* Slide-out Menu Drawer Sotaque */}
       <div
         className={`fixed inset-0 z-[999] transition-opacity duration-500 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          isOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
         }`}
       >
         {/* Backdrop escuro com blur em Azul Petróleo Noturno */}
@@ -151,8 +165,19 @@ export default function SotaqueNavbar({
               aria-label="Fechar menu"
               className="w-10 h-10 rounded-full border border-[#F3EBDD]/20 flex items-center justify-center text-[#F3EBDD]/80 hover:text-[#F3EBDD] hover:border-[#D63A2F] hover:bg-[#D63A2F]/10 transition-colors cursor-pointer"
             >
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor">
-                <path d="M12 4L4 12M4 4L12 12" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  d="M12 4L4 12M4 4L12 12"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </button>
           </div>
@@ -192,19 +217,38 @@ export default function SotaqueNavbar({
           {/* Rodapé do Menu com Contato e Redes */}
           <div className="pt-8 border-t border-[#F3EBDD]/15 flex flex-col gap-4">
             <div className="text-xs text-[#F3EBDD]/60 font-body">
-              Comunicação médica e marketing em saúde com calor humano, precisão cirúrgica e sotaque autêntico.
+              Comunicação médica e marketing em saúde com calor humano, precisão
+              cirúrgica e sotaque autêntico.
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono text-[#F3EBDD]/70 pt-2">
-              <a href="https://www.instagram.com/sotaquecom/" target="_blank" rel="noopener noreferrer" className="hover:text-[#E7A92B] transition-colors">
+              <a
+                href="https://www.instagram.com/sotaquecom/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#E7A92B] transition-colors"
+              >
                 Instagram
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#E7A92B] transition-colors">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#E7A92B] transition-colors"
+              >
                 LinkedIn
               </a>
-              <a href="https://wa.me/5500000000000" target="_blank" rel="noopener noreferrer" className="hover:text-[#58734A] transition-colors">
+              <a
+                href="https://wa.me/5500000000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#58734A] transition-colors"
+              >
                 WhatsApp
               </a>
-              <a href="mailto:contato@sotaqueestudio.com.br" className="hover:text-[#D63A2F] transition-colors">
+              <a
+                href="mailto:contato@sotaqueestudio.com.br"
+                className="hover:text-[#D63A2F] transition-colors"
+              >
                 contato@sotaque.com.br
               </a>
             </div>

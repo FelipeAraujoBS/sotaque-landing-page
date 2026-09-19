@@ -51,7 +51,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 
 ## 1. FÁCEIS (F) — quick wins
 
-### P-001 `[ ]` Placeholder literal visível ao usuário — P0 · F · Conteúdo
+### P-001 `[x]` Placeholder literal visível ao usuário — P0 · F · Conteúdo
 - **Arquivos:** `src/app/layout.tsx:28`, `src/content/cases.json`, `src/content/testimonials.json`, `src/content/instagram-mock.json`
 - **Problema:** string `[PLACEHOLDER]` aparece na `description` do metadata e em cards/depoimentos. Vai para o Google e para o usuário.
 - **Como corrigir:**
@@ -61,7 +61,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** nenhum `[PLACEHOLDER]` visível na página ou no HTML; `npm run build` ok.
 - **Não fazer:** inventar nomes/resultados reais para preencher.
 
-### P-002 `[ ]` Métricas inventadas parecem resultado real — P0 · F · Conteúdo
+### P-002 `[x]` Métricas inventadas parecem resultado real — P0 · F · Conteúdo
 - **Arquivos:** `src/components/sections/Pillars.tsx:24,35,49,60,71` (`100% Autoral`, `+240%`, `4K Cinema`, `+180%`, `360°`) + `src/components/sections/RegionalDna.tsx:221-234` (`↻ atualizado em 2026-09-19`: cartões `360°`, `100%`, `≠` com labels `Presença Integrada`, `Rigor Ético CFM`, `Identidade Única`)
 - **Problema:** viola `AGENTS.md` ("nunca invente fatos") e é sensível em saúde/CFM.
 - **Como corrigir:** trocar por labels qualitativos (`Design sem template`, `Foco editorial`, `Padrão documental`, `Captação qualificada`). Manter badge, trocar texto.
@@ -101,14 +101,14 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
   3. Referenciar em `layout.tsx` via `icons` / OG automático do App Router.
 - **Aceite:** `/robots.txt`, `/sitemap.xml`, favicon e OG renderizam; build ok.
 
-### P-007 `[ ]` Badge "mock ativo" exposto ao usuário — P2 · F · Conteúdo
+### P-007 `[x]` Badge "mock ativo" exposto ao usuário — P2 · F · Conteúdo
 - **Arquivos:** `src/components/sections/InstagramFeed.tsx:27-31,98-104`
 - **Problema:** detalhe técnico (`mock ativo`, `content/instagram-mock.json`, `Graph API pronta`) aparece na UI (viola update-001 §13).
 - **Como corrigir:** remover badge da UI; manter `isMock` só como comentário de código ou `console.warn` server-side. Manter fallback mock funcionando.
 - **Aceite:** usuário vê só `O estúdio no dia a dia` + grid; build ok.
 - **Não fazer:** apagar `src/lib/instagram.ts` ou o fallback.
 
-### P-008 `[ ]` Hero com onClick global (hoje alterna o SOM, não o material 3D) — P0 · F · UX/A11y
+### P-008 `[x]` Hero com onClick global (hoje alterna o SOM, não o material 3D) — P0 · F · UX/A11y
 - **Arquivos:** `src/components/sections/Hero.tsx:125-142` (`↻ atualizado em 2026-09-19`: `handleHeroClick` agora chama `toggleSound()` — antes ciclava material 3D via `cycleMaterial()`; `cursor-pointer` + `select-none` na `<section>` persistem)
 - **Problema:** quebra seleção de texto, cliques acidentais; ligar/desligar áudio clicando em qualquer lugar do hero continua sendo easter-egg, não ação de negócio. O canvas 3D (`Hero3DCanvasHandle.cycleMaterial`) segue sem botão dedicado.
 - **Como corrigir:**
@@ -118,50 +118,49 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** clicar no texto não liga/desliga som; Tab alcança o badge; texto selecionável.
 - **Não fazer (update-001):** apagar `Hero3DCanvas.tsx` — só desacoplar a interação.
 
-### P-009 `[ ]` Headline responsiva diminui no desktop — P1 · F · UX
+### P-009 `[x]` Headline responsiva diminui no desktop — P1 · F · UX
 - **Arquivos:** `src/components/sections/Hero.tsx:186` (`↻ atualizado em 2026-09-19`: `text-5xl sm:text-7xl md:text-8xl lg:text-[3.5rem]`)
 - **Problema:** `lg` menor que `md`. Quebra hierarquia.
 - **Como corrigir:** escala crescente, ex: `text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-[5.2rem] leading-[0.95]`. Testar 375px e 1440px.
 - **Aceite:** sem overflow horizontal; sem diminuição em breakpoint maior.
 
-### P-010 `[ ]` 3 headlines sobrepostas lidas por SR/crawler — P0 · F · A11y/SEO
+### P-010 `[x]` 3 headlines sobrepostas lidas por SR/crawler — P0 · F · A11y/SEO
 - **Arquivos:** `src/components/sections/Hero.tsx:176-250` (`↻ atualizado em 2026-09-19`: segmentos `center`/`left`/`right` com `opacity-0` + `pointer-events-none`; seletores mobile `Branding/Sotaque/Estratégia` em `:253-274`)
 - **Problema:** inativos continuam no accessibility tree; parece 3 H1s.
 - **Como corrigir:** adicionar `aria-hidden={segment !== "center"}` (e equivalentes) + `inert` (ou `hidden` quando `opacity-0` após transição). Manter 1 `<h1>` real; demais como `<p>`/`<span>`.
 - **Aceite:** leitor anuncia 1 headline; Lighthouse / axe sem violação.
 
-### P-011 `[ ]` Botão "som" da navbar sem áudio próprio + click global confuso — P1 · F · UX
+### P-011 `[x]` Botão "som" da navbar sem áudio próprio + click global confuso — P1 · F · UX
 - **Arquivos:** `src/components/layout/SotaqueNavbar.tsx:19-20,77-110` (`↻ atualizado em 2026-09-19`: navbar agora aceita `isPlayingSound`/`onToggleSound` via props e, quando renderizada dentro do `Hero`, alterna áudio REAL — `Hero.tsx:68-103` cria `new Audio("/beat/bg-audio.mp3")`, loop, volume 0.4; arquivo existe em `public/beat/bg-audio.mp3`. Mas: (a) o fallback interno da navbar (`setInternalIsPlaying`) só anima o equalizador sem tocar nada quando usada fora do Hero; (b) o click global do Hero (P-008) torna o toggle acidental)
 - **Problema:** fora do Hero o controle continua fingindo função = dark pattern; dentro do Hero funciona mas sem affordance clara (ver P-008).
 - **Como corrigir (preferido):** manter o áudio real do Hero; na navbar, quando sem `onToggleSound`, comentar o bloco do equalizador com `// TEMPORARIAMENTE DESATIVADO PARA TESTE — equalizador sonoro` (update-001) em vez de animar à toa. Resolver P-008 junto.
 - **Aceite:** sem controle que finge função; build ok.
 
-### P-012 `[ ]` Classe Tailwind inválida no portfólio — P2 · F · Código
+### P-012 `[x]` Classe Tailwind inválida no portfólio — P2 · F · Código
 - **Arquivos:** `src/components/sections/PortfolioClient.tsx:146` (`h-13 w-13`)
 - **Problema:** `13` não existe na escala default → classe ignorada.
 - **Como corrigir:** trocar por `h-12 w-12`.
 - **Aceite:** botão play com tamanho consistente; sem classe inválida.
 
-### P-013 `[ ]` Contrastes de texto corrido abaixo de AA — P1 · F · A11y
+### P-013 `[x]` Contrastes de texto corrido abaixo de AA — P1 · F · A11y
 - **Arquivos:** `PortfolioClient.tsx:60,173,178,193,198-200` (`↻ atualizado em 2026-09-19`: `text-cream/70`, `text-[#F3EBDD]/65`, `/40`, `text-cream/50`, `text-cream/40`), `Testimonials.tsx:135` (`text-[#F3EBDD]/75` ok, mas marquee `:105` usa `/65`), `ContactForm.tsx:104,115,266,349` (`/75`, `/50`), `tokens.css:103-107` (comentário cita cores antigas `#7A2E1F`/`#FFFBF5`)
 - **Problema:** `text-cream/40`, `/50`, `/65`, `text-[#102C2B]/50` em corpo pequeno reprovam AA.
 - **Como corrigir:** subir corpo para `/70`+ (`/75` ideal); atualizar comentário de contraste em `tokens.css` com pares reais atuais; validar com ferramenta (axe/Lighthouse).
 - **Aceite:** corpo ≥ 4.5:1; large ≥ 3:1.
 
-### P-014 `[ ]` Jargão técnico como copy comercial — P2 · F · Conteúdo
+### P-014 `[x]` Jargão técnico como copy comercial — P2 · F · Conteúdo
 - **Arquivos:** `PortfolioClient.tsx:199-200` (`JSON-driven...`, `AnimatePresence...`), `Pillars.tsx:377,415` (`Bento Grid...`, `Spotlight interativo`), `InstagramFeed.tsx:27-31,98-104` (`mock ativo`, `Graph API`)
 - **Problema:** viola update-001 §13 — cliente médico não precisa saber de stack. (`↻ atualizado em 2026-09-19`: `AnimatePresence` em si é import real de código — o problema é só o nome exposto na UI do rodapé do portfólio.)
-- **Problema:** viola update-001 §13 — cliente médico não precisa saber de stack.
 - **Como corrigir:** remover da UI visível; se útil, mover para comentário `{/* ... */}` no código. (Comentar, não apagar — update-001.)
 - **Aceite:** nenhum nome de lib/técnica visível ao usuário.
 
-### P-015 `[ ]` Latência artificial de 600ms no form — P2 · F · Perf/UX
+### P-015 `[x]` Latência artificial de 600ms no form — P2 · F · Perf/UX
 - **Arquivos:** `src/app/api/contact/route.ts:47-48` (`await new Promise(r => setTimeout(r, 600))`)
 - **Problema:** viola update-001 §15 (sem delays artificiais em produção).
 - **Como corrigir:** comentar bloco com `// TEMPORARIAMENTE DESATIVADO PARA TESTE — latência demo` preservando código.
 - **Aceite:** resposta imediata (só latência real de rede).
 
-### P-016 `[ ]` Depoimentos placeholder apresentados como reais — P0 · F · Conteúdo
+### P-016 `[x]` Depoimentos placeholder apresentados como reais — P0 · F · Conteúdo
 - **Arquivos:** `src/components/sections/Testimonials.tsx:99-113` (marquee logos fictícios), `:204-213` (estrelas `★` + selo `Verificado`), `src/content/testimonials.json`, `src/app/page.tsx:18` (`↻ atualizado em 2026-09-19`: seção segue montada sem rótulo conceitual)
 - **Problema:** viola update-001 §11 (não apresentar placeholder como real, não usar ★ como avaliação real).
 - **Como corrigir (escolher 1, perguntar se ambíguo):**
@@ -174,7 +173,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 
 ## 2. MÉDIOS (M) — exigem refatoração
 
-### P-101 `[ ]` Hero sem CTA primário — P0 · M · UX
+### P-101 `[x]` Hero sem CTA primário — P0 · M · UX
 - **Arquivos:** `src/components/sections/Hero.tsx:277-342` (`↻ atualizado em 2026-09-19`: rodapé só com parágrafo + badge de som + dica de clique; `MagneticButton` existe e é usado só no `ContactForm`)
 - **Problema:** usuário entende a marca mas não tem próximo passo. Só há CTA pequeno na navbar.
 - **Como corrigir:**

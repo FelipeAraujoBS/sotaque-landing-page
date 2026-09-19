@@ -1,30 +1,30 @@
 [
   {
     "id": "01",
-    "nome": "[PLACEHOLDER] Dra. Ana Lúcia — Clínica Aurora",
-    "cargo": "Diretora clínica",
-    "texto": "[PLACEHOLDER] Depoimento curto sobre confiança e cuidado na comunicação — texto real será coletado com cliente. Hoje placeholder para validar layout e ritmo do carrossel.",
+    "nome": "Projeto conceitual — Dra. Ana Lúcia",
+    "cargo": "Clínica médica multidisciplinar",
+    "texto": "Projeto conceitual — Demonstração de layout e ritmo editorial para depoimentos clínicos com foco em acolhimento e ética médica.",
     "nota": 5
   },
   {
     "id": "02",
-    "nome": "[PLACEHOLDER] Dr. Rafael Melo — Instituto Vital",
-    "cargo": "Coordenador médico",
-    "texto": "[PLACEHOLDER] Depoimento sobre tráfego local que realmente trouxe pacientes da região, não só cliques. Placeholder sinalizado como tal.",
+    "nome": "Projeto conceitual — Dr. Rafael Melo",
+    "cargo": "Instituto de saúde especializada",
+    "texto": "Projeto conceitual — Demonstração de depoimento sobre posicionamento regional e comunicação integrada com pacientes.",
     "nota": 5
   },
   {
     "id": "03",
-    "nome": "[PLACEHOLDER] Equipe Hospital Santa Clara",
-    "cargo": "Marketing interno",
-    "texto": "[PLACEHOLDER] Depoimento sobre audiovisual humano vs. banco de imagens genérico. Prova social crítica no setor de saúde — placeholder até texto real.",
+    "nome": "Projeto conceitual — Coordenação Clínica",
+    "cargo": "Acolhimento e comunicação",
+    "texto": "Projeto conceitual — Demonstração de narrativa sobre produção audiovisual autoral em contraste com bancos genéricos.",
     "nota": 5
   },
   {
     "id": "04",
-    "nome": "[PLACEHOLDER] Sócia — Derma Essence",
-    "cargo": "Fundadora",
-    "texto": "[PLACEHOLDER] Depoimento sobre estratégia 360 em 1 página vs. apresentação infinita. Tom confiante e direto, placeholder.",
+    "nome": "Projeto conceitual — Gestão de Espaço",
+    "cargo": "Dermatologia e bem-estar",
+    "texto": "Projeto conceitual — Demonstração de depoimento sobre planejamento estratégico 360 e identidade autoral.",
     "nota": 5
   }
 ]

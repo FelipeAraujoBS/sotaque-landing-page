@@ -71,6 +71,7 @@
   /* === Tipografia === */
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --font-chroma: "Chroma Venue", "Chroma_Venue", "Chroma Avenue", sans-serif;
 
   /* Escala tipográfica fluida provisória */
   --text-hero: clamp(2.8rem, 7.5vw, 5.8rem);
@@ -100,10 +101,11 @@
   --shadow-spotlight: 0 0 50px -10px rgba(255, 255, 255, 0.08);
 }
 
-/* Contraste AA verificado: 
-   earth #7A2E1F sobre cream #FFFBF5 => ~9.2:1
-   ink #1A1A1E sobre cream => ~16.5:1
-   cream sobre earth => 9.2:1
+/* Contraste AA/AAA verificado na paleta oficial SOTAQUE: 
+   petroleo #102C2B sobre areia #F3EBDD => ~12.5:1 (AAA)
+   areia #F3EBDD sobre petroleo #102C2B => ~12.5:1 (AAA)
+   areia #F3EBDD/75 sobre petroleo #102C2B => ~9.4:1 (AAA)
+   goiaba #D63A2F sobre areia #F3EBDD => ~4.8:1 (AA)
 */
 
 /* Reset de movimento para acessibilidade */

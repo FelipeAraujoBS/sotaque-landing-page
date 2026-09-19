@@ -217,19 +217,19 @@ export default function RegionalDna() {
               </div>
             </div>
 
-            {/* Métricas editoriais e pilares da marca */}
+            {/* Pilares qualitativos e autoridade da marca */}
             <div className="mt-8 grid grid-cols-3 gap-3 max-w-[420px] lg:ml-auto">
               <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
                 <p className="font-display font-bold text-[#102C2B] text-lg">360°</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Presença Integrada</p>
+                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Visão Integrada</p>
               </div>
               <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
-                <p className="font-display font-bold text-[#58734A] text-lg">100%</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Rigor Ético CFM</p>
+                <p className="font-display font-bold text-[#58734A] text-lg">CFM</p>
+                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Rigor Ético</p>
               </div>
               <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
                 <p className="font-display font-bold text-[#D63A2F] text-lg">≠</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Identidade Única</p>
+                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Design Autoral</p>
               </div>
             </div>
           </div>

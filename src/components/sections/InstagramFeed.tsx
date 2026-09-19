@@ -22,13 +22,9 @@ export default async function InstagramFeed() {
             <h2 className="font-display font-bold tracking-tight text-[clamp(1.7rem,3.5vw,2.4rem)] text-[#102C2B] leading-none">
               O estúdio no dia a dia
             </h2>
-            <p className="mt-2 text-sm text-[#102C2B]/65 max-w-[52ch]">
-              Bastidores, pensamento editorial e design em saúde em tempo real.{" "}
-              {isMock && (
-                <span className="inline-flex items-center rounded bg-white/80 border border-[#102C2B]/15 px-2 py-0.5 font-mono text-xs text-[#102C2B]/70">
-                  mock ativo
-                </span>
-              )}
+            <p className="mt-2 text-sm text-[#102C2B]/75 max-w-[52ch]">
+              Bastidores, pensamento editorial e design em saúde em tempo real.
+              {/* isMock: fallback mock em content/instagram-mock.json ativo */}
             </p>
           </div>
           <a
@@ -95,13 +91,12 @@ export default async function InstagramFeed() {
           ))}
         </div>
 
-        <div className="mt-4 flex items-center justify-between text-xs font-mono text-[#102C2B]/50 border-t border-[#102C2B]/10 pt-4">
+        <div className="mt-4 flex items-center justify-between text-xs font-mono text-[#102C2B]/70 border-t border-[#102C2B]/10 pt-4">
           <span>
-            {isMock
-              ? "Dados mock em content/instagram-mock.json • Integração Graph API pronta."
-              : "Dados ao vivo via Graph API — revalidate 3h."}
+            {/* isMock ? "Dados mock em content/instagram-mock.json • Integração Graph API pronta." : "Dados ao vivo via Graph API" */}
+            Acompanhe bastidores, lançamentos e reflexões em @sotaquecom
           </span>
-          <span className="hidden sm:inline">Grid responsivo • Sotaque Estúdio</span>
+          <span className="hidden sm:inline">Comunicação e Saúde • Sotaque Estúdio</span>
         </div>
       </div>
     </section>

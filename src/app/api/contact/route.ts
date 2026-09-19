@@ -44,8 +44,8 @@ export async function POST(req: Request) {
       at: new Date().toISOString(),
     });
 
-    // Simula latência de 600ms
-    await new Promise((r) => setTimeout(r, 600));
+    // TEMPORARIAMENTE DESATIVADO PARA TESTE — latência demo
+    // await new Promise((r) => setTimeout(r, 600));
 
     return NextResponse.json({ ok: true, message: "Recebido com sucesso." });
   } catch (e) {

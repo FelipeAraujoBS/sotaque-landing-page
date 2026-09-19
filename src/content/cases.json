@@ -1,44 +1,44 @@
 [
   {
     "slug": "clinica-aurora-rebrand",
-    "cliente": "[PLACEHOLDER] Clínica Aurora",
+    "cliente": "Projeto conceitual — Clínica Aurora",
     "categoria": "branding",
-    "resumo": "[PLACEHOLDER] Problema: identidade genérica em bairro competitivo → Sotaque reposicionou marca com tom humano e sinalização interna clara → resultado placeholder.",
+    "resumo": "Projeto conceitual — Identidade visual e sinalização interna humanizada para clínica multidisciplinar.",
     "midia": "/cases/aurora/cover.jpg"
   },
   {
     "slug": "instituto-vital-conteudo",
-    "cliente": "[PLACEHOLDER] Instituto Vital",
+    "cliente": "Projeto conceitual — Instituto Vital",
     "categoria": "conteudo",
-    "resumo": "[PLACEHOLDER] Baixa confiança em conteúdos técnicos → linha editorial educativa com pílulas para Instagram e guias →Placeholder de resultado.",
+    "resumo": "Projeto conceitual — Linha editorial educativa para saúde preventiva com foco em clareza técnica e ética.",
     "midia": "/cases/vital/cover.jpg"
   },
   {
     "slug": "odonto-prime-midia",
-    "cliente": "[PLACEHOLDER] Odonto Prime",
+    "cliente": "Projeto conceitual — Odonto Prime",
     "categoria": "midia",
-    "resumo": "[PLACEHOLDER] Agenda ociosa em horários nobres → campanha de mídia local com criativos regionais → placeholder de CPA reduzido.",
+    "resumo": "Projeto conceitual — Estruturação de presença digital regional e campanhas éticas de conscientização.",
     "midia": "/cases/odonto/cover.jpg"
   },
   {
     "slug": "hospital-santa-clara-audiovisual",
-    "cliente": "[PLACEHOLDER] Hospital Santa Clara",
+    "cliente": "Projeto conceitual — Hospital Santa Clara",
     "categoria": "audiovisual",
-    "resumo": "[PLACEHOLDER] Comunicação fria e distante → série de vídeos curtos com equipe real, luz natural → placeholder de engajamento.",
+    "resumo": "Projeto conceitual — Produção audiovisual documental com foco em acolhimento clínico e iluminação natural.",
     "midia": "/cases/santa-clara/cover.jpg"
   },
   {
     "slug": "derma-essence-estrategia",
-    "cliente": "[PLACEHOLDER] Derma Essence",
+    "cliente": "Projeto conceitual — Derma Essence",
     "categoria": "branding",
-    "resumo": "[PLACEHOLDER] Lançamento sem foco → estratégia 360 em 1 página com priorização de canais → placeholder de go-to-market.",
+    "resumo": "Projeto conceitual — Posicionamento de marca 360 para lançamento de espaço dermatológico especializado.",
     "midia": "/cases/derma/cover.jpg"
   },
   {
     "slug": "cardio-vida-conteudo-midia",
-    "cliente": "[PLACEHOLDER] Cardio Vida",
+    "cliente": "Projeto conceitual — Cardio Vida",
     "categoria": "conteudo",
-    "resumo": "[PLACEHOLDER] Conteúdo denso pouco consumido → formato carrossel + tráfego para download de guia → placeholder de leads.",
+    "resumo": "Projeto conceitual — Conteúdo informativo sobre saúde cardiovascular estruturado para canais digitais.",
     "midia": "/cases/cardio/cover.jpg"
   }
 ]

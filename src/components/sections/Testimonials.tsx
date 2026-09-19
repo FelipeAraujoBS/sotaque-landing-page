@@ -5,14 +5,14 @@ import { motion, useMotionValue, animate } from "framer-motion";
 import testimonials from "@/content/testimonials.json";
 
 const logos = [
-  "Clínica Aurora • Dermatologia",
-  "Instituto Vital • Ortopedia",
-  "Odonto Prime • Reabilitação",
-  "Hospital Santa Clara",
-  "Derma Essence • Estética Avançada",
-  "Cardio Vida • Diagnóstico",
-  "Centro Oftalmológico Integrado",
-  "Clínica Viver Bem • Longevidade",
+  "Dermatologia Clínica & Estética",
+  "Ortopedia & Traumatologia",
+  "Odontologia & Reabilitação Oral",
+  "Centros Médicos Integrados",
+  "Cirurgia Plástica & Reconstrutiva",
+  "Cardiologia & Diagnóstico",
+  "Oftalmologia & Cirurgia Refrativa",
+  "Medicina Preventiva & Longevidade",
 ];
 
 export default function Testimonials() {
@@ -102,11 +102,11 @@ export default function Testimonials() {
           {[...logos, ...logos].map((logo, index) => (
             <div
               key={index}
-              className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-[#F3EBDD]/65 px-4"
+              className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-[#F3EBDD]/80 px-4"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#E7A92B]" />
               <span>{logo}</span>
-              <span className="text-[#F3EBDD]/20">/</span>
+              <span className="text-[#F3EBDD]/30">/</span>
             </div>
           ))}
         </div>
@@ -119,10 +119,10 @@ export default function Testimonials() {
             <div className="flex items-center gap-3 mb-4">
               <span className="h-px w-8 bg-[#D63A2F]" aria-hidden />
               <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">
-                Autoridade & Prova Social
+                Demonstração de Prova Social
               </span>
-              <span className="hidden sm:inline text-xs font-mono text-[#F3EBDD]/50">
-                • Relação de Confiança
+              <span className="hidden sm:inline text-xs font-mono text-[#F3EBDD]/75">
+                • Projeto Conceitual
               </span>
             </div>
 
@@ -133,7 +133,7 @@ export default function Testimonials() {
 
           <div className="col-span-12 lg:col-span-4 lg:text-right">
             <p className="text-sm font-body leading-relaxed text-[#F3EBDD]/75 max-w-[36ch] lg:ml-auto">
-              Depoimentos de diretores clínicos e especialistas que transformaram sua comunicação sem abrir mão do rigor ético.
+              Simulação de depoimentos e estrutura editorial para validação de layout com clínicas e especialistas.
             </p>
           </div>
         </div>
@@ -201,14 +201,14 @@ export default function Testimonials() {
                 whileHover={{ y: -3 }}
                 transition={{ type: "spring", stiffness: 320, damping: 24 }}
               >
-                {/* Estrelas / Rating */}
+                {/* Cabeçalho do Card Conceitual */}
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1 text-[#E7A92B] text-sm" aria-hidden>
-                    {"★".repeat(t.nota)}
-                  </div>
+                  <span className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-[#F3EBDD]/10 border border-[#F3EBDD]/15 text-[#F3EBDD]/75 font-semibold">
+                    Depoimento Conceitual
+                  </span>
 
-                  <span className="text-[10px] font-mono tracking-widest uppercase px-2.5 py-0.5 rounded-full bg-[#58734A]/20 border border-[#58734A]/40 text-[#86A675] font-semibold">
-                    Verificado
+                  <span className="text-[10px] font-mono tracking-wider text-[#E7A92B]">
+                    Layout Demo
                   </span>
                 </div>
 

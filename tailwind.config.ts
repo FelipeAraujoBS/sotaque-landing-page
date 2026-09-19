@@ -79,6 +79,9 @@ const config: Config = {
         display: ["var(--font-display)"],
         body: ["var(--font-body)"],
         sans: ["var(--font-body)"],
+        chroma: ["var(--font-chroma)", "'Chroma Venue'", "'Chroma Avenue'", "sans-serif"],
+        Chroma_Venue: ["var(--font-chroma)", "'Chroma Venue'", "'Chroma_Venue'", "'Chroma Avenue'", "sans-serif"],
+        "Chroma Venue": ["var(--font-chroma)", "'Chroma Venue'", "'Chroma Avenue'", "sans-serif"],
       },
       borderRadius: {
         sm: "var(--radius-sm)",

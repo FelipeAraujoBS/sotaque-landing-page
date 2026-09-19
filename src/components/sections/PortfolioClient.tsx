@@ -57,7 +57,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
           </div>
 
           <div className="col-span-12 lg:col-span-5 lg:text-right">
-            <p className="text-sm font-body leading-relaxed text-cream/70 max-w-[44ch] lg:ml-auto">
+            <p className="text-sm font-body leading-relaxed text-[#F3EBDD]/80 max-w-[44ch] lg:ml-auto">
               Cada trabalho abaixo traduz a complexidade de clínicas e especialistas em comunicação elegante, ética e de alto impacto comercial.
             </p>
           </div>
@@ -143,7 +143,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
                   {/* Play / Preview Circle Button */}
                   <div className="absolute inset-0 grid place-items-center">
-                    <span className="h-13 w-13 rounded-full bg-white/10 border border-[#F3EBDD]/20 backdrop-blur-md grid place-items-center shadow-lg group-hover:scale-110 group-hover:bg-[#F3EBDD] group-hover:text-[#102C2B] transition-all duration-300">
+                    <span className="h-12 w-12 rounded-full bg-white/10 border border-[#F3EBDD]/20 backdrop-blur-md grid place-items-center shadow-lg group-hover:scale-110 group-hover:bg-[#F3EBDD] group-hover:text-[#102C2B] transition-all duration-300">
                       <span className="ml-0.5 text-[#F3EBDD] group-hover:text-[#102C2B] text-sm transition-colors" aria-hidden>
                         ▶
                       </span>
@@ -170,12 +170,12 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                   <h3 className="font-display font-bold leading-snug text-[#F3EBDD] text-[1.15rem] group-hover:text-[#D63A2F] transition-colors">
                     {c.cliente}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#F3EBDD]/65 line-clamp-3 flex-1 font-body">
+                  <p className="mt-2 text-sm leading-relaxed text-[#F3EBDD]/80 line-clamp-3 flex-1 font-body">
                     {c.resumo}
                   </p>
 
                   <div className="mt-5 pt-4 border-t border-[#F3EBDD]/[0.08] flex items-center justify-between">
-                    <span className="text-xs font-mono text-[#F3EBDD]/40">
+                    <span className="text-xs font-mono text-[#F3EBDD]/75">
                       Case Study 360
                     </span>
 
@@ -190,14 +190,14 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
         </motion.div>
 
         {filtered.length === 0 && (
-          <p className="text-center text-sm font-mono text-cream/50 py-16">
+          <p className="text-center text-sm font-mono text-[#F3EBDD]/75 py-16">
             Nenhum projeto registrado nesta categoria no momento.
           </p>
         )}
 
-        <div className="mt-8 flex items-center justify-between text-xs font-mono text-cream/40 border-t border-white/10 pt-4">
-          <span>JSON-driven: alimentado por content/cases.json</span>
-          <span className="hidden sm:inline">AnimatePresence • Física de Cursor Ativa</span>
+        <div className="mt-8 flex items-center justify-between text-xs font-mono text-[#F3EBDD]/70 border-t border-white/10 pt-4">
+          <span>{/* JSON-driven: alimentado por content/cases.json */}Casos clínicos com narrativa autoral e estratégia médica.</span>
+          <span className="hidden sm:inline">{/* AnimatePresence • Física de Cursor Ativa */}Identidade visual, posicionamento e resultados éticos</span>
         </div>
       </div>
     </section>

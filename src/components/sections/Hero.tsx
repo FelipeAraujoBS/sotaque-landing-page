@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, ReactNode } from "react";
 import SotaqueNavbar from "@/components/layout/SotaqueNavbar";
 import Hero3DCanvas, {
   Hero3DCanvasHandle,
 } from "@/components/motion/Hero3DCanvas";
+import MagneticButton from "@/components/motion/MagneticButton";
 
 type Segment = "left" | "center" | "right";
 
@@ -69,7 +70,7 @@ export default function Hero() {
   useEffect(() => {
     const audio = new Audio("/beat/bg-audio.mp3");
     audio.loop = true;
-    audio.volume = 0.40;
+    audio.volume = 0.4;
     audioRef.current = audio;
 
     const handleEnded = () => setIsPlayingSound(false);
@@ -121,36 +122,23 @@ export default function Hero() {
     }
   }, []);
 
-  // Clique no Hero ativa ou desativa o áudio de fundo (bg-audio)
-  const handleHeroClick = useCallback(
-    (e: React.MouseEvent<HTMLElement>) => {
-      const target = e.target as HTMLElement;
-      // Previne duplo toggle se o clique ocorreu sobre botões ou links
-      if (target.closest("button") || target.closest("a")) return;
-
-      toggleSound();
-    },
-    [toggleSound]
-  );
-
   return (
     <section
       id="hero"
       ref={heroRef}
       onMouseMove={handleMouseMove}
-      onClick={handleHeroClick}
-      className="relative min-h-screen w-full bg-[#102C2B] text-[#F3EBDD] flex flex-col justify-between overflow-hidden cursor-pointer select-none"
+      className="relative min-h-screen w-full bg-[#102C2B] text-[#F3EBDD] flex flex-col justify-between overflow-hidden cursor-default select-text"
       aria-label="Sotaque — Comunicação e Marketing 360 para Saúde"
     >
       {/* 1. Navbar Suspensa Sotaque com controle de som unificado */}
-      <SotaqueNavbar isPlayingSound={isPlayingSound} onToggleSound={toggleSound} />
+      <SotaqueNavbar
+        isPlayingSound={isPlayingSound}
+        onToggleSound={toggleSound}
+      />
 
       {/* 2. WebGL 3D Canvas em tela cheia (Full-Bleed) com paleta oficial SOTAQUE */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <Hero3DCanvas
-          ref={canvasHandleRef}
-          className="w-full h-full"
-        />
+        <Hero3DCanvas ref={canvasHandleRef} className="w-full h-full" />
         {/* Vinheta atmosférica profunda em Azul Petróleo Noturno */}
         <div
           className="absolute inset-0 bg-gradient-to-b from-[#102C2B]/75 via-transparent to-[#102C2B]/95 pointer-events-none"
@@ -174,22 +162,24 @@ export default function Hero() {
         <div className="w-full h-[220px] sm:h-[260px] lg:h-[300px] relative flex items-center justify-center">
           {/* SEGMENTO 1: CENTER (Default) — "Dê sotaque à sua clínica." */}
           <div
+            aria-hidden={segment !== "center"}
             className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 pointer-events-none ${
               segment === "center" ? "opacity-100" : "opacity-0"
             }`}
           >
-            <h1 className="text-center">
+            <h1 className="text-center font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5.1rem] font-normal tracking-tight leading-[0.95] text-[#F3EBDD]">
               <CharacterFlip
-                text="Sua marca tem voz, nós damos o sotaque."
+                text="Sua marca tem voz, nós damos o"
                 isActive={segment === "center"}
                 baseDelay={0}
-                className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-[3.5rem] font-normal tracking-tight leading-[0.95] text-[#F3EBDD]"
-              />
+              />{" "}
+              <span className="font-['Chroma_Venue'] font-chroma">sotaque.</span>
             </h1>
           </div>
 
           {/* SEGMENTO 2: LEFT — "Posicionamento / Identidade Regional / Design de Autoridade" */}
           <div
+            aria-hidden={segment !== "left"}
             className={`absolute inset-0 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 px-4 sm:px-8 transition-opacity duration-300 pointer-events-none ${
               segment === "left" ? "opacity-100" : "opacity-0"
             }`}
@@ -220,6 +210,7 @@ export default function Hero() {
 
           {/* SEGMENTO 3: RIGHT — "Audiovisual Médico / Tráfego & Captação / Estratégia 360" */}
           <div
+            aria-hidden={segment !== "right"}
             className={`absolute inset-0 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-10 px-4 sm:px-8 transition-opacity duration-300 pointer-events-none ${
               segment === "right" ? "opacity-100" : "opacity-0"
             }`}
@@ -274,11 +265,11 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 4. Rodapé do Hero com Copy Oficial da Sotaque e Indicadores */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pb-8 sm:pb-12 flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
-        {/* Parágrafo Sotaque */}
-        <div className="max-w-xl">
-          <p className="text-base sm:text-lg lg:text-xl font-normal leading-relaxed text-[#F3EBDD]/80 text-balance">
+      {/* 4. Rodapé do Hero com Copy Oficial da Sotaque, CTAs e Indicadores */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-16 pb-8 sm:pb-12 flex flex-col lg:flex-row items-start lg:items-end justify-between gap-8">
+        {/* Parágrafo Sotaque + CTAs de Ação */}
+        <div className="max-w-xl flex flex-col gap-6">
+          <p className="text-base sm:text-lg lg:text-xl font-normal leading-relaxed text-[#F3EBDD]/85 text-balance">
             A <strong className="text-[#F3EBDD] font-semibold">Sotaque</strong>{" "}
             é o estúdio de comunicação 360 que clínicas e profissionais de saúde
             procuram quando precisam unir a{" "}
@@ -289,22 +280,48 @@ export default function Hero() {
             </span>{" "}
             de quem entende a raiz de cada região.
           </p>
+
+          {/* CTAs Primário & Secundário com Affordance Impecável */}
+          <div className="flex flex-wrap items-center gap-3.5 sm:gap-4 pt-1">
+            <MagneticButton
+              href="#contact"
+              variant="primary"
+              ariaLabel="Iniciar projeto com a Sotaque"
+              className="shadow-xl shadow-[#D63A2F]/25"
+            >
+              <span>Iniciar Projeto</span>
+              <span className="text-sm font-light">→</span>
+            </MagneticButton>
+
+            <a
+              href="#pilares"
+              className="inline-flex items-center gap-2 rounded-full border border-[#F3EBDD]/25 bg-[#F3EBDD]/5 hover:bg-[#F3EBDD]/15 hover:border-[#F3EBDD]/45 px-6 py-3.5 font-mono text-xs font-bold tracking-wider uppercase text-[#F3EBDD] transition-all duration-300 backdrop-blur-sm cursor-pointer"
+              aria-label="Conhecer os 5 pilares integrados"
+            >
+              <span>Explorar Pilares</span>
+              <span className="text-xs text-[#E7A92B]">↓</span>
+            </a>
+          </div>
         </div>
 
         {/* Indicadores de Status & Microinteração Sonora */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 text-xs font-mono">
-          {/* Badge Interativo do Som */}
+          {/* Badge Interativo do Som — Pílula de Alto Relevo */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleSound();
-            }}
-            className={`flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border transition-all duration-300 shadow-md cursor-pointer ${
+            onClick={toggleSound}
+            className={`flex items-center gap-2.5 px-4 py-2 rounded-full border transition-all duration-300 shadow-md cursor-pointer ${
               isPlayingSound
-                ? "border-[#E7A92B] bg-[#E7A92B]/15 text-[#F3EBDD]"
-                : "border-[#F3EBDD]/20 bg-[#102C2B]/60 text-[#F3EBDD]/70 hover:border-[#F3EBDD]/40"
+                ? "border-[#E7A92B] bg-[#E7A92B]/15 text-[#F3EBDD] shadow-[#E7A92B]/20 scale-100"
+                : "border-[#F3EBDD]/20 bg-[#102C2B]/80 text-[#F3EBDD]/75 hover:border-[#F3EBDD]/50 hover:text-[#F3EBDD]"
             } ${isClickPopped ? "scale-105" : ""}`}
-            aria-label={isPlayingSound ? "Desativar áudio de fundo" : "Ativar áudio de fundo"}
+            aria-label={
+              isPlayingSound
+                ? "Desativar áudio de fundo"
+                : "Ativar áudio de fundo"
+            }
+            title={
+              isPlayingSound ? "Pausar som ambiente" : "Ligar som ambiente"
+            }
           >
             <div className="flex items-center gap-[2.5px] h-3.5">
               <span
@@ -328,7 +345,7 @@ export default function Hero() {
                 }`}
               />
             </div>
-            <span className="uppercase tracking-wider text-[11px] font-medium">
+            <span className="uppercase tracking-wider text-[11px] font-semibold">
               {isPlayingSound ? "Som: Ativado" : "Som: Mudo"}
             </span>
           </button>
@@ -336,7 +353,9 @@ export default function Hero() {
           {/* Dica de interação */}
           <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#F3EBDD]/15 text-[#F3EBDD]/60 text-[11px] tracking-wide">
             <span className="text-[#E7A92B]">✦</span>
-            <span>Clique para {isPlayingSound ? "pausar som" : "ativar som"}</span>
+            <span>
+              Clique para {isPlayingSound ? "pausar som" : "ativar som"}
+            </span>
           </div>
         </div>
       </div>

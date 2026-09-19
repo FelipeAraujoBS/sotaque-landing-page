@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, DM_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 import SmoothScroll from "@/components/motion/SmoothScroll";
@@ -19,13 +20,19 @@ const dmSans = DM_Sans({
   weight: ["400", "500", "700"],
 });
 
+const chromaVenue = localFont({
+  src: "../../public/fonts/chroma-avenue.woff2",
+  variable: "--font-chroma",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "Sotaque",
+    default: "Sotaque — Marketing Médico 360 | Branding & Estratégia para Clínicas",
     template: "%s | Sotaque",
   },
   description:
-    "[PLACEHOLDER] Comunicação e marketing 360 com sotaque regional e olhar inovador — foco inicial no setor médico. Branding, conteúdo, mídia e audiovisual para clínicas e profissionais de saúde.",
+    "Comunicação e marketing 360 com sotaque regional e olhar contemporâneo — foco no setor médico e saúde. Branding, conteúdo, mídia e audiovisual para clínicas e profissionais de saúde.",
   keywords: [
     "comunicação médica",
     "marketing médico",
@@ -47,7 +54,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Sotaque — Comunicação 360 para saúde",
+    title: "Sotaque — Marketing Médico 360 | Branding & Estratégia para Clínicas",
     description:
       "Comunicação que entende de gente e de saúde. Branding, conteúdo, mídia e audiovisual com sotaque regional — sem template genérico.",
     locale: "pt_BR",
@@ -57,7 +64,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sotaque — Comunicação 360 para saúde",
+    title: "Sotaque — Marketing Médico 360 | Branding & Estratégia para Clínicas",
     description:
       "Marketing médico com raiz regional e ferramentas de inovação.",
   },
@@ -80,7 +87,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={`${fraunces.variable} ${dmSans.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`${fraunces.variable} ${dmSans.variable} ${chromaVenue.variable}`}
+    >
       <body className="font-body antialiased bg-background text-foreground">
         <a
           href="#hero"

@@ -21,8 +21,8 @@ const pillarsRow1: Pillar[] = [
     number: "01",
     title: "Branding & Identidade Médica",
     phrase: "Identidade visual autoral, naming e tom de voz que constroem autoridade imediata sem o visual frio hospitalar.",
-    metric: "100% Autoral",
-    metricLabel: "Design sem templates",
+    metric: "Design Autoral",
+    metricLabel: "Identidade sem templates",
     accentColor: "#D63A2F",
     accentText: "text-[#D63A2F]",
     badgeBg: "bg-[#D63A2F]/10 text-[#D63A2F] border-[#D63A2F]/25",
@@ -32,8 +32,8 @@ const pillarsRow1: Pillar[] = [
     number: "02",
     title: "Conteúdo & Educação Clínica",
     phrase: "Rotina editorial médica com respaldo científico e linguagem humana. Transforma dúvidas em consultas marcadas.",
-    metric: "+240%",
-    metricLabel: "Retenção de audiência",
+    metric: "Foco Editorial",
+    metricLabel: "Rigor científico e humano",
     accentColor: "#58734A",
     accentText: "text-[#58734A]",
     badgeBg: "bg-[#58734A]/12 text-[#58734A] border-[#58734A]/25",
@@ -46,8 +46,8 @@ const pillarsRow2: Pillar[] = [
     number: "03",
     title: "Audiovisual Cinematográfico",
     phrase: "Vídeo de estrutura, rotina clínica e procedimentos com iluminação de estúdio e narrativa ética aprovada pelo CFM.",
-    metric: "4K Cinema",
-    metricLabel: "Padrão documental",
+    metric: "Padrão Cinema",
+    metricLabel: "Registro documental acolhedor",
     accentColor: "#E7A92B",
     accentText: "text-[#E7A92B]",
     badgeBg: "bg-[#E7A92B]/15 text-[#E7A92B] border-[#E7A92B]/30",
@@ -57,8 +57,8 @@ const pillarsRow2: Pillar[] = [
     number: "04",
     title: "Tráfego & Captação Particular",
     phrase: "Campanhas hiper-segmentadas de Google e Meta focadas em atrair pacientes qualificados para procedimentos particulares.",
-    metric: "+180%",
-    metricLabel: "Conversão em consultas",
+    metric: "Captação Ética",
+    metricLabel: "Foco em pacientes particulares",
     accentColor: "#58734A",
     accentText: "text-[#58734A]",
     badgeBg: "bg-[#58734A]/12 text-[#58734A] border-[#58734A]/25",
@@ -68,8 +68,8 @@ const pillarsRow2: Pillar[] = [
     number: "05",
     title: "Estratégia 360 & Governança",
     phrase: "Do primeiro anúncio até a experiência no consultório. Alinhamento contínuo em dashboards claros e objetivos.",
-    metric: "360°",
-    metricLabel: "Visão unificada",
+    metric: "Gestão 360°",
+    metricLabel: "Governança e visão unificada",
     accentColor: "#B85C42",
     accentText: "text-[#B85C42]",
     badgeBg: "bg-[#B85C42]/12 text-[#B85C42] border-[#B85C42]/25",
@@ -176,31 +176,31 @@ export default function Pillars() {
       return id === "branding" ? 7 : 5;
     }
     if (currentHoveredId === "branding") {
-      return id === "branding" ? 9.6 : 2.4; // 80% : 20%
+      return id === "branding" ? 8.2 : 3.8; // 68.3% : 31.7%
     }
     if (currentHoveredId === "conteudo") {
-      return id === "conteudo" ? 9.2 : 2.8; // 76.7% : 23.3%
+      return id === "conteudo" ? 8.0 : 4.0; // 66.7% : 33.3%
     }
     // Hover ativo na Linha 2 — mantém proporção padrão na Linha 1
     return id === "branding" ? 7 : 5;
   };
 
-  // Proporções de largura da Linha 2 (Bento padrão 4 : 5 : 3 = 33.3% : 41.7% : 25%)
+  // Proporções de largura da Linha 2 (Bento padrão 4 : 4.8 : 3.2 = 33.3% : 40% : 26.7%)
   const getFlexGrowRow2 = (id: string, currentHoveredId: string | null) => {
     if (!currentHoveredId) {
-      return id === "audiovisual" ? 4 : id === "midia" ? 5 : 3;
+      return id === "audiovisual" ? 4 : id === "midia" ? 4.8 : 3.2;
     }
     if (currentHoveredId === "audiovisual") {
-      return id === "audiovisual" ? 8.4 : id === "midia" ? 2.0 : 1.6; // 70% : 16.7% : 13.3%
+      return id === "audiovisual" ? 7.2 : 2.4; // 60% : 20% : 20%
     }
     if (currentHoveredId === "midia") {
-      return id === "midia" ? 8.6 : id === "audiovisual" ? 1.7 : 1.7; // 71.7% : 14.15% : 14.15%
+      return id === "midia" ? 7.2 : 2.4; // 20% : 60% : 20%
     }
     if (currentHoveredId === "estrategia") {
-      return id === "estrategia" ? 8.0 : id === "audiovisual" ? 2.0 : 2.0; // 66.7% : 16.65% : 16.65%
+      return id === "estrategia" ? 7.2 : 2.4; // 20% : 20% : 60%
     }
     // Hover ativo na Linha 1 — mantém proporção padrão na Linha 2
-    return id === "audiovisual" ? 4 : id === "midia" ? 5 : 3;
+    return id === "audiovisual" ? 4 : id === "midia" ? 4.8 : 3.2;
   };
 
   const renderCard = (p: Pillar, flexGrow: number) => {
@@ -221,6 +221,7 @@ export default function Pillars() {
           flexGrow,
           flexShrink: 1,
           flexBasis: "0%",
+          minWidth: isAnyHovered && !isHovered ? "190px" : undefined,
           transition:
             "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms, border-color 300ms, opacity 300ms",
         }}
@@ -228,7 +229,7 @@ export default function Pillars() {
           isHovered
             ? "bg-white border-[#102C2B]/25 shadow-2xl z-20"
             : isDimmed
-              ? "bg-white/85 border-[#102C2B]/10 shadow-sm opacity-80 hover:opacity-100"
+              ? "bg-white/90 border-[#102C2B]/10 shadow-sm opacity-85 hover:opacity-100"
               : "bg-white border-[#102C2B]/12 shadow-md hover:shadow-lg"
         }`}
       >
@@ -250,12 +251,16 @@ export default function Pillars() {
           }}
         />
 
-        <div className="relative p-6 sm:p-7 lg:p-8 flex flex-col flex-1 z-10 min-w-0">
+        <div
+          className={`relative flex flex-col flex-1 z-10 min-w-0 transition-all duration-300 ${
+            isDimmed ? "p-4 sm:p-5 lg:p-5" : "p-6 sm:p-7 lg:p-8"
+          }`}
+        >
           {/* Top Bar do Card */}
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <div className="flex items-center gap-2.5 min-w-0">
+          <div className="flex items-center justify-between gap-2 mb-3 min-w-0">
+            <div className="flex items-center gap-2 shrink-0">
               <div
-                className={`h-9 w-9 rounded-xl border grid place-items-center font-mono font-bold text-xs shrink-0 transition-colors duration-300 ${
+                className={`h-8 w-8 sm:h-9 sm:w-9 rounded-xl border grid place-items-center font-mono font-bold text-xs shrink-0 transition-colors duration-300 ${
                   isHovered
                     ? "border-[#102C2B] bg-[#102C2B] text-[#F3EBDD]"
                     : "border-[#102C2B]/15 bg-[#F3EBDD]/60 text-[#102C2B]"
@@ -263,13 +268,22 @@ export default function Pillars() {
               >
                 {p.number}
               </div>
-              <span className="text-[11px] font-mono tracking-widest uppercase text-[#102C2B]/50">
+              <span
+                className={`text-[11px] font-mono tracking-widest uppercase text-[#102C2B]/50 transition-opacity duration-300 ${
+                  isDimmed ? "hidden" : "hidden sm:inline"
+                }`}
+              >
                 Pilar 360
               </span>
             </div>
 
             <span
-              className={`text-[11px] font-mono tracking-wider uppercase font-semibold border rounded-full px-3 py-1 whitespace-nowrap transition-all duration-300 ${p.badgeBg}`}
+              className={`font-mono uppercase font-semibold border rounded-full transition-all duration-300 shrink-0 ${p.badgeBg} ${
+                isDimmed
+                  ? "text-[10px] tracking-tight px-2 py-0.5 scale-95 origin-right max-w-[125px] truncate"
+                  : "text-[11px] tracking-wider px-3 py-1 scale-100 whitespace-nowrap"
+              }`}
+              title={p.metric}
             >
               {p.metric}
             </span>
@@ -277,10 +291,12 @@ export default function Pillars() {
 
           {/* Título */}
           <h3
-            className={`font-display font-bold leading-tight tracking-tight text-[#102C2B] transition-all duration-300 ${
+            className={`font-display font-bold leading-tight tracking-tight text-[#102C2B] transition-all duration-300 min-w-0 ${
               isHovered
                 ? "text-xl sm:text-2xl lg:text-[1.7rem]"
-                : "text-base sm:text-lg lg:text-[1.25rem] line-clamp-2"
+                : isDimmed
+                  ? "text-sm sm:text-base lg:text-lg line-clamp-2"
+                  : "text-base sm:text-lg lg:text-[1.25rem] line-clamp-2"
             }`}
           >
             {p.title}
@@ -292,26 +308,34 @@ export default function Pillars() {
               isHovered
                 ? "opacity-100 max-h-56 mt-3.5"
                 : isDimmed
-                  ? "opacity-60 max-h-20 mt-2 line-clamp-2"
-                  : "opacity-80 max-h-36 mt-2.5"
+                  ? "opacity-50 max-h-16 mt-2 line-clamp-2"
+                  : "opacity-80 max-h-36 mt-2.5 line-clamp-2 sm:line-clamp-3"
             }`}
           >
-            <p className={`font-body leading-relaxed text-[#102C2B]/80 ${isHovered ? "text-sm sm:text-base" : "text-xs sm:text-sm"}`}>
+            <p
+              className={`font-body leading-relaxed text-[#102C2B]/80 ${
+                isHovered ? "text-sm sm:text-base" : "text-xs"
+              }`}
+            >
               {p.phrase}
             </p>
           </div>
 
           {/* Rodapé do Card — com label de métrica autoritária (sem link vazio) */}
-          <div className="mt-auto pt-3.5 border-t border-[#102C2B]/10 flex items-center justify-between">
+          <div className="mt-auto pt-3 border-t border-[#102C2B]/10 flex items-center justify-between gap-2 min-w-0">
             <span
-              className={`text-xs font-mono font-semibold tracking-wide transition-colors duration-300 ${
+              className={`text-xs font-mono font-semibold tracking-wide transition-colors duration-300 truncate min-w-0 ${
                 isHovered ? p.accentText : "text-[#102C2B]/60"
               }`}
             >
               {p.metricLabel}
             </span>
 
-            <span className="text-[11px] font-mono text-[#102C2B]/40 hidden sm:inline">
+            <span
+              className={`text-[11px] font-mono text-[#102C2B]/40 shrink-0 ${
+                isDimmed ? "hidden sm:inline" : "inline"
+              }`}
+            >
               {p.number} / 05
             </span>
           </div>
@@ -410,9 +434,9 @@ export default function Pillars() {
         </div>
 
         {/* Rodapé da Seção */}
-        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#102C2B]/50 border-t border-[#102C2B]/10 pt-4 mt-2">
+        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#102C2B]/70 border-t border-[#102C2B]/10 pt-4 mt-2">
           <span>Metodologia integrada: cada disciplina nutre a autoridade da clínica.</span>
-          <span className="hidden sm:inline">Spotlight interativo • Bento Grid 2D com proporções dinâmicas</span>
+          <span className="hidden sm:inline">{/* Spotlight interativo • Bento Grid 2D */}Navegação integrada • Visão 360° em saúde</span>
         </div>
       </div>
     </section>

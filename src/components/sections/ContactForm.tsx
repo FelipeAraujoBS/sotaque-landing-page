@@ -101,7 +101,7 @@ export default function ContactForm() {
               <br />
               ao seu próximo passo?
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-[#F3EBDD]/75 max-w-[42ch]">
+            <p className="mt-4 text-sm leading-relaxed text-[#F3EBDD]/80 max-w-[42ch]">
               Formulário objetivo — 3 campos. Sem ligação fria, sem intermediários. Se preferir, fale direto conosco pelo canal médico. Resposta em até 1 dia útil.
             </p>
 
@@ -112,7 +112,7 @@ export default function ContactForm() {
                 </span>
                 Conversar no WhatsApp
               </MagneticButton>
-              <p className="text-xs text-[#F3EBDD]/50">
+              <p className="text-xs text-[#F3EBDD]/75">
                 Ou envie pelo formulário ao lado — validação imediata e confidencialidade médica.
               </p>
 
@@ -122,7 +122,7 @@ export default function ContactForm() {
                 </span>
                 <div className="text-sm">
                   <p className="font-semibold text-[#F3EBDD]">contato@sotaque.com.br</p>
-                  <p className="text-xs text-[#F3EBDD]/60">atendimento a clínicas e especialistas</p>
+                  <p className="text-xs text-[#F3EBDD]/75">atendimento a clínicas e especialistas</p>
                 </div>
               </div>
             </div>
@@ -263,7 +263,7 @@ export default function ContactForm() {
                   animate={errors.mensagem ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
                   transition={{ duration: 0.42 }}
                 />
-                <p id="help-mensagem" className="mt-1 text-xs text-[#F3EBDD]/50">
+                <p id="help-mensagem" className="mt-1 text-xs text-[#F3EBDD]/75">
                   Mín. 10 caracteres — quanto mais direto, melhor.
                 </p>
                 <div className="min-h-[18px] mt-1 flex items-center gap-1.5">
@@ -346,7 +346,7 @@ export default function ContactForm() {
               </div>
             </form>
 
-            <p className="mt-3 text-xs text-[#F3EBDD]/50 text-center lg:text-left">
+            <p className="mt-3 text-xs text-[#F3EBDD]/75 text-center lg:text-left">
               Ao enviar, você concorda com contato direto da equipe Sotaque. Sigilo médico garantido.
             </p>
           </div>
