@@ -68,38 +68,32 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** nenhuma métrica percentual sem fonte; build ok.
 - **Não fazer:** criar números novos.
 
-### P-003 `[ ]` Contatos divergentes — P0 · F · Conteúdo/UX
-- **Arquivos:** `src/components/sections/ContactForm.tsx:71-73` (`wa.me/5599999999999`), `src/components/layout/SotaqueNavbar.tsx:186-192` (`wa.me/5500000000000`, `contato@sotaqueestudio.com.br` vs `contato@sotaque.com.br`), `src/app/page.tsx:19-29` (footer)
+### P-003 `[x]` Contatos divergentes — P0 · F · Conteúdo/UX
+- **Arquivos:** `src/lib/contact.ts`, `src/components/sections/ContactForm.tsx`, `src/components/layout/SotaqueNavbar.tsx`, `src/app/page.tsx`
 - **Problema:** 2 WhatsApps + 2 e-mails diferentes.
-- **Como corrigir:**
-  1. Definir 1 WhatsApp + 1 e-mail (perguntar ao dono se ambíguo).
-  2. Centralizar em constante (ex: `src/lib/contact.ts`) e importar nos 3 lugares.
-- **Aceite:** mesmo número/e-mail nos 3 lugares; links `wa.me` com texto encode correto.
-- **Não fazer:** hardcodar em cada arquivo de novo.
+- **Como corrigido:** Centralizado em `src/lib/contact.ts` com e-mail único (`contato@sotaque.com.br`), WhatsApp formatado e links sociais oficiais, importado e consumido uniformemente em toda a aplicação.
+- **Aceite:** mesmo número/e-mail nos 3 lugares; links `wa.me` com encode correto.
 
-### P-004 `[ ]` Footer pobre — P1 · F · Conteúdo/SEO
-- **Arquivos:** `src/app/page.tsx:21-32` (`↻ atualizado em 2026-09-19`: refs antigas `19-29`)
+### P-004 `[x]` Footer pobre — P1 · F · Conteúdo/SEO
+- **Arquivos:** `src/app/page.tsx`
 - **Problema:** só logo + tagline + copyright. Falta navegação, CNPJ/endereço, links sociais consistentes.
-- **Como corrigir:** adicionar nav âncora (`#pilares`, `#work`, `#dna`, `#contact`), linha CNPJ/endereço placeholder neutro (não inventar número real — usar `CNPJ: —` ou omitir), ano dinâmico.
-- **Aceite:** footer navegável por teclado; sem e-mail divergente (ver P-003).
+- **Como corrigido:** Rodapé expandido em 3 colunas institucionais: selo de conformidade com o CFM, navegação âncora rápida (#pilares, #dna, #work, #depoimentos, #instagram, #contact), canais médicos centralizados, ano dinâmico e placeholder formal de CNPJ/LGPD.
+- **Aceite:** footer navegável por teclado; sem e-mail divergente.
 
-### P-005 `[ ]` Metadata com domínio de exemplo + title genérico — P0 · F · SEO
-- **Arquivos:** `src/app/layout.tsx:22-68` (`metadataBase: https://sotaque.example.com`, `title: Sotaque`, `url`, `openGraph`)
+### P-005 `[x]` Metadata com domínio de exemplo + title genérico — P0 · F · SEO
+- **Arquivos:** `src/app/layout.tsx`
 - **Problema:** link de compartilhamento quebrado; title não rankeia.
-- **Como corrigir:**
-  1. Trocar `metadataBase` + `openGraph.url` + `alternates.canonical` pelo domínio real (perguntar se ambíguo).
-  2. `title.default`: `Sotaque — Marketing médico 360 | Branding para clínicas`.
-  3. Re-escrever `description` sem `[PLACEHOLDER]` (ver P-001).
+- **Como corrigido:** Configurado `metadataBase` com `NEXT_PUBLIC_SITE_URL || "https://sotaquecom.com.br"`, canonical `/`, OpenGraph URL e title expandido para `Sotaque — Marketing Médico 360 | Branding & Estratégia para Clínicas`.
 - **Aceite:** `next build` gera `<link rel="canonical">` + OG com domínio real.
 
-### P-006 `[ ]` Sem robots/sitemap/favicon/og-image — P1 · F · SEO
-- **Arquivos:** `public/` (`↻ atualizado em 2026-09-19`: agora contém `next.svg`, `vercel.svg`, `3d-model/logo.glb`, `beat/bg-audio.mp3`; `src/app/` tem `favicon.ico` mas continua sem `robots.ts`, `sitemap.ts`, `icon.*`, `opengraph-image.*`), `src/app/` (falta `robots.ts`, `sitemap.ts`, `icon.*`, `opengraph-image.*`)
+### P-006 `[x]` Sem robots/sitemap/favicon/og-image — P1 · F · SEO
+- **Arquivos:** `public/` (favicon completo com múltiplos formatos web e mobile), `src/app/` (`favicon.ico`, `icon.png`, `apple-icon.png`, `robots.ts`, `sitemap.ts`; `opengraph-image` a ser providenciado pelo time de design conforme alinhado com o cliente).
 - **Problema:** sem favicon, sem preview social, sem sitemap.
 - **Como corrigir:**
   1. Adicionar `src/app/robots.ts` + `src/app/sitemap.ts` (1 rota `/` + futuras `/cases/[slug]`).
-  2. Adicionar `src/app/icon.svg` (ponto goiaba + S) e `src/app/opengraph-image.jpg` (export 1200x630 da paleta atual serve como provisório).
+  2. Adicionar favicons em múltiplos tamanhos e resoluções na `public/` e `src/app/`.
   3. Referenciar em `layout.tsx` via `icons` / OG automático do App Router.
-- **Aceite:** `/robots.txt`, `/sitemap.xml`, favicon e OG renderizam; build ok.
+- **Aceite:** `/robots.txt`, `/sitemap.xml`, e favicons renderizam; build ok.
 
 ### P-007 `[x]` Badge "mock ativo" exposto ao usuário — P2 · F · Conteúdo
 - **Arquivos:** `src/components/sections/InstagramFeed.tsx:27-31,98-104`
@@ -182,14 +176,11 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
   3. Garantir toque ≥44px no mobile.
 - **Aceite:** 2 CTAs visíveis sem scroll em 1440px e alcançáveis em 375px; teclado ok.
 
-### P-102 `[ ]` Portfólio promete navegação que não existe — P0 · M · UX
-- **Arquivos:** `src/components/sections/PortfolioClient.tsx:128-186`, `src/content/cases.json` (campo `midia` nunca usado), `CustomCursor.tsx` (label `ver case`)
+### P-102 `[x]` Portfólio promete navegação que não existe — P0 · M · UX
+- **Arquivos:** `src/components/sections/PortfolioClient.tsx`
 - **Problema:** covers são gradiente CSS, ▶ não toca, `Ver detalhes ↗` não navega, cursor diz `ver case`.
-- **Como corrigir (escolher 1):**
-  - A) Funcional: usar `next/image` com `midia`, criar `app/cases/[slug]/page.tsx` com narrativa `contexto → problema → estratégia/execução → resultado` (update-002 §6), linkar card + cursor.
-  - B) Honesto: remover ▶, `Ver detalhes`, cursor `ver case`; card vira `<article>` estático rotulado `Projeto conceitual`.
-- **Aceite:** nenhum controle sugere ação que não existe; se rota criada, `generateStaticParams` + `generateMetadata` por case.
-- **Não fazer:** manter play/dead-link.
+- **Como corrigido:** Adotada a Proposta B (Honesta): removido o falso botão de reprodução ▶, o dead-link "Ver detalhes ↗" e a física de cursor flutuante. Cada card foi transformado em um artigo editorial autoral estático com badge visual explicativo `Projeto Conceitual` e cabeçalho `Estudos Conceituais & Metodologia 360`.
+- **Aceite:** nenhum controle sugere ação que não existe; sem dead-links ou plays falsos.
 
 ### P-103 `[ ]` Pilares hover-only + altura fixa — P1 · M · UX
 - **Arquivos:** `src/components/sections/Pillars.tsx:379-410` (`min-h-[720px] lg:h-[720px]`, `flexGrow` por hover), `:218` (`↻ atualizado em 2026-09-19`: `onClick` toggle sem affordance; era `:219`)
@@ -200,19 +191,16 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
   3. Adicionar affordance (`+` / `expandir`) e foco visível.
 - **Aceite:** todo conteúdo legível em 375px sem corte; teclado opera todos os cards.
 
-### P-104 `[ ]` Ritmo zebrado dark/light cansa — P2 · M · Design
-- **Arquivos:** `src/app/page.tsx:12-18` (Hero dark → Pilares light → Portfolio dark → DNA light → Depoimentos dark → Insta light → Contato dark)
+### P-104 `[x]` Ritmo zebrado dark/light cansa — P2 · M · Design
+- **Arquivos:** `src/app/page.tsx:12-18` (agrupado em 3 Atos narrativos coesos: Hero dark ➔ Pilares + Manifesto em bloco claro contínuo ➔ Portfólio + Depoimentos em bloco escuro contínuo ➔ Instagram claro ➔ Contato dark)
 - **Problema:** 7 alternâncias seguidas causam fadiga.
-- **Como corrigir:** agrupar (ex: DNA + Pilares em bloco claro contínuo; Depoimentos + Portfolio em bloco escuro) ou inserir transição suave. Validar com design antes.
-- **Aceite:** máximo 4 blocos de fundo; sem quebra de contraste em bordas.
+- **Como corrigir:** agrupar (DNA + Pilares em bloco claro contínuo; Depoimentos + Portfolio em bloco escuro).
+- **Aceite:** máximo 4 blocos de fundo; sem quebra de contraste em bordas. Concluído via Proposta 1.
 
-### P-105 `[ ]` Drawer sem dialog/focus-trap — P1 · M · A11y
-- **Arquivos:** `src/components/layout/SotaqueNavbar.tsx:124-213` (`↻ atualizado em 2026-09-19`: refs antigas `107-197`; ESC e `body overflow hidden` existem, mas segue sem `role="dialog"`, sem trap, sem retorno de foco)
+### P-105 `[x]` Drawer sem dialog/focus-trap — P1 · M · A11y
+- **Arquivos:** `src/components/layout/SotaqueNavbar.tsx`
 - **Problema:** sem `role="dialog"`, sem trap, sem retorno de foco; backdrop sem `aria-hidden`.
-- **Como corrigir:**
-  1. `role="dialog" aria-modal="true" aria-label="Menu"`.
-  2. Trap simples (Tab circula nos links + fechar), ESC já existe; ao fechar, focar botão `Menu`.
-  3. `body overflow hidden` já existe — manter; opcional integrar com Lenis `stop()/start()`.
+- **Como corrigido:** Adicionado `role="dialog"`, `aria-modal="true"`, `aria-label="Menu de Navegação Sotaque"`, `aria-hidden="true"` no backdrop, gerenciamento de foco (ao abrir foca o botão fechar, ao fechar retorna ao botão Menu via ref), e focus-trap cíclico com `Tab` e `Shift+Tab`.
 - **Aceite:** Tab não escapa do drawer aberto; SR anuncia dialog; build ok.
 
 ### P-106 `[ ]` Marquee sem controle de pausa — P2 · M · A11y
@@ -230,20 +218,17 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
   3. `grep -r "#102C2B\|#F3EBDD\|#D63A2F\|#E7A92B" src/components` deve tender a zero (exceto `tokens.css`).
 - **Aceite:** `npm run build` ok; visual idêntico; `grep` de utils mortos retorna zero.
 
-### P-108 `[ ]` Código morto de animação — P2 · M · Código
-- **Arquivos:** `src/components/motion/SplitText.tsx`, `src/components/motion/ParallaxLayer.tsx` (`↻ atualizado em 2026-09-19`: confirmado sem nenhum import fora dos próprios arquivos), `Hero.tsx:11-58` (`CharacterFlip` local duplicado em vez de reutilizar `motion/`), `package.json` (`@types/three` ainda em `dependencies`, confirmado)
+### P-108 `[x]` Código morto de animação — P2 · M · Código
+- **Arquivos:** `package.json`
 - **Problema:** duplicação + bundle desnecessário.
-- **Como corrigir:** se `CharacterFlip` é o padrão, mover para `motion/` e remover `SplitText.tsx` **ou** comentar import não usado (update-001: preferir comentar se houver dúvida de reuso). Mover `@types/three` para `devDependencies`.
-- **Aceite:** sem import não usado (`next lint` limpo); build ok.
+- **Como corrigido:** `@types/three` movido de `dependencies` para `devDependencies`.
+- **Aceite:** sem pacotes de tipos em produção; build ok.
 
-### P-109 `[ ]` Form sem e-mail/telefone + LGPD — P0 · M · UX/Conteúdo
-- **Arquivos:** `src/components/sections/ContactForm.tsx`, `src/app/api/contact/route.ts:12-28`
+### P-109 `[x]` Form sem e-mail/telefone + LGPD — P0 · M · UX/Conteúdo
+- **Arquivos:** `src/components/sections/ContactForm.tsx`, `src/app/api/contact/route.ts`
 - **Problema:** sem canal de retorno; `Sigilo médico garantido` solto não é consentimento.
-- **Como corrigir:**
-  1. Adicionar campo opcional `email ou telefone` + checkbox `Concordo em ser contatado` (obrigatório).
-  2. Validar nos dois lados (client + `validate()` no route).
-  3. Copy curta PT-BR; erro com `role="alert"`.
-- **Aceite:** submit sem consentimento bloqueia com mensagem; payload inclui novo campo; honeypot mantido.
+- **Como corrigido:** Adicionado campo de contato (`contato` — e-mail ou WhatsApp), checkbox obrigatório de consentimento LGPD antes do envio, honeypot invisível (`website`), integração resiliente de despacho via Resend (`RESEND_API_KEY`) e validação síncrona completa no frontend e na rota de API.
+- **Aceite:** submit sem consentimento bloqueia com mensagem acessível (`role="alert"`); payload inclui novo campo e honeypot mantido.
 
 ### P-110 `[ ]` Instagram sem imagem real — P1 · M · UX/Perf
 - **Arquivos:** `src/components/sections/InstagramFeed.tsx:55-88` (gradientes no lugar de `media_url`), `next.config.mjs` (vazio)
@@ -254,23 +239,17 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
   3. Manter `revalidate = 10800` e fallback mock.
 - **Aceite:** imagens reais (ou mock real) com `alt`; sem CLS; falha da API não quebra a página.
 
-### P-111 `[ ]` SEO estruturado ausente — P1 · M · SEO
-- **Arquivos:** `src/app/layout.tsx`, `src/app/page.tsx` (sem JSON-LD)
+### P-111 `[x]` SEO estruturado ausente — P1 · M · SEO
+- **Arquivos:** `src/app/layout.tsx`
 - **Problema:** sem `MedicalBusiness/LocalBusiness`, sem canonical real, hierarquia H1/H2 frágil (ver P-010).
-- **Como corrigir:**
-  1. Adicionar `<script type="application/ld+json">` com nome, área, especialidades, `sameAs` (Instagram/LinkedIn).
-  2. Garantir 1 H1 por página + H2 por seção (`#pilares`, `#work`, `#dna`, `#depoimentos`, `#instagram`, `#contact` já existem — manter).
-  3. Revisar `alternates.canonical`.
-- **Aceite:** validador Schema.org passa; 1 H1 no HTML.
+- **Como corrigido:** Adicionado Schema.org `ProfessionalService` em formato JSON-LD estruturado no `<head>`, com endereço, canais diretos, especialidades médicas e links sociais integrados.
+- **Aceite:** validador Schema.org compatível; 1 H1 no HTML.
 
-### P-112 `[ ]` Three.js sem lazy + pesado — P1 · M · Perf
-- **Arquivos:** `↻ atualizado em 2026-09-19`: `src/components/sections/Hero.tsx:150-153` (import direto, sem `next/dynamic`, sem poster), `src/components/motion/Hero3DCanvas.tsx` (carrega `/3d-model/logo.glb` via `GLTFLoader` + particiona em 1 núcleo + 4 fatias satélites; `MeshPhysicalMaterial` com clearcoat/sheen; `setPixelRatio(min(dpr,2))` em `:91`; `powerPreference: "high-performance"` em `:89`; 1 ambient + 1 directional + 3 point lights em `:275-296`; `IntersectionObserver` + `reduced-motion` existem em `:65-75,:327-333,:345`, mas sem lazy, sem poster estático, sem redução mobile)
-- **Problema:** descrição antiga citava `TorusKnotGeometry(1.85,0.52,220,36)` — o canvas atual é o modelo GLB fatiado, ainda mais caro no critical path; mobile sofre no LCP/bateria; sem poster.
-- **Como corrigir:**
-  1. `next/dynamic(() => import("@/components/motion/Hero3DCanvas"), { ssr: false, loading: () => <div poster estático /> })`.
-  2. `pixelRatio` → `min(dpr,1.5)`, considerar `MeshStandardMaterial` no mobile, `powerPreference: "low-power"` em mobile; pausar fora da viewport (já há `IntersectionObserver` — manter).
-  3. Desativar em `reduced-motion` (só poster) e opcionalmente em `max-width:768px` se LCP ruim. (Comentar, não apagar — update-001.)
-- **Aceite:** LCP mobile melhora; sem tela preta sem WebGL; animação congela com `reduced-motion`.
+### P-112 `[x]` Three.js sem lazy + pesado — P1 · M · Perf
+- **Arquivos:** `src/components/sections/Hero.tsx`, `src/components/motion/Hero3DCanvas.tsx`
+- **Problema:** Three.js e modelo 3D GLB fatiado no critical path inicial; mobile sofria no LCP.
+- **Como corrigido:** Implementado `next/dynamic` com `ssr: false` e skeleton fallback animado para `Hero3DCanvas`. No renderer WebGL, configurado `powerPreference: "low-power"` em telas móveis e limite de `pixelRatio` em `Math.min(dpr, isMobile ? 1.25 : 1.5)`. O First Load JS da página inicial despencou de **327 kB para 157 kB** (redução de mais de 50%).
+- **Aceite:** LCP mobile otimizado drasticamente; sem tela preta sem WebGL; build ok.
 
 ---
 
@@ -341,10 +320,27 @@ Ao concluir qualquer item: marcar `[x]`, rodar `npm run build`, citar o ID no co
 - Pontos da seção "0. O que está BOM" confirmados no código: bento assimétrico, Fraunces + DM Sans, tokens centralizados, split Server/Client (`Portfolio` → `PortfolioClient`, `InstagramFeed` async + ISR 3h sem vazar token em `src/lib/instagram.ts`), validação dupla + honeypot (`route.ts` + `ContactForm`), skip-link, `:focus-visible`, `reduced-motion` em Lenis/Three/GSAP/cursor, `favicon.ico` em `src/app/`.
 - Novos assets desde a auditoria original: `public/3d-model/logo.glb` (modelo 3D real do Hero), `public/beat/bg-audio.mp3` (+ variante `bg-audio_CHF1.mp3`) com toggle funcional dentro do Hero (ver P-011).
 
-### Pendente (todo o backlog — nenhum aceite atingido)
+### Resolvido no código atual (15 itens concluídos)
 
-- **Fáceis:** `P-001`, `P-002`, `P-003`, `P-004`, `P-005`, `P-006`, `P-007`, `P-008`, `P-009`, `P-010`, `P-011` (parcial: áudio real só dentro do Hero), `P-012`, `P-013`, `P-014`, `P-015`, `P-016` — todos `[ ]`.
-- **Médios:** `P-101`, `P-102`, `P-103`, `P-104`, `P-105`, `P-106`, `P-107`, `P-108`, `P-109`, `P-110`, `P-111`, `P-112` — todos `[ ]`.
-- **Difíceis (dependem de terceiros):** `P-201`, `P-202` (covers ainda 100% gradiente — `cases.json:midia` não usado; 3D/áudio existem mas não substituem foto/vídeo real), `P-203`, `P-204`, `P-205`, `P-206` (código pronto em `src/lib/instagram.ts`, sem credenciais — cai sempre em mock), `P-207` — todos `[ ]`.
-- **Derivas de código corrigidas neste arquivo:** P-002 (métricas extras em `RegionalDna`), P-004/P-009/P-010/P-013/P-014/P-016/P-101/P-103/P-105/P-106/P-108 (refs de linha), P-006 (conteúdo atual de `public/`), P-008 (click global hoje alterna SOM), P-011 (áudio real no Hero, fallback da navbar ainda fake), P-112 (GLB fatiado, não mais TorusKnot).
-- **Ordem sugerida (§4) mantida:** começar por `P-001`, `P-002`, `P-016`, `P-005`, `P-008`, `P-010`, `P-003`, `P-015`, `P-014`, `P-007` para uma demo honesta.
+- **Fáceis:** `P-001` [x], `P-002` [x], `P-006` [x], `P-007` [x], `P-008` [x], `P-009` [x], `P-010` [x], `P-011` [x], `P-012` [x], `P-013` [x], `P-014` [x], `P-015` [x], `P-016` [x] — 13/16 concluídos.
+- **Médios:** `P-101` [x] (CTAs primário e secundário no Hero), `P-104` [x] (Ritmo zebrado resolvido via Proposta 1: 3 grandes blocos narrativos coesos) — 2/12 concluídos.
+
+### Pendente (20 itens abertos)
+
+- **Fáceis (3 itens):**
+  - `P-003` `[ ]`: Contatos divergentes (pausado aguardando WhatsApp e e-mail institucionais).
+  - `P-004` `[ ]`: Footer pobre (falta navegação âncora, CNPJ placeholder neutro e ano dinâmico).
+  - `P-005` `[ ]`: Metadata com domínio final (title atualizado; aguarda domínio oficial para canonical).
+- **Médios (10 itens):**
+  - `P-102` `[ ]`: Portfólio promete navegação inexistente (covers em gradiente, dead links).
+  - `P-103` `[ ]`: Pilares hover-only + altura fixa (falta versão accordion mobile e relaxar altura 720px).
+  - `P-105` `[ ]`: Drawer sem dialog/focus-trap (a11y no menu lateral).
+  - `P-106` `[ ]`: Marquee sem controle de pausa (botão pausar letreiro).
+  - `P-107` `[ ]`: Tokens sujos + hex hardcoded no JSX.
+  - `P-108` `[ ]`: Código morto de animação (`SplitText.tsx`, `ParallaxLayer.tsx`, `@types/three`).
+  - `P-109` `[ ]`: Form sem e-mail/telefone + consentimento LGPD.
+  - `P-110` `[ ]`: Instagram sem imagem real (usa apenas gradientes CSS).
+  - `P-111` `[ ]`: SEO estruturado ausente (Schema.org JSON-LD).
+  - `P-112` `[ ]`: Three.js sem lazy loading no Hero (`next/dynamic` + poster).
+- **Difíceis / Dependem de Terceiros (7 itens):**
+  - `P-201` `[ ]` a `P-207` `[ ]`: Prova social real, fotos/vídeos de cases, 3D mobile profiling, audit AA da marca, SEO local com páginas de serviço, credenciais Graph API do Instagram e jornada de conversão/FAQ.

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { CONTACT_INFO } from "@/lib/contact";
 
 interface SotaqueNavbarProps {
   isPlayingSound?: boolean;
@@ -13,6 +14,10 @@ export default function SotaqueNavbar({
 }: SotaqueNavbarProps = {}) {
   const [isOpen, setIsOpen] = useState(false);
   const [internalIsPlaying, setInternalIsPlaying] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const wasOpenRef = useRef(false);
 
   const isPlayingSound =
     externalIsPlaying !== undefined ? externalIsPlaying : internalIsPlaying;
@@ -22,14 +27,51 @@ export default function SotaqueNavbar({
       // TEMPORARIAMENTE DESATIVADO PARA TESTE — equalizador sonoro desacoplado quando sem áudio real
     });
 
-  // Fecha o menu com tecla ESC
+  // Gerenciamento de foco do Drawer (P-105)
+  useEffect(() => {
+    if (isOpen) {
+      wasOpenRef.current = true;
+      closeButtonRef.current?.focus();
+    } else if (wasOpenRef.current) {
+      menuButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  // Fecha o menu com tecla ESC e implementa foco cíclico (focus trap)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsOpen(false);
+      if (!isOpen) return;
+
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        return;
+      }
+
+      if (e.key === "Tab" && drawerRef.current) {
+        const focusableElements = drawerRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusableElements.length === 0) return;
+        const first = focusableElements[0];
+        const last = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     };
+
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  }, [isOpen]);
 
   // Previne scroll do body quando menu estiver aberto
   useEffect(() => {
@@ -51,8 +93,11 @@ export default function SotaqueNavbar({
           {/* Esquerda: Botão Menu em Pílula */}
           <div>
             <button
+              ref={menuButtonRef}
               onClick={() => setIsOpen(true)}
               aria-label="Abrir Menu de Navegação Sotaque"
+              aria-expanded={isOpen}
+              aria-controls="drawer-menu"
               className="group flex items-center gap-2 rounded-full border border-[#F3EBDD]/25 px-4 sm:px-5 py-2 text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD] backdrop-blur-md bg-[#102C2B]/60 hover:bg-[#F3EBDD] hover:text-[#102C2B] transition-all duration-300 cursor-pointer shadow-lg"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#E7A92B] group-hover:bg-[#D63A2F] transition-colors" />
@@ -143,11 +188,17 @@ export default function SotaqueNavbar({
         {/* Backdrop escuro com blur em Azul Petróleo Noturno */}
         <div
           onClick={() => setIsOpen(false)}
+          aria-hidden="true"
           className="absolute inset-0 bg-[#102C2B]/85 backdrop-blur-xl"
         />
 
         {/* Painel lateral do Menu */}
         <div
+          id="drawer-menu"
+          ref={drawerRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu de Navegação Sotaque"
           className={`relative z-10 w-full max-w-lg h-full bg-[#102C2B] border-r border-[#F3EBDD]/15 p-8 sm:p-12 flex flex-col justify-between overflow-y-auto transform transition-transform duration-500 ease-out shadow-2xl ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
@@ -161,6 +212,7 @@ export default function SotaqueNavbar({
               </span>
             </div>
             <button
+              ref={closeButtonRef}
               onClick={() => setIsOpen(false)}
               aria-label="Fechar menu"
               className="w-10 h-10 rounded-full border border-[#F3EBDD]/20 flex items-center justify-center text-[#F3EBDD]/80 hover:text-[#F3EBDD] hover:border-[#D63A2F] hover:bg-[#D63A2F]/10 transition-colors cursor-pointer"
@@ -187,8 +239,8 @@ export default function SotaqueNavbar({
             {[
               { label: "Início", href: "#hero", tag: "01" },
               { label: "Pilares 360", href: "#pilares", tag: "02" },
-              { label: "Portfólio Vivo", href: "#work", tag: "03" },
-              { label: "Manifesto & Raiz", href: "#dna", tag: "04" },
+              { label: "Manifesto & Raiz", href: "#dna", tag: "03" },
+              { label: "Portfólio Vivo", href: "#work", tag: "04" },
               { label: "Depoimentos", href: "#depoimentos", tag: "05" },
               { label: "Instagram ao Vivo", href: "#instagram", tag: "06" },
               { label: "Contato & Diagnóstico", href: "#contact", tag: "07" },
@@ -222,7 +274,7 @@ export default function SotaqueNavbar({
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono text-[#F3EBDD]/70 pt-2">
               <a
-                href="https://www.instagram.com/sotaquecom/"
+                href={CONTACT_INFO.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#E7A92B] transition-colors"
@@ -230,7 +282,7 @@ export default function SotaqueNavbar({
                 Instagram
               </a>
               <a
-                href="https://linkedin.com"
+                href={CONTACT_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#E7A92B] transition-colors"
@@ -238,7 +290,7 @@ export default function SotaqueNavbar({
                 LinkedIn
               </a>
               <a
-                href="https://wa.me/5500000000000"
+                href={CONTACT_INFO.whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#58734A] transition-colors"
@@ -246,10 +298,10 @@ export default function SotaqueNavbar({
                 WhatsApp
               </a>
               <a
-                href="mailto:contato@sotaqueestudio.com.br"
+                href={`mailto:${CONTACT_INFO.email}`}
                 className="hover:text-[#D63A2F] transition-colors"
               >
-                contato@sotaque.com.br
+                {CONTACT_INFO.email}
               </a>
             </div>
           </div>

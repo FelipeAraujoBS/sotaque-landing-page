@@ -8,7 +8,7 @@ export default async function InstagramFeed() {
   return (
     <section
       id="instagram"
-      className="relative bg-[#ECE3D3] border-y border-[#102C2B]/10 py-16 lg:py-20 text-[#102C2B]"
+      className="relative bg-[#ECE3D3] border-t border-[#102C2B]/10 py-16 lg:py-20 text-[#102C2B]"
       aria-label="Instagram — preview do feed"
     >
       <div className="mx-auto max-w-content px-6 lg:px-8">

@@ -358,7 +358,7 @@ export default function Pillars() {
     <section
       id="pilares"
       ref={containerRef}
-      className="relative bg-[#F3EBDD] text-[#102C2B] border-y border-[#102C2B]/10 overflow-hidden py-20 lg:py-28"
+      className="relative bg-[#F3EBDD] text-[#102C2B] border-t border-[#102C2B]/10 overflow-hidden pt-20 lg:pt-28 pb-12 lg:pb-16"
       aria-label="O que fazemos — pilares 360"
     >
       {/* Luz ambiente difusa no fundo */}

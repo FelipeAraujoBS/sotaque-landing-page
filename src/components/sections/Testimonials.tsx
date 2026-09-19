@@ -93,7 +93,7 @@ export default function Testimonials() {
   return (
     <section
       id="depoimentos"
-      className="relative bg-[#102C2B] text-[#F3EBDD] border-y border-[#F3EBDD]/10 py-20 lg:py-28 overflow-hidden"
+      className="relative bg-[#102C2B] text-[#F3EBDD] py-16 lg:py-24 overflow-hidden"
       aria-label="Depoimentos — prova social em saúde"
     >
       {/* 1. Marquee Infinito Sotaque (Logos e Clínicas Parceiras) */}

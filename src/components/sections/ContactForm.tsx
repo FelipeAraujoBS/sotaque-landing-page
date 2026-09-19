@@ -3,20 +3,25 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MagneticButton from "@/components/motion/MagneticButton";
+import { CONTACT_INFO } from "@/lib/contact";
 
 type Errors = Record<string, string>;
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function ContactForm() {
   const [nome, setNome] = useState("");
+  const [contato, setContato] = useState("");
   const [clinica, setClinica] = useState("");
   const [mensagem, setMensagem] = useState("");
+  const [consentimento, setConsentimento] = useState(false);
+  const [website, setWebsite] = useState(""); // honeypot
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const validateField = (field: string, value: string) => {
     if (field === "nome" && value.trim().length > 0 && value.trim().length < 2) return "Muito curto";
+    if (field === "contato" && value.trim().length > 0 && value.trim().length < 5) return "Informe e-mail ou telefone válido";
     if (field === "clinica" && value.trim().length > 0 && value.trim().length < 2) return "Informe clínica/especialidade";
     if (field === "mensagem" && value.trim().length > 0 && value.trim().length < 10) return "Mín. 10 caracteres";
     return "";
@@ -24,15 +29,18 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setTouched({ nome: true, clinica: true, mensagem: true });
+    setTouched({ nome: true, contato: true, clinica: true, mensagem: true, consentimento: true });
 
     const newErrors: Errors = {};
     const nErr = validateField("nome", nome) || (!nome.trim() ? "Obrigatório" : "");
+    const ctErr = validateField("contato", contato) || (!contato.trim() ? "Obrigatório para retorno" : "");
     const cErr = validateField("clinica", clinica) || (!clinica.trim() ? "Obrigatório" : "");
     const mErr = validateField("mensagem", mensagem) || (!mensagem.trim() ? "Obrigatório" : "");
     if (nErr) newErrors.nome = nErr;
+    if (ctErr) newErrors.contato = ctErr;
     if (cErr) newErrors.clinica = cErr;
     if (mErr) newErrors.mensagem = mErr;
+    if (!consentimento) newErrors.consentimento = "Autorização obrigatória para envio";
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
       return;
@@ -44,7 +52,7 @@ export default function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, clinica, mensagem }),
+        body: JSON.stringify({ nome, contato, clinica, mensagem, consentimento, website }),
       });
       const json = await res.json();
       if (!res.ok || !json.ok) {
@@ -56,8 +64,11 @@ export default function ContactForm() {
       }
       setStatus("success");
       setNome("");
+      setContato("");
       setClinica("");
       setMensagem("");
+      setConsentimento(false);
+      setWebsite("");
       setTouched({});
       // mantém sucesso visível por 5s, depois reseta
       setTimeout(() => setStatus("idle"), 5000);
@@ -68,9 +79,7 @@ export default function ContactForm() {
     }
   };
 
-  const whatsappHref =
-    "https://wa.me/5599999999999?text=" +
-    encodeURIComponent("Olá, Sotaque! Quero conversar sobre comunicação para minha clínica.");
+  const whatsappHref = CONTACT_INFO.whatsappHref;
 
   const fieldBase =
     "w-full rounded-xl border bg-[#102C2B]/60 px-4 py-3 text-sm text-[#F3EBDD] placeholder:text-[#F3EBDD]/35 focus:outline-none focus:ring-2 focus:ring-[#D63A2F]/30 focus:border-[#D63A2F] transition-all";
@@ -102,7 +111,7 @@ export default function ContactForm() {
               ao seu próximo passo?
             </h2>
             <p className="mt-4 text-sm leading-relaxed text-[#F3EBDD]/80 max-w-[42ch]">
-              Formulário objetivo — 3 campos. Sem ligação fria, sem intermediários. Se preferir, fale direto conosco pelo canal médico. Resposta em até 1 dia útil.
+              Retorno direto por e-mail ou WhatsApp médico. Sem intermediários. Sigilo garantido e resposta em até 1 dia útil.
             </p>
 
             <div className="mt-8 flex flex-col gap-4">
@@ -121,7 +130,12 @@ export default function ContactForm() {
                   ✉
                 </span>
                 <div className="text-sm">
-                  <p className="font-semibold text-[#F3EBDD]">contato@sotaque.com.br</p>
+                  <a
+                    href={`mailto:${CONTACT_INFO.email}`}
+                    className="font-semibold text-[#F3EBDD] hover:text-[#E7A92B] transition-colors"
+                  >
+                    {CONTACT_INFO.email}
+                  </a>
                   <p className="text-xs text-[#F3EBDD]/75">atendimento a clínicas e especialistas</p>
                 </div>
               </div>
@@ -138,7 +152,7 @@ export default function ContactForm() {
             >
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-[#F3EBDD]">Diagnóstico inicial</p>
-                <span className="text-xs text-[#F3EBDD]/50 font-mono">3 campos • 1 min</span>
+                <span className="text-xs text-[#F3EBDD]/50 font-mono">4 campos • 1 min</span>
               </div>
 
               {/* Nome */}
@@ -185,6 +199,56 @@ export default function ContactForm() {
                         className="text-xs text-[#86A675] flex items-center gap-1"
                       >
                         <span aria-hidden>✓</span> Parece bom
+                      </motion.p>
+                    ) : null}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* E-mail ou WhatsApp para retorno */}
+              <div>
+                <label htmlFor="contato" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F3EBDD]/70 mb-1.5">
+                  E-mail ou WhatsApp para retorno <span className="text-[#D63A2F]">*</span>
+                </label>
+                <motion.input
+                  id="contato"
+                  name="contato"
+                  autoComplete="email tel"
+                  value={contato}
+                  onChange={(e) => {
+                    setContato(e.target.value);
+                    if (touched.contato) setErrors((prev) => ({ ...prev, contato: validateField("contato", e.target.value) }));
+                  }}
+                  onBlur={() => setTouched((p) => ({ ...p, contato: true }))}
+                  placeholder="Ex: doutor@clinica.com.br ou (71) 99999-0000"
+                  className={getFieldClass("contato", contato)}
+                  aria-invalid={!!errors.contato}
+                  aria-describedby={errors.contato ? "err-contato" : undefined}
+                  animate={errors.contato ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
+                  transition={{ duration: 0.42 }}
+                />
+                <div className="min-h-[18px] mt-1 flex items-center gap-1.5">
+                  <AnimatePresence mode="wait">
+                    {errors.contato ? (
+                      <motion.p
+                        key="err-contato"
+                        id="err-contato"
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        className="text-xs text-[#FF8F87] flex items-center gap-1"
+                        role="alert"
+                      >
+                        <span aria-hidden>⚠</span> {errors.contato}
+                      </motion.p>
+                    ) : touched.contato && contato.trim().length >= 5 ? (
+                      <motion.p
+                        key="ok-contato"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="text-xs text-[#86A675] flex items-center gap-1"
+                      >
+                        <span aria-hidden>✓</span> Contato válido
                       </motion.p>
                     ) : null}
                   </AnimatePresence>
@@ -294,8 +358,48 @@ export default function ContactForm() {
                 </div>
               </div>
 
-              {/* Honeypot invisível */}
-              <input type="text" name="email" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+              {/* Consentimento LGPD */}
+              <div className="pt-1">
+                <label htmlFor="consentimento" className="flex items-start gap-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    id="consentimento"
+                    name="consentimento"
+                    checked={consentimento}
+                    onChange={(e) => {
+                      setConsentimento(e.target.checked);
+                      if (errors.consentimento && e.target.checked) {
+                        setErrors((prev) => {
+                          const rest = { ...prev };
+                          delete rest.consentimento;
+                          return rest;
+                        });
+                      }
+                    }}
+                    className="mt-1 h-4 w-4 rounded border-[#F3EBDD]/25 bg-[#102C2B]/80 text-[#D63A2F] focus:ring-2 focus:ring-[#D63A2F] accent-[#D63A2F]"
+                  />
+                  <span className="text-xs text-[#F3EBDD]/80 leading-snug select-none group-hover:text-[#F3EBDD]">
+                    Concordo em receber contato da equipe Sotaque para apresentação de diagnóstico e proposta comercial. Sigilo médico garantido.
+                  </span>
+                </label>
+                {errors.consentimento && (
+                  <p className="mt-1.5 text-xs text-[#FF8F87] flex items-center gap-1" role="alert">
+                    <span aria-hidden>⚠</span> {errors.consentimento}
+                  </p>
+                )}
+              </div>
+
+              {/* Honeypot invisível contra bots */}
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                className="hidden"
+                aria-hidden
+              />
 
               {/* Status */}
               <div id="form-status" className="min-h-[24px]" aria-live="polite">

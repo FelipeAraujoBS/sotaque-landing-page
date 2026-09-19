@@ -82,13 +82,14 @@ const Hero3DCanvas = forwardRef<Hero3DCanvasHandle, Hero3DCanvasProps>(
       const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
       camera.position.set(0, 0, 9.5);
 
+      const isMobile = width < 768;
       const renderer = new THREE.WebGLRenderer({
         canvas,
-        antialias: true,
+        antialias: !isMobile,
         alpha: true,
-        powerPreference: "high-performance",
+        powerPreference: isMobile ? "low-power" : "high-performance",
       });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.25 : 1.5));
       renderer.setSize(width, height);
       renderer.outputColorSpace = THREE.SRGBColorSpace;
       renderer.toneMapping = THREE.ACESFilmicToneMapping;

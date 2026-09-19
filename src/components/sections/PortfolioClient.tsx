@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { CaseItem } from "./Portfolio";
-import CustomCursor from "@/components/motion/CustomCursor";
 
 const categories = [
   { id: "todos", label: "Todos os Cases" },
@@ -24,7 +23,6 @@ const categoryStyle: Record<string, string> = {
 
 export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
   const [active, setActive] = useState<CategoryId>("todos");
-  const [cursorActive, setCursorActive] = useState(false);
 
   const filtered =
     active === "todos" ? cases : cases.filter((c) => c.categoria === active);
@@ -32,11 +30,9 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
   return (
     <section
       id="work"
-      className="relative bg-[#102C2B] text-[#F3EBDD] border-b border-[#F3EBDD]/10 py-20 lg:py-28"
+      className="relative bg-[#102C2B] text-[#F3EBDD] border-t border-[#F3EBDD]/10 pt-20 lg:pt-28 pb-12 lg:pb-16"
       aria-label="Portfólio vivo — cases"
     >
-      <CustomCursor active={cursorActive} />
-
       <div className="mx-auto max-w-content px-6 lg:px-8">
         {/* Header do Portfólio */}
         <div className="grid grid-cols-12 gap-6 items-end mb-12">
@@ -47,7 +43,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                 Portfólio Vivo • Sotaque Estúdio
               </span>
               <span className="hidden sm:inline text-xs font-mono text-[#F3EBDD]/50">
-                • Casos Clínicos Reais
+                • Estudos Conceituais & Metodologia 360
               </span>
             </div>
 
@@ -111,18 +107,8 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.94, y: 12 }}
                 transition={{ type: "spring", stiffness: 280, damping: 26 }}
-                className="group relative col-span-12 md:col-span-6 lg:col-span-4 rounded-[1.6rem] border border-[#F3EBDD]/10 bg-[#163A39] overflow-hidden flex flex-col hover:border-[#F3EBDD]/25 hover:shadow-2xl transition-all duration-500 cursor-pointer focus-within:ring-2 focus-within:ring-[#D63A2F]"
-                tabIndex={0}
+                className="group relative col-span-12 md:col-span-6 lg:col-span-4 rounded-[1.6rem] border border-[#F3EBDD]/10 bg-[#163A39] overflow-hidden flex flex-col hover:border-[#F3EBDD]/25 hover:shadow-2xl transition-all duration-500"
                 aria-label={`${c.cliente} — ${c.categoria}`}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                  }
-                }}
-                onMouseEnter={() => setCursorActive(true)}
-                onMouseLeave={() => setCursorActive(false)}
-                onFocus={() => setCursorActive(true)}
-                onBlur={() => setCursorActive(false)}
               >
                 {/* Visual Cover Banner com degradê oficial */}
                 <div className="relative h-[210px] overflow-hidden bg-[#102C2B] border-b border-[#F3EBDD]/10">
@@ -141,15 +127,6 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                     }}
                   />
 
-                  {/* Play / Preview Circle Button */}
-                  <div className="absolute inset-0 grid place-items-center">
-                    <span className="h-12 w-12 rounded-full bg-white/10 border border-[#F3EBDD]/20 backdrop-blur-md grid place-items-center shadow-lg group-hover:scale-110 group-hover:bg-[#F3EBDD] group-hover:text-[#102C2B] transition-all duration-300">
-                      <span className="ml-0.5 text-[#F3EBDD] group-hover:text-[#102C2B] text-sm transition-colors" aria-hidden>
-                        ▶
-                      </span>
-                    </span>
-                  </div>
-
                   {/* Category Pill Badge */}
                   <span
                     className={`absolute left-3.5 top-3.5 rounded-full border px-3 py-1 text-[10px] font-mono font-semibold tracking-widest uppercase backdrop-blur-md ${
@@ -167,7 +144,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
                 {/* Conteúdo textual */}
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display font-bold leading-snug text-[#F3EBDD] text-[1.15rem] group-hover:text-[#D63A2F] transition-colors">
+                  <h3 className="font-display font-bold leading-snug text-[#F3EBDD] text-[1.15rem] group-hover:text-[#E7A92B] transition-colors">
                     {c.cliente}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#F3EBDD]/80 line-clamp-3 flex-1 font-body">
@@ -176,12 +153,12 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
                   <div className="mt-5 pt-4 border-t border-[#F3EBDD]/[0.08] flex items-center justify-between">
                     <span className="text-xs font-mono text-[#F3EBDD]/75">
-                      Case Study 360
+                      Estudo de Caso 360
                     </span>
 
-                    <div className="flex items-center gap-1 text-xs font-mono font-semibold text-[#D63A2F] group-hover:translate-x-1 transition-transform">
-                      Ver detalhes <span aria-hidden>↗</span>
-                    </div>
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[#E7A92B] bg-[#E7A92B]/10 border border-[#E7A92B]/20 rounded-full px-2.5 py-0.5">
+                      Projeto Conceitual
+                    </span>
                   </div>
                 </div>
               </motion.article>

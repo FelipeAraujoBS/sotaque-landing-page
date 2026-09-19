@@ -1,11 +1,22 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect, ReactNode } from "react";
+import dynamic from "next/dynamic";
 import SotaqueNavbar from "@/components/layout/SotaqueNavbar";
-import Hero3DCanvas, {
-  Hero3DCanvasHandle,
-} from "@/components/motion/Hero3DCanvas";
+import type { Hero3DCanvasHandle } from "@/components/motion/Hero3DCanvas";
 import MagneticButton from "@/components/motion/MagneticButton";
+
+const Hero3DCanvas = dynamic(() => import("@/components/motion/Hero3DCanvas"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="w-full h-full bg-[#102C2B] flex items-center justify-center pointer-events-none"
+      aria-hidden="true"
+    >
+      <div className="w-56 h-56 rounded-full bg-[#163A39]/60 blur-3xl animate-pulse" />
+    </div>
+  ),
+});
 
 type Segment = "left" | "center" | "right";
 

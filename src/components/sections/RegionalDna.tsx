@@ -86,7 +86,7 @@ export default function RegionalDna() {
     <section
       id="dna"
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#F3EBDD] text-[#102C2B] border-y border-[#102C2B]/10"
+      className="relative overflow-hidden bg-[#F3EBDD] text-[#102C2B]"
       aria-label="Por que Sotaque — DNA regional"
     >
       {/* Fundo parallax — textura terrosa muito sutil, duas camadas */}
