@@ -2,6 +2,10 @@
 
 > Auditoria de UI/UX, conteúdo, design, SEO, performance e acessibilidade.
 > Fonte: leitura de `docs/`, `roadmap.md`, `src/`, `tailwind.config.ts`, `public/`.
+> Última verificação: 2026-09-19 — `roadmap.md` segue 9/9 (base implementada);
+> backlog P-001~P-207 verificado item a item no código atual, todos ainda abertos
+> (nenhum aceite atingido). Itens com deriva de código desde a auditoria original
+> estão marcados com `↻ atualizado em 2026-09-19`.
 
 ---
 
@@ -58,7 +62,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Não fazer:** inventar nomes/resultados reais para preencher.
 
 ### P-002 `[ ]` Métricas inventadas parecem resultado real — P0 · F · Conteúdo
-- **Arquivos:** `src/components/sections/Pillars.tsx:24,35,49,60` (`100% Autoral`, `+240%`, `4K Cinema`, `+180%`)
+- **Arquivos:** `src/components/sections/Pillars.tsx:24,35,49,60,71` (`100% Autoral`, `+240%`, `4K Cinema`, `+180%`, `360°`) + `src/components/sections/RegionalDna.tsx:221-234` (`↻ atualizado em 2026-09-19`: cartões `360°`, `100%`, `≠` com labels `Presença Integrada`, `Rigor Ético CFM`, `Identidade Única`)
 - **Problema:** viola `AGENTS.md` ("nunca invente fatos") e é sensível em saúde/CFM.
 - **Como corrigir:** trocar por labels qualitativos (`Design sem template`, `Foco editorial`, `Padrão documental`, `Captação qualificada`). Manter badge, trocar texto.
 - **Aceite:** nenhuma métrica percentual sem fonte; build ok.
@@ -74,7 +78,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Não fazer:** hardcodar em cada arquivo de novo.
 
 ### P-004 `[ ]` Footer pobre — P1 · F · Conteúdo/SEO
-- **Arquivos:** `src/app/page.tsx:19-29`
+- **Arquivos:** `src/app/page.tsx:21-32` (`↻ atualizado em 2026-09-19`: refs antigas `19-29`)
 - **Problema:** só logo + tagline + copyright. Falta navegação, CNPJ/endereço, links sociais consistentes.
 - **Como corrigir:** adicionar nav âncora (`#pilares`, `#work`, `#dna`, `#contact`), linha CNPJ/endereço placeholder neutro (não inventar número real — usar `CNPJ: —` ou omitir), ano dinâmico.
 - **Aceite:** footer navegável por teclado; sem e-mail divergente (ver P-003).
@@ -89,7 +93,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** `next build` gera `<link rel="canonical">` + OG com domínio real.
 
 ### P-006 `[ ]` Sem robots/sitemap/favicon/og-image — P1 · F · SEO
-- **Arquivos:** `public/` (só tem `next.svg`, `vercel.svg`), `src/app/` (falta `robots.ts`, `sitemap.ts`, `icon.*`, `opengraph-image.*`)
+- **Arquivos:** `public/` (`↻ atualizado em 2026-09-19`: agora contém `next.svg`, `vercel.svg`, `3d-model/logo.glb`, `beat/bg-audio.mp3`; `src/app/` tem `favicon.ico` mas continua sem `robots.ts`, `sitemap.ts`, `icon.*`, `opengraph-image.*`), `src/app/` (falta `robots.ts`, `sitemap.ts`, `icon.*`, `opengraph-image.*`)
 - **Problema:** sem favicon, sem preview social, sem sitemap.
 - **Como corrigir:**
   1. Adicionar `src/app/robots.ts` + `src/app/sitemap.ts` (1 rota `/` + futuras `/cases/[slug]`).
@@ -104,32 +108,32 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** usuário vê só `O estúdio no dia a dia` + grid; build ok.
 - **Não fazer:** apagar `src/lib/instagram.ts` ou o fallback.
 
-### P-008 `[ ]` Hero com onClick global troca material 3D — P0 · F · UX/A11y
-- **Arquivos:** `src/components/sections/Hero.tsx:99-104` (`onClick={handleHeroClick}`, `cursor-pointer`, `select-none` na `<section>`)
-- **Problema:** quebra seleção de texto, cliques acidentais; affordance é easter-egg, não ação de negócio.
+### P-008 `[ ]` Hero com onClick global (hoje alterna o SOM, não o material 3D) — P0 · F · UX/A11y
+- **Arquivos:** `src/components/sections/Hero.tsx:125-142` (`↻ atualizado em 2026-09-19`: `handleHeroClick` agora chama `toggleSound()` — antes ciclava material 3D via `cycleMaterial()`; `cursor-pointer` + `select-none` na `<section>` persistem)
+- **Problema:** quebra seleção de texto, cliques acidentais; ligar/desligar áudio clicando em qualquer lugar do hero continua sendo easter-egg, não ação de negócio. O canvas 3D (`Hero3DCanvasHandle.cycleMaterial`) segue sem botão dedicado.
 - **Como corrigir:**
   1. Remover `onClick` + `cursor-pointer` + `select-none` da `<section>`.
-  2. Mover `cycleMaterial()` para o badge do material (`Hero.tsx:260-275`) como `<button>` real com `aria-label="Trocar acabamento 3D"`.
-  3. Manter dica `Clique para alternar a cor` só no badge.
-- **Aceite:** clicar no texto não troca cor; Tab alcança o badge; texto selecionável.
+  2. Manter o toggle de som real só no badge do rodapé (`Hero.tsx:297-307`) como `<button>` real com `aria-label` (já existe — preservar).
+  3. Se quiser expor a troca de material 3D, criar botão próprio (`aria-label="Trocar acabamento 3D"`) chamando `canvasHandleRef.current?.cycleMaterial()`; hoje `canvasHandleRef` é criado mas nunca usado para isso.
+- **Aceite:** clicar no texto não liga/desliga som; Tab alcança o badge; texto selecionável.
 - **Não fazer (update-001):** apagar `Hero3DCanvas.tsx` — só desacoplar a interação.
 
 ### P-009 `[ ]` Headline responsiva diminui no desktop — P1 · F · UX
-- **Arquivos:** `src/components/sections/Hero.tsx:150` (`text-5xl sm:text-7xl md:text-8xl lg:text-[3.5rem]`)
+- **Arquivos:** `src/components/sections/Hero.tsx:186` (`↻ atualizado em 2026-09-19`: `text-5xl sm:text-7xl md:text-8xl lg:text-[3.5rem]`)
 - **Problema:** `lg` menor que `md`. Quebra hierarquia.
 - **Como corrigir:** escala crescente, ex: `text-[2.75rem] sm:text-6xl lg:text-7xl xl:text-[5.2rem] leading-[0.95]`. Testar 375px e 1440px.
 - **Aceite:** sem overflow horizontal; sem diminuição em breakpoint maior.
 
 ### P-010 `[ ]` 3 headlines sobrepostas lidas por SR/crawler — P0 · F · A11y/SEO
-- **Arquivos:** `src/components/sections/Hero.tsx:139-212` (segmentos `center`/`left`/`right` com `opacity-0` + `pointer-events-none`)
+- **Arquivos:** `src/components/sections/Hero.tsx:176-250` (`↻ atualizado em 2026-09-19`: segmentos `center`/`left`/`right` com `opacity-0` + `pointer-events-none`; seletores mobile `Branding/Sotaque/Estratégia` em `:253-274`)
 - **Problema:** inativos continuam no accessibility tree; parece 3 H1s.
 - **Como corrigir:** adicionar `aria-hidden={segment !== "center"}` (e equivalentes) + `inert` (ou `hidden` quando `opacity-0` após transição). Manter 1 `<h1>` real; demais como `<p>`/`<span>`.
 - **Aceite:** leitor anuncia 1 headline; Lighthouse / axe sem violação.
 
-### P-011 `[ ]` Botão "som" fake na navbar — P1 · F · UX
-- **Arquivos:** `src/components/layout/SotaqueNavbar.tsx:63-94`
-- **Problema:** anima equalizador mas não toca nada = dark pattern.
-- **Como corrigir (preferido):** remover bloco inteiro e comentar `// TEMPORARIAMENTE DESATIVADO PARA TESTE — equalizador sonoro` (update-001). Se quiser manter, implementar `<audio>` real com toggle.
+### P-011 `[ ]` Botão "som" da navbar sem áudio próprio + click global confuso — P1 · F · UX
+- **Arquivos:** `src/components/layout/SotaqueNavbar.tsx:19-20,77-110` (`↻ atualizado em 2026-09-19`: navbar agora aceita `isPlayingSound`/`onToggleSound` via props e, quando renderizada dentro do `Hero`, alterna áudio REAL — `Hero.tsx:68-103` cria `new Audio("/beat/bg-audio.mp3")`, loop, volume 0.4; arquivo existe em `public/beat/bg-audio.mp3`. Mas: (a) o fallback interno da navbar (`setInternalIsPlaying`) só anima o equalizador sem tocar nada quando usada fora do Hero; (b) o click global do Hero (P-008) torna o toggle acidental)
+- **Problema:** fora do Hero o controle continua fingindo função = dark pattern; dentro do Hero funciona mas sem affordance clara (ver P-008).
+- **Como corrigir (preferido):** manter o áudio real do Hero; na navbar, quando sem `onToggleSound`, comentar o bloco do equalizador com `// TEMPORARIAMENTE DESATIVADO PARA TESTE — equalizador sonoro` (update-001) em vez de animar à toa. Resolver P-008 junto.
 - **Aceite:** sem controle que finge função; build ok.
 
 ### P-012 `[ ]` Classe Tailwind inválida no portfólio — P2 · F · Código
@@ -139,13 +143,14 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** botão play com tamanho consistente; sem classe inválida.
 
 ### P-013 `[ ]` Contrastes de texto corrido abaixo de AA — P1 · F · A11y
-- **Arquivos:** `PortfolioClient.tsx:60,173`, `Testimonials.tsx:135`, `ContactForm.tsx:104`, `tokens.css:103-107` (comentário cita cores antigas `#7A2E1F`/`#FFFBF5`)
+- **Arquivos:** `PortfolioClient.tsx:60,173,178,193,198-200` (`↻ atualizado em 2026-09-19`: `text-cream/70`, `text-[#F3EBDD]/65`, `/40`, `text-cream/50`, `text-cream/40`), `Testimonials.tsx:135` (`text-[#F3EBDD]/75` ok, mas marquee `:105` usa `/65`), `ContactForm.tsx:104,115,266,349` (`/75`, `/50`), `tokens.css:103-107` (comentário cita cores antigas `#7A2E1F`/`#FFFBF5`)
 - **Problema:** `text-cream/40`, `/50`, `/65`, `text-[#102C2B]/50` em corpo pequeno reprovam AA.
 - **Como corrigir:** subir corpo para `/70`+ (`/75` ideal); atualizar comentário de contraste em `tokens.css` com pares reais atuais; validar com ferramenta (axe/Lighthouse).
 - **Aceite:** corpo ≥ 4.5:1; large ≥ 3:1.
 
 ### P-014 `[ ]` Jargão técnico como copy comercial — P2 · F · Conteúdo
-- **Arquivos:** `PortfolioClient.tsx:198-199` (`JSON-driven...`, `AnimatePresence...`), `Pillars.tsx:413-416` (`Bento Grid 2D...`, `Spotlight interativo`), `InstagramFeed.tsx:98-104`
+- **Arquivos:** `PortfolioClient.tsx:199-200` (`JSON-driven...`, `AnimatePresence...`), `Pillars.tsx:377,415` (`Bento Grid...`, `Spotlight interativo`), `InstagramFeed.tsx:27-31,98-104` (`mock ativo`, `Graph API`)
+- **Problema:** viola update-001 §13 — cliente médico não precisa saber de stack. (`↻ atualizado em 2026-09-19`: `AnimatePresence` em si é import real de código — o problema é só o nome exposto na UI do rodapé do portfólio.)
 - **Problema:** viola update-001 §13 — cliente médico não precisa saber de stack.
 - **Como corrigir:** remover da UI visível; se útil, mover para comentário `{/* ... */}` no código. (Comentar, não apagar — update-001.)
 - **Aceite:** nenhum nome de lib/técnica visível ao usuário.
@@ -157,7 +162,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** resposta imediata (só latência real de rede).
 
 ### P-016 `[ ]` Depoimentos placeholder apresentados como reais — P0 · F · Conteúdo
-- **Arquivos:** `src/components/sections/Testimonials.tsx:99-113` (marquee logos fictícios), `:210-212` (selo `Verificado`), `src/content/testimonials.json`, `src/app/page.tsx:16`
+- **Arquivos:** `src/components/sections/Testimonials.tsx:99-113` (marquee logos fictícios), `:204-213` (estrelas `★` + selo `Verificado`), `src/content/testimonials.json`, `src/app/page.tsx:18` (`↻ atualizado em 2026-09-19`: seção segue montada sem rótulo conceitual)
 - **Problema:** viola update-001 §11 (não apresentar placeholder como real, não usar ★ como avaliação real).
 - **Como corrigir (escolher 1, perguntar se ambíguo):**
   - A) Comentar `<Testimonials />` em `page.tsx` + link no menu (`SotaqueNavbar.tsx:151`), preservando componente; ou
@@ -170,7 +175,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 ## 2. MÉDIOS (M) — exigem refatoração
 
 ### P-101 `[ ]` Hero sem CTA primário — P0 · M · UX
-- **Arquivos:** `src/components/sections/Hero.tsx:240-283` (rodapé só com parágrafo + badge)
+- **Arquivos:** `src/components/sections/Hero.tsx:277-342` (`↻ atualizado em 2026-09-19`: rodapé só com parágrafo + badge de som + dica de clique; `MagneticButton` existe e é usado só no `ContactForm`)
 - **Problema:** usuário entende a marca mas não tem próximo passo. Só há CTA pequeno na navbar.
 - **Como corrigir:**
   1. Adicionar abaixo do parágrafo 2 CTAs `MagneticButton`: `Iniciar projeto → #contact` (primary) + `Ver cases → #work` (ghost).
@@ -188,7 +193,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Não fazer:** manter play/dead-link.
 
 ### P-103 `[ ]` Pilares hover-only + altura fixa — P1 · M · UX
-- **Arquivos:** `src/components/sections/Pillars.tsx:379-410` (`lg:h-[720px]`, `flexGrow` por hover), `:219` (`onClick` toggle sem affordance)
+- **Arquivos:** `src/components/sections/Pillars.tsx:379-410` (`min-h-[720px] lg:h-[720px]`, `flexGrow` por hover), `:218` (`↻ atualizado em 2026-09-19`: `onClick` toggle sem affordance; era `:219`)
 - **Problema:** no touch não há descoberta; `line-clamp-2` esconde conteúdo; `720px` estoura com texto real.
 - **Como corrigir:**
   1. No mobile (`<sm`): virar accordion (`aria-expanded`, altura `auto`, 1 aberto por vez).
@@ -203,7 +208,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** máximo 4 blocos de fundo; sem quebra de contraste em bordas.
 
 ### P-105 `[ ]` Drawer sem dialog/focus-trap — P1 · M · A11y
-- **Arquivos:** `src/components/layout/SotaqueNavbar.tsx:107-197`
+- **Arquivos:** `src/components/layout/SotaqueNavbar.tsx:124-213` (`↻ atualizado em 2026-09-19`: refs antigas `107-197`; ESC e `body overflow hidden` existem, mas segue sem `role="dialog"`, sem trap, sem retorno de foco)
 - **Problema:** sem `role="dialog"`, sem trap, sem retorno de foco; backdrop sem `aria-hidden`.
 - **Como corrigir:**
   1. `role="dialog" aria-modal="true" aria-label="Menu"`.
@@ -212,7 +217,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** Tab não escapa do drawer aberto; SR anuncia dialog; build ok.
 
 ### P-106 `[ ]` Marquee sem controle de pausa — P2 · M · A11y
-- **Arquivos:** `src/components/sections/Testimonials.tsx:99-113`, `src/app/globals.css:164-182` (`.animate-marquee`)
+- **Arquivos:** `src/components/sections/Testimonials.tsx:99-113`, `src/app/globals.css:165-183` (`↻ atualizado em 2026-09-19`: `.animate-marquee` 30s só pausa no hover)
 - **Problema:** movimento contínuo 30s sem botão pausa (só hover).
 - **Como corrigir:** botão `Pausar/Retomar letreiro` (`aria-pressed`) que alterna `animation-play-state`; respeitar `reduced-motion` (já há global em `tokens.css:110-119`, manter).
 - **Aceite:** pausa por botão + teclado; sem autoplay forçado com `reduced-motion`.
@@ -227,7 +232,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** `npm run build` ok; visual idêntico; `grep` de utils mortos retorna zero.
 
 ### P-108 `[ ]` Código morto de animação — P2 · M · Código
-- **Arquivos:** `src/components/motion/SplitText.tsx`, `src/components/motion/ParallaxLayer.tsx` (não importados), `Hero.tsx:12-59` (`CharacterFlip` duplicado), `package.json` (`@types/three` em deps)
+- **Arquivos:** `src/components/motion/SplitText.tsx`, `src/components/motion/ParallaxLayer.tsx` (`↻ atualizado em 2026-09-19`: confirmado sem nenhum import fora dos próprios arquivos), `Hero.tsx:11-58` (`CharacterFlip` local duplicado em vez de reutilizar `motion/`), `package.json` (`@types/three` ainda em `dependencies`, confirmado)
 - **Problema:** duplicação + bundle desnecessário.
 - **Como corrigir:** se `CharacterFlip` é o padrão, mover para `motion/` e remover `SplitText.tsx` **ou** comentar import não usado (update-001: preferir comentar se houver dúvida de reuso). Mover `@types/three` para `devDependencies`.
 - **Aceite:** sem import não usado (`next lint` limpo); build ok.
@@ -260,11 +265,11 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** validador Schema.org passa; 1 H1 no HTML.
 
 ### P-112 `[ ]` Three.js sem lazy + pesado — P1 · M · Perf
-- **Arquivos:** `src/components/sections/Hero.tsx:111-116` (import direto), `src/components/motion/Hero3DCanvas.tsx:97,90` (`TorusKnotGeometry(1.85,0.52,220,36)`, `pixelRatio min(dpr,2)`, 3 point lights)
-- **Problema:** ~600KB+ no critical path; mobile sofre no LCP/bateria; sem poster.
+- **Arquivos:** `↻ atualizado em 2026-09-19`: `src/components/sections/Hero.tsx:150-153` (import direto, sem `next/dynamic`, sem poster), `src/components/motion/Hero3DCanvas.tsx` (carrega `/3d-model/logo.glb` via `GLTFLoader` + particiona em 1 núcleo + 4 fatias satélites; `MeshPhysicalMaterial` com clearcoat/sheen; `setPixelRatio(min(dpr,2))` em `:91`; `powerPreference: "high-performance"` em `:89`; 1 ambient + 1 directional + 3 point lights em `:275-296`; `IntersectionObserver` + `reduced-motion` existem em `:65-75,:327-333,:345`, mas sem lazy, sem poster estático, sem redução mobile)
+- **Problema:** descrição antiga citava `TorusKnotGeometry(1.85,0.52,220,36)` — o canvas atual é o modelo GLB fatiado, ainda mais caro no critical path; mobile sofre no LCP/bateria; sem poster.
 - **Como corrigir:**
   1. `next/dynamic(() => import("@/components/motion/Hero3DCanvas"), { ssr: false, loading: () => <div poster estático /> })`.
-  2. Reduzir segmentos (`220,36` → `128,24`), `pixelRatio` → `min(dpr,1.5)`, pausar fora da viewport (já há `IntersectionObserver` — manter).
+  2. `pixelRatio` → `min(dpr,1.5)`, considerar `MeshStandardMaterial` no mobile, `powerPreference: "low-power"` em mobile; pausar fora da viewport (já há `IntersectionObserver` — manter).
   3. Desativar em `reduced-motion` (só poster) e opcionalmente em `max-width:768px` se LCP ruim. (Comentar, não apagar — update-001.)
 - **Aceite:** LCP mobile melhora; sem tela preta sem WebGL; animação congela com `reduced-motion`.
 
@@ -322,3 +327,25 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 3. **Roadmap com design/negócio:** `P-201`, `P-202`, `P-203`, `P-204`, `P-205`, `P-206`, `P-207`
 
 Ao concluir qualquer item: marcar `[x]`, rodar `npm run build`, citar o ID no commit (ex: `fix(P-008): remove clique global do hero`).
+
+---
+
+## 5. Verificação de 2026-09-19 — implementado × pendente
+
+> Só leitura do código atual (sem `npm run build` nesta passada — é atualização
+> de backlog, não fix). Nenhum outro arquivo foi tocado.
+
+### Implementado (base do roadmap — 9/9 em `roadmap.md`)
+
+- Setup Next.js 14 + TS + Tailwind + tokens (`src/styles/tokens.css`, `tailwind.config.ts`) + Framer/GSAP/Lenis instalados.
+- Todas as 9 seções montadas em `src/app/page.tsx`: `Hero`, `Pillars`, `Portfolio`, `RegionalDna`, `Testimonials`, `InstagramFeed`, `ContactForm` (+ `SotaquePreloader`, footer simples).
+- Pontos da seção "0. O que está BOM" confirmados no código: bento assimétrico, Fraunces + DM Sans, tokens centralizados, split Server/Client (`Portfolio` → `PortfolioClient`, `InstagramFeed` async + ISR 3h sem vazar token em `src/lib/instagram.ts`), validação dupla + honeypot (`route.ts` + `ContactForm`), skip-link, `:focus-visible`, `reduced-motion` em Lenis/Three/GSAP/cursor, `favicon.ico` em `src/app/`.
+- Novos assets desde a auditoria original: `public/3d-model/logo.glb` (modelo 3D real do Hero), `public/beat/bg-audio.mp3` (+ variante `bg-audio_CHF1.mp3`) com toggle funcional dentro do Hero (ver P-011).
+
+### Pendente (todo o backlog — nenhum aceite atingido)
+
+- **Fáceis:** `P-001`, `P-002`, `P-003`, `P-004`, `P-005`, `P-006`, `P-007`, `P-008`, `P-009`, `P-010`, `P-011` (parcial: áudio real só dentro do Hero), `P-012`, `P-013`, `P-014`, `P-015`, `P-016` — todos `[ ]`.
+- **Médios:** `P-101`, `P-102`, `P-103`, `P-104`, `P-105`, `P-106`, `P-107`, `P-108`, `P-109`, `P-110`, `P-111`, `P-112` — todos `[ ]`.
+- **Difíceis (dependem de terceiros):** `P-201`, `P-202` (covers ainda 100% gradiente — `cases.json:midia` não usado; 3D/áudio existem mas não substituem foto/vídeo real), `P-203`, `P-204`, `P-205`, `P-206` (código pronto em `src/lib/instagram.ts`, sem credenciais — cai sempre em mock), `P-207` — todos `[ ]`.
+- **Derivas de código corrigidas neste arquivo:** P-002 (métricas extras em `RegionalDna`), P-004/P-009/P-010/P-013/P-014/P-016/P-101/P-103/P-105/P-106/P-108 (refs de linha), P-006 (conteúdo atual de `public/`), P-008 (click global hoje alterna SOM), P-011 (áudio real no Hero, fallback da navbar ainda fake), P-112 (GLB fatiado, não mais TorusKnot).
+- **Ordem sugerida (§4) mantida:** começar por `P-001`, `P-002`, `P-016`, `P-005`, `P-008`, `P-010`, `P-003`, `P-015`, `P-014`, `P-007` para uma demo honesta.
