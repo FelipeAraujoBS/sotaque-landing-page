@@ -146,7 +146,7 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased bg-background text-foreground">
         <a
-          href="#hero"
+          href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded bg-ink text-cream px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
         >
           Pular para conteúdo

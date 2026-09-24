@@ -226,7 +226,7 @@ export default function Testimonials() {
                     <p className="text-sm font-semibold leading-tight text-[#F3EBDD] truncate">
                       {t.nome}
                     </p>
-                    <p className="text-xs text-[#F3EBDD]/60 mt-0.5">{t.cargo}</p>
+                    <p className="text-xs text-[#F3EBDD]/80 font-medium mt-0.5">{t.cargo}</p>
                   </div>
                 </div>
               </motion.div>

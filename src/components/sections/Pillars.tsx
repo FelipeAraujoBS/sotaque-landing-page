@@ -214,6 +214,16 @@ export default function Pillars() {
         ref={(el) => {
           cardsRef.current[cardIndexMap[p.id]] = el;
         }}
+        role="button"
+        tabIndex={0}
+        aria-expanded={isHovered}
+        aria-label={`Pilar ${p.number}: ${p.title}`}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setHoveredId(hoveredId === p.id ? null : p.id);
+          }
+        }}
         onMouseEnter={() => setHoveredId(p.id)}
         onClick={() => setHoveredId(hoveredId === p.id ? null : p.id)}
         onMouseMove={(e) => handleMouseMove(p.id, e)}
@@ -225,7 +235,7 @@ export default function Pillars() {
           transition:
             "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms, border-color 300ms, opacity 300ms",
         }}
-        className={`group relative rounded-[1.6rem] border overflow-hidden flex flex-col cursor-pointer select-none transition-all duration-300 ${
+        className={`group relative rounded-[1.6rem] border overflow-hidden flex flex-col cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F] ${
           isHovered
             ? "bg-white border-[#102C2B]/25 shadow-2xl z-20"
             : isDimmed
@@ -269,7 +279,7 @@ export default function Pillars() {
                 {p.number}
               </div>
               <span
-                className={`text-[11px] font-mono tracking-widest uppercase text-[#102C2B]/50 transition-opacity duration-300 ${
+                className={`text-[11px] font-mono tracking-widest uppercase text-[#102C2B]/75 font-semibold transition-opacity duration-300 ${
                   isDimmed ? "hidden" : "hidden sm:inline"
                 }`}
               >
@@ -325,14 +335,14 @@ export default function Pillars() {
           <div className="mt-auto pt-3 border-t border-[#102C2B]/10 flex items-center justify-between gap-2 min-w-0">
             <span
               className={`text-xs font-mono font-semibold tracking-wide transition-colors duration-300 truncate min-w-0 ${
-                isHovered ? p.accentText : "text-[#102C2B]/60"
+                isHovered ? p.accentText : "text-[#102C2B]/75"
               }`}
             >
               {p.metricLabel}
             </span>
 
             <span
-              className={`text-[11px] font-mono text-[#102C2B]/40 shrink-0 ${
+              className={`text-[11px] font-mono text-[#102C2B]/70 font-semibold shrink-0 ${
                 isDimmed ? "hidden sm:inline" : "inline"
               }`}
             >
@@ -379,7 +389,7 @@ export default function Pillars() {
               <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">
                 Pilares 360 Integrados
               </span>
-              <span className="text-xs font-mono tracking-wide text-[#102C2B]/50 hidden sm:inline">
+              <span className="text-xs font-mono tracking-wide text-[#102C2B]/75 font-medium hidden sm:inline">
                 • Precisão de Dados + Criatividade
               </span>
             </div>

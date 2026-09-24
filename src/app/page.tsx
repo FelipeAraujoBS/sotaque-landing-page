@@ -12,7 +12,7 @@ export default function Home() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main id="main" className="min-h-screen bg-background text-foreground">
       <SotaquePreloader />
       {/* Ato 1: Abertura Monumental */}
       <Hero />
@@ -87,7 +87,7 @@ export default function Home() {
               </h3>
               <div className="flex flex-col gap-3 text-xs font-mono text-[#F3EBDD]/75">
                 <div>
-                  <span className="block text-[#F3EBDD]/40 text-[10px] uppercase">E-mail Direto</span>
+                  <span className="block text-[#F3EBDD]/75 font-semibold text-[10px] uppercase">E-mail Direto</span>
                   <a
                     href={`mailto:${CONTACT_INFO.email}`}
                     className="text-[#F3EBDD] hover:text-[#E7A92B] transition-colors"
@@ -96,7 +96,7 @@ export default function Home() {
                   </a>
                 </div>
                 <div>
-                  <span className="block text-[#F3EBDD]/40 text-[10px] uppercase">Canal WhatsApp</span>
+                  <span className="block text-[#F3EBDD]/75 font-semibold text-[10px] uppercase">Canal WhatsApp</span>
                   <a
                     href={CONTACT_INFO.whatsappHref}
                     target="_blank"
@@ -107,7 +107,7 @@ export default function Home() {
                   </a>
                 </div>
                 <div>
-                  <span className="block text-[#F3EBDD]/40 text-[10px] uppercase">Sede & Alcance</span>
+                  <span className="block text-[#F3EBDD]/75 font-semibold text-[10px] uppercase">Sede & Alcance</span>
                   <p className="text-[#F3EBDD]/70">{CONTACT_INFO.city} — Atendimento Nacional</p>
                 </div>
                 <div className="flex items-center gap-4 pt-2">
@@ -133,7 +133,7 @@ export default function Home() {
           </div>
 
           {/* Barra Inferior: Copyright, CNPJ Placeholder, Subir */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#F3EBDD]/55">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#F3EBDD]/75">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               <span>© {currentYear} Sotaque Estúdio.</span>
               <span className="text-[#F3EBDD]/20 hidden sm:inline">|</span>

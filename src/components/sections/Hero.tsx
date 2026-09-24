@@ -184,7 +184,9 @@ export default function Hero() {
                 isActive={segment === "center"}
                 baseDelay={0}
               />{" "}
-              <span className="font-['Chroma_Venue'] font-chroma">sotaque.</span>
+              <span className="font-['Chroma_Venue'] font-chroma">
+                sotaque.
+              </span>
             </h1>
           </div>
 
@@ -342,17 +344,17 @@ export default function Hero() {
               />
               <span
                 className={`w-[2px] bg-[#D63A2F] rounded-full transition-all duration-300 ${
-                  isPlayingSound ? "h-2 animate-bounce" : "h-1.5 opacity-50"
+                  isPlayingSound ? "h-2 animate-pulse [animation-delay:150ms]" : "h-1.5 opacity-50"
                 }`}
               />
               <span
                 className={`w-[2px] bg-[#58734A] rounded-full transition-all duration-300 ${
-                  isPlayingSound ? "h-3.5 animate-pulse" : "h-2 opacity-50"
+                  isPlayingSound ? "h-3.5 animate-pulse [animation-delay:300ms]" : "h-2 opacity-50"
                 }`}
               />
               <span
                 className={`w-[2px] bg-[#B85C42] rounded-full transition-all duration-300 ${
-                  isPlayingSound ? "h-2.5 animate-bounce" : "h-1 opacity-50"
+                  isPlayingSound ? "h-2.5 animate-pulse [animation-delay:450ms]" : "h-1 opacity-50"
                 }`}
               />
             </div>
@@ -362,7 +364,7 @@ export default function Hero() {
           </button>
 
           {/* Dica de interação */}
-          <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#F3EBDD]/15 text-[#F3EBDD]/60 text-[11px] tracking-wide">
+          <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#F3EBDD]/20 text-[#F3EBDD]/85 font-medium text-[11px] tracking-wide">
             <span className="text-[#E7A92B]">✦</span>
             <span>
               Clique para {isPlayingSound ? "pausar som" : "ativar som"}

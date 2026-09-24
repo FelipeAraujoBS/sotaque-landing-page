@@ -147,17 +147,17 @@ export default function SotaqueNavbar({
                 />
                 <span
                   className={`w-[2px] bg-[#D63A2F] rounded-full transition-all duration-300 ${
-                    isPlayingSound ? "h-2 animate-bounce" : "h-2 opacity-50"
+                    isPlayingSound ? "h-2 animate-pulse [animation-delay:150ms]" : "h-2 opacity-50"
                   }`}
                 />
                 <span
                   className={`w-[2px] bg-[#58734A] rounded-full transition-all duration-300 ${
-                    isPlayingSound ? "h-3.5 animate-pulse" : "h-3 opacity-50"
+                    isPlayingSound ? "h-3.5 animate-pulse [animation-delay:300ms]" : "h-3 opacity-50"
                   }`}
                 />
                 <span
                   className={`w-[2px] bg-[#B85C42] rounded-full transition-all duration-300 ${
-                    isPlayingSound ? "h-2.5 animate-bounce" : "h-1.5 opacity-50"
+                    isPlayingSound ? "h-2.5 animate-pulse [animation-delay:450ms]" : "h-1.5 opacity-50"
                   }`}
                 />
               </div>
@@ -179,10 +179,11 @@ export default function SotaqueNavbar({
 
       {/* Slide-out Menu Drawer Sotaque */}
       <div
-        className={`fixed inset-0 z-[999] transition-opacity duration-500 ${
+        aria-hidden={!isOpen}
+        className={`fixed inset-0 z-[999] transition-all duration-500 ${
           isOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+            ? "opacity-100 pointer-events-auto visible"
+            : "opacity-0 pointer-events-none invisible"
         }`}
       >
         {/* Backdrop escuro com blur em Azul Petróleo Noturno */}
@@ -198,6 +199,7 @@ export default function SotaqueNavbar({
           ref={drawerRef}
           role="dialog"
           aria-modal="true"
+          aria-hidden={!isOpen}
           aria-label="Menu de Navegação Sotaque"
           className={`relative z-10 w-full max-w-lg h-full bg-[#102C2B] border-r border-[#F3EBDD]/15 p-8 sm:p-12 flex flex-col justify-between overflow-y-auto transform transition-transform duration-500 ease-out shadow-2xl ${
             isOpen ? "translate-x-0" : "-translate-x-full"
@@ -259,7 +261,7 @@ export default function SotaqueNavbar({
                     {item.label}
                   </span>
                 </div>
-                <span className="text-sm font-mono text-[#F3EBDD]/30 group-hover:text-[#D63A2F] group-hover:translate-x-1 transition-all duration-300">
+                <span className="text-sm font-mono text-[#F3EBDD]/60 group-hover:text-[#D63A2F] group-hover:translate-x-1 transition-all duration-300">
                   ↗
                 </span>
               </a>
@@ -268,7 +270,7 @@ export default function SotaqueNavbar({
 
           {/* Rodapé do Menu com Contato e Redes */}
           <div className="pt-8 border-t border-[#F3EBDD]/15 flex flex-col gap-4">
-            <div className="text-xs text-[#F3EBDD]/60 font-body">
+            <div className="text-xs text-[#F3EBDD]/85 font-body leading-relaxed">
               Comunicação médica e marketing em saúde com calor humano, precisão
               cirúrgica e sotaque autêntico.
             </div>

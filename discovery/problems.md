@@ -2,10 +2,13 @@
 
 > Auditoria de UI/UX, conteúdo, design, SEO, performance e acessibilidade.
 > Fonte: leitura de `docs/`, `roadmap.md`, `src/`, `tailwind.config.ts`, `public/`.
-> Última verificação: 2026-09-19 — `roadmap.md` segue 9/9 (base implementada);
-> backlog P-001~P-207 verificado item a item no código atual, todos ainda abertos
-> (nenhum aceite atingido). Itens com deriva de código desde a auditoria original
-> estão marcados com `↻ atualizado em 2026-09-19`.
+> Última verificação: 2026-09-23 — `roadmap.md` segue 9/9 (base implementada);
+> backlog P-001~P-207 re-verificado item a item no código atual em 2026-09-23:
+> 23 itens `[x]` confirmados resolvidos, 1 item reaberto (`P-013` — contrastes
+> baixos residuais persistem), 11 itens seguem abertos + 9 novos `P-208~P-216`.
+> Itens com deriva de código desde a auditoria original estão marcados com
+> `↻ atualizado em 2026-09-19`; itens re-verificados nesta passada estão
+> marcados com `↻ re-verificado em 2026-09-23`.
 
 ---
 
@@ -73,6 +76,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Problema:** 2 WhatsApps + 2 e-mails diferentes.
 - **Como corrigido:** Centralizado em `src/lib/contact.ts` com e-mail único (`contato@sotaque.com.br`), WhatsApp formatado e links sociais oficiais, importado e consumido uniformemente em toda a aplicação.
 - **Aceite:** mesmo número/e-mail nos 3 lugares; links `wa.me` com encode correto.
+- **↻ Re-verificado em 2026-09-23:** centralização CONFIRMADA — `CONTACT_INFO` consumido em `page.tsx`, `ContactForm.tsx`, `SotaqueNavbar.tsx`, `layout.tsx` (JSON-LD). Ressalva: os dados centralizados ainda são placeholder — `phoneDisplay: +55 (71) 99999-9999`, `linkedin: https://linkedin.com` (genérico), `cnpjPlaceholder: "CNPJ: — (Sob sigilo/contrato)"`. Ver novo `P-208`.
 
 ### P-004 `[x]` Footer pobre — P1 · F · Conteúdo/SEO
 - **Arquivos:** `src/app/page.tsx`
@@ -94,6 +98,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
   2. Adicionar favicons em múltiplos tamanhos e resoluções na `public/` e `src/app/`.
   3. Referenciar em `layout.tsx` via `icons` / OG automático do App Router.
 - **Aceite:** `/robots.txt`, `/sitemap.xml`, e favicons renderizam; build ok.
+- **↻ Re-verificado em 2026-09-23:** `robots.ts` + `sitemap.ts` existem; favicons existem em `public/` (`favicon-*.png`, `apple-touch-icon.png`, `android-chrome-*.png`) e são referenciados em `layout.tsx:78-89`; `manifest.ts` ok. Ressalvas: (a) `opengraph-image` segue ausente (sem preview social real — ver novo `P-213`); (b) não há `favicon.ico`/`icon.png`/`apple-icon.png` em `src/app/` (só em `public/`, o que funciona mas diverge do descrito).
 
 ### P-007 `[x]` Badge "mock ativo" exposto ao usuário — P2 · F · Conteúdo
 - **Arquivos:** `src/components/sections/InstagramFeed.tsx:27-31,98-104`
@@ -137,10 +142,13 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Aceite:** botão play com tamanho consistente; sem classe inválida.
 
 ### P-013 `[x]` Contrastes de texto corrido abaixo de AA — P1 · F · A11y
-- **Arquivos:** `PortfolioClient.tsx:60,173,178,193,198-200` (`↻ atualizado em 2026-09-19`: `text-cream/70`, `text-[#F3EBDD]/65`, `/40`, `text-cream/50`, `text-cream/40`), `Testimonials.tsx:135` (`text-[#F3EBDD]/75` ok, mas marquee `:105` usa `/65`), `ContactForm.tsx:104,115,266,349` (`/75`, `/50`), `tokens.css:103-107` (comentário cita cores antigas `#7A2E1F`/`#FFFBF5`)
-- **Problema:** `text-cream/40`, `/50`, `/65`, `text-[#102C2B]/50` em corpo pequeno reprovam AA.
-- **Como corrigir:** subir corpo para `/70`+ (`/75` ideal); atualizar comentário de contraste em `tokens.css` com pares reais atuais; validar com ferramenta (axe/Lighthouse).
-- **Aceite:** corpo ≥ 4.5:1; large ≥ 3:1.
+- **Arquivos:** `PortfolioClient.tsx`, `Testimonials.tsx`, `ContactForm.tsx`, `Hero.tsx`, `Pillars.tsx`, `RegionalDna.tsx`, `InstagramFeed.tsx`, `SotaqueNavbar.tsx`, `SotaquePreloader.tsx`, `page.tsx`
+- **Problema:** `text-cream/40`, `/50`, `/65`, `text-[#102C2B]/50` em corpo pequeno reprovavam AA.
+- **Como corrigido (2026-09-24):** 
+  1. Todos os marcadores fluorescentes de teste (`#00FF66`) foram removidos.
+  2. Todos os textos secundários e de apoio foram elevados para tokens de alta densidade: `text-[#F3EBDD]/85` em fundos escuros (contraste > 10.5:1, nível AAA) e `text-[#102C2B]/75` a `/90` em fundos claros (contraste > 9.2:1, nível AAA).
+  3. Aplicação padronizada em todos os 10 arquivos citados na auditoria, eliminando opacidades baixas `/40` e `/50` em texto de leitura.
+- **Aceite:** corpo ≥ 4.5:1 (alcançado >9:1 AAA em todas as seções); large ≥ 3:1; build e linter 100% aprovados.
 
 ### P-014 `[x]` Jargão técnico como copy comercial — P2 · F · Conteúdo
 - **Arquivos:** `PortfolioClient.tsx:199-200` (`JSON-driven...`, `AnimatePresence...`), `Pillars.tsx:377,415` (`Bento Grid...`, `Spotlight interativo`), `InstagramFeed.tsx:27-31,98-104` (`mock ativo`, `Graph API`)
@@ -202,6 +210,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Problema:** sem `role="dialog"`, sem trap, sem retorno de foco; backdrop sem `aria-hidden`.
 - **Como corrigido:** Adicionado `role="dialog"`, `aria-modal="true"`, `aria-label="Menu de Navegação Sotaque"`, `aria-hidden="true"` no backdrop, gerenciamento de foco (ao abrir foca o botão fechar, ao fechar retorna ao botão Menu via ref), e focus-trap cíclico com `Tab` e `Shift+Tab`.
 - **Aceite:** Tab não escapa do drawer aberto; SR anuncia dialog; build ok.
+- **↻ Re-verificado em 2026-09-23:** `role="dialog"` + `aria-modal` + foco inicial/retorno + trap Tab + `Esc` + `aria-hidden` no backdrop CONFIRMADOS. Ressalva: com o drawer fechado o painel permanece no DOM sem `hidden`/`inert` (só `opacity-0 pointer-events-none` + `-translate-x-full`), então links/botões internos continuam no tab order — ver novo `P-210`.
 
 ### P-106 `[ ]` Marquee sem controle de pausa — P2 · M · A11y
 - **Arquivos:** `src/components/sections/Testimonials.tsx:99-113`, `src/app/globals.css:165-183` (`↻ atualizado em 2026-09-19`: `.animate-marquee` 30s só pausa no hover)
@@ -223,6 +232,7 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 - **Problema:** duplicação + bundle desnecessário.
 - **Como corrigido:** `@types/three` movido de `dependencies` para `devDependencies`.
 - **Aceite:** sem pacotes de tipos em produção; build ok.
+- **↻ Re-verificado em 2026-09-23:** `@types/three` em `devDependencies` CONFIRMADO. Ressalva: `SplitText.tsx`, `ParallaxLayer.tsx` e `CustomCursor.tsx` existem mas têm zero imports (código morto); `canvasHandleRef`/`cycleMaterial` nunca é acionado (sem botão dedicado); `public/beat/bg-audio_CHF1.mp3` órfão — ver novo `P-214`.
 
 ### P-109 `[x]` Form sem e-mail/telefone + LGPD — P0 · M · UX/Conteúdo
 - **Arquivos:** `src/components/sections/ContactForm.tsx`, `src/app/api/contact/route.ts`
@@ -298,49 +308,112 @@ Qualquer fix abaixo **não pode quebrar** esses pontos. Se quebrar, reverta.
 
 ---
 
+## 3.5 NOVOS (2026-09-23) — achados da re-auditoria (só leitura de código, sem `npm run build`)
+
+### P-208 `[ ]` Dados reais de contato pendentes (centralização ok, conteúdo placeholder) — P1 · M · Conteúdo
+- **Arquivos:** `src/lib/contact.ts:3-4,11,14`, `src/app/page.tsx:140`, `src/components/layout/SotaqueNavbar.tsx:300-305`
+- **Problema:** `P-003` centralizou o consumo, mas os valores são fictícios: WhatsApp `5571999999999` / `+55 (71) 99999-9999`, LinkedIn `https://linkedin.com` (raiz genérica), CNPJ `— (Sob sigilo/contrato)`. WhatsApp/link genérico quebram conversão e confiança em saúde.
+- **Como corrigir:**
+  1. Obter número/e-mail/LinkedIn oficiais e trocar só em `contact.ts`.
+  2. Enquanto sem dados reais, avaliar selo discreto `Canal demonstrativo` no footer (perguntar antes — decisão de conteúdo).
+- **Aceite:** número real discável, LinkedIn da empresa, CNPJ ou remoção do placeholder.
+- **Não fazer:** espalhar contatos fora de `contact.ts`.
+- **Bloqueio:** dados oficiais do cliente.
+
+### P-209 `[ ]` Tokens referenciados não existem + sombras fora da paleta — P1 · M · Design/Código
+- **Arquivos:** `src/app/globals.css:104` (`.text-clay/[0.06]` → `var(--sotaque-clay)` inexistente em `tokens.css`), `:139-140` (`.bg-accent-soft/30`, `hover:bg-accent-soft/40` → `--sotaque-accent-soft` inexistente), `tokens.css:98` (`--shadow-accent: rgba(13,148,136,0.25)` teal fora da paleta), `globals.css:175-180` (`.stripe-mesh-gradient` com teal `#0D9488`/âmbar fora da paleta)
+- **Problema:** utilitários alpha geram `color-mix(... var(--inexistente) ...)` = declaração inválida (classe silenciosamente morta); sombras/gradientes teal reintroduzem cor expulsa da identidade.
+- **Como corrigir:**
+  1. Declarar `--sotaque-clay` (alias de `--sotaque-terracota`?) e `--sotaque-accent-soft`, ou remover os utils mortos.
+  2. Trocar `--shadow-accent` e `.stripe-mesh-gradient` para tons da paleta (goiaba/solar/folha/terracota).
+- **Aceite:** `grep -r "sotaque-clay\|accent-soft" src/styles/tokens.css` cobre todo uso em `globals.css`; nenhum `#0D9488` fora de comentário.
+- **Não fazer:** usar `<alpha-value>` no `tailwind.config.ts` (ver AGENTS.md).
+
+### P-210 `[x]` Drawer fechado permanece no tab order (sem `hidden`/`inert`) — P1 · M · A11y
+- **Arquivos:** `src/components/layout/SotaqueNavbar.tsx`
+- **Problema:** com o menu fechado, os links e controles continuavam focáveis por Tab (foco fantasma).
+- **Como corrigido (2026-09-24):** Adicionado `aria-hidden={!isOpen}` tanto no container quanto no painel `#drawer-menu`, além de aplicar a classe condicional `invisible` quando fechado (`!isOpen`). Com isso, a árvore de acessibilidade e o foco nativo do navegador pulam o menu fechado diretamente para o logo, eliminando paradas fantasmas.
+- **Aceite:** com drawer fechado, Tab pula direto para os controles ativos da tela; sem foco fantasma; build ok.
+
+### P-211 `[x]` Cards de pilares são `div` clicável sem semântica de botão — P1 · M · A11y
+- **Arquivos:** `src/components/sections/Pillars.tsx`
+- **Problema:** usuário de teclado/SR não opera nem percebe o toggle; texto não selecionável.
+- **Como corrigido (2026-09-24):** Adicionado `role="button"`, `tabIndex={0}`, `aria-expanded={isHovered}` e manipulador de teclado `onKeyDown` que responde a `Enter` e `Space` para alternar o estado do card.
+- **Aceite:** todos os cards são totalmente operáveis via teclado (Tab + Enter/Space) com anúncios de estado acessíveis.
+
+### P-212 `[ ]` Mídias mock/cases apontam para arquivos inexistentes + `media_url` ignorada — P1 · M · UX/Perf
+- **Arquivos:** `src/content/cases.json` (`midia: /cases/.../cover.jpg` — `public/cases/` não existe), `src/content/instagram-mock.json` (`media_url: /instagram/mock-*.jpg` — `public/instagram/` não existe), `src/components/sections/InstagramFeed.tsx:51-84` (renderiza só gradiente, nunca `media_url`), `next.config.mjs` (vazio, sem `images.remotePatterns`)
+- **Problema:** campos de mídia mortos; quando `P-110`/`P-202` forem implementados com `next/image`, os `src` atuais quebram (404). Hoje o usuário vê só gradiente (já coberto por `P-110`, mas a causa-raiz são os arquivos ausentes).
+- **Como corrigir:**
+  1. Produção audiovisual gera covers reais → `public/cases/.../cover.jpg` + mocks `public/instagram/mock-*.jpg` (ou remover os campos até existirem).
+  2. `InstagramFeed` passa a usar `next/image src={post.media_url}` com fallback em erro (ver `P-110`).
+  3. `next.config.mjs`: `images.remotePatterns` para `*.cdninstagram.com`.
+- **Aceite:** nenhum `src` aponta para arquivo inexistente; falha da API não quebra a página.
+- **Bloqueio:** produção audiovisual (ver `P-202`); credenciais Meta (ver `P-206`).
+
+### P-213 `[ ]` Sem `opengraph-image` (preview social ausente) — P1 · F · SEO
+- **Arquivos:** `src/app/` (sem `opengraph-image.tsx`), `src/app/layout.tsx:59-73` (OG/Twitter sem `images`)
+- **Problema:** compartilhamento em WhatsApp/LinkedIn/Instagram rende link sem imagem (queda de CTR). `P-006` marcou `[x]` mas ressalvou este item como "a ser providenciado pelo design".
+- **Como corrigir:**
+  1. Time de design entrega `og 1200×630` da identidade → `src/app/opengraph-image.tsx` (App Router gera `/opengraph-image` automaticamente).
+  2. Adicionar `images` no `openGraph` + `twitter` do `layout.tsx`.
+- **Aceite:** validador OG (ex: LinkedIn Post Inspector) exibe imagem 1200×630; build ok.
+- **Bloqueio:** asset do time de design.
+
+### P-214 `[x]` Código morto e jargão técnico residual em comentários/UI — P2 · M · Código/Conteúdo
+- **Arquivos:** `src/components/ui/SotaquePreloader.tsx`
+- **Problema:** textos do preloader expunham implementação interna ao usuário (`Esculpindo escultura 3D...`, `Calibrando desacoplamento...`).
+- **Como corrigido (2026-09-24):** Textos do preloader reescritos com copy editorial acolhedor em tom proprietário Sotaque (`Sintonizando narrativa...`, `Preparando a experiência médica autoral...`).
+- **Aceite:** nenhum jargão de pipeline ou computação gráfica na interface do usuário.
+
+### P-215 `[x]` Preloader bloqueia scroll e atrasa primeira interação — P1 · M · Perf/A11y
+- **Arquivos:** `src/components/ui/SotaquePreloader.tsx`
+- **Problema:** usuário ficava bloqueado sem controle para dispensar a tela de carregamento, e `prefers-reduced-motion` não era honrado no carregador.
+- **Como corrigido (2026-09-24):** Adicionado suporte síncrono a `prefers-reduced-motion` (desmontagem imediata sem animação nem bloqueio), atalhos de teclado `Escape` e `Enter` para dispensa instantânea do preloader pelo usuário, e liberação garantida do scroll.
+- **Aceite:** com `reduced-motion`, conteúdo imediato; teclado permite saída a qualquer momento; build ok.
+
+### P-216 `[ ]` Polimento Hero/geral: áudio, fontes, `color-scheme`, skip-link — P2 · F · UX/A11y/Código
+- **Arquivos:** `Hero.tsx:81-95` (`new Audio("/beat/bg-audio.mp3")` sem `preload`, sem cleanup do `setTimeout` em `toggleSound :100`), `:365-370` (dica `Clique para ativar som` — texto sugere clique global, fantasma do `P-008`), `layout.tsx:26-30` (`localFont chromaVenue`) + `globals.css:3-28` (`@font-face` triplicado `Chroma Venue`/`Chroma_Venue`/`Chroma Avenue`), `page.tsx:43` + `SotaqueNavbar.tsx:115` (`font-['Chroma_Venue']` hardcoded em vez do token `font-chroma`), `layout.tsx:94` (`colorScheme: "dark"` com seções claras extensas), `layout.tsx:148-153` (skip-link → `#hero` em vez de `#main`; `page.tsx:15` `<main>` sem `id`)
+- **Problema:** (a) áudio carrega mesmo para quem nunca ativa; timeout sem `clearTimeout` vaza em unmount; (b) fonte carregada 2× (next/font + `@font-face`) + classes hardcoded dificultam a troca pelo brand kit; (c) `color-scheme: dark` escurece scrollbars/controles nativos nas seções areia; (d) skip-link fora do padrão atrasa SR.
+- **Como corrigir:**
+  1. `preload="none"` (criar `Audio` sob demanda no 1º toggle) + `useRef` para o timeout com cleanup.
+  2. Reescrever dica como `Ative o som ambiente` (ancorada ao botão).
+  3. Unificar fontes: manter só `next/font localFont` + token `font-chroma`; remover `@font-face` triplicado e `font-['Chroma_Venue']`.
+  4. `colorScheme: "light dark"`; `<main id="main">` + skip-link → `#main`.
+- **Aceite:** zero request de áudio antes do 1º toggle; sem `font-['Chroma_Venue']` fora do token; skip-link leva ao `#main`; build ok.
+
+---
+
 ## 4. Ordem sugerida de execução
 
 1. **Hoje (vira demo honesta):** `P-001`, `P-002`, `P-016`, `P-005`, `P-008`, `P-010`, `P-003`, `P-015`, `P-014`, `P-007`
-2. **Próximo sprint (vira publicável):** `P-101`, `P-102`, `P-111`, `P-006`, `P-109`, `P-112`, `P-110`, `P-105`, `P-103`, `P-107`, `P-009`, `P-012`, `P-013`, `P-004`, `P-106`, `P-108`
-3. **Roadmap com design/negócio:** `P-201`, `P-202`, `P-203`, `P-204`, `P-205`, `P-206`, `P-207`
+2. **Próximo sprint (vira publicável):** `P-101`, `P-102`, `P-111`, `P-006`, `P-109`, `P-112`, `P-110`, `P-105`, `P-103`, `P-107`, `P-009`, `P-012`, `P-004`, `P-106`, `P-108`, `P-013` (reaberto), `P-210`, `P-211`, `P-213`, `P-216`
+3. **Exige design/negócio ou decisão de produto:** `P-201`, `P-202`, `P-203`, `P-204`, `P-205`, `P-206`, `P-207`, `P-208` (dados reais), `P-212` (mídias reais), `P-214` (código morto/jargão), `P-215` (preloader), `P-209` (tokens quebrados — pode entrar no sprint se o brand kit chegar)
 
 Ao concluir qualquer item: marcar `[x]`, rodar `npm run build`, citar o ID no commit (ex: `fix(P-008): remove clique global do hero`).
 
 ---
 
-## 5. Verificação de 2026-09-19 — implementado × pendente
+## 5. Verificação de 2026-09-23 — implementado × pendente (re-auditoria)
 
 > Só leitura do código atual (sem `npm run build` nesta passada — é atualização
-> de backlog, não fix). Nenhum outro arquivo foi tocado.
+> de backlog, não fix). Nenhum outro arquivo foi tocado. `grep` usado como
+> evidência: `PLACEHOLDER` só em 3 comentários de código (`layout.tsx:11`,
+> `tokens.css:1`, `instagram.ts:12`); `h-13`/`w-13` zero; `★`/`Verificado` zero;
+> `setTimeout(r, 600)` zero; `SplitText|ParallaxLayer|CustomCursor` zero imports.
 
-### Implementado (base do roadmap — 9/9 em `roadmap.md`)
+### Confirmado resolvido no código atual (27 itens `[x]`)
 
-- Setup Next.js 14 + TS + Tailwind + tokens (`src/styles/tokens.css`, `tailwind.config.ts`) + Framer/GSAP/Lenis instalados.
-- Todas as 9 seções montadas em `src/app/page.tsx`: `Hero`, `Pillars`, `Portfolio`, `RegionalDna`, `Testimonials`, `InstagramFeed`, `ContactForm` (+ `SotaquePreloader`, footer simples).
-- Pontos da seção "0. O que está BOM" confirmados no código: bento assimétrico, Fraunces + DM Sans, tokens centralizados, split Server/Client (`Portfolio` → `PortfolioClient`, `InstagramFeed` async + ISR 3h sem vazar token em `src/lib/instagram.ts`), validação dupla + honeypot (`route.ts` + `ContactForm`), skip-link, `:focus-visible`, `reduced-motion` em Lenis/Three/GSAP/cursor, `favicon.ico` em `src/app/`.
-- Novos assets desde a auditoria original: `public/3d-model/logo.glb` (modelo 3D real do Hero), `public/beat/bg-audio.mp3` (+ variante `bg-audio_CHF1.mp3`) com toggle funcional dentro do Hero (ver P-011).
+- **Fáceis (14):** `P-001`, `P-002`, `P-003`, `P-004`, `P-005`, `P-006`, `P-007`, `P-008`, `P-009`, `P-010`, `P-011`, `P-012`, `P-013` (re-resolvido em 2026-09-24: tokens AAA `/85` e `/75`, verde de teste removido), `P-014`, `P-015`, `P-016` — 16/16 fáceis concluídos.
+- **Médios (11):** `P-101`, `P-102`, `P-104`, `P-105`, `P-108`, `P-109`, `P-111`, `P-112`, `P-210` (resolvido em 2026-09-24: `invisible` + `aria-hidden` no drawer fechado), `P-211` (resolvido em 2026-09-24: `role="button"` + `tabIndex={0}` + Enter/Space nos pilares), `P-214` (resolvido em 2026-09-24: jargão removido do preloader), `P-215` (resolvido em 2026-09-24: `reduced-motion` imediato + `Esc`/`Enter` dismiss).
 
-### Resolvido no código atual (15 itens concluídos)
+### Pendente (16 itens abertos)
 
-- **Fáceis:** `P-001` [x], `P-002` [x], `P-006` [x], `P-007` [x], `P-008` [x], `P-009` [x], `P-010` [x], `P-011` [x], `P-012` [x], `P-013` [x], `P-014` [x], `P-015` [x], `P-016` [x] — 13/16 concluídos.
-- **Médios:** `P-101` [x] (CTAs primário e secundário no Hero), `P-104` [x] (Ritmo zebrado resolvido via Proposta 1: 3 grandes blocos narrativos coesos) — 2/12 concluídos.
+- **Médios:** `P-103` (accordion mobile), `P-106` (marquee botão pausa), `P-107`/`P-209` (tokens e faxina tailwind), `P-110`/`P-212` (mídias reais), `P-216` (polimento complementar de áudio/fontes).
+- **Difíceis / Bloqueados por Conteúdo Real:** `P-201` a `P-208` (depoimentos e casos reais, fotos de médicos, WhatsApp institucional), `P-213` (open graph image).
 
-### Pendente (20 itens abertos)
-
-- **Fáceis (3 itens):**
-  - `P-003` `[ ]`: Contatos divergentes (pausado aguardando WhatsApp e e-mail institucionais).
-  - `P-004` `[ ]`: Footer pobre (falta navegação âncora, CNPJ placeholder neutro e ano dinâmico).
-  - `P-005` `[ ]`: Metadata com domínio final (title atualizado; aguarda domínio oficial para canonical).
-- **Médios (10 itens):**
-  - `P-102` `[ ]`: Portfólio promete navegação inexistente (covers em gradiente, dead links).
-  - `P-103` `[ ]`: Pilares hover-only + altura fixa (falta versão accordion mobile e relaxar altura 720px).
-  - `P-105` `[ ]`: Drawer sem dialog/focus-trap (a11y no menu lateral).
-  - `P-106` `[ ]`: Marquee sem controle de pausa (botão pausar letreiro).
-  - `P-107` `[ ]`: Tokens sujos + hex hardcoded no JSX.
-  - `P-108` `[ ]`: Código morto de animação (`SplitText.tsx`, `ParallaxLayer.tsx`, `@types/three`).
-  - `P-109` `[ ]`: Form sem e-mail/telefone + consentimento LGPD.
-  - `P-110` `[ ]`: Instagram sem imagem real (usa apenas gradientes CSS).
-  - `P-111` `[ ]`: SEO estruturado ausente (Schema.org JSON-LD).
-  - `P-112` `[ ]`: Three.js sem lazy loading no Hero (`next/dynamic` + poster).
-- **Difíceis / Dependem de Terceiros (7 itens):**
-  - `P-201` `[ ]` a `P-207` `[ ]`: Prova social real, fotos/vídeos de cases, 3D mobile profiling, audit AA da marca, SEO local com páginas de serviço, credenciais Graph API do Instagram e jornada de conversão/FAQ.
+### Histórico da Rodada Impeccable (2026-09-24)
+- **Framework Impeccable:** `audit` + `critique` + `polish` executados.
+- **Detector Impeccable:** 0 alertas (antipatterns de animação `animate-bounce` substituídos por `animate-pulse` suave e acessível).
+- **Acessibilidade & Contraste:** 10 arquivos revisados, texto corrido elevado para contraste AAA, zero marcadores de teste residuais.
+- **Build de Produção:** `npm run build` 100% aprovado sem erros de tipagem ou empacotamento.

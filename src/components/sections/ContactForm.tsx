@@ -152,7 +152,7 @@ export default function ContactForm() {
             >
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-[#F3EBDD]">Diagnóstico inicial</p>
-                <span className="text-xs text-[#F3EBDD]/50 font-mono">4 campos • 1 min</span>
+                <span className="text-xs text-[#F3EBDD]/75 font-mono">4 campos • 1 min</span>
               </div>
 
               {/* Nome */}

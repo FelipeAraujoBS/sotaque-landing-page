@@ -42,7 +42,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
               <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#E7A92B]">
                 Portfólio Vivo • Sotaque Estúdio
               </span>
-              <span className="hidden sm:inline text-xs font-mono text-[#F3EBDD]/50">
+              <span className="hidden sm:inline text-xs font-mono text-[#F3EBDD]/85">
                 • Estudos Conceituais & Metodologia 360
               </span>
             </div>
@@ -91,7 +91,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
               </button>
             );
           })}
-          <span className="ml-3 text-xs font-mono text-[#F3EBDD]/50 hidden md:inline">
+          <span className="ml-3 text-xs font-mono text-[#F3EBDD]/80 hidden md:inline">
             {filtered.length} projeto{filtered.length !== 1 ? "s" : ""} exibido{filtered.length !== 1 ? "s" : ""}
           </span>
         </div>

@@ -13,13 +13,19 @@ export default function SotaquePreloader() {
 
   // Mensagens editoriais dinâmicas durante o carregamento
   const getStatusText = (val: number) => {
-    if (val < 25) return "Carregando identidade editorial & tipografia SOTAQUE...";
-    if (val < 60) return "Esculpindo escultura 3D & texturas cerâmicas...";
-    if (val < 88) return "Calibrando desacoplamento tridimensional & luzes...";
+    if (val < 25) return "Carregando identidade editorial & tipografia...";
+    if (val < 60) return "Preparando ambiente visual & direção de arte...";
+    if (val < 88) return "Harmonizando narrativas & ritmo do estúdio...";
     return "Sotaque pronto para navegação.";
   };
 
   useEffect(() => {
+    // Fast-path para usuários com prefers-reduced-motion (A11y / P-215)
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsMounted(false);
+      return;
+    }
+
     startTimeRef.current = performance.now();
 
     // 1. Bloqueio estrito de rolagem
@@ -28,6 +34,11 @@ export default function SotaquePreloader() {
     };
 
     const preventScrollKeys = (e: KeyboardEvent) => {
+      if (e.key === "Escape" || e.key === "Enter") {
+        setIsMounted(false);
+        unlockScroll();
+        return;
+      }
       const keys = ["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "];
       if (keys.includes(e.key)) {
         e.preventDefault();
@@ -144,7 +155,7 @@ export default function SotaquePreloader() {
           <span className="font-display font-extrabold tracking-tight text-xl sm:text-2xl text-[#F3EBDD]">
             SOTAQUE<span className="text-[#D63A2F]">.</span>
           </span>
-          <span className="hidden sm:inline text-xs font-mono tracking-widest text-[#F3EBDD]/40 uppercase">
+          <span className="hidden sm:inline text-xs font-mono tracking-widest text-[#F3EBDD]/75 uppercase">
             | Estúdio 360 Saúde
           </span>
         </div>
@@ -159,7 +170,7 @@ export default function SotaquePreloader() {
       {/* Centro: Grande Contador Numérico Editorial e Status */}
       <div className="max-w-5xl mx-auto w-full my-auto py-8 flex flex-col items-start justify-center">
         {/* Subtítulo da fase */}
-        <div className="flex items-center gap-2 text-xs font-mono text-[#F3EBDD]/60 uppercase tracking-wider mb-2">
+        <div className="flex items-center gap-2 text-xs font-mono text-[#F3EBDD]/75 uppercase tracking-wider mb-2">
           <span className="text-[#D63A2F]">✦</span>
           <span>Iniciando Universo Visual</span>
         </div>
@@ -185,18 +196,18 @@ export default function SotaquePreloader() {
         {/* Linha explicativa do que está carregando */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-2 text-xs font-mono text-[#F3EBDD]/70 pt-1">
           <span className="text-balance">{getStatusText(roundedPercent)}</span>
-          <span className="text-[#F3EBDD]/40 shrink-0">
+          <span className="text-[#F3EBDD]/70 shrink-0">
             {100 - roundedPercent}% RESTANTE
           </span>
         </div>
       </div>
 
-      {/* Rodapé: Aviso de rolagem bloqueada & Direitos */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 text-xs font-mono text-[#F3EBDD]/40 border-t border-[#F3EBDD]/15 pt-4 sm:pt-6">
+      {/* Rodapé: Aviso & Direitos */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-3 text-xs font-mono text-[#F3EBDD]/70 border-t border-[#F3EBDD]/15 pt-4 sm:pt-6">
         <div className="flex items-center gap-2">
           <span className="w-1.5 h-1.5 rounded-full bg-[#D63A2F]" />
-          <span className="text-[#F3EBDD]/70">
-            Rolagem travada durante a sincronização de ativos
+          <span className="text-[#F3EBDD]/80">
+            Carregando experiência editorial...
           </span>
         </div>
         <span>Salvador, BA — Rigor Ético & Calor Regional</span>

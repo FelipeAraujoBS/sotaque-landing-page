@@ -17,7 +17,7 @@ export default async function InstagramFeed() {
             <div className="flex items-center gap-3 mb-3">
               <span className="h-px w-8 bg-[#58734A]" aria-hidden />
               <span className="text-xs tracking-[0.16em] uppercase font-semibold text-[#58734A]">Instagram</span>
-              <span className="hidden sm:inline text-xs font-mono text-[#102C2B]/50">• ponte com o feed vivo</span>
+              <span className="hidden sm:inline text-xs font-mono text-[#102C2B]/75 font-medium">• ponte com o feed vivo</span>
             </div>
             <h2 className="font-display font-bold tracking-tight text-[clamp(1.7rem,3.5vw,2.4rem)] text-[#102C2B] leading-none">
               O estúdio no dia a dia
@@ -66,7 +66,7 @@ export default async function InstagramFeed() {
                     <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white border border-[#102C2B]/15 shadow-sm text-sm text-[#102C2B]">
                       {post.media_type === "VIDEO" ? "▶" : post.media_type === "CAROUSEL_ALBUM" ? "▦" : "◈"}
                     </span>
-                    <p className="mt-3 hidden lg:block font-mono text-[11px] leading-tight text-[#102C2B]/50 max-w-[18ch] mx-auto">
+                    <p className="mt-3 hidden lg:block font-mono text-[11px] leading-tight text-[#102C2B]/70 font-medium max-w-[18ch] mx-auto">
                       {post.timestamp.slice(0, 10)}
                     </p>
                   </div>

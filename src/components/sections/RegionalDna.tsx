@@ -114,7 +114,7 @@ export default function RegionalDna() {
             <div className="flex items-center gap-3 mb-6">
               <span className="h-px w-8 bg-[#D63A2F]" aria-hidden />
               <span className="text-xs tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">Por que Sotaque</span>
-              <span className="hidden sm:inline text-xs font-mono text-[#102C2B]/50">• DNA regional & Escuta</span>
+              <span className="hidden sm:inline text-xs font-mono text-[#102C2B]/75 font-medium">• DNA regional & Escuta</span>
             </div>
 
             <h2 className="dna-reveal font-display font-bold leading-[0.92] tracking-[-0.03em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#102C2B]">
@@ -173,11 +173,11 @@ export default function RegionalDna() {
                     </p>
                   </div>
                 </div>
-                <p className="text-xs text-[#102C2B]/45 mt-1">Passe o mouse ou clique para ver o significado.</p>
+                <p className="text-xs text-[#102C2B]/70 font-medium mt-1">Passe o mouse ou clique para ver o significado.</p>
               </div>
             </div>
 
-            <p className="dna-reveal mt-6 text-xs text-[#102C2B]/40 font-mono">
+            <p className="dna-reveal mt-6 text-xs text-[#102C2B]/70 font-mono">
               Manifesto autoral Sotaque — comunicação em saúde com profundidade e precisão.
             </p>
           </div>
@@ -190,7 +190,7 @@ export default function RegionalDna() {
               <div className="relative bg-white text-[#102C2B] rounded-[1.2rem] overflow-hidden shadow-xl border border-[#102C2B]/10">
                 <div className="h-1.5 w-full bg-[#D63A2F]" />
                 <div className="p-6">
-                  <p className="text-xs tracking-[0.14em] uppercase font-semibold text-[#102C2B]/50">Manifesto curto</p>
+                  <p className="text-xs tracking-[0.14em] uppercase font-semibold text-[#102C2B]/70">Manifesto curto</p>
                   <blockquote className="mt-3 font-display text-[18px] leading-snug tracking-tight text-[#102C2B] text-balance">
                     “A gente não quer ser a agência que fala <em className="font-light italic text-[#D63A2F]">sobre</em> saúde.
                     Quer ser a que fala <em className="text-[#102C2B] font-semibold">com</em> quem vive de saúde.”
@@ -201,13 +201,13 @@ export default function RegionalDna() {
                     </span>
                     <div className="text-xs leading-tight">
                       <p className="font-semibold text-[#102C2B]">Sotaque Estúdio 360</p>
-                      <p className="text-[#102C2B]/60">direção de criação & estratégia</p>
+                      <p className="text-[#102C2B]/75 font-medium">direção de criação & estratégia</p>
                     </div>
                   </div>
                 </div>
                 <div className="px-6 py-3 bg-[#F3EBDD]/60 border-t border-[#102C2B]/10 flex items-center justify-between text-xs">
                   <span className="text-[#102C2B]/70 font-medium">Manifesto Autoral</span>
-                  <span className="font-mono text-[#102C2B]/50">Salvador • Brasil</span>
+                  <span className="font-mono text-[#102C2B]/70 font-medium">Salvador • Brasil</span>
                 </div>
               </div>
 
@@ -221,15 +221,15 @@ export default function RegionalDna() {
             <div className="mt-8 grid grid-cols-3 gap-3 max-w-[420px] lg:ml-auto">
               <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
                 <p className="font-display font-bold text-[#102C2B] text-lg">360°</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Visão Integrada</p>
+                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/75 font-semibold mt-1">Visão Integrada</p>
               </div>
               <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
                 <p className="font-display font-bold text-[#58734A] text-lg">CFM</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Rigor Ético</p>
+                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/75 font-semibold mt-1">Rigor Ético</p>
               </div>
               <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
                 <p className="font-display font-bold text-[#D63A2F] text-lg">≠</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/60">Design Autoral</p>
+                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/75 font-semibold mt-1">Design Autoral</p>
               </div>
             </div>
           </div>
