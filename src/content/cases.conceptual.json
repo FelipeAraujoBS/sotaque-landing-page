@@ -1,0 +1,44 @@
+[
+  {
+    "slug": "clinica-aurora-rebrand",
+    "cliente": "Projeto conceitual — Clínica Aurora",
+    "categoria": "branding",
+    "resumo": "Projeto conceitual — Identidade visual e sinalização interna humanizada para clínica multidisciplinar.",
+    "midia": "/cases/aurora/cover.jpg"
+  },
+  {
+    "slug": "instituto-vital-conteudo",
+    "cliente": "Projeto conceitual — Instituto Vital",
+    "categoria": "conteudo",
+    "resumo": "Projeto conceitual — Linha editorial educativa para saúde preventiva com foco em clareza técnica e ética.",
+    "midia": "/cases/vital/cover.jpg"
+  },
+  {
+    "slug": "odonto-prime-midia",
+    "cliente": "Projeto conceitual — Odonto Prime",
+    "categoria": "midia",
+    "resumo": "Projeto conceitual — Estruturação de presença digital regional e campanhas éticas de conscientização.",
+    "midia": "/cases/odonto/cover.jpg"
+  },
+  {
+    "slug": "hospital-santa-clara-audiovisual",
+    "cliente": "Projeto conceitual — Hospital Santa Clara",
+    "categoria": "audiovisual",
+    "resumo": "Projeto conceitual — Produção audiovisual documental com foco em acolhimento clínico e iluminação natural.",
+    "midia": "/cases/santa-clara/cover.jpg"
+  },
+  {
+    "slug": "derma-essence-estrategia",
+    "cliente": "Projeto conceitual — Derma Essence",
+    "categoria": "branding",
+    "resumo": "Projeto conceitual — Posicionamento de marca 360 para lançamento de espaço dermatológico especializado.",
+    "midia": "/cases/derma/cover.jpg"
+  },
+  {
+    "slug": "cardio-vida-conteudo-midia",
+    "cliente": "Projeto conceitual — Cardio Vida",
+    "categoria": "conteudo",
+    "resumo": "Projeto conceitual — Conteúdo informativo sobre saúde cardiovascular estruturado para canais digitais.",
+    "midia": "/cases/cardio/cover.jpg"
+  }
+]

@@ -237,10 +237,10 @@ export default function Pillars() {
         }}
         className={`group relative rounded-[1.6rem] border overflow-hidden flex flex-col cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F] ${
           isHovered
-            ? "bg-white border-[#102C2B]/25 shadow-2xl z-20"
+            ? "bg-[#1D4645] border-[#F3EBDD]/25 shadow-2xl z-20"
             : isDimmed
-              ? "bg-white/90 border-[#102C2B]/10 shadow-sm opacity-85 hover:opacity-100"
-              : "bg-white border-[#102C2B]/12 shadow-md hover:shadow-lg"
+              ? "bg-[#163A39]/80 border-[#F3EBDD]/5 shadow-sm opacity-80 hover:opacity-100"
+              : "bg-[#163A39] border-[#F3EBDD]/10 shadow-md hover:shadow-lg"
         }`}
       >
         {/* Dynamic Webflow Spotlight Effect */}
@@ -272,14 +272,14 @@ export default function Pillars() {
               <div
                 className={`h-8 w-8 sm:h-9 sm:w-9 rounded-xl border grid place-items-center font-mono font-bold text-xs shrink-0 transition-colors duration-300 ${
                   isHovered
-                    ? "border-[#102C2B] bg-[#102C2B] text-[#F3EBDD]"
-                    : "border-[#102C2B]/15 bg-[#F3EBDD]/60 text-[#102C2B]"
+                    ? "border-[#D63A2F] bg-[#D63A2F] text-[#F3EBDD]"
+                    : "border-[#F3EBDD]/15 bg-[#102C2B]/60 text-[#F3EBDD]"
                 }`}
               >
                 {p.number}
               </div>
               <span
-                className={`text-[11px] font-mono tracking-widest uppercase text-[#102C2B]/75 font-semibold transition-opacity duration-300 ${
+                className={`text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD]/75 font-semibold transition-opacity duration-300 ${
                   isDimmed ? "hidden" : "hidden sm:inline"
                 }`}
               >
@@ -301,7 +301,7 @@ export default function Pillars() {
 
           {/* Título */}
           <h3
-            className={`font-display font-bold leading-tight tracking-tight text-[#102C2B] transition-all duration-300 min-w-0 ${
+            className={`font-display font-bold leading-tight tracking-tight text-[#F3EBDD] transition-all duration-300 min-w-0 ${
               isHovered
                 ? "text-xl sm:text-2xl lg:text-[1.7rem]"
                 : isDimmed
@@ -323,7 +323,7 @@ export default function Pillars() {
             }`}
           >
             <p
-              className={`font-body leading-relaxed text-[#102C2B]/80 ${
+              className={`font-body leading-relaxed text-[#F3EBDD]/80 ${
                 isHovered ? "text-sm sm:text-base" : "text-xs"
               }`}
             >
@@ -332,17 +332,17 @@ export default function Pillars() {
           </div>
 
           {/* Rodapé do Card — com label de métrica autoritária (sem link vazio) */}
-          <div className="mt-auto pt-3 border-t border-[#102C2B]/10 flex items-center justify-between gap-2 min-w-0">
+          <div className="mt-auto pt-3 border-t border-[#F3EBDD]/10 flex items-center justify-between gap-2 min-w-0">
             <span
               className={`text-xs font-mono font-semibold tracking-wide transition-colors duration-300 truncate min-w-0 ${
-                isHovered ? p.accentText : "text-[#102C2B]/75"
+                isHovered ? p.accentText : "text-[#F3EBDD]/75"
               }`}
             >
               {p.metricLabel}
             </span>
 
             <span
-              className={`text-[11px] font-mono text-[#102C2B]/70 font-semibold shrink-0 ${
+              className={`text-[11px] font-mono text-[#F3EBDD]/70 font-semibold shrink-0 ${
                 isDimmed ? "hidden sm:inline" : "inline"
               }`}
             >
@@ -353,8 +353,8 @@ export default function Pillars() {
 
         {/* Letra monumental sutil de fundo */}
         <span
-          className={`absolute -bottom-4 -right-2 font-display font-black text-[6.5rem] leading-none tracking-tighter text-[#102C2B]/[0.04] select-none pointer-events-none transition-all duration-300 ${
-            isHovered ? "text-[#102C2B]/[0.08] scale-110" : ""
+          className={`absolute -bottom-4 -right-2 font-display font-black text-[6.5rem] leading-none tracking-tighter text-[#F3EBDD]/[0.04] select-none pointer-events-none transition-all duration-300 ${
+            isHovered ? "text-[#F3EBDD]/[0.08] scale-110" : ""
           }`}
           aria-hidden
         >
@@ -368,16 +368,16 @@ export default function Pillars() {
     <section
       id="pilares"
       ref={containerRef}
-      className="relative bg-[#F3EBDD] text-[#102C2B] border-t border-[#102C2B]/10 overflow-hidden pt-20 lg:pt-28 pb-12 lg:pb-16"
+      className="relative bg-[#102C2B] text-[#F3EBDD] border-t border-[#F3EBDD]/10 overflow-hidden pt-20 lg:pt-28 pb-12 lg:pb-16"
       aria-label="O que fazemos — pilares 360"
     >
       {/* Luz ambiente difusa no fundo */}
       <div
-        className="absolute -top-40 right-10 w-96 h-96 rounded-full bg-[#58734A]/10 blur-[130px] pointer-events-none"
+        className="absolute -top-40 right-10 w-96 h-96 rounded-full bg-[#58734A]/15 blur-[130px] pointer-events-none"
         aria-hidden
       />
       <div
-        className="absolute -bottom-40 left-10 w-96 h-96 rounded-full bg-[#B85C42]/10 blur-[130px] pointer-events-none"
+        className="absolute -bottom-40 left-10 w-96 h-96 rounded-full bg-[#B85C42]/15 blur-[130px] pointer-events-none"
         aria-hidden
       />
 
@@ -389,26 +389,26 @@ export default function Pillars() {
               <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">
                 Pilares 360 Integrados
               </span>
-              <span className="text-xs font-mono tracking-wide text-[#102C2B]/75 font-medium hidden sm:inline">
+              <span className="text-xs font-mono tracking-wide text-[#F3EBDD]/75 font-medium hidden sm:inline">
                 • Precisão de Dados + Criatividade
               </span>
             </div>
 
-            <h2 className="font-display font-extrabold leading-[0.95] tracking-[-0.035em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#102C2B]">
+            <h2 className="font-display font-extrabold leading-[0.95] tracking-[-0.035em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#F3EBDD]">
               Comunicação em saúde <br />
               <span className="text-[#D63A2F]">sem fragmentação</span>.
             </h2>
           </div>
 
           <div className="col-span-12 lg:col-span-5 lg:text-right">
-            <p className="font-body text-[15px] leading-relaxed text-[#102C2B]/75 max-w-[44ch] lg:ml-auto text-balance">
+            <p className="font-body text-[15px] leading-relaxed text-[#F3EBDD]/80 max-w-[44ch] lg:ml-auto text-balance">
               Esqueça a dor de contratar múltiplos fornecedores que não dialogam. Na Sotaque, cada pilar opera em harmonia cirúrgica para valorizar sua autoridade médica.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Bento Grid com Proporções Dinâmicas em 2 Níveis (Modo Areia Editorial) */}
+      {/* Bento Grid com Proporções Dinâmicas em 2 Níveis (Modo Verde Petróleo) */}
       <div
         className="mx-auto max-w-content px-6 lg:px-8 flex flex-col gap-4 lg:gap-5 min-h-[720px] lg:h-[720px]"
         onMouseLeave={() => setHoveredId(null)}
@@ -444,7 +444,7 @@ export default function Pillars() {
         </div>
 
         {/* Rodapé da Seção */}
-        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#102C2B]/70 border-t border-[#102C2B]/10 pt-4 mt-2">
+        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#F3EBDD]/70 border-t border-[#F3EBDD]/10 pt-4 mt-2">
           <span>Metodologia integrada: cada disciplina nutre a autoridade da clínica.</span>
           <span className="hidden sm:inline">{/* Spotlight interativo • Bento Grid 2D */}Navegação integrada • Visão 360° em saúde</span>
         </div>

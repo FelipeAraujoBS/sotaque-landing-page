@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 320" width="100%" height="100%">
+  <!-- Símbolo Conectado (Laranja) -->
+  <g fill="none" stroke="#F58220" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Linhas de conexão -->
+    <line x1="168" y1="126" x2="162" y2="114" stroke-width="6"/>
+    <line x1="172" y1="145" x2="135" y2="185" stroke-width="8"/>
+    <line x1="188" y1="148" x2="202" y2="182" stroke-width="6"/>
+
+    <!-- Nós / Círculos do ícone -->
+    <!-- Nó superior esquerdo -->
+    <ellipse cx="158" cy="106" rx="9" ry="6" transform="rotate(-30 158 106)" stroke-width="5"/>
+    
+    <!-- Círculo central inclinado (substituindo a letra 'o') -->
+    <ellipse cx="180" cy="136" rx="20" ry="14" transform="rotate(-30 180 136)" stroke-width="6.5"/>
+    
+    <!-- Nó inferior direito -->
+    <ellipse cx="206" cy="190" rx="10" ry="6" transform="rotate(60 206 190)" stroke-width="5"/>
+    
+    <!-- Grande anel principal inferior -->
+    <circle cx="120" cy="202" r="28" stroke-width="11"/>
+  </g>
+
+  <!-- Tipografia Principal: "dem cracyLab" -->
+  <text x="18" y="145" 
+        font-family="system-ui, -apple-system, 'Montserrat', 'Century Gothic', sans-serif" 
+        font-weight="800" 
+        font-size="62" 
+        letter-spacing="-1.5px" 
+        fill="#1C1A1A">
+    dem<tspan dx="36">cracy</tspan><tspan font-weight="400">Lab</tspan>
+  </text>
+
+  <!-- Tagline: "Make tech Do good" -->
+  <text x="230" y="196" 
+        font-family="system-ui, -apple-system, 'Montserrat', 'Arial Black', sans-serif" 
+        font-weight="800" 
+        font-size="28" 
+        line-height="1.2" 
+        fill="#F58220">
+    <tspan x="230" dy="0">Make tech</tspan>
+    <tspan x="230" dy="32">Do good</tspan>
+  </text>
+</svg>

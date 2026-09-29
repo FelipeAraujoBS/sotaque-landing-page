@@ -4,17 +4,6 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
 import testimonials from "@/content/testimonials.json";
 
-const logos = [
-  "Dermatologia Clínica & Estética",
-  "Ortopedia & Traumatologia",
-  "Odontologia & Reabilitação Oral",
-  "Centros Médicos Integrados",
-  "Cirurgia Plástica & Reconstrutiva",
-  "Cardiologia & Diagnóstico",
-  "Oftalmologia & Cirurgia Refrativa",
-  "Medicina Preventiva & Longevidade",
-];
-
 export default function Testimonials() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -93,25 +82,9 @@ export default function Testimonials() {
   return (
     <section
       id="depoimentos"
-      className="relative bg-[#102C2B] text-[#F3EBDD] py-16 lg:py-24 overflow-hidden"
+      className="relative bg-[#102C2B] text-[#F3EBDD] border-t border-[#F3EBDD]/15 py-16 lg:py-24 overflow-hidden"
       aria-label="Depoimentos — prova social em saúde"
     >
-      {/* 1. Marquee Infinito Sotaque (Logos e Clínicas Parceiras) */}
-      <div className="mb-20 overflow-hidden border-y border-[#F3EBDD]/10 bg-[#163A39] py-5">
-        <div className="flex items-center gap-8 whitespace-nowrap animate-marquee">
-          {[...logos, ...logos].map((logo, index) => (
-            <div
-              key={index}
-              className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-[#F3EBDD]/80 px-4"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E7A92B]" />
-              <span>{logo}</span>
-              <span className="text-[#F3EBDD]/30">/</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
       <div className="mx-auto max-w-content px-6 lg:px-8">
         {/* Header dos Depoimentos */}
         <div className="grid grid-cols-12 gap-6 items-end mb-10">
