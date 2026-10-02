@@ -260,10 +260,10 @@ export default function Pillars() {
               {p.number}
             </span>
             <span
-              className={`text-[11px] font-mono tracking-widest uppercase font-semibold truncate transition-colors duration-300 ${
+              className={`text-xs font-mono tracking-wider uppercase font-semibold truncate transition-colors duration-300 ${
                 isDimmed
-                  ? "hidden sm:inline text-[#0B1B47]/50"
-                  : "text-[#0B1B47]/70"
+                  ? "hidden sm:inline text-[#0B1B47]/70"
+                  : "text-[#0B1B47]/85"
               }`}
             >
               {p.discipline}
@@ -271,7 +271,7 @@ export default function Pillars() {
           </div>
 
           <span
-            className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full border font-bold shrink-0 transition-all duration-300 ${
+            className={`font-mono text-xs tracking-wider uppercase px-2.5 py-1 rounded-full border font-bold shrink-0 transition-all duration-300 ${
               p.badgeBg
             } ${isDimmed ? "hidden sm:inline-block scale-95" : ""}`}
           >
@@ -295,7 +295,7 @@ export default function Pillars() {
         {/* Lema em Itálico Nobre */}
         <p
           className={`relative z-10 font-serif italic text-xs text-[#6E1016] mt-2 mb-2 leading-relaxed transition-all duration-300 ${
-            isDimmed ? "line-clamp-1 opacity-70" : "opacity-100"
+            isDimmed ? "line-clamp-1 opacity-80" : "opacity-100"
           }`}
         >
           “{p.motto}”
@@ -307,17 +307,17 @@ export default function Pillars() {
             isHovered
               ? "opacity-100 max-h-48 py-2.5"
               : isDimmed
-                ? "opacity-60 max-h-16 py-1 overflow-hidden"
-                : "opacity-90 max-h-36 py-2"
+                ? "opacity-75 max-h-16 py-1 overflow-hidden"
+                : "opacity-95 max-h-36 py-2"
           }`}
         >
           {p.tags.map((tag) => (
             <span
               key={tag}
-              className={`text-[11px] font-mono tracking-tight px-2.5 py-1 rounded-full border transition-all duration-300 ${
+              className={`text-xs font-mono tracking-tight px-2.5 py-1 rounded-full border transition-all duration-300 ${
                 isHovered
                   ? "bg-[#0B1B47]/06 border-[#0B1B47]/15 text-[#0B1B47] font-semibold"
-                  : "bg-[#0B1B47]/03 border-[#0B1B47]/07 text-[#0B1B47]/70"
+                  : "bg-[#0B1B47]/04 border-[#0B1B47]/10 text-[#0B1B47]/85 font-medium"
               }`}
             >
               {tag}
@@ -329,7 +329,7 @@ export default function Pillars() {
         <div className="relative z-10 mt-auto pt-3 border-t border-[#0B1B47]/08 flex items-center justify-between gap-3 min-w-0">
           <span
             className={`text-xs font-mono font-medium transition-colors duration-300 truncate min-w-0 ${
-              isHovered ? "text-[#E27908] font-semibold" : "text-[#0B1B47]/70"
+              isHovered ? "text-[#E27908] font-semibold" : "text-[#0B1B47]/85"
             }`}
           >
             {p.metricLabel}
@@ -341,7 +341,7 @@ export default function Pillars() {
               e.stopPropagation();
               setActiveFolderModal(p);
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1B47]/06 hover:bg-[#E27908] hover:text-[#F4F1E5] text-[#0B1B47] text-[11px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 cursor-pointer shrink-0"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1B47]/06 hover:bg-[#E27908] hover:text-[#F4F1E5] text-[#0B1B47] text-xs font-mono tracking-wider uppercase font-semibold transition-all duration-200 cursor-pointer shrink-0"
             aria-label={`Ver pasta de referência para ${p.title}`}
           >
             <span>Pasta</span>
@@ -393,8 +393,7 @@ export default function Pillars() {
               </span>
             </div>
 
-            <h2 className="font-['Commune',serif] font-normal leading-[0.94] tracking-[-0.03em] text-[clamp(2.4rem,4.8vw,4rem)] text-[#0B1B47]">
-              <br />
+            <h2 className="font-['Commune',serif] font-normal leading-[1.04] tracking-[-0.03em] text-[clamp(2rem,3.8vw,3.2rem)] text-[#0B1B47]">
               <span className="italic text-[#6E1016]">
                 Comunicação que não passa batida.
               </span>{" "}
@@ -404,7 +403,7 @@ export default function Pillars() {
           </div>
 
           <div className="col-span-12 lg:col-span-5 lg:text-right">
-            <p className="font-body text-[15px] leading-relaxed text-[#0B1B47]/80 max-w-[44ch] lg:ml-auto">
+            <p className="font-body text-base leading-relaxed text-[#0B1B47]/85 max-w-[44ch] lg:ml-auto">
               Na Sotaque, cada pilar é pensado de forma integrada por um time
               que atua em um modelo 360. Pensamos em conjunto para que sua marca
               possa falar com uma só voz.

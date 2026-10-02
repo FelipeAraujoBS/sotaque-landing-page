@@ -133,7 +133,7 @@ export default function RegionalDna() {
               </span>
             </div>
 
-            <h2 className="dna-reveal font-['Commune',serif] font-bold leading-[0.94] tracking-[-0.02em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#0B1B47]">
+            <h2 className="dna-reveal font-['Commune',serif] font-bold leading-[1.04] tracking-[-0.02em] text-[clamp(2rem,3.8vw,3.2rem)] text-[#0B1B47]">
               Assim como pessoas,
               <br />
               <span className="font-light italic text-[#6E1016]">
@@ -237,17 +237,17 @@ export default function RegionalDna() {
                       <p className="font-bold text-[#0B1B47] tracking-wide">
                         Sotaque Estúdio 360
                       </p>
-                      <p className="text-[#0B1B47]/70 font-mono text-[11px] mt-0.5">
+                      <p className="text-[#0B1B47]/80 font-mono text-xs mt-0.5">
                         direção de criação & estratégia
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="px-7 py-3.5 bg-[#FAF8F2] border-t border-[#0B1B47]/10 flex items-center justify-between text-xs">
-                  <span className="text-[#0B1B47]/80 font-mono font-semibold tracking-wider uppercase text-[10px]">
+                  <span className="text-[#0B1B47] font-mono font-semibold tracking-wider uppercase text-xs">
                     Manifesto Autoral
                   </span>
-                  <span className="font-mono text-[#0B1B47]/60 text-[11px]">
+                  <span className="font-mono text-[#0B1B47]/80 text-xs">
                     Salvador • Brasil
                   </span>
                 </div>
@@ -260,7 +260,7 @@ export default function RegionalDna() {
                 <p className="font-['Commune',serif] font-bold text-[#0B1B47] text-xl">
                   360°
                 </p>
-                <p className="text-[10px] font-mono tracking-widest uppercase text-[#0B1B47]/70 font-semibold mt-1">
+                <p className="text-xs font-mono tracking-wider uppercase text-[#0B1B47]/85 font-semibold mt-1">
                   Visão Total
                 </p>
               </div>
@@ -268,7 +268,7 @@ export default function RegionalDna() {
                 <p className="font-['Commune',serif] font-bold text-[#6E1016] text-xl">
                   Raiz
                 </p>
-                <p className="text-[10px] font-mono tracking-widest uppercase text-[#0B1B47]/70 font-semibold mt-1">
+                <p className="text-xs font-mono tracking-wider uppercase text-[#0B1B47]/85 font-semibold mt-1">
                   Cultura Viva
                 </p>
               </div>
@@ -276,7 +276,7 @@ export default function RegionalDna() {
                 <p className="font-['Commune',serif] font-bold text-[#E27908] text-xl">
                   ≠
                 </p>
-                <p className="text-[10px] font-mono tracking-widest uppercase text-[#0B1B47]/70 font-semibold mt-1">
+                <p className="text-xs font-mono tracking-wider uppercase text-[#0B1B47]/85 font-semibold mt-1">
                   Design Autoral
                 </p>
               </div>

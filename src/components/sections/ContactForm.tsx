@@ -82,7 +82,7 @@ export default function ContactForm() {
   const whatsappHref = CONTACT_INFO.whatsappHref;
 
   const fieldBase =
-    "w-full rounded-xl border bg-[#0B1B47]/80 px-4 py-3 text-sm text-[#F4F1E5] placeholder:text-[#F4F1E5]/40 focus:outline-none focus:ring-2 focus:ring-[#E27908]/30 focus:border-[#E27908] focus:bg-[#0B1B47] transition-all";
+    "w-full rounded-xl border bg-[#0B1B47]/80 px-4 py-3 text-sm text-[#F4F1E5] placeholder:text-[#F4F1E5]/60 focus:outline-none focus:ring-2 focus:ring-[#E27908]/30 focus:border-[#E27908] focus:bg-[#0B1B47] transition-all";
   const getFieldClass = (field: string, value: string) => {
     const hasError = !!errors[field];
     const isValid = touched[field] && value.trim().length > 0 && !validateField(field, value) && !hasError;
@@ -115,12 +115,12 @@ export default function ContactForm() {
               <span className="h-px w-8 bg-[#E27908]" aria-hidden />
               <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#E27908]">Contato Direto</span>
             </div>
-            <h2 className="font-['Commune',serif] font-bold leading-[0.92] tracking-[-0.03em] text-[clamp(2rem,4vw,2.9rem)] text-[#F4F1E5]">
+            <h2 className="font-['Commune',serif] font-bold leading-[1.04] tracking-[-0.03em] text-[clamp(2rem,3.8vw,3.2rem)] text-[#F4F1E5]">
               Vamos dar <span className="text-[#E27908] italic font-light">sotaque</span>
               <br />
               ao seu próximo passo?
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-[#F4F1E5]/80 max-w-[42ch]">
+            <p className="mt-4 text-sm leading-relaxed text-[#F4F1E5]/85 max-w-[42ch]">
               Retorno direto por e-mail ou WhatsApp. Sem intermediários. Sigilo e resposta em até 1 dia útil.
             </p>
 
@@ -131,7 +131,7 @@ export default function ContactForm() {
                 </span>
                 Conversar no WhatsApp
               </MagneticButton>
-              <p className="text-xs text-[#F4F1E5]/70">
+              <p className="text-xs text-[#F4F1E5]/85">
                 Ou envie pelo formulário ao lado — validação imediata e confidencialidade garantida.
               </p>
 
@@ -140,7 +140,7 @@ export default function ContactForm() {
                   ✉
                 </span>
                 <div className="text-sm">
-                  <span className="block text-[11px] font-mono uppercase text-[#F4F1E5]/50">E-mail Corporativo</span>
+                  <span className="block text-xs font-mono uppercase tracking-wider text-[#F4F1E5]/80 font-medium">E-mail Corporativo</span>
                   <a
                     href={`mailto:${CONTACT_INFO.email}`}
                     className="font-semibold text-[#F4F1E5] hover:text-[#E27908] transition-colors"
@@ -166,7 +166,7 @@ export default function ContactForm() {
 
               {/* Nome */}
               <div>
-                <label htmlFor="nome" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/75 mb-1.5">
+                <label htmlFor="nome" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/90 mb-1.5">
                   Nome <span className="text-[#E27908]">*</span>
                 </label>
                 <motion.input
@@ -216,7 +216,7 @@ export default function ContactForm() {
 
               {/* E-mail ou WhatsApp para retorno */}
               <div>
-                <label htmlFor="contato" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/75 mb-1.5">
+                <label htmlFor="contato" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/90 mb-1.5">
                   E-mail ou WhatsApp para retorno <span className="text-[#E27908]">*</span>
                 </label>
                 <motion.input
@@ -266,7 +266,7 @@ export default function ContactForm() {
 
               {/* Marca, Empresa ou Projeto */}
               <div>
-                <label htmlFor="empresa" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/75 mb-1.5">
+                <label htmlFor="empresa" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/90 mb-1.5">
                   Marca, Empresa ou Projeto <span className="text-[#E27908]">*</span>
                 </label>
                 <motion.input
@@ -316,7 +316,7 @@ export default function ContactForm() {
 
               {/* Mensagem */}
               <div>
-                <label htmlFor="mensagem" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/75 mb-1.5">
+                <label htmlFor="mensagem" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/90 mb-1.5">
                   Mensagem <span className="text-[#E27908]">*</span>
                 </label>
                 <motion.textarea
@@ -336,7 +336,7 @@ export default function ContactForm() {
                   animate={errors.mensagem ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
                   transition={{ duration: 0.42 }}
                 />
-                <p id="help-mensagem" className="mt-1 text-xs text-[#F4F1E5]/60">
+                <p id="help-mensagem" className="mt-1 text-xs text-[#F4F1E5]/80">
                   Mín. 10 caracteres — quanto mais direto, melhor.
                 </p>
                 <div className="min-h-[18px] mt-1 flex items-center gap-1.5">

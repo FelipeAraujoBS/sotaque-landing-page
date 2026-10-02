@@ -187,7 +187,7 @@ export default function SotaqueNavbar() {
                 aria-label="Abrir Menu de Navegação Sotaque"
                 aria-expanded={isOpen}
                 aria-controls="drawer-menu"
-                className="group flex items-center gap-2 rounded-full border border-[#0B1B47]/20 px-3.5 py-1.5 text-[11px] font-mono tracking-widest uppercase text-[#0B1B47] bg-[#F4F1E5] hover:bg-[#0B1B47] hover:text-[#F4F1E5] transition-all duration-200 shadow-sm"
+                className="group flex items-center gap-2 rounded-full border border-[#0B1B47]/20 px-3.5 py-1.5 text-xs font-mono tracking-widest uppercase text-[#0B1B47] bg-[#F4F1E5] hover:bg-[#0B1B47] hover:text-[#F4F1E5] transition-all duration-200 shadow-sm"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E27908]" />
                 <span className="font-semibold">Menu</span>
@@ -273,12 +273,12 @@ export default function SotaqueNavbar() {
                 className="group flex items-center justify-between text-lg font-['Commune',serif] font-medium text-[#0B1B47] hover:text-[#E27908] transition-colors py-1 cursor-pointer"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-[#0B1B47]/50 font-semibold">
+                  <span className="text-xs font-mono text-[#0B1B47]/75 font-semibold">
                     {item.tag}
                   </span>
                   <span>{item.label}</span>
                 </div>
-                <span className="text-sm font-mono text-[#0B1B47]/40 group-hover:text-[#E27908] transition-colors">
+                <span className="text-sm font-mono text-[#0B1B47]/70 group-hover:text-[#E27908] transition-colors">
                   →
                 </span>
               </a>
@@ -294,7 +294,7 @@ export default function SotaqueNavbar() {
             >
               Iniciar projeto
             </a>
-            <p className="text-[11px] font-mono text-[#0B1B47]/60 text-center mt-3">
+            <p className="text-xs font-mono text-[#0B1B47]/80 text-center mt-3">
               Salvador · Bahia · Brasil
             </p>
           </div>

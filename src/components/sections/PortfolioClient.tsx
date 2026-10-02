@@ -79,13 +79,13 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
       {/* Marquee de Clientes e Parceiros — Curadoria Monocromática Padrão Refokus */}
       <div className="mb-16 lg:mb-24 overflow-hidden border-y border-[#0B1B47]/10 bg-[#ECE8DC]/80 py-6 sm:py-7 backdrop-blur-sm">
-        <div className="mx-auto max-w-content px-6 mb-3 flex items-center justify-between">
-          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#0B1B47]/50 font-semibold">
-            Confiança & Parcerias Estratégicas
+        <div className="mx-auto max-w-content px-6 mb-3.5 flex flex-col md:flex-row md:items-center justify-between gap-2">
+          <span className="text-xs font-mono tracking-[0.16em] uppercase text-[#0B1B47] font-bold">
+            Experiência & Trajetória
           </span>
-          <span className="text-[10px] font-mono text-[#0B1B47]/40 hidden sm:inline">
-            Grandes Marcas & Criadores Independentes
-          </span>
+          <p className="text-[11px] sm:text-xs text-[#0B1B47]/80 font-mono max-w-2xl leading-relaxed">
+            * As marcas exibidas foram atendidas ou representadas por membros da nossa equipe ao longo de suas carreiras. Não foram clientes diretas da Sotaque nem possuem contrato vigente conosco.
+          </p>
         </div>
         <div className="flex items-center gap-12 sm:gap-16 md:gap-20 whitespace-nowrap animate-marquee">
           {[...partnerLogos, ...partnerLogos].map((logo, index) => (
@@ -120,7 +120,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
               </span>
             </div>
 
-            <h2 className="font-['Commune',serif] font-normal leading-[0.94] tracking-[-0.03em] text-[clamp(2.4rem,4.8vw,4rem)] text-[#0B1B47]">
+            <h2 className="font-['Commune',serif] font-normal leading-[1.04] tracking-[-0.03em] text-[clamp(2rem,3.8vw,3.2rem)] text-[#0B1B47]">
               Trabalhos com alma, <br />
               <span className="italic text-[#6E1016]">ousadia</span> e acabamento de estúdio.
             </h2>
@@ -208,12 +208,12 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
                     {/* Top Bar sobre a imagem: Categoria e Ano */}
                     <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                      <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-mono font-bold tracking-widest uppercase backdrop-blur-md bg-white/95 text-[#0B1B47] shadow-sm">
+                      <span className="rounded-full border border-white/20 px-3 py-1 text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md bg-white/95 text-[#0B1B47] shadow-sm">
                         {c.disciplina || c.categoria}
                       </span>
 
                       {c.ano && (
-                        <span className="rounded-full bg-black/40 backdrop-blur-md px-2.5 py-0.5 text-[10px] font-mono text-white/90 border border-white/20 font-semibold">
+                        <span className="rounded-full bg-black/40 backdrop-blur-md px-2.5 py-0.5 text-xs font-mono text-white/90 border border-white/20 font-semibold">
                           {c.ano}
                         </span>
                       )}
@@ -227,7 +227,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                         {c.cliente}
                       </h3>
 
-                      <p className="mt-3 text-sm leading-[1.6] text-[#0B1B47]/80 font-body">
+                      <p className="mt-3 text-sm leading-[1.6] text-[#0B1B47]/85 font-body">
                         {c.resumo}
                       </p>
                     </div>
@@ -235,7 +235,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                     <div className="mt-6 pt-5 border-t border-[#0B1B47]/08 flex flex-col gap-3">
                       {/* Selo de Impacto / Métrica */}
                       {c.impacto && (
-                        <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#0B1B47]/80 bg-[#0B1B47]/05 border border-[#0B1B47]/10 rounded-lg px-3 py-1.5 w-fit">
+                        <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#0B1B47]/85 bg-[#0B1B47]/05 border border-[#0B1B47]/10 rounded-lg px-3 py-1.5 w-fit">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#E27908]" />
                           <span>{c.impacto}</span>
                         </div>
@@ -245,9 +245,6 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                         <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#0B1B47] group-hover:text-[#E27908] transition-colors flex items-center gap-1.5">
                           <span>Ver Estudo de Caso</span>
                           <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                        </span>
-                        <span className="text-[11px] font-mono text-[#0B1B47]/40">
-                          Sotaque 360°
                         </span>
                       </div>
                     </div>

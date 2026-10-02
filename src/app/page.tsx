@@ -49,7 +49,7 @@ export default function Home() {
                   className="h-9 lg:h-10 w-auto object-contain transition-transform group-hover:scale-105"
                 />
               </a>
-              <p className="text-sm leading-relaxed text-[#F4F1E5]/75 max-w-[42ch]">
+              <p className="text-sm leading-relaxed text-[#F4F1E5]/85 max-w-[42ch]">
                 Estúdio 360 de comunicação estratégica, branding autoral e design com raiz regional e acabamento contemporâneo.
               </p>
             </div>
@@ -71,7 +71,7 @@ export default function Home() {
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className="text-[#F4F1E5]/70 hover:text-[#F4F1E5] hover:translate-x-1 transition-all inline-block"
+                      className="text-[#F4F1E5]/85 hover:text-[#E27908] hover:translate-x-1 transition-all inline-block"
                     >
                       {item.label}
                     </a>
@@ -85,9 +85,9 @@ export default function Home() {
               <h3 className="text-xs font-mono font-semibold tracking-widest uppercase text-[#E27908] mb-4">
                 Atendimento & Projetos
               </h3>
-              <div className="flex flex-col gap-3 text-xs font-mono text-[#F4F1E5]/75">
+              <div className="flex flex-col gap-3 text-xs font-mono text-[#F4F1E5]/85">
                 <div>
-                  <span className="block text-[#F4F1E5]/75 font-semibold text-[10px] uppercase">E-mail Direto</span>
+                  <span className="block text-[#F4F1E5]/85 font-semibold text-xs uppercase tracking-wider">E-mail Direto</span>
                   <a
                     href={`mailto:${CONTACT_INFO.email}`}
                     className="text-[#F4F1E5] hover:text-[#E27908] transition-colors"
@@ -96,7 +96,7 @@ export default function Home() {
                   </a>
                 </div>
                 <div>
-                  <span className="block text-[#F4F1E5]/75 font-semibold text-[10px] uppercase">Canal WhatsApp</span>
+                  <span className="block text-[#F4F1E5]/85 font-semibold text-xs uppercase tracking-wider">Canal WhatsApp</span>
                   <a
                     href={CONTACT_INFO.whatsappHref}
                     target="_blank"
@@ -107,15 +107,15 @@ export default function Home() {
                   </a>
                 </div>
                 <div>
-                  <span className="block text-[#F4F1E5]/75 font-semibold text-[10px] uppercase">Sede & Alcance</span>
-                  <p className="text-[#F4F1E5]/70">{CONTACT_INFO.city} — Atendimento Nacional</p>
+                  <span className="block text-[#F4F1E5]/85 font-semibold text-xs uppercase tracking-wider">Sede & Alcance</span>
+                  <p className="text-[#F4F1E5]/85">{CONTACT_INFO.city} — Atendimento Nacional</p>
                 </div>
                 <div className="flex items-center gap-4 pt-2">
                   <a
                     href={CONTACT_INFO.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#F4F1E5]/70 hover:text-[#E27908] transition-colors"
+                    className="text-[#F4F1E5]/85 hover:text-[#E27908] transition-colors"
                   >
                     Instagram ↗
                   </a>
@@ -123,7 +123,7 @@ export default function Home() {
                     href={CONTACT_INFO.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#F4F1E5]/70 hover:text-[#E27908] transition-colors"
+                    className="text-[#F4F1E5]/85 hover:text-[#E27908] transition-colors"
                   >
                     LinkedIn ↗
                   </a>
@@ -133,7 +133,7 @@ export default function Home() {
           </div>
 
           {/* Barra Inferior: Copyright, CNPJ Placeholder, Subir */}
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#F4F1E5]/75">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#F4F1E5]/85">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
               <span>© {currentYear} Sotaque Estúdio.</span>
               <span className="text-[#F4F1E5]/20 hidden sm:inline">|</span>

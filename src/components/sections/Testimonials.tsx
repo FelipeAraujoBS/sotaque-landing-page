@@ -96,7 +96,7 @@ export default function Testimonials() {
               </span>
             </div>
 
-            <h2 className="font-['Commune',serif] font-bold leading-[0.95] tracking-[-0.025em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#0B1B47]">
+            <h2 className="font-['Commune',serif] font-bold leading-[1.04] tracking-[-0.025em] text-[clamp(2rem,3.8vw,3.2rem)] text-[#0B1B47]">
               Parcerias que transformam <span className="text-[#6E1016] italic font-light">ideias em presença</span>
             </h2>
           </div>
@@ -172,7 +172,7 @@ export default function Testimonials() {
                 transition={{ type: "spring", stiffness: 320, damping: 24 }}
               >
                 {/* Citação Direta */}
-                <blockquote className="font-body text-[15.5px] leading-relaxed text-[#0B1B47]/85 flex-1 pt-1">
+                <blockquote className="font-body text-base leading-relaxed text-[#0B1B47]/90 flex-1 pt-1">
                   “{t.texto}”
                 </blockquote>
 
@@ -185,7 +185,7 @@ export default function Testimonials() {
                     <p className="text-sm font-semibold leading-tight text-[#0B1B47] truncate">
                       {t.nome}
                     </p>
-                    <p className="text-xs text-[#0B1B47]/70 font-mono mt-0.5">{t.cargo}</p>
+                    <p className="text-xs text-[#0B1B47]/85 font-mono mt-0.5">{t.cargo}</p>
                   </div>
                 </div>
               </motion.div>

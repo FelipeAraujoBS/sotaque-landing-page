@@ -65,7 +65,7 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                 Instagram ao Vivo
               </span>
             </div>
-            <h2 className="font-['Commune',serif] font-bold tracking-tight text-[clamp(1.8rem,3.6vw,2.5rem)] text-[#0B1B47] leading-none">
+            <h2 className="font-['Commune',serif] font-bold tracking-tight text-[clamp(2rem,3.8vw,3.2rem)] leading-[1.04] text-[#0B1B47]">
               O estúdio no dia a dia
             </h2>
             <p className="mt-2.5 text-sm font-body text-[#0B1B47]/80 max-w-[54ch] leading-relaxed">
@@ -139,11 +139,11 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                   </div>
                 </div>
 
-                <span className="absolute left-4 top-4 rounded-full bg-[#0B1B47]/80 backdrop-blur border border-white/20 text-[#F4F1E5] px-3 py-1 text-[10px] font-mono font-semibold tracking-wider uppercase">
+                <span className="absolute left-4 top-4 rounded-full bg-[#0B1B47]/80 backdrop-blur border border-white/20 text-[#F4F1E5] px-3 py-1 text-xs font-mono font-semibold tracking-wider uppercase">
                   {posts[0].media_type === "VIDEO" ? "Vídeo / Reel" : posts[0].media_type === "CAROUSEL_ALBUM" ? "Carrossel" : "Foto"}
                 </span>
 
-                <span className="absolute right-4 top-4 rounded-full bg-white/90 backdrop-blur text-[#0B1B47] px-3 py-1 text-[10px] font-mono font-bold">
+                <span className="absolute right-4 top-4 rounded-full bg-white/90 backdrop-blur text-[#0B1B47] px-3 py-1 text-xs font-mono font-bold">
                   {formatDate(posts[0].timestamp)}
                 </span>
               </div>
@@ -154,7 +154,7 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                 </p>
 
                 <div className="pt-4 border-t border-[#0B1B47]/10 flex flex-wrap items-center justify-between gap-3">
-                  <span className="text-xs font-mono text-[#0B1B47]/70 font-semibold">
+                  <span className="text-xs font-mono text-[#0B1B47]/85 font-semibold">
                     Publicado por @sotaquecom
                   </span>
 
@@ -174,7 +174,7 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
             {/* Card Editorial de Convite (Preenchimento Nobre) */}
             <div className="lg:col-span-5 rounded-[1.6rem] border border-[#0B1B47]/10 bg-gradient-to-br from-white via-[#FAF7EE] to-[#F4F1E5] p-6 sm:p-8 flex flex-col justify-between shadow-md">
               <div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E27908] text-white font-mono text-[10px] font-bold uppercase tracking-wider mb-5 shadow-sm">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E27908] text-white font-mono text-xs font-bold uppercase tracking-wider mb-5 shadow-sm">
                   <span className="w-1.5 h-1.5 rounded-full bg-white" />
                   Comunidade & Bastidores
                 </span>
@@ -183,7 +183,7 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                   Nosso feed começou agora. Acompanhe a construção em tempo real.
                 </h3>
 
-                <p className="mt-4 text-sm font-body text-[#0B1B47]/80 leading-relaxed">
+                <p className="mt-4 text-sm font-body text-[#0B1B47]/85 leading-relaxed">
                   Estamos produzindo ensaios fotográficos autorais, gravações de videocasts, projetos de identidade visual e coberturas criativas. Siga o perfil para acompanhar as novas publicações e os bastidores das produções.
                 </p>
               </div>
@@ -199,7 +199,7 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                   <span aria-hidden className="text-[#F4F1E5]">↗</span>
                 </a>
 
-                <span className="text-[11px] font-mono text-[#0B1B47]/60 text-center">
+                <span className="text-xs font-mono text-[#0B1B47]/75 text-center">
                   @sotaquecom • Salvador · Bahia
                 </span>
               </div>
@@ -236,10 +236,10 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                       {post.media_type === "VIDEO" ? "▶" : "◈"}
                     </span>
                   </div>
-                  <span className="absolute left-3 top-3 rounded-full bg-white/90 backdrop-blur px-2.5 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#0B1B47]">
+                  <span className="absolute left-3 top-3 rounded-full bg-white/90 backdrop-blur px-2.5 py-0.5 text-xs font-mono font-semibold uppercase tracking-wider text-[#0B1B47]">
                     {post.media_type === "VIDEO" ? "Reel" : "Post"}
                   </span>
-                  <span className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur px-2.5 py-0.5 text-[10px] font-mono font-semibold text-[#0B1B47]/75">
+                  <span className="absolute right-3 top-3 rounded-full bg-white/90 backdrop-blur px-2.5 py-0.5 text-xs font-mono font-semibold text-[#0B1B47]/85">
                     {formatDate(post.timestamp)}
                   </span>
                 </div>
@@ -296,7 +296,7 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                           <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/85 backdrop-blur-md border border-[#0B1B47]/12 shadow-sm text-sm text-[#0B1B47] group-hover:scale-110 transition-transform">
                             {post.media_type === "VIDEO" ? "▶" : post.media_type === "CAROUSEL_ALBUM" ? "▦" : "◈"}
                           </span>
-                          <p className="mt-3 hidden lg:block font-mono text-[11px] leading-tight text-[#0B1B47]/75 font-medium max-w-[18ch] mx-auto">
+                          <p className="mt-3 hidden lg:block font-mono text-xs leading-tight text-[#0B1B47]/85 font-medium max-w-[18ch] mx-auto">
                             {formatDate(post.timestamp)}
                           </p>
                         </div>
@@ -311,14 +311,14 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                         }}
                       >
                         <p className="text-xs leading-snug text-white line-clamp-3 font-body">{post.caption}</p>
-                        <span className="mt-2 text-[10px] font-mono text-[#E27908] font-semibold flex items-center gap-1">
+                        <span className="mt-2 text-xs font-mono text-[#E27908] font-semibold flex items-center gap-1">
                           Abrir no Instagram ↗
                         </span>
                       </div>
                     </div>
 
                     {/* Badge tipo */}
-                    <span className="absolute left-3 top-3 rounded-full bg-white/95 backdrop-blur border border-[#0B1B47]/10 px-2.5 py-0.5 text-[10px] font-mono font-semibold tracking-wider uppercase text-[#0B1B47]/80 shadow-sm">
+                    <span className="absolute left-3 top-3 rounded-full bg-white/95 backdrop-blur border border-[#0B1B47]/10 px-2.5 py-0.5 text-xs font-mono font-semibold tracking-wider uppercase text-[#0B1B47]/85 shadow-sm">
                       {post.media_type === "VIDEO" ? "Reel" : post.media_type === "CAROUSEL_ALBUM" ? "Carrossel" : "Foto"}
                     </span>
                   </motion.a>
@@ -351,7 +351,7 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
                     )}
                   </motion.button>
 
-                  <span className="text-[11px] font-mono text-[#0B1B47]/60">
+                  <span className="text-xs font-mono text-[#0B1B47]/80">
                     Exibindo {visiblePosts.length} de {posts.length} publicações
                   </span>
                 </>

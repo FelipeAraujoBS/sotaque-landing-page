@@ -50,7 +50,7 @@ export default function Hero() {
           {/* H1 Monumental em Commune Inktrap Oficial — Mobile First & Desktop Centrado */}
           <h1
             aria-label="Sua marca tem voz. Nós damos o sotaque."
-            className="font-['Commune',serif] text-[clamp(2.1rem,6.4vw,5rem)] leading-[1.04] sm:leading-[0.98] tracking-[-0.03em] font-normal text-[#0B1B47] text-center"
+            className="font-['Commune',serif] text-[clamp(2.2rem,4.8vw,4.2rem)] leading-[1.05] sm:leading-[0.98] tracking-[-0.03em] font-normal text-[#0B1B47] text-center"
           >
             <span className="block">Sua marca tem voz.</span>
             <span className="block mt-1 sm:mt-2">
@@ -110,7 +110,7 @@ export default function Hero() {
 
       {/* Faixa Inferior Discreta — Localização Salvador · Bahia Centralizada */}
       <div className="relative z-10 w-full text-center pb-2 pt-1">
-        <span className="tracking-widest uppercase text-[10px] sm:text-xs font-mono text-[#0B1B47]/55">
+        <span className="tracking-widest uppercase text-xs font-mono text-[#0B1B47]/80 font-medium">
           {HERO_CONTENT.location}
         </span>
       </div>
