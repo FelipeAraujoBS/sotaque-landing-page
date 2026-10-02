@@ -106,11 +106,11 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-between pt-28 sm:pt-32 pb-8 overflow-hidden bg-[var(--sotaque-creme,#F4F1E5)] text-[#0B1B47]"
+      className="relative min-h-[100dvh] flex flex-col justify-between pt-24 sm:pt-32 pb-6 sm:pb-8 overflow-hidden bg-[var(--sotaque-creme,#F4F1E5)] text-[#0B1B47]"
       aria-label="Apresentação — Sotaque Estúdio 360"
     >
-      {/* Fitinhas do Bonfim — Ondulando no vento niveladas com o título */}
-      <div className="absolute right-[-4%] top-[21%] sm:top-[19%] lg:top-[21%] w-[88%] sm:w-[68%] max-w-[840px] pointer-events-none z-0">
+      {/* Fitinhas do Bonfim — Mobile First: adaptadas com 4 fitas arejadas no mobile e 11 em cascata no desktop */}
+      <div className="absolute right-[-6%] sm:right-[-4%] top-[14%] sm:top-[19%] lg:top-[21%] w-[78%] sm:w-[68%] max-w-[840px] pointer-events-none z-0 opacity-75 sm:opacity-100 transition-opacity duration-300">
         <BonfimRibbons
           isPlayingSound={isPlayingSound}
           analyser={analyserRef.current}
@@ -119,19 +119,18 @@ export default function Hero() {
       </div>
 
       {/* Grid Principal Único — Margens alinhadas exatamente com navbar e seções */}
-      <div className="relative z-10 mx-auto max-w-content w-full px-6 lg:px-8 my-auto">
+      <div className="relative z-10 mx-auto max-w-content w-full px-5 sm:px-6 lg:px-8 my-auto">
         <div className="max-w-3xl">
-          {/* H1 Monumental em Commune Inktrap Oficial */}
-          {/* Texto completo estático em aria-label para SEO e leitores de tela */}
+          {/* H1 Monumental em Commune Inktrap Oficial — Mobile First com clamp balanceado */}
           <h1
             aria-label="Sua marca tem voz. Nós damos o sotaque."
-            className="font-['Commune',serif] text-[clamp(2.75rem,6.8vw,5.5rem)] leading-[0.96] tracking-[-0.03em] font-normal text-[#0B1B47]"
+            className="font-['Commune',serif] text-[clamp(2.1rem,6.8vw,5.4rem)] leading-[1.02] sm:leading-[0.96] tracking-[-0.03em] font-normal text-[#0B1B47]"
           >
             <span className="block">Sua marca tem voz.</span>
             <span className="block mt-1 sm:mt-2">
               Nós damos o&nbsp;
               <span
-                className="inline-block relative min-w-[7ch] align-baseline text-left"
+                className="inline-block relative min-w-[5ch] sm:min-w-[7ch] align-baseline text-left"
                 aria-hidden="true"
               >
                 <em
@@ -144,18 +143,18 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Subtítulo de Posicionamento — Estilo único de destaque */}
+          {/* Subtítulo de Posicionamento — Tipografia legível e confortável em qualquer tela */}
           {/* TODO(humano): Subtítulo candidato definido em content/hero.ts */}
-          <p className="mt-6 sm:mt-8 text-base sm:text-lg lg:text-xl leading-relaxed text-[#0B1B47]/80 max-w-[52ch] font-body font-normal">
+          <p className="mt-4 sm:mt-7 text-sm sm:text-lg lg:text-xl leading-relaxed text-[#0B1B47]/85 max-w-[50ch] font-body font-normal">
             {HERO_CONTENT.subtitle}
           </p>
 
-          {/* Grupo de CTAs — Um primário e um secundário */}
-          <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4">
+          {/* Grupo de CTAs — Mobile First: botões com área de toque completa no mobile, alinhados no desktop */}
+          <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
             {/* CTA Primário: Sólido em Laranja Solar */}
             <a
               href={HERO_CONTENT.ctaPrimary.href}
-              className="inline-flex items-center justify-center rounded-full bg-[#E27908] hover:bg-[#C96B07] text-[#F4F1E5] px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase shadow-md transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908] focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-full bg-[#E27908] hover:bg-[#C96B07] text-[#F4F1E5] px-6 sm:px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase shadow-md transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908] focus-visible:ring-offset-2 text-center"
             >
               {HERO_CONTENT.ctaPrimary.label}
             </a>
@@ -163,7 +162,7 @@ export default function Hero() {
             {/* CTA Secundário: Contorno em Azul Meia-Noite */}
             <a
               href={HERO_CONTENT.ctaSecondary.href}
-              className="inline-flex items-center justify-center rounded-full border border-[#0B1B47] text-[#0B1B47] hover:bg-[#0B1B47] hover:text-[#F4F1E5] px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1B47] focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-full border border-[#0B1B47] text-[#0B1B47] hover:bg-[#0B1B47] hover:text-[#F4F1E5] px-6 sm:px-7 py-3.5 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1B47] focus-visible:ring-offset-2 text-center"
             >
               {HERO_CONTENT.ctaSecondary.label}
             </a>
@@ -172,11 +171,11 @@ export default function Hero() {
       </div>
 
       {/* Faixa Inferior Discreta — Alinhada ao mesmo grid */}
-      <div className="relative z-10 w-full mt-12 sm:mt-16">
-        <div className="mx-auto max-w-content w-full px-6 lg:px-8">
+      <div className="relative z-10 w-full mt-8 sm:mt-16">
+        <div className="mx-auto max-w-content w-full px-5 sm:px-6 lg:px-8">
           <div className="pt-4 border-t border-[#0B1B47]/10 flex items-center justify-between text-xs font-mono text-[#0B1B47]/65">
             {/* Localização oficial */}
-            <span className="tracking-widest uppercase">
+            <span className="tracking-widest uppercase text-[11px] sm:text-xs">
               {HERO_CONTENT.location}
             </span>
 
@@ -190,7 +189,7 @@ export default function Hero() {
                   ? "Desativar ambientação sonora da Sotaque"
                   : "Ativar ambientação sonora da Sotaque"
               }
-              className="group flex items-center gap-2.5 rounded-full px-3 py-1.5 border border-[#0B1B47]/15 hover:border-[#E27908] bg-transparent hover:bg-white/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908]"
+              className="group flex items-center gap-2 rounded-full px-2.5 sm:px-3 py-1.5 border border-[#0B1B47]/15 hover:border-[#E27908] bg-transparent hover:bg-white/40 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908]"
             >
               {/* Ícone de ondas de áudio */}
               <span className="flex items-center gap-[2px] h-3" aria-hidden="true">
@@ -210,8 +209,9 @@ export default function Hero() {
                   }`}
                 />
               </span>
-              <span className="text-[11px] font-semibold uppercase tracking-wider group-hover:text-[#0B1B47]">
-                {isPlayingSound ? "Som: Ligado" : "Som: Desligado"}
+              <span className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wider group-hover:text-[#0B1B47]">
+                <span className="sm:hidden">{isPlayingSound ? "Som: On" : "Som: Off"}</span>
+                <span className="hidden sm:inline">{isPlayingSound ? "Som: Ligado" : "Som: Desligado"}</span>
               </span>
             </button>
           </div>
