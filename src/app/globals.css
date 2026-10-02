@@ -1,24 +1,6 @@
 @import "../styles/tokens.css";
 
 @font-face {
-  font-family: "Chroma Venue";
-  src: url("/fonts/chroma-avenue.woff2") format("woff2"),
-       url("/fonts/chroma-avenue.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Chroma_Venue";
-  src: url("/fonts/chroma-avenue.woff2") format("woff2"),
-       url("/fonts/chroma-avenue.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Commune";
   src: url("/fonts/commune.woff2") format("woff2");
   font-weight: normal;

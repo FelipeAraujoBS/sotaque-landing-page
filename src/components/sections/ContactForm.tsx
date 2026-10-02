@@ -442,7 +442,7 @@ export default function ContactForm() {
                 <motion.button
                   type="submit"
                   disabled={status === "loading"}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E27908] via-[#CF000F] to-[#6E1016] text-[#F4F1E5] px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase hover:brightness-110 shadow-lg shadow-[#E27908]/25 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908] transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E27908] hover:bg-[#C96B07] text-[#F4F1E5] px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase shadow-md disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908] transition-all"
                   whileTap={status !== "loading" ? { scale: 0.98 } : undefined}
                 >
                   {status === "loading" ? (

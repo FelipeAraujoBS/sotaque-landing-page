@@ -58,11 +58,11 @@ export default function MagneticButton({
 
   const variantStyles = {
     primary:
-      "bg-gradient-to-r from-[#E27908] to-[#0B1B47] text-[#F4F1E5] hover:opacity-95 shadow-lg shadow-[#E27908]/25 px-7 py-3.5",
+      "bg-[#E27908] text-[#F4F1E5] hover:bg-[#C96B07] shadow-sm px-7 py-3.5",
     accent:
-      "bg-[#2F7C4B] text-[#F4F1E5] hover:bg-[#24633B] shadow-lg shadow-[#2F7C4B]/25 px-7 py-3.5",
+      "bg-[#E27908] text-[#F4F1E5] hover:bg-[#C96B07] shadow-sm px-7 py-3.5",
     ghost:
-      "bg-white border border-[#0B1B47]/15 text-[#0B1B47] hover:bg-[#F4F1E5] px-6 py-3",
+      "bg-transparent border border-[#0B1B47] text-[#0B1B47] hover:bg-[#0B1B47] hover:text-[#F4F1E5] px-7 py-3.5",
   };
 
   const motionStyle = reducedMotion

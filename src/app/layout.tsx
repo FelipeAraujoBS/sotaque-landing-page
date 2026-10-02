@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, DM_Sans } from "next/font/google";
-import localFont from "next/font/local";
+import { DM_Sans } from "next/font/google";
 import "./globals.css";
 
 import SmoothScroll from "@/components/motion/SmoothScroll";
@@ -9,25 +8,11 @@ import { CONTACT_INFO } from "@/lib/contact";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sotaquecom.com.br";
 
-// PLACEHOLDER — fontes provisórias, serão substituídas pelo brand kit oficial
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  display: "swap",
-  weight: ["400", "600", "700", "800"],
-});
-
 const dmSans = DM_Sans({
   subsets: ["latin"],
   variable: "--font-dm-sans",
   display: "swap",
   weight: ["400", "500", "700"],
-});
-
-const chromaVenue = localFont({
-  src: "../../public/fonts/chroma-avenue.woff2",
-  variable: "--font-chroma",
-  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -103,10 +88,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${fraunces.variable} ${dmSans.variable} ${chromaVenue.variable}`}
-    >
+    <html lang="pt-BR" className={dmSans.variable}>
       <head>
         <script
           type="application/ld+json"

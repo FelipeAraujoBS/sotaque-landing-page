@@ -93,17 +93,17 @@
   --color-border: var(--sotaque-areia-border);
   --color-surface: #FFFFFF;
 
-  /* === Tipografia === */
-  --font-display: var(--font-fraunces), Georgia, serif;
+  /* === 04. Tipografia Consolidada (3 Famílias Oficiais) === */
+  --font-display: "Commune", Georgia, serif;
   --font-body: var(--font-dm-sans), system-ui, sans-serif;
-  --font-chroma: "Chroma Venue", "Chroma_Venue", "Chroma Avenue", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Escala tipográfica fluida provisória */
+  /* Escala tipográfica fluida */
   --text-hero: clamp(2.8rem, 7.5vw, 5.8rem);
   --text-section-title: clamp(2rem, 5vw, 3.25rem);
   --text-card-title: clamp(1.15rem, 2.2vw, 1.5rem);
 
-  /* === Espaçamento === */
+  /* === 05. Espaçamento === */
   --space-xs: 0.5rem;
   --space-sm: 1rem;
   --space-md: 1.5rem;
@@ -112,17 +112,21 @@
   --space-2xl: 6rem;
   --space-3xl: 8rem;
 
-  /* === Raios e sombras === */
+  /* === 06. Raios, Bordas e Sombras em Camadas (Fase 2.3) === */
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
   --radius-pill: 999px;
 
-  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.25);
-  --shadow-medium: 0 16px 40px rgba(0, 0, 0, 0.35);
-  --shadow-accent: 0 12px 32px rgba(13, 148, 136, 0.25);
-  --shadow-terracotta: 0 16px 48px -8px rgba(217, 92, 56, 0.35);
-  --shadow-emerald: 0 16px 48px -8px rgba(13, 148, 136, 0.35);
+  /* Bordas translúcidas de precisão */
+  --border-light: rgba(11, 27, 71, 0.08);
+  --border-dark: rgba(255, 255, 255, 0.12);
+
+  /* Sombras em camadas definidas como variáveis */
+  --shadow-card-light: 0 1px 1px rgba(11, 27, 71, 0.04), 0 4px 8px rgba(11, 27, 71, 0.04), 0 16px 32px rgba(11, 27, 71, 0.06);
+  --shadow-soft: var(--shadow-card-light);
+  --shadow-medium: 0 4px 12px rgba(11, 27, 71, 0.06), 0 16px 40px rgba(11, 27, 71, 0.08);
+  --shadow-accent: 0 12px 32px rgba(226, 121, 8, 0.25);
   --shadow-spotlight: 0 0 50px -10px rgba(255, 255, 255, 0.08);
 }
 

@@ -15,9 +15,13 @@ export async function getInstagramPosts(limit = 30): Promise<{ posts: InstagramP
   const token = process.env.INSTAGRAM_ACCESS_TOKEN;
   const userId = process.env.INSTAGRAM_USER_ID;
 
-  // Se não houver credenciais, usa mock e sinaliza claramente
+  // Em produção, se não houver credenciais reais da API, não renderiza posts mockados
+  if (process.env.NODE_ENV === "production" && (!token || !userId)) {
+    return { posts: [], isMock: true };
+  }
+
+  // Em desenvolvimento, permite o mock para validação de layout
   if (!token || !userId) {
-    // console.warn("[instagram] sem credenciais — usando mock");
     return { posts: (mockPosts as InstagramPost[]).slice(0, limit), isMock: true };
   }
 

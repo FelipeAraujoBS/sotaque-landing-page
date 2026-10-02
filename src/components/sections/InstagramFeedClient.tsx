@@ -85,6 +85,35 @@ export default function InstagramFeedClient({ posts, isMock }: InstagramFeedClie
         </div>
 
         {/* ─────────────────────────────────────────────────────────────
+            CASO 0: SEM POSTS DISPONÍVEIS (PRODUÇÃO SEM TOKEN DA API)
+            Renderiza bloco elegante convidando para o canal oficial
+            ───────────────────────────────────────────────────────────── */}
+        {posts.length === 0 && (
+          <div className="rounded-[1.6rem] border border-[rgba(11,27,71,0.08)] bg-white p-8 sm:p-12 text-center shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] max-w-2xl mx-auto my-6">
+            <span className="w-12 h-12 rounded-full bg-[#0B1B47]/05 border border-[#0B1B47]/10 grid place-items-center text-xl text-[#0B1B47] mx-auto mb-4 font-mono">
+              ◈
+            </span>
+            <h3 className="font-['Commune',serif] font-bold text-xl sm:text-2xl text-[#0B1B47]">
+              Acompanhe o estúdio em tempo real
+            </h3>
+            <p className="mt-3 text-sm text-[#0B1B47]/75 font-body max-w-md mx-auto leading-relaxed">
+              Bastidores de produções, pensamento editorial, novos projetos e narrativas culturais direto no nosso canal oficial.
+            </p>
+            <div className="mt-6">
+              <a
+                href={instagramProfileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-[#E27908] hover:bg-[#C96B07] text-[#F4F1E5] px-6 py-3 text-xs font-mono font-bold tracking-widest uppercase transition-all duration-200 shadow-sm"
+              >
+                <span>Acessar @sotaquecom</span>
+                <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </div>
+        )}
+
+        {/* ─────────────────────────────────────────────────────────────
             CASO 1: APENAS 1 POST PUBLICADO (Layout Adaptativo Heroico)
             ───────────────────────────────────────────────────────────── */}
         {posts.length === 1 && (

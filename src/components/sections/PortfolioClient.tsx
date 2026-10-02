@@ -184,7 +184,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96, y: 16 }}
                   transition={{ type: "spring", stiffness: 260, damping: 24 }}
-                  className="group relative col-span-12 md:col-span-6 lg:col-span-4 rounded-[1.8rem] border border-[#0B1B47]/12 bg-white overflow-hidden flex flex-col shadow-[0_4px_24px_rgba(11,27,71,0.04)] hover:shadow-[0_24px_50px_rgba(11,27,71,0.12)] hover:border-[#0B1B47]/30 transition-all duration-500"
+                  className="group relative col-span-12 md:col-span-6 lg:col-span-4 rounded-[1.6rem] border border-[rgba(11,27,71,0.08)] bg-white overflow-hidden flex flex-col shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] hover:border-[rgba(11,27,71,0.22)] transition-all duration-300"
                   aria-label={`${c.cliente} — ${c.disciplina || c.categoria}`}
                 >
                   {/* Visual Mockup Container com Aspect Ratio 16:10 */}
@@ -207,9 +207,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
                     {/* Top Bar sobre a imagem: Categoria e Ano */}
                     <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                      <span
-                        className={`rounded-full border px-3 py-1 text-[10px] font-mono font-bold tracking-widest uppercase backdrop-blur-md bg-white/90 shadow-sm ${badge.text} ${badge.border}`}
-                      >
+                      <span className="rounded-full border border-white/20 px-3 py-1 text-[10px] font-mono font-bold tracking-widest uppercase backdrop-blur-md bg-white/95 text-[#0B1B47] shadow-sm">
                         {c.disciplina || c.categoria}
                       </span>
 
@@ -234,10 +232,10 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                     </div>
 
                     <div className="mt-6 pt-5 border-t border-[#0B1B47]/08 flex flex-col gap-3">
-                      {/* Selo de Impacto / Métrica Real */}
+                      {/* Selo de Impacto / Métrica */}
                       {c.impacto && (
-                        <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#2F7C4B] bg-[#2F7C4B]/08 border border-[#2F7C4B]/20 rounded-lg px-3 py-1.5 w-fit">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#2F7C4B] animate-pulse" />
+                        <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#0B1B47]/80 bg-[#0B1B47]/05 border border-[#0B1B47]/10 rounded-lg px-3 py-1.5 w-fit">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#E27908]" />
                           <span>{c.impacto}</span>
                         </div>
                       )}

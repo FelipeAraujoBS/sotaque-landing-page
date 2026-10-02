@@ -166,7 +166,7 @@ export default function Pillars() {
         </div>
       </div>
 
-      {/* Grid Estável e Imersivo de 6 Pilares (Padrão Studio de Elite) */}
+      {/* Grid Estável de 6 Pilares — Tratamento Unificado (Fase 2.2 / 2.5) */}
       <div className="mx-auto max-w-content px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
           {pillars.map((p) => {
@@ -176,35 +176,27 @@ export default function Pillars() {
               <div
                 key={p.id}
                 onMouseMove={(e) => handleMouseMove(p.id, e)}
-                className="group relative rounded-[1.8rem] border border-[#0B1B47]/10 bg-white/85 backdrop-blur-md overflow-hidden flex flex-col p-7 sm:p-8 transition-all duration-500 hover:-translate-y-1 hover:border-[#0B1B47]/30 hover:shadow-[0_24px_50px_rgba(11,27,71,0.10)] focus-within:ring-2 focus-within:ring-[#0B1B47]"
+                className="group relative rounded-[1.6rem] border border-[rgba(11,27,71,0.08)] bg-white/95 overflow-hidden flex flex-col p-7 sm:p-8 transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(11,27,71,0.22)] shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] focus-within:ring-2 focus-within:ring-[#0B1B47]"
               >
-                {/* Spotlight dinâmico acionado pela posição do mouse */}
+                {/* Spotlight único com acento solar (#E27908) */}
                 <div
-                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{
-                    background: `radial-gradient(460px circle at ${pos.x}px ${pos.y}px, ${p.accentColor}14, transparent 70%)`,
+                    background: `radial-gradient(460px circle at ${pos.x}px ${pos.y}px, rgba(226, 121, 8, 0.08), transparent 70%)`,
                   }}
                   aria-hidden
                 />
 
-                {/* Hairline Superior com Cor de Acento */}
+                {/* Linha superior sutil em vinho */}
                 <div
-                  className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:h-1.5"
-                  style={{ backgroundColor: p.accentColor }}
+                  className="absolute top-0 left-0 right-0 h-1 bg-[#6E1016]/40 transition-all duration-300 group-hover:bg-[#6E1016] group-hover:h-1.5"
                   aria-hidden
                 />
 
-                {/* Topo do Card: Número e Disciplina */}
+                {/* Topo do Card: Índice em Vinho e Pílula Neutra */}
                 <div className="relative z-10 flex items-center justify-between gap-3 mb-6">
                   <div className="flex items-center gap-2.5">
-                    <span
-                      className="h-8 w-8 rounded-xl font-mono text-xs font-bold grid place-items-center border transition-colors duration-300"
-                      style={{
-                        backgroundColor: `${p.accentColor}12`,
-                        borderColor: `${p.accentColor}30`,
-                        color: p.accentColor,
-                      }}
-                    >
+                    <span className="h-8 w-8 rounded-xl font-mono text-xs font-bold grid place-items-center bg-[#6E1016]/10 border border-[#6E1016]/20 text-[#6E1016]">
                       {p.number}
                     </span>
                     <span className="text-[11px] font-mono tracking-widest uppercase text-[#0B1B47]/60 font-semibold">
@@ -212,9 +204,7 @@ export default function Pillars() {
                     </span>
                   </div>
 
-                  <span
-                    className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full border font-bold ${p.badgeBg}`}
-                  >
+                  <span className="font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full border border-[#0B1B47]/10 bg-[#0B1B47]/05 text-[#0B1B47]/70 font-semibold">
                     {p.metric}
                   </span>
                 </div>
@@ -243,7 +233,7 @@ export default function Pillars() {
                   <button
                     type="button"
                     onClick={() => setActiveFolderModal(p)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1B47]/06 hover:bg-[#0B1B47] hover:text-[#F4F1E5] text-[#0B1B47] text-[11px] font-mono tracking-wider uppercase font-semibold transition-all duration-300 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1B47]/06 hover:bg-[#E27908] hover:text-[#F4F1E5] text-[#0B1B47] text-[11px] font-mono tracking-wider uppercase font-semibold transition-all duration-300 cursor-pointer"
                     aria-label={`Ver pasta de referência para ${p.title}`}
                   >
                     <span>Pasta</span>

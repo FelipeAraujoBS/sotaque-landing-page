@@ -167,32 +167,25 @@ export default function Testimonials() {
               <motion.div
                 key={t.id}
                 data-card
-                className="shrink-0 w-[86%] sm:w-[54%] lg:w-[40%] xl:w-[32%] min-h-[300px] rounded-[1.6rem] border border-[#0B1B47]/10 bg-white p-7 lg:p-8 flex flex-col hover:border-[#0B1B47]/30 hover:shadow-xl transition-all duration-300 select-none shadow-[0_4px_24px_rgba(11,27,71,0.06)] text-[#0B1B47]"
-                whileHover={{ y: -3 }}
+                className="shrink-0 w-[86%] sm:w-[54%] lg:w-[40%] xl:w-[32%] min-h-[260px] rounded-[1.6rem] border border-[rgba(11,27,71,0.08)] bg-white p-7 lg:p-8 flex flex-col justify-between hover:border-[rgba(11,27,71,0.22)] transition-all duration-300 select-none shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] text-[#0B1B47]"
+                whileHover={{ y: -2 }}
                 transition={{ type: "spring", stiffness: 320, damping: 24 }}
               >
-                {/* Cabeçalho do Card */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1.5 text-[#E27908] text-sm tracking-tight" aria-label="Avaliação 5 estrelas">
-                    ★★★★★
-                  </div>
-                </div>
-
-                {/* Aspas e Citação */}
-                <blockquote className="font-body text-[15.5px] leading-relaxed text-[#0B1B47]/85 flex-1">
+                {/* Citação Direta */}
+                <blockquote className="font-body text-[15.5px] leading-relaxed text-[#0B1B47]/85 flex-1 pt-1">
                   “{t.texto}”
                 </blockquote>
 
-                {/* Autor */}
-                <div className="mt-6 pt-5 border-t border-[#0B1B47]/10 flex items-center gap-3.5">
-                  <span className="h-10 w-10 rounded-xl bg-[#0B1B47] text-[#F4F1E5] border border-[#0B1B47]/15 grid place-items-center font-display font-bold text-sm shrink-0">
+                {/* Autor: Nome, Cargo / Empresa */}
+                <div className="mt-6 pt-5 border-t border-[rgba(11,27,71,0.08)] flex items-center gap-3.5">
+                  <span className="h-10 w-10 rounded-xl bg-[#0B1B47] text-[#F4F1E5] border border-[rgba(11,27,71,0.08)] grid place-items-center font-['Commune',serif] font-bold text-sm shrink-0">
                     {t.nome.slice(0, 1).toUpperCase()}
                   </span>
                   <div className="min-w-0">
                     <p className="text-sm font-semibold leading-tight text-[#0B1B47] truncate">
                       {t.nome}
                     </p>
-                    <p className="text-xs text-[#0B1B47]/70 font-medium mt-0.5">{t.cargo}</p>
+                    <p className="text-xs text-[#0B1B47]/70 font-mono mt-0.5">{t.cargo}</p>
                   </div>
                 </div>
               </motion.div>
