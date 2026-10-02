@@ -97,7 +97,7 @@ const RIBBONS: RibbonConfig[] = [
 ];
 
 const BONFIM_PHRASE =
-  "LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA  •  LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA  •  LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA  •  LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA";
+  "† LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †";
 
 export default function BonfimRibbons({
   isPlayingSound = false,
@@ -309,21 +309,21 @@ export default function BonfimRibbons({
         <g filter="url(#bonfim-shadow)">
           {RIBBONS.map((ribbon) => (
             <g key={`ribbon-group-${ribbon.id}`} opacity={ribbon.opacity}>
-              {/* O corpo de tecido da Fita */}
+              {/* O corpo de tecido da Fita — corte reto e quadrado tradicional */}
               <use
                 href={`#path-${ribbon.id}`}
                 stroke={ribbon.color}
                 strokeWidth={ribbon.strokeWidth}
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
               />
 
               {/* Friso sutil de brilho superior do cetim */}
               <use
                 href={`#path-${ribbon.id}`}
                 stroke="#FFFFFF"
-                strokeWidth={1.5}
-                strokeLinecap="round"
+                strokeWidth={1.2}
+                strokeLinecap="butt"
                 opacity={0.25}
                 transform="translate(0, -5)"
               />
