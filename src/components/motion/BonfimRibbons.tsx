@@ -520,18 +520,6 @@ export default function BonfimRibbons({
           ))}
         </g>
 
-        {/* Nó dos Três Pedidos — Amarração tradicional na raiz das fitas à esquerda */}
-        <g id="bonfim-knot" transform="translate(6, 196)">
-          <ellipse cx="6" cy="-14" rx="7" ry="15" fill="#8F4400" transform="rotate(12, 6, -14)" />
-          <ellipse cx="9" cy="4" rx="8" ry="18" fill="#0B1B47" transform="rotate(-15, 9, 4)" />
-          <ellipse cx="4" cy="22" rx="7" ry="16" fill="#6E1016" transform="rotate(8, 4, 22)" />
-          <path
-            d="M 2 -26 Q 16 4, 2 36"
-            stroke="rgba(255, 255, 255, 0.3)"
-            strokeWidth="1.8"
-            fill="none"
-          />
-        </g>
       </svg>
     </div>
   );
