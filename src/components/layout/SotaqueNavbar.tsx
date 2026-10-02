@@ -122,11 +122,11 @@ export default function SotaqueNavbar() {
 
   return (
     <>
-      {/* Top Navbar Suspensa — Gradiente Azul Meia-Noite / Creme */}
+      {/* Top Navbar Suspensa — Gradiente Vertical Azul Meia-Noite / Creme (de cima para baixo) */}
       <header
         className={`fixed top-0 left-0 right-0 z-50 pointer-events-auto transition-all duration-300 border-b border-[#0B1B47]/10 ${
           isScrolled ? "py-3 sm:py-3.5 shadow-sm" : "py-4 sm:py-5"
-        } bg-gradient-to-r from-[#0B1B47] via-[#102454] to-[#F4F1E5] backdrop-blur-md`}
+        } bg-gradient-to-b from-[#0B1B47] to-[#F4F1E5] backdrop-blur-md`}
       >
         <div className="mx-auto max-w-content w-full px-6 lg:px-8 flex items-center justify-between">
           {/* Esquerda: Logotipo Oficial SOTAQUE em Creme (alto contraste sobre o Azul) */}
