@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function SotaquePreloader() {
   const [isMounted, setIsMounted] = useState(false);
@@ -71,9 +72,12 @@ export default function SotaquePreloader() {
           isClosing ? "opacity-0" : "opacity-100"
         }`}
       >
-        <img
+        <Image
           src="/brand/logos/sotaque_simbolo-e-nome_creme.png"
           alt="Sotaque Estúdio 360"
+          width={180}
+          height={44}
+          priority
           className="h-9 sm:h-11 w-auto object-contain animate-fade-in"
         />
       </div>

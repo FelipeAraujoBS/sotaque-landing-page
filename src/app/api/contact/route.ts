@@ -60,7 +60,8 @@ export async function POST(req: Request) {
 
     // Envio real de e-mail via Resend se a chave RESEND_API_KEY estiver configurada
     const resendApiKey = process.env.RESEND_API_KEY;
-    const notificationEmail = process.env.CONTACT_NOTIFICATION_EMAIL || "contato@sotaque.com.br";
+    const notificationEmail =
+      process.env.CONTACT_NOTIFICATION_EMAIL || "comunicacaosotaque@gmail.com";
 
     if (resendApiKey) {
       try {

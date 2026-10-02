@@ -1,3 +1,4 @@
+import Image from "next/image";
 import SotaqueNavbar from "@/components/layout/SotaqueNavbar";
 import Hero from "@/components/sections/Hero";
 import Pillars from "@/components/sections/Pillars";
@@ -43,9 +44,11 @@ export default function Home() {
                 aria-label="Sotaque — Voltar ao topo"
                 className="inline-flex items-center gap-2 group w-fit"
               >
-                <img
+                <Image
                   src="/brand/logos/sotaque_simbolo-e-nome_creme.png"
                   alt="Sotaque Estúdio 360"
+                  width={180}
+                  height={40}
                   className="h-9 lg:h-10 w-auto object-contain transition-transform group-hover:scale-105"
                 />
               </a>

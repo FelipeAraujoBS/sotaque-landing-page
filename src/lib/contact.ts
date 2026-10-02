@@ -1,16 +1,15 @@
 export const CONTACT_INFO = {
-  email: "contato@sotaque.com.br",
-  phoneDisplay: "+55 (71) 99999-9999",
-  whatsappNumber: "5571999999999",
+  email: "comunicacaosotaque@gmail.com",
+  phoneDisplay: "+55 (71) 98192-5534",
+  whatsappNumber: "5571981925534",
   whatsappMessage: "Olá, Sotaque! Quero conversar sobre projetos de comunicação e estratégia para minha marca.",
   whatsappHref:
-    "https://wa.me/5571999999999?text=" +
+    "https://wa.me/5571981925534?text=" +
     encodeURIComponent("Olá, Sotaque! Quero conversar sobre projetos de comunicação e estratégia para minha marca."),
   instagram: "https://www.instagram.com/sotaquecom/",
   instagramHandle: "@sotaquecom",
-  linkedin: "https://linkedin.com",
+  linkedin: "https://www.linkedin.com/company/sotaque-comunicacao",
   city: "Salvador, BA",
   country: "Brasil",
-  cnpjPlaceholder: "CNPJ: — (Sob sigilo/contrato)",
 } as const;
 

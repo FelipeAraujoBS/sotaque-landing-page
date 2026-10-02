@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 
 export default function SotaqueNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -137,9 +138,12 @@ export default function SotaqueNavbar() {
               aria-label="Sotaque — Início"
               className="hover:opacity-85 transition-opacity flex items-center group cursor-pointer"
             >
-              <img
+              <Image
                 src="/brand/logos/sotaque_simbolo-e-nome_creme.png"
                 alt="Sotaque Estúdio 360"
+                width={160}
+                height={36}
+                priority
                 className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
               />
             </a>

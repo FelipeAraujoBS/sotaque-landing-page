@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export default function RegionalDna() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -113,9 +114,11 @@ export default function RegionalDna() {
         <div className="absolute left-0 right-0 bottom-[22%] h-px bg-[#0B1B47]/10 hidden lg:block" />
         {/* Grande marca d'água oficial Sotaque (Ondas de Voz da Pasta de Marca) */}
         <div className="absolute -right-10 top-[10%] w-[380px] lg:w-[480px] opacity-[0.06] pointer-events-none select-none">
-          <img
+          <Image
             src="/brand/elements/ondas-de-voz.png"
             alt=""
+            width={480}
+            height={240}
             aria-hidden
             className="w-full h-auto object-contain"
           />
@@ -227,9 +230,11 @@ export default function RegionalDna() {
                   </blockquote>
                   <div className="mt-6 flex items-center gap-3.5">
                     <div className="h-10 w-10 rounded-full bg-[#0B1B47] p-2 flex items-center justify-center shrink-0 shadow-md">
-                      <img
+                      <Image
                         src="/brand/logos/sotaque_simbolo_creme.png"
                         alt="Sotaque"
+                        width={32}
+                        height={32}
                         className="w-full h-full object-contain"
                       />
                     </div>
