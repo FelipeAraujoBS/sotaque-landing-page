@@ -4,6 +4,17 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 export default function SotaqueNavbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Monitora o scroll para aplicar acabamento dinâmico na navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
@@ -111,10 +122,14 @@ export default function SotaqueNavbar() {
 
   return (
     <>
-      {/* Top Navbar Suspensa — Grid único alinhado exatamente com o Hero e seções */}
-      <header className="fixed top-0 left-0 right-0 z-50 pointer-events-auto py-5 sm:py-6 bg-transparent border-none">
+      {/* Top Navbar Suspensa — Gradiente Azul Meia-Noite / Creme */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 pointer-events-auto transition-all duration-300 border-b border-[#0B1B47]/10 ${
+          isScrolled ? "py-3 sm:py-3.5 shadow-sm" : "py-4 sm:py-5"
+        } bg-gradient-to-r from-[#0B1B47] via-[#102454] to-[#F4F1E5] backdrop-blur-md`}
+      >
         <div className="mx-auto max-w-content w-full px-6 lg:px-8 flex items-center justify-between">
-          {/* Esquerda: Logotipo Oficial SOTAQUE */}
+          {/* Esquerda: Logotipo Oficial SOTAQUE em Creme (alto contraste sobre o Azul) */}
           <div className="flex items-center">
             <a
               href="#hero"
@@ -123,7 +138,7 @@ export default function SotaqueNavbar() {
               className="hover:opacity-85 transition-opacity flex items-center group cursor-pointer"
             >
               <img
-                src="/brand/logos/sotaque_simbolo-e-nome_azul-meia-noite.png"
+                src="/brand/logos/sotaque_simbolo-e-nome_creme.png"
                 alt="Sotaque Estúdio 360"
                 className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
               />
@@ -132,7 +147,7 @@ export default function SotaqueNavbar() {
 
           {/* Centro/Direita: Links de âncora visíveis no desktop */}
           <nav
-            className="hidden md:flex items-center gap-7 lg:gap-9 text-xs font-mono tracking-widest uppercase font-semibold text-[#0B1B47]/80"
+            className="hidden md:flex items-center gap-7 lg:gap-9 text-xs font-mono tracking-widest uppercase font-semibold text-[#F4F1E5]/85"
             aria-label="Navegação Principal"
           >
             {[
@@ -145,7 +160,7 @@ export default function SotaqueNavbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavigate(e, link.href)}
-                className="hover:text-[#E27908] transition-colors py-1 relative group"
+                className="hover:text-[#E27908] transition-colors py-1 relative group text-[#F4F1E5]/85"
               >
                 {link.label}
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-[#E27908]" />
@@ -172,7 +187,7 @@ export default function SotaqueNavbar() {
                 aria-label="Abrir Menu de Navegação Sotaque"
                 aria-expanded={isOpen}
                 aria-controls="drawer-menu"
-                className="group flex items-center gap-2 rounded-full border border-[#0B1B47]/20 px-3.5 py-1.5 text-[11px] font-mono tracking-widest uppercase text-[#0B1B47] bg-white/70 hover:bg-[#0B1B47] hover:text-[#F4F1E5] transition-all duration-200 shadow-sm"
+                className="group flex items-center gap-2 rounded-full border border-[#0B1B47]/20 px-3.5 py-1.5 text-[11px] font-mono tracking-widest uppercase text-[#0B1B47] bg-[#F4F1E5] hover:bg-[#0B1B47] hover:text-[#F4F1E5] transition-all duration-200 shadow-sm"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E27908]" />
                 <span className="font-semibold">Menu</span>
