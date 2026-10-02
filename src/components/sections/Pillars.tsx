@@ -9,7 +9,7 @@ type Pillar = {
   title: string;
   discipline: string;
   motto: string;
-  phrase: string;
+  tags: string[];
   metric: string;
   metricLabel: string;
   accentColor: string;
@@ -20,87 +20,129 @@ type Pillar = {
 
 const pillars: Pillar[] = [
   {
-    id: "branding",
+    id: "estrategia-branding",
     number: "01",
-    title: "Branding, ID Visual & Papelaria",
-    discipline: "Arquitetura de Marca",
-    motto: "Marcas com espinha dorsal e voz inconfundível.",
-    phrase: "Concepção de naming, tipografia autoral, paleta de choque e manuais completos. Da expressão digital à papelaria tátil em alta gramatura que impõe respeito no primeiro contato.",
-    metric: "Design & Tangibilidade",
-    metricLabel: "Identidade autoral sem concessões",
-    accentColor: "#6E1016", // Vinho Profundo
-    accentText: "text-[#6E1016]",
-    badgeBg: "bg-[#6E1016]/10 text-[#6E1016] border-[#6E1016]/25",
+    title: "Estratégia & Branding",
+    discipline: "Estratégia de Marca",
+    motto: "Posicionamento claro, identidade inconfundível.",
+    tags: [
+      "Posicionamento",
+      "Identidade",
+      "Direção de Marca",
+      "Naming",
+      "Estratégia de Comunicação",
+    ],
+    metric: "Branding 360°",
+    metricLabel: "Arquitetura autoral & posicionamento",
+    accentColor: "#1E6838", // Verde
+    accentText: "text-[#1E6838]",
+    badgeBg: "bg-[#1E6838]/10 text-[#1E6838] border-[#1E6838]/25",
     cardImage: "/brand/servicos/branding-id-visual.jpg",
   },
   {
-    id: "audiovisual",
+    id: "conteudo-audiovisual",
     number: "02",
-    title: "Filmmaker, Cinema & IA",
-    discipline: "Produção Audiovisual",
-    motto: "Cinema com alma autoral e tecnologia de ponta.",
-    phrase: "Roteiros ousados, direção de fotografia em 4K e captação presencial. Edição ágil acelerada por inteligência artificial com refinamento artesanal de diretor para documentários e campanhas.",
-    metric: "4K Cinema & IA",
+    title: "Conteúdo & Audiovisual",
+    discipline: "Cinema & Narrativa",
+    motto: "Cinema com alma autoral, direção fina e inteligência artificial.",
+    tags: [
+      "Conteúdo",
+      "Fotografia",
+      "Filme",
+      "Direção",
+      "Roteiro",
+      "Edição",
+      "IA Generativa",
+    ],
+    metric: "Cinema & IA",
     metricLabel: "Narrativa documental & alta retenção",
-    accentColor: "#0B1B47", // Azul Meia-Noite
-    accentText: "text-[#0B1B47]",
-    badgeBg: "bg-[#0B1B47]/10 text-[#0B1B47] border-[#0B1B47]/25",
+    accentColor: "#6E1016", // Vinho
+    accentText: "text-[#6E1016]",
+    badgeBg: "bg-[#6E1016]/10 text-[#6E1016] border-[#6E1016]/25",
     cardImage: "/brand/servicos/storymaker-filmmaker.jpg",
   },
   {
-    id: "redes",
+    id: "presenca-comunidade",
     number: "03",
-    title: "Gestão de Presença & Comunidade",
-    discipline: "Estratégia de Redes",
-    motto: "Não publicamos para preencher feed. Criamos obsessão.",
-    phrase: "Linha editorial magnética com a densidade cultural da sua marca. Conteúdo que constrói audiência proprietária, autoridade indiscutível e conexão real com o público.",
-    metric: "Comunidade 360°",
+    title: "Presença & Comunidade",
+    discipline: "Comunidade & Influência",
+    motto: "Construção de audiência proprietária e conexão real.",
+    tags: [
+      "Redes Sociais",
+      "Gestão de Comunidade",
+      "Conteúdo Editorial",
+      "Influência",
+      "Presença Digital",
+    ],
+    metric: "Comunidade Viva",
     metricLabel: "Engajamento com peso cultural",
-    accentColor: "#2F7C4B", // Verde Tropical
-    accentText: "text-[#2F7C4B]",
-    badgeBg: "bg-[#2F7C4B]/12 text-[#2F7C4B] border-[#2F7C4B]/30",
+    accentColor: "#1E6838", // Verde
+    accentText: "text-[#1E6838]",
+    badgeBg: "bg-[#1E6838]/10 text-[#1E6838] border-[#1E6838]/25",
     cardImage: "/brand/servicos/redes-sociais.jpg",
   },
   {
-    id: "web",
+    id: "digital-experiencias",
     number: "04",
-    title: "Plataformas Web & Experiências",
-    discipline: "Design & Engenharia Web",
-    motto: "Seu território digital sem limitações de templates.",
-    phrase: "Interfaces contemporâneas de alto padrão, código limpo, micro-interações fluidas e carregamento instantâneo. Feito para marcas que exigem elegância máxima e conversão real.",
-    metric: "Web & Conversão",
-    metricLabel: "Arquitetura viva e interativa",
-    accentColor: "#E27908", // Laranja Solar
-    accentText: "text-[#E27908]",
-    badgeBg: "bg-[#E27908]/15 text-[#E27908] border-[#E27908]/30",
+    title: "Digital & Experiências",
+    discipline: "Engenharia & UX/UI",
+    motto: "Territórios digitais fluidos, velozes e sem limitações.",
+    tags: [
+      "Sites",
+      "Landing Pages",
+      "Plataformas",
+      "Experiências Interativas",
+      "UX/UI",
+      "Desenvolvimento",
+    ],
+    metric: "Web & UX/UI",
+    metricLabel: "Arquitetura digital de alto desempenho",
+    accentColor: "#0B1B47", // Azul
+    accentText: "text-[#0B1B47]",
+    badgeBg: "bg-[#0B1B47]/10 text-[#0B1B47] border-[#0B1B47]/25",
     cardImage: "/brand/servicos/sites-landing-pages.jpg",
   },
   {
-    id: "podcast",
+    id: "producao-broadcast",
     number: "05",
-    title: "Podcast, Videocast & Mesacast",
+    title: "Produção & Broadcast",
     discipline: "Estúdio Multimídia",
-    motto: "Conversas que viram referência e pauta.",
-    phrase: "Estrutura completa de gravação com captação multicâmera, direção de palco, pós-produção acústica, vinhetas originais e distribuição estratégica nas principais plataformas.",
-    metric: "Estúdio & Cortes",
-    metricLabel: "Autoridade amplificada em áudio e vídeo",
-    accentColor: "#A3721B", // Mostarda Ocre
+    motto: "Voz, imagem e presença para liderar a conversa.",
+    tags: [
+      "Podcasts",
+      "Videocasts",
+      "Mesacasts",
+      "Transmissões",
+      "Captação",
+      "Estúdio",
+      "Pós-produção",
+    ],
+    metric: "Estúdio & Ao Vivo",
+    metricLabel: "Captação multicâmera e pós-produção",
+    accentColor: "#A3721B", // Cor atual (Mostarda Ocre)
     accentText: "text-[#A3721B]",
-    badgeBg: "bg-[#A3721B]/15 text-[#A3721B] border-[#A3721B]/30",
+    badgeBg: "bg-[#A3721B]/12 text-[#A3721B] border-[#A3721B]/30",
     cardImage: "/brand/servicos/podcast-videocast.jpg",
   },
   {
-    id: "imprensa",
+    id: "relacoes-reputacao",
     number: "06",
-    title: "Assessoria & Relações Culturais",
-    discipline: "Comunicação Institucional",
-    motto: "Toda marca tem uma verdade que merece manchete.",
-    phrase: "Posicionamento estratégico nos veículos que moldam opinião e conexão com formadores de mercado. Para dentro de casa: alinhamento de lideranças e fortalecimento da cultura de time.",
-    metric: "RP & Cultura",
-    metricLabel: "Repercussão nacional & time alinhado",
-    accentColor: "#6E1016", // Vinho Profundo
-    accentText: "text-[#6E1016]",
-    badgeBg: "bg-[#6E1016]/10 text-[#6E1016] border-[#6E1016]/25",
+    title: "Relações & Reputação",
+    discipline: "PR & Institucional",
+    motto: "A verdade da sua marca no centro da pauta cultural.",
+    tags: [
+      "Assessoria",
+      "PR",
+      "Relações Institucionais",
+      "Relações Culturais",
+      "Eventos",
+      "Gestão de Reputação",
+    ],
+    metric: "PR & Reputação",
+    metricLabel: "Repercussão nacional & valor de marca",
+    accentColor: "#E27908", // Laranja
+    accentText: "text-[#E27908]",
+    badgeBg: "bg-[#E27908]/12 text-[#E27908] border-[#E27908]/30",
     cardImage: "/brand/servicos/assessoria-imprensa.jpg",
   },
 ];
@@ -128,7 +170,7 @@ export default function Pillars() {
   const isHoveredRow1 = pillarsRow1.some((p) => p.id === hoveredId);
   const isHoveredRow2 = pillarsRow2.some((p) => p.id === hoveredId);
 
-  // Proporções de largura da linha (Bento dinâmico: card em hover expande até 2.4x e os vizinhos se comprimem)
+  // Proporções ultra-suaves de expansão do Bento Grid
   const getFlexGrow = (
     id: string,
     currentHoveredId: string | null,
@@ -139,9 +181,9 @@ export default function Pillars() {
       return 1;
     }
     if (currentHoveredId === id) {
-      return 2.4;
+      return 2.3;
     }
-    return 0.75;
+    return 0.85;
   };
 
   const renderCard = (p: Pillar, flexGrow: number) => {
@@ -158,38 +200,39 @@ export default function Pillars() {
           flexGrow,
           flexShrink: 1,
           flexBasis: "0%",
+          willChange: "flex-grow",
           transition:
-            "flex-grow 500ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 350ms, border-color 350ms, opacity 350ms, background-color 350ms",
+            "flex-grow 700ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms cubic-bezier(0.22, 1, 0.36, 1), border-color 400ms ease, opacity 400ms ease, background-color 400ms ease",
         }}
-        className={`group relative rounded-[1.8rem] border overflow-hidden flex flex-col p-6 sm:p-7 lg:p-8 cursor-pointer select-none transition-all duration-300 ${
+        className={`group relative rounded-[1.8rem] border overflow-hidden flex flex-col p-6 sm:p-7 lg:p-8 cursor-pointer select-none ${
           isHovered
             ? "bg-white border-[#0B1B47]/25 shadow-[0_24px_55px_rgba(11,27,71,0.12)] z-20"
             : isDimmed
-            ? "bg-white/80 border-[rgba(11,27,71,0.06)] shadow-sm opacity-80 hover:opacity-100"
+            ? "bg-white/85 border-[rgba(11,27,71,0.06)] shadow-sm opacity-85 hover:opacity-100"
             : "bg-white/95 border-[rgba(11,27,71,0.08)] shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)]"
         }`}
       >
-        {/* Spotlight dinâmico com acento solar (#E27908) */}
+        {/* Spotlight dinâmico acionado pela posição do mouse */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            background: `radial-gradient(460px circle at ${pos.x}px ${pos.y}px, rgba(226, 121, 8, 0.09), transparent 70%)`,
+            background: `radial-gradient(460px circle at ${pos.x}px ${pos.y}px, ${p.accentColor}18, transparent 70%)`,
           }}
           aria-hidden
         />
 
-        {/* Linha superior com cor de acento */}
+        {/* Linha superior com cor de acento do pilar */}
         <div
-          className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:h-1.5"
+          className="absolute top-0 left-0 right-0 h-1 transition-all duration-500 group-hover:h-1.5"
           style={{ backgroundColor: p.accentColor }}
           aria-hidden
         />
 
         {/* Topo do Card: Número e Disciplina */}
-        <div className="relative z-10 flex items-center justify-between gap-2 mb-4 sm:mb-5">
+        <div className="relative z-10 flex items-center justify-between gap-2 mb-4">
           <div className="flex items-center gap-2.5 min-w-0">
             <span
-              className="h-8 w-8 rounded-xl font-mono text-xs font-bold grid place-items-center border shrink-0 transition-colors duration-300"
+              className="h-8 w-8 rounded-xl font-mono text-xs font-bold grid place-items-center border shrink-0 transition-colors duration-400"
               style={{
                 backgroundColor: `${p.accentColor}12`,
                 borderColor: `${p.accentColor}30`,
@@ -199,7 +242,7 @@ export default function Pillars() {
               {p.number}
             </span>
             <span
-              className={`text-[11px] font-mono tracking-widest uppercase font-semibold transition-opacity duration-300 truncate ${
+              className={`text-[11px] font-mono tracking-widest uppercase font-semibold truncate transition-colors duration-400 ${
                 isDimmed ? "text-[#0B1B47]/50" : "text-[#0B1B47]/70"
               }`}
             >
@@ -208,7 +251,7 @@ export default function Pillars() {
           </div>
 
           <span
-            className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full border font-bold shrink-0 transition-all duration-300 ${
+            className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full border font-bold shrink-0 transition-all duration-400 ${
               p.badgeBg
             } ${isDimmed ? "hidden sm:inline-block scale-95" : ""}`}
           >
@@ -218,43 +261,38 @@ export default function Pillars() {
 
         {/* Título Principal em Commune */}
         <h3
-          className={`relative z-10 font-['Commune',serif] font-bold leading-[1.12] text-[#0B1B47] transition-all duration-300 ${
-            isHovered
-              ? "text-xl sm:text-[1.45rem] text-[#6E1016]"
-              : isDimmed
-              ? "text-base sm:text-lg line-clamp-2"
-              : "text-lg sm:text-[1.32rem]"
+          className={`relative z-10 font-['Commune',serif] font-bold text-xl sm:text-[1.35rem] leading-[1.14] text-[#0B1B47] transition-colors duration-400 ${
+            isHovered ? "text-[#6E1016]" : ""
           }`}
         >
           {p.title}
         </h3>
 
         {/* Lema em Itálico Nobre */}
-        <p
-          className={`relative z-10 font-serif italic text-xs text-[#6E1016] mt-2 mb-3 leading-relaxed transition-all duration-300 ${
-            isDimmed ? "line-clamp-1 opacity-70" : "opacity-100"
-          }`}
-        >
+        <p className="relative z-10 font-serif italic text-xs text-[#6E1016] mt-2 mb-3 leading-relaxed">
           “{p.motto}”
         </p>
 
-        {/* Descrição Concisa e Ousada */}
-        <p
-          className={`relative z-10 font-body text-xs sm:text-[13.5px] leading-[1.65] text-[#0B1B47]/80 flex-1 transition-all duration-300 ${
-            isHovered
-              ? "opacity-100"
-              : isDimmed
-              ? "line-clamp-2 opacity-60"
-              : "line-clamp-3 opacity-80"
-          }`}
-        >
-          {p.phrase}
-        </p>
+        {/* Tags / Serviços Oferecidos — Lista dinâmica elegante */}
+        <div className="relative z-10 flex flex-wrap gap-1.5 sm:gap-2 my-auto py-2">
+          {p.tags.map((tag) => (
+            <span
+              key={tag}
+              className={`text-[11px] font-mono tracking-tight px-2.5 py-1 rounded-full border transition-all duration-400 ${
+                isHovered
+                  ? "bg-[#0B1B47]/06 border-[#0B1B47]/15 text-[#0B1B47] font-semibold"
+                  : "bg-[#0B1B47]/03 border-[#0B1B47]/07 text-[#0B1B47]/70"
+              }`}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
 
         {/* Rodapé do Card com Prévia Interativa da Pasta Oficial */}
         <div className="relative z-10 mt-5 pt-4 border-t border-[#0B1B47]/08 flex items-center justify-between gap-3">
           <span
-            className={`text-xs font-mono font-medium transition-colors duration-300 truncate ${
+            className={`text-xs font-mono font-medium transition-colors duration-400 truncate ${
               isHovered ? "text-[#E27908] font-semibold" : "text-[#0B1B47]/70"
             }`}
           >
@@ -277,7 +315,7 @@ export default function Pillars() {
 
         {/* Marca d'água monumental sutil de fundo */}
         <span
-          className={`absolute -bottom-4 -right-2 font-['Commune',serif] font-black text-[6.5rem] leading-none tracking-tighter text-[#0B1B47]/[0.03] select-none pointer-events-none transition-all duration-500 ${
+          className={`absolute -bottom-4 -right-2 font-['Commune',serif] font-black text-[6.5rem] leading-none tracking-tighter text-[#0B1B47]/[0.03] select-none pointer-events-none transition-all duration-600 ${
             isHovered ? "text-[#0B1B47]/[0.07] scale-110" : ""
           }`}
           aria-hidden
@@ -333,7 +371,7 @@ export default function Pillars() {
         </div>
       </div>
 
-      {/* Bento Grid Dinâmico com Expansão no Hover */}
+      {/* Bento Grid Dinâmico com Expansão Ultra-Smooth no Hover */}
       <div
         className="mx-auto max-w-content px-6 lg:px-8 flex flex-col gap-5 lg:gap-6 min-h-[760px] lg:h-[760px]"
         onMouseLeave={() => setHoveredId(null)}
@@ -344,9 +382,10 @@ export default function Pillars() {
             flexGrow: isHoveredRow1 ? 1.35 : isHoveredRow2 ? 0.78 : 1,
             flexShrink: 1,
             flexBasis: "0%",
-            transition: "flex-grow 500ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms",
+            willChange: "flex-grow",
+            transition: "flex-grow 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms ease",
           }}
-          className={`flex flex-col md:flex-row gap-5 lg:gap-6 w-full transition-opacity duration-300 ${
+          className={`flex flex-col md:flex-row gap-5 lg:gap-6 w-full transition-opacity duration-500 ${
             isHoveredRow2 ? "opacity-85" : "opacity-100"
           }`}
         >
@@ -359,9 +398,10 @@ export default function Pillars() {
             flexGrow: isHoveredRow2 ? 1.35 : isHoveredRow1 ? 0.78 : 1,
             flexShrink: 1,
             flexBasis: "0%",
-            transition: "flex-grow 500ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms",
+            willChange: "flex-grow",
+            transition: "flex-grow 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms ease",
           }}
-          className={`flex flex-col md:flex-row gap-5 lg:gap-6 w-full transition-opacity duration-300 ${
+          className={`flex flex-col md:flex-row gap-5 lg:gap-6 w-full transition-opacity duration-500 ${
             isHoveredRow1 ? "opacity-85" : "opacity-100"
           }`}
         >
