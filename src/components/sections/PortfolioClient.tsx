@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { CaseItem } from "./Portfolio";
 
@@ -189,14 +190,14 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                 >
                   {/* Visual Mockup Container com Aspect Ratio 16:10 */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#0B1B47] border-b border-[#0B1B47]/08">
-                    {/* Imagem Retina do Case */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    {/* Imagem Retina do Case Otimizada (AVIF/WebP) */}
+                    <Image
                       src={c.midia}
                       alt={c.cliente}
-                      loading="lazy"
-                      decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={82}
+                      className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                     />
 
                     {/* Gradiente de proteção sutil para legibilidade dos badges */}

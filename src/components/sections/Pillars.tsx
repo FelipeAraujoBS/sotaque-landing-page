@@ -150,18 +150,12 @@ const pillars: Pillar[] = [
 export default function Pillars() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeFolderModal, setActiveFolderModal] = useState<Pillar | null>(null);
-  const [mousePos, setMousePos] = useState<{ [key: string]: { x: number; y: number } }>({});
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
-  const handleMouseMove = (id: string, e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    setMousePos((prev) => ({
-      ...prev,
-      [id]: {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      },
-    }));
+    e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
   };
 
   const pillarsRow1 = pillars.slice(0, 3);
@@ -190,7 +184,6 @@ export default function Pillars() {
   const renderCard = (p: Pillar, flexGrow: number) => {
     const isHovered = hoveredId === p.id;
     const isDimmed = isAnyHovered && !isHovered;
-    const pos = mousePos[p.id] || { x: 200, y: 150 };
 
     return (
       <div
@@ -207,7 +200,7 @@ export default function Pillars() {
         }}
         onMouseEnter={() => setHoveredId(p.id)}
         onClick={() => setHoveredId(hoveredId === p.id ? null : p.id)}
-        onMouseMove={(e) => handleMouseMove(p.id, e)}
+        onMouseMove={handleMouseMove}
         style={{
           flexGrow,
           flexShrink: 1,
@@ -225,11 +218,11 @@ export default function Pillars() {
             : "bg-white/95 border-[rgba(11,27,71,0.08)] shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] p-6 sm:p-7 lg:p-8"
         }`}
       >
-        {/* Spotlight dinâmico acionado pela posição do mouse */}
+        {/* Spotlight dinâmico acionado pela posição do mouse via CSS Custom Property (sem re-render do React) */}
         <div
           className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
           style={{
-            background: `radial-gradient(460px circle at ${pos.x}px ${pos.y}px, ${p.accentColor}18, transparent 70%)`,
+            background: `radial-gradient(460px circle at var(--mouse-x, 200px) var(--mouse-y, 150px), ${p.accentColor}18, transparent 70%)`,
           }}
           aria-hidden
         />

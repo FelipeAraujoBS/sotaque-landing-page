@@ -182,7 +182,7 @@ function generateRibbonPath(
   phase: number,
   time = 0,
   smoothMouse: { x: number; y: number; active: boolean },
-  steps = 32
+  steps = 24
 ) {
   const points: [number, number][] = [];
   const startX = -60;
@@ -278,20 +278,32 @@ export default function BonfimRibbons({
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  // IntersectionObserver para pausar fora de vista
+  // IntersectionObserver e VisibilityChange para pausar fora de vista ou com aba oculta
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
 
+    let isIntersecting = true;
+
+    const checkVisibility = () => {
+      setIsVisible(isIntersecting && !document.hidden);
+    };
+
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+        isIntersecting = entry.isIntersecting;
+        checkVisibility();
       },
       { threshold: 0.02 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    document.addEventListener("visibilitychange", checkVisibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", checkVisibility);
+    };
   }, []);
 
   // Rastreamento de mouse

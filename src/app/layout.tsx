@@ -90,6 +90,13 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={dmSans.variable}>
       <head>
+        <link
+          rel="preload"
+          href="/fonts/commune.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
