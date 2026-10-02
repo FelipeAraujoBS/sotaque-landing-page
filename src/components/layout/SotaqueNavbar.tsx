@@ -158,6 +158,7 @@ export default function SotaqueNavbar() {
               { label: "Pilares", href: "#pilares" },
               { label: "Manifesto", href: "#dna" },
               { label: "Portfólio", href: "#work" },
+              { label: "Insta Live", href: "#instagram" },
               { label: "Contato", href: "#contact" },
             ].map((link) => (
               <a
@@ -268,7 +269,8 @@ export default function SotaqueNavbar() {
               { label: "Manifesto & Raiz", href: "#dna", tag: "03" },
               { label: "Portfólio Vivo", href: "#work", tag: "04" },
               { label: "Depoimentos", href: "#depoimentos", tag: "05" },
-              { label: "Contato & Diagnóstico", href: "#contact", tag: "06" },
+              { label: "Instagram ao Vivo", href: "#instagram", tag: "06" },
+              { label: "Contato & Diagnóstico", href: "#contact", tag: "07" },
             ].map((item) => (
               <a
                 key={item.label}

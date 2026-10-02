@@ -15,18 +15,19 @@ export async function getInstagramPosts(limit = 30): Promise<{ posts: InstagramP
   const token = process.env.INSTAGRAM_ACCESS_TOKEN;
   const userId = process.env.INSTAGRAM_USER_ID;
 
-  // Em produção, se não houver credenciais reais da API, não renderiza posts mockados
-  if (process.env.NODE_ENV === "production" && (!token || !userId)) {
+  // Em produção, se não houver token real da API, não renderiza posts mockados
+  if (process.env.NODE_ENV === "production" && !token) {
     return { posts: [], isMock: true };
   }
 
-  // Em desenvolvimento, permite o mock para validação de layout
-  if (!token || !userId) {
+  // Em desenvolvimento, permite o mock para validação de layout caso não haja token
+  if (!token) {
     return { posts: (mockPosts as InstagramPost[]).slice(0, limit), isMock: true };
   }
 
   try {
-    const url = `https://graph.instagram.com/${userId}/media?fields=id,caption,media_url,permalink,timestamp,media_type&access_token=${token}&limit=${limit}`;
+    const targetUser = userId && userId.trim().length > 0 ? userId.trim() : "me";
+    const url = `https://graph.instagram.com/${targetUser}/media?fields=id,caption,media_url,permalink,timestamp,media_type&access_token=${token}&limit=${limit}`;
     const res = await fetch(url, { next: { revalidate: 60 * 60 * 3 } }); // ISR 3h
     if (!res.ok) throw new Error(`Instagram API ${res.status}`);
     const data = await res.json();
