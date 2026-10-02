@@ -50,12 +50,21 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Sotaque",
     url: siteUrl,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Sotaque — Estúdio 360 | Branding, Estratégia & Audiovisual",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sotaque — Estúdio 360 | Branding, Estratégia & Audiovisual",
     description:
       "Design e estratégia com raiz regional, olhar contemporâneo e voz própria.",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
