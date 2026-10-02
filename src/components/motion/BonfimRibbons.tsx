@@ -23,76 +23,163 @@ interface RibbonConfig {
   opacity: number;
 }
 
-// 5 Fitinhas com frequências e velocidades vivas, garantindo que todas se movam com amplitude e vida
+// 11 Fitinhas do Bonfim (2 de cada cor tradicional, com as 6 novas adicionadas abaixo da última e mescladas)
 const RIBBONS: RibbonConfig[] = [
+  // --- Bloco Superior (5 originais) ---
   {
-    id: "bonfim-laranja",
+    id: "bonfim-laranja-1",
     name: "Laranja Solar (Criatividade & Sotaque)",
-    baseY: 68,
+    baseY: 52,
     color: "#E27908",
     textColor: "#FFFFFF",
-    strokeWidth: 18,
-    speed: 3.6,
+    strokeWidth: 17,
+    speed: 3.5,
     freq: 2.1,
-    amplitude: 44,
+    amplitude: 42,
     phaseOffset: 0.0,
     textOffset: "1%",
     opacity: 0.96,
   },
   {
-    id: "bonfim-azul",
+    id: "bonfim-azul-1",
     name: "Azul Meia-Noite (Fé & Iemanjá)",
-    baseY: 132,
+    baseY: 106,
     color: "#0B1B47",
     textColor: "#F4F1E5",
-    strokeWidth: 18,
+    strokeWidth: 17,
     speed: 3.1,
     freq: 1.85,
-    amplitude: 48,
+    amplitude: 45,
     phaseOffset: 1.6,
     textOffset: "4%",
     opacity: 0.94,
   },
   {
-    id: "bonfim-vinho",
+    id: "bonfim-vinho-1",
     name: "Vinho Profundo (Paixão & Raiz)",
-    baseY: 196,
+    baseY: 160,
     color: "#6E1016",
     textColor: "#FFFFFF",
-    strokeWidth: 18,
-    speed: 3.8,
+    strokeWidth: 17,
+    speed: 3.7,
     freq: 2.25,
-    amplitude: 42,
+    amplitude: 40,
     phaseOffset: 3.2,
     textOffset: "2%",
     opacity: 0.95,
   },
   {
-    id: "bonfim-verde",
+    id: "bonfim-verde-1",
     name: "Verde Esperança (Cura & Oxóssi)",
-    baseY: 260,
+    baseY: 214,
     color: "#1E6838",
     textColor: "#FFFFFF",
-    strokeWidth: 18,
-    speed: 3.3,
+    strokeWidth: 17,
+    speed: 3.2,
     freq: 1.95,
-    amplitude: 46,
+    amplitude: 44,
     phaseOffset: 4.7,
     textOffset: "3%",
     opacity: 0.94,
   },
   {
-    id: "bonfim-amarelo",
+    id: "bonfim-amarelo-1",
     name: "Amarelo Ouro (Prosperidade & Oxum)",
-    baseY: 324,
+    baseY: 268,
     color: "#DF9307",
     textColor: "#0B1B47",
-    strokeWidth: 18,
-    speed: 4.1,
-    freq: 2.35,
-    amplitude: 40,
+    strokeWidth: 17,
+    speed: 3.9,
+    freq: 2.3,
+    amplitude: 39,
     phaseOffset: 5.9,
     textOffset: "5%",
+    opacity: 0.95,
+  },
+
+  // --- Bloco Inferior (6 adicionadas abaixo, mesclando as cores) ---
+  {
+    id: "bonfim-branco-1",
+    name: "Branco Paz (Oxalá & Senhor do Bonfim)",
+    baseY: 322,
+    color: "#FFFFFF",
+    textColor: "#0B1B47",
+    strokeWidth: 17,
+    speed: 3.3,
+    freq: 2.05,
+    amplitude: 43,
+    phaseOffset: 1.1,
+    textOffset: "2%",
+    opacity: 0.96,
+  },
+  {
+    id: "bonfim-vinho-2",
+    name: "Vinho Profundo (Paixão & Raiz)",
+    baseY: 376,
+    color: "#6E1016",
+    textColor: "#FFFFFF",
+    strokeWidth: 17,
+    speed: 3.6,
+    freq: 2.2,
+    amplitude: 41,
+    phaseOffset: 2.5,
+    textOffset: "4%",
+    opacity: 0.95,
+  },
+  {
+    id: "bonfim-laranja-2",
+    name: "Laranja Solar (Criatividade & Sotaque)",
+    baseY: 430,
+    color: "#E27908",
+    textColor: "#FFFFFF",
+    strokeWidth: 17,
+    speed: 3.8,
+    freq: 2.15,
+    amplitude: 45,
+    phaseOffset: 4.1,
+    textOffset: "1%",
+    opacity: 0.96,
+  },
+  {
+    id: "bonfim-azul-2",
+    name: "Azul Meia-Noite (Fé & Iemanjá)",
+    baseY: 484,
+    color: "#0B1B47",
+    textColor: "#F4F1E5",
+    strokeWidth: 17,
+    speed: 3.0,
+    freq: 1.9,
+    amplitude: 46,
+    phaseOffset: 5.4,
+    textOffset: "3%",
+    opacity: 0.94,
+  },
+  {
+    id: "bonfim-verde-2",
+    name: "Verde Esperança (Cura & Oxóssi)",
+    baseY: 538,
+    color: "#1E6838",
+    textColor: "#FFFFFF",
+    strokeWidth: 17,
+    speed: 3.4,
+    freq: 2.0,
+    amplitude: 42,
+    phaseOffset: 0.8,
+    textOffset: "5%",
+    opacity: 0.94,
+  },
+  {
+    id: "bonfim-amarelo-2",
+    name: "Amarelo Ouro (Prosperidade & Oxum)",
+    baseY: 592,
+    color: "#DF9307",
+    textColor: "#0B1B47",
+    strokeWidth: 17,
+    speed: 4.0,
+    freq: 2.35,
+    amplitude: 38,
+    phaseOffset: 2.9,
+    textOffset: "2%",
     opacity: 0.95,
   },
 ];
@@ -112,8 +199,13 @@ export default function BonfimRibbons({
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
-  // Rastreamento da posição do mouse no hero para vento reativo
-  const mousePosRef = useRef<{ x: number; y: number; active: boolean }>({
+  // Rastreamento amortecido do mouse para resposta suave e singela (sem trancos)
+  const targetMouseRef = useRef<{ x: number; y: number; active: boolean }>({
+    x: -9999,
+    y: -9999,
+    active: false,
+  });
+  const smoothMouseRef = useRef<{ x: number; y: number; active: boolean }>({
     x: -9999,
     y: -9999,
     active: false,
@@ -161,19 +253,19 @@ export default function BonfimRibbons({
         y <= rect.height + 80
       ) {
         const scaleX = 900 / rect.width;
-        const scaleY = 400 / rect.height;
-        mousePosRef.current = {
+        const scaleY = 645 / rect.height;
+        targetMouseRef.current = {
           x: x * scaleX,
           y: y * scaleY,
           active: true,
         };
       } else {
-        mousePosRef.current.active = false;
+        targetMouseRef.current.active = false;
       }
     };
 
     const handleMouseLeave = () => {
-      mousePosRef.current.active = false;
+      targetMouseRef.current.active = false;
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -231,6 +323,7 @@ export default function BonfimRibbons({
     audioEnergy = 0,
     bassEnergy = 0,
     time = 0,
+    smoothMouse: { x: number; y: number; active: boolean },
     steps = 55
   ) => {
     const points: [number, number][] = [];
@@ -238,7 +331,7 @@ export default function BonfimRibbons({
 
     for (let i = 0; i <= steps; i++) {
       const x = i * stepX;
-      const t = x / width; // 0.0 na amarração (esquerda) -> 1.0 na ponta livre (direita)
+      const t = x / width; // 0.0 na raiz -> 1.0 na ponta livre
 
       // Envelope físico de amplitude: no nó à esquerda a fita é firme; no meio e ponta flutua com liberdade total
       const envelope = 0.15 + 0.85 * Math.pow(t, 1.15);
@@ -262,15 +355,23 @@ export default function BonfimRibbons({
         Math.sin(turbAngle) * turbAmp +
         Math.sin(flutterAngle) * flutterAmp;
 
-      // Deslocamento aerodinâmico interativo ao aproximar o cursor do mouse
-      if (mousePosRef.current.active) {
-        const dx = x - mousePosRef.current.x;
-        const dy = y - mousePosRef.current.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const radius = 130;
-        if (dist < radius) {
-          const force = 1 - dist / radius;
-          y += (dy >= 0 ? 1 : -1) * force * 38;
+      // Interação singela, suave e orgânica com o cursor (sem saltos bruscos)
+      if (smoothMouse.active) {
+        const dx = x - smoothMouse.x;
+        const dy = y - smoothMouse.y;
+        const distSq = dx * dx + dy * dy;
+        const radius = 150; // Raio amplo para transição contínua e suave
+
+        if (distSq < radius * radius) {
+          const dist = Math.sqrt(distSq);
+          // Amortecimento gaussiano contínuo
+          const gaussian = Math.exp(-distSq / (2 * 50 * 50));
+          // Transição contínua sem descontinuidade em dy = 0
+          const direction = Math.sin(Math.min(1, Math.abs(dy) / 40) * (Math.PI / 2)) * (dy >= 0 ? 1 : -1);
+          // Suave ondulação de ar gerada pelo movimento
+          const breezeWave = Math.sin(time * 3.2 - dist * 0.03) * 3;
+          // Deslocamento máximo singelo e refinado (10-12px)
+          y += (direction * 11 + breezeWave) * gaussian;
         }
       }
 
@@ -368,6 +469,27 @@ export default function BonfimRibbons({
 
       time += 0.016 * speedMultiplier;
 
+      // Interpolação suave do mouse (inércia fluida de ar)
+      const targetMouse = targetMouseRef.current;
+      const smoothMouse = smoothMouseRef.current;
+
+      if (targetMouse.active) {
+        if (!smoothMouse.active) {
+          smoothMouse.x = targetMouse.x;
+          smoothMouse.y = targetMouse.y;
+          smoothMouse.active = true;
+        } else {
+          smoothMouse.x += (targetMouse.x - smoothMouse.x) * 0.06;
+          smoothMouse.y += (targetMouse.y - smoothMouse.y) * 0.06;
+        }
+      } else if (smoothMouse.active) {
+        // Amortecimento gradual de saída
+        smoothMouse.x += (-9999 - smoothMouse.x) * 0.05;
+        if (Math.abs(smoothMouse.x + 9999) < 20) {
+          smoothMouse.active = false;
+        }
+      }
+
       const svgWidth = 900;
 
       RIBBONS.forEach((ribbon, index) => {
@@ -391,7 +513,8 @@ export default function BonfimRibbons({
           currentPhase,
           audioEnergy,
           bassEnergy,
-          time
+          time,
+          smoothMouse
         );
 
         pathEl.setAttribute("d", path);
@@ -420,7 +543,17 @@ export default function BonfimRibbons({
 
   // Caminhos estáticos para SSR e prefers-reduced-motion
   const getStaticPath = (ribbon: RibbonConfig) => {
-    return generateRibbonPath(900, ribbon.baseY, ribbon.amplitude * 0.9, ribbon.freq, ribbon.phaseOffset).path;
+    return generateRibbonPath(
+      900,
+      ribbon.baseY,
+      ribbon.amplitude * 0.9,
+      ribbon.freq,
+      ribbon.phaseOffset,
+      0,
+      0,
+      0,
+      { x: -9999, y: -9999, active: false }
+    ).path;
   };
 
   return (
@@ -430,7 +563,7 @@ export default function BonfimRibbons({
       aria-hidden="true"
     >
       <svg
-        viewBox="0 0 900 395"
+        viewBox="0 0 900 645"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-auto overflow-visible"
@@ -438,8 +571,8 @@ export default function BonfimRibbons({
       >
         <defs>
           {/* Sombra de profundidade realista projetada pelas fitas */}
-          <filter id="bonfim-shadow-filter" x="-5%" y="-35%" width="115%" height="180%">
-            <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#0B1B47" floodOpacity="0.14" />
+          <filter id="bonfim-shadow-filter" x="-5%" y="-25%" width="115%" height="150%">
+            <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#0B1B47" floodOpacity="0.13" />
           </filter>
 
           {/* Caminhos SVG referenciados pelo textPath */}
@@ -455,7 +588,7 @@ export default function BonfimRibbons({
           ))}
         </defs>
 
-        {/* Camada das 5 Fitinhas do Bonfim com Sombra e Tipografia em Curva */}
+        {/* Camada das 11 Fitinhas do Bonfim com Sombra e Tipografia em Curva */}
         <g filter="url(#bonfim-shadow-filter)">
           {RIBBONS.map((ribbon, index) => (
             <g key={`ribbon-group-${ribbon.id}`} opacity={ribbon.opacity}>
@@ -471,10 +604,10 @@ export default function BonfimRibbons({
               {/* Friso sutil de brilho superior do cetim (Satin Specular Sheen) */}
               <use
                 href={`#path-${ribbon.id}`}
-                stroke="#FFFFFF"
-                strokeWidth={1.5}
+                stroke={ribbon.color === "#FFFFFF" ? "#0B1B47" : "#FFFFFF"}
+                strokeWidth={ribbon.color === "#FFFFFF" ? 0.8 : 1.5}
                 strokeLinecap="butt"
-                opacity={0.32}
+                opacity={ribbon.color === "#FFFFFF" ? 0.15 : 0.32}
                 transform="translate(0, -5.5)"
               />
 
@@ -519,7 +652,6 @@ export default function BonfimRibbons({
             </g>
           ))}
         </g>
-
       </svg>
     </div>
   );
