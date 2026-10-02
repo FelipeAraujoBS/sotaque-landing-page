@@ -11,7 +11,7 @@ export type InstagramPost = {
 
 // PLACEHOLDER: substituir por fetch real quando houver credenciais
 // fetch ocorre no servidor — nunca expor token no client
-export async function getInstagramPosts(limit = 6): Promise<{ posts: InstagramPost[]; isMock: boolean }> {
+export async function getInstagramPosts(limit = 30): Promise<{ posts: InstagramPost[]; isMock: boolean }> {
   const token = process.env.INSTAGRAM_ACCESS_TOKEN;
   const userId = process.env.INSTAGRAM_USER_ID;
 

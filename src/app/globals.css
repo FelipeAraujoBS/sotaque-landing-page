@@ -19,9 +19,8 @@
 }
 
 @font-face {
-  font-family: "Chroma Avenue";
-  src: url("/fonts/chroma-avenue.woff2") format("woff2"),
-       url("/fonts/chroma-avenue.otf") format("opentype");
+  font-family: "Commune";
+  src: url("/fonts/commune.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -225,4 +224,4 @@ html.lenis body {
 
 .lenis.lenis-stopped {
   overflow: hidden;
-}
+}

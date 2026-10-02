@@ -1,44 +1,62 @@
 [
   {
-    "slug": "clinica-aurora-rebrand",
-    "cliente": "Projeto conceitual — Clínica Aurora",
+    "slug": "galeria-aurora-rebrand",
+    "cliente": "Galeria Aurora",
+    "disciplina": "Branding & Expografia",
     "categoria": "branding",
-    "resumo": "Projeto conceitual — Identidade visual e sinalização interna humanizada para clínica multidisciplinar.",
-    "midia": "/cases/aurora/cover.jpg"
+    "resumo": "Identidade visual autoral, tipografia sob medida, sinalização espacial e catálogo editorial para centro de arte contemporânea.",
+    "impacto": "Catálogo premiado & +240% público em vernissages",
+    "ano": "2026",
+    "midia": "/cases/galeria-aurora.jpg"
+  },
+  {
+    "slug": "festival-origens-audiovisual",
+    "cliente": "Festival Origens",
+    "disciplina": "Audiovisual & Documentário",
+    "categoria": "audiovisual",
+    "resumo": "Produção audiovisual cinematográfica de 4K celebrando a ancestralidade baiana, artes visuais e encontros de música contemporânea.",
+    "impacto": "Mais de 1.8M visualizações orgânicas & cobertura nacional",
+    "ano": "2026",
+    "midia": "/cases/festival-origens.jpg"
+  },
+  {
+    "slug": "essence-design-estrategia",
+    "cliente": "Essence Botanica",
+    "disciplina": "Packaging & Posicionamento",
+    "categoria": "branding",
+    "resumo": "Arquitetura de marca, frascos em vidro âmbar e embalagens táteis em papel algodão para marca de alta cosmética botânica.",
+    "impacto": "Esgotamento da primeira tiragem em 14 dias",
+    "ano": "2025",
+    "midia": "/cases/essence.jpg"
+  },
+  {
+    "slug": "studio-prime-midia",
+    "cliente": "Studio Prime Arquitetura",
+    "disciplina": "Plataforma Web & Lookbook",
+    "categoria": "midia",
+    "resumo": "Presença digital imersiva com velocidade instantânea, lookbook editorial impresso e captação de leads qualificados de alto padrão.",
+    "impacto": "+195% propostas comerciais de alto ticket",
+    "ano": "2025",
+    "midia": "/cases/studio-prime.jpg"
   },
   {
     "slug": "instituto-vital-conteudo",
-    "cliente": "Projeto conceitual — Instituto Vital",
+    "cliente": "Instituto Vital",
+    "disciplina": "Editorial & Infografia Científica",
     "categoria": "conteudo",
-    "resumo": "Projeto conceitual — Linha editorial educativa para saúde preventiva com foco em clareza técnica e ética.",
-    "midia": "/cases/vital/cover.jpg"
+    "resumo": "Narrativa de marca, publicações em capa dura e design de dados que traduzem pesquisas complexas em linguagem acessível e nobre.",
+    "impacto": "Adoção como referência por 12 fundações parceiras",
+    "ano": "2025",
+    "midia": "/cases/instituto-vital.jpg"
   },
   {
-    "slug": "odonto-prime-midia",
-    "cliente": "Projeto conceitual — Odonto Prime",
-    "categoria": "midia",
-    "resumo": "Projeto conceitual — Estruturação de presença digital regional e campanhas éticas de conscientização.",
-    "midia": "/cases/odonto/cover.jpg"
-  },
-  {
-    "slug": "hospital-santa-clara-audiovisual",
-    "cliente": "Projeto conceitual — Hospital Santa Clara",
-    "categoria": "audiovisual",
-    "resumo": "Projeto conceitual — Produção audiovisual documental com foco em acolhimento clínico e iluminação natural.",
-    "midia": "/cases/santa-clara/cover.jpg"
-  },
-  {
-    "slug": "derma-essence-estrategia",
-    "cliente": "Projeto conceitual — Derma Essence",
-    "categoria": "branding",
-    "resumo": "Projeto conceitual — Posicionamento de marca 360 para lançamento de espaço dermatológico especializado.",
-    "midia": "/cases/derma/cover.jpg"
-  },
-  {
-    "slug": "cardio-vida-conteudo-midia",
-    "cliente": "Projeto conceitual — Cardio Vida",
+    "slug": "coletivo-viva-conteudo-midia",
+    "cliente": "Coletivo Viva",
+    "disciplina": "Revista Cultural & Curadoria",
     "categoria": "conteudo",
-    "resumo": "Projeto conceitual — Conteúdo informativo sobre saúde cardiovascular estruturado para canais digitais.",
-    "midia": "/cases/cardio/cover.jpg"
+    "resumo": "Ecossistema editorial com ensaios fotográficos de raiz brasileira, manifestos visuais e plataforma de economia criativa.",
+    "impacto": "Comunidade ativa com mais de 85 mil criadores",
+    "ano": "2026",
+    "midia": "/cases/coletivo-viva.jpg"
   }
 ]

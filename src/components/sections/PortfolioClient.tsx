@@ -6,41 +6,52 @@ import type { CaseItem } from "./Portfolio";
 
 const categories = [
   { id: "todos", label: "Todos os Cases" },
-  { id: "branding", label: "Branding" },
-  { id: "conteudo", label: "Conteúdo" },
-  { id: "midia", label: "Tráfego & Mídia" },
-  { id: "audiovisual", label: "Audiovisual" },
+  { id: "branding", label: "Branding & ID" },
+  { id: "conteudo", label: "Narrativa & Conteúdo" },
+  { id: "midia", label: "Web & Performance" },
+  { id: "audiovisual", label: "Audiovisual Cinema" },
 ] as const;
 
 type CategoryId = (typeof categories)[number]["id"];
 
-const categoryStyle: Record<string, string> = {
-  branding: "bg-[#D63A2F]/15 text-[#D63A2F] border-[#D63A2F]/30",
-  conteudo: "bg-[#58734A]/15 text-[#58734A] border-[#58734A]/30",
-  midia: "bg-[#E7A92B]/15 text-[#E7A92B] border-[#E7A92B]/30",
-  audiovisual: "bg-[#B85C42]/15 text-[#B85C42] border-[#B85C42]/30",
+const categoryBadgeStyle: Record<string, { bg: string; text: string; border: string }> = {
+  branding: {
+    bg: "bg-[#6E1016]/12",
+    text: "text-[#6E1016]",
+    border: "border-[#6E1016]/30",
+  },
+  conteudo: {
+    bg: "bg-[#0B1B47]/10",
+    text: "text-[#0B1B47]",
+    border: "border-[#0B1B47]/25",
+  },
+  midia: {
+    bg: "bg-[#E27908]/15",
+    text: "text-[#E27908]",
+    border: "border-[#E27908]/30",
+  },
+  audiovisual: {
+    bg: "bg-[#2F7C4B]/15",
+    text: "text-[#2F7C4B]",
+    border: "border-[#2F7C4B]/30",
+  },
 };
 
 const partnerLogos = [
-  // Wide wordmarks (mantidas na proporção ideal já validada)
-  { name: "Avon", src: "/logos/avon.svg", className: "h-7 sm:h-8 max-w-[130px]" },
-  { name: "MRV Engenharia", src: "/logos/mrv.webp", className: "h-8 sm:h-9 max-w-[130px]" },
-  { name: "Sicoob", src: "/logos/sicoob.webp", className: "h-8 sm:h-9 max-w-[140px]" },
-  { name: "Budweiser", src: "/logos/budweiser.svg", className: "h-8 sm:h-9 max-w-[140px]" },
-  { name: "Outback Steakhouse", src: "/logos/outback.svg", className: "h-8 sm:h-9 max-w-[130px]" },
-
-  // Logos compactos / circulares / brasões (altura aumentada para equilibrar peso óptico)
-  { name: "Bayer", src: "/logos/bayer.svg", className: "h-12 sm:h-14 md:h-16 max-w-[90px]" },
-  { name: "McDonald's", src: "/logos/mcdonalds.svg", className: "h-11 sm:h-12 md:h-14 max-w-[80px]" },
-  { name: "Esporte Clube Bahia", src: "/logos/ec-bahia.webp", className: "h-12 sm:h-13 md:h-15 max-w-[105px] scale-[1.15] origin-center" },
-  { name: "CCR Metrô Bahia", src: "/logos/ccr-metro.png", className: "h-12 sm:h-13 md:h-14 max-w-[115px] scale-[1.25] origin-center" },
-
-  // Logos médios com novas proporções equilibradas
-  { name: "DemocracyLab", src: "/logos/democracylab.svg", className: "h-9 sm:h-10 md:h-11 max-w-[150px]" },
-  { name: "Workana", src: "/logos/workana.svg", className: "h-8 sm:h-9 md:h-10 max-w-[140px]" },
-  { name: "Grau Técnico", src: "/logos/grau-tecnico.png", className: "h-10 sm:h-11 md:h-12 max-w-[130px]" },
-  { name: "Natura", src: "/logos/natura.png", className: "h-10 sm:h-11 md:h-12 max-w-[110px]" },
-  { name: "ALLOS", src: "/logos/allos.webp", className: "h-9 sm:h-10 md:h-11 max-w-[120px]" },
+  { name: "Avon", src: "/logos/avon.svg", className: "h-7 sm:h-8 max-w-[120px]" },
+  { name: "MRV Engenharia", src: "/logos/mrv.webp", className: "h-7 sm:h-8 max-w-[120px]" },
+  { name: "Sicoob", src: "/logos/sicoob.webp", className: "h-7 sm:h-8 max-w-[130px]" },
+  { name: "Budweiser", src: "/logos/budweiser.svg", className: "h-7 sm:h-8 max-w-[130px]" },
+  { name: "Outback", src: "/logos/outback.svg", className: "h-7 sm:h-8 max-w-[120px]" },
+  { name: "Bayer", src: "/logos/bayer.svg", className: "h-10 sm:h-12 max-w-[80px]" },
+  { name: "McDonald's", src: "/logos/mcdonalds.svg", className: "h-9 sm:h-11 max-w-[70px]" },
+  { name: "Esporte Clube Bahia", src: "/logos/ec-bahia.webp", className: "h-11 sm:h-12 max-w-[95px]" },
+  { name: "CCR Metrô Bahia", src: "/logos/ccr-metro.png", className: "h-10 sm:h-11 max-w-[105px]" },
+  { name: "DemocracyLab", src: "/logos/democracylab.svg", className: "h-8 sm:h-9 max-w-[130px]" },
+  { name: "Workana", src: "/logos/workana.svg", className: "h-7 sm:h-8 max-w-[120px]" },
+  { name: "Grau Técnico", src: "/logos/grau-tecnico.png", className: "h-9 sm:h-10 max-w-[110px]" },
+  { name: "Natura", src: "/logos/natura.png", className: "h-9 sm:h-10 max-w-[100px]" },
+  { name: "ALLOS", src: "/logos/allos.webp", className: "h-8 sm:h-9 max-w-[110px]" },
 ];
 
 export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
@@ -52,22 +63,42 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
   return (
     <section
       id="work"
-      className="relative bg-[#F3EBDD] text-[#102C2B] border-t border-[#102C2B]/10 pb-12 lg:pb-16"
-      aria-label="Portfólio vivo — cases"
+      className="relative bg-[#F4F1E5] text-[#0B1B47] border-t border-[#0B1B47]/10 pb-20 lg:pb-28 overflow-hidden"
+      aria-label="Portfólio vivo — cases autorais"
     >
-      {/* Marquee Infinito de Clientes e Parceiros — Fundo Areia Sotaque */}
-      <div className="mb-14 lg:mb-20 overflow-hidden border-b border-[#102C2B]/10 bg-[#F3EBDD] py-7 sm:py-8 md:py-9">
+      {/* Luz ambiente artística nos fundos */}
+      <div
+        className="absolute top-1/4 -right-24 w-[600px] h-[600px] rounded-full bg-[#E27908]/06 blur-[160px] pointer-events-none"
+        aria-hidden
+      />
+      <div
+        className="absolute bottom-1/3 -left-24 w-[500px] h-[500px] rounded-full bg-[#6E1016]/05 blur-[150px] pointer-events-none"
+        aria-hidden
+      />
+
+      {/* Marquee de Clientes e Parceiros — Curadoria Monocromática Padrão Refokus */}
+      <div className="mb-16 lg:mb-24 overflow-hidden border-y border-[#0B1B47]/10 bg-[#ECE8DC]/80 py-6 sm:py-7 backdrop-blur-sm">
+        <div className="mx-auto max-w-content px-6 mb-3 flex items-center justify-between">
+          <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#0B1B47]/50 font-semibold">
+            Confiança & Parcerias Estratégicas
+          </span>
+          <span className="text-[10px] font-mono text-[#0B1B47]/40 hidden sm:inline">
+            Grandes Marcas & Criadores Independentes
+          </span>
+        </div>
         <div className="flex items-center gap-12 sm:gap-16 md:gap-20 whitespace-nowrap animate-marquee">
           {[...partnerLogos, ...partnerLogos].map((logo, index) => (
             <div
               key={index}
-              className="flex items-center justify-center shrink-0 transition-transform duration-300 hover:scale-105"
+              className="flex items-center justify-center shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-105 transition-all duration-300"
               title={logo.name}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={logo.src}
                 alt={logo.name}
+                width={140}
+                height={56}
                 loading="lazy"
                 decoding="async"
                 className={`${logo.className} w-auto object-contain select-none`}
@@ -78,34 +109,32 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
       </div>
 
       <div className="mx-auto max-w-content px-6 lg:px-8">
-        {/* Header do Portfólio */}
-        <div className="grid grid-cols-12 gap-6 items-end mb-12">
+        {/* Header Editorial do Portfólio */}
+        <div className="grid grid-cols-12 gap-6 items-end mb-14">
           <div className="col-span-12 lg:col-span-7">
             <div className="flex items-center gap-3 mb-4">
-              <span className="h-px w-8 bg-[#D63A2F]" aria-hidden />
-              <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">
-                Portfólio Vivo • Sotaque Estúdio
-              </span>
-              <span className="hidden sm:inline text-xs font-mono text-[#102C2B]/75 font-medium">
-                • Estudos Conceituais & Metodologia 360
+              <span className="h-px w-8 bg-[#E27908]" aria-hidden />
+              <span className="text-xs font-mono tracking-[0.2em] uppercase font-semibold text-[#E27908]">
+                Galeria de Cases & Criação Autoral
               </span>
             </div>
 
-            <h2 className="font-display font-extrabold leading-[0.95] tracking-[-0.035em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#102C2B]">
-              Projetos que <span className="text-[#58734A]">ressoam</span> com o público de saúde
+            <h2 className="font-['Commune',serif] font-normal leading-[0.94] tracking-[-0.03em] text-[clamp(2.4rem,4.8vw,4rem)] text-[#0B1B47]">
+              Trabalhos com alma, <br />
+              <span className="italic text-[#6E1016]">ousadia</span> e acabamento de estúdio.
             </h2>
           </div>
 
           <div className="col-span-12 lg:col-span-5 lg:text-right">
-            <p className="text-sm font-body leading-relaxed text-[#102C2B]/80 max-w-[44ch] lg:ml-auto">
-              Cada trabalho abaixo traduz a complexidade de clínicas e especialistas em comunicação elegante, ética e de alto impacto comercial.
+            <p className="text-[15px] font-body leading-relaxed text-[#0B1B47]/80 max-w-[42ch] lg:ml-auto">
+              Cada projeto nasce da fusão entre a riqueza da cultura brasileira e a disciplina rigorosa do design e da narrativa contemporânea.
             </p>
           </div>
         </div>
 
-        {/* Filtros em Pílula (Estúdio Sotaque no Modo Creme) */}
+        {/* Filtros em Pílula Estilo Galeria */}
         <div
-          className="flex flex-wrap items-center gap-2.5 mb-10"
+          className="flex flex-wrap items-center gap-2.5 mb-12"
           role="group"
           aria-label="Filtrar por categoria"
         >
@@ -117,17 +146,17 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                 onClick={() => setActive(cat.id)}
                 aria-pressed={isActive}
                 aria-label={`Filtrar por ${cat.label}`}
-                className={`relative rounded-full border px-5 py-2 text-xs font-mono uppercase tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F] ${
+                className={`relative rounded-full border px-5 py-2.5 text-xs font-mono tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1B47] cursor-pointer ${
                   isActive
-                    ? "bg-[#102C2B] text-[#F3EBDD] border-[#102C2B] shadow-md font-bold"
-                    : "bg-white/70 text-[#102C2B]/75 border-[#102C2B]/15 hover:bg-white hover:text-[#102C2B] hover:border-[#102C2B]/30"
+                    ? "bg-[#0B1B47] text-[#F4F1E5] border-[#0B1B47] shadow-lg shadow-[#0B1B47]/15 font-semibold"
+                    : "bg-white/80 text-[#0B1B47]/75 border-[#0B1B47]/12 hover:bg-white hover:text-[#0B1B47] hover:border-[#0B1B47]/30"
                 }`}
               >
                 {cat.label}
                 {isActive && (
                   <motion.span
                     layoutId="portfolio-active"
-                    className="absolute inset-0 rounded-full border border-[#102C2B] pointer-events-none"
+                    className="absolute inset-0 rounded-full border border-[#0B1B47] pointer-events-none"
                     transition={{ type: "spring", stiffness: 420, damping: 30 }}
                     aria-hidden
                   />
@@ -135,91 +164,106 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
               </button>
             );
           })}
-          <span className="ml-3 text-xs font-mono text-[#102C2B]/75 hidden md:inline">
-            {filtered.length} projeto{filtered.length !== 1 ? "s" : ""} exibido{filtered.length !== 1 ? "s" : ""}
-          </span>
         </div>
 
-        {/* Grid dos Cards de Cases */}
-        <motion.div layout className="grid grid-cols-12 gap-5 lg:gap-6 auto-rows-fr">
+        {/* Grid de Cards de Alta Fidelidade (Padrão Studio Showcase) */}
+        <motion.div layout className="grid grid-cols-12 gap-7 lg:gap-8 auto-rows-fr">
           <AnimatePresence mode="popLayout">
-            {filtered.map((c) => (
-              <motion.article
-                key={c.slug}
-                layout
-                initial={{ opacity: 0, scale: 0.94, y: 16 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.94, y: 12 }}
-                transition={{ type: "spring", stiffness: 280, damping: 26 }}
-                className="group relative col-span-12 md:col-span-6 lg:col-span-4 rounded-[1.6rem] border border-[#102C2B]/10 bg-white overflow-hidden flex flex-col hover:border-[#102C2B]/25 hover:shadow-xl transition-all duration-500"
-                aria-label={`${c.cliente} — ${c.categoria}`}
-              >
-                {/* Visual Cover Banner com degradê oficial */}
-                <div className="relative h-[210px] overflow-hidden bg-[#102C2B] border-b border-[#102C2B]/10">
-                  <div
-                    className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-                    aria-hidden
-                    style={{
-                      backgroundImage:
-                        c.categoria === "branding"
-                          ? "radial-gradient(circle at 30% 30%, rgba(214,58,47,0.35), transparent 70%), linear-gradient(135deg, #163A39, #0C2120)"
-                          : c.categoria === "conteudo"
-                          ? "radial-gradient(circle at 30% 30%, rgba(88,115,74,0.35), transparent 70%), linear-gradient(135deg, #163A39, #0C2120)"
-                          : c.categoria === "midia"
-                          ? "radial-gradient(circle at 30% 30%, rgba(231,169,43,0.35), transparent 70%), linear-gradient(135deg, #163A39, #0C2120)"
-                          : "radial-gradient(circle at 30% 30%, rgba(184,92,66,0.35), transparent 70%), linear-gradient(135deg, #163A39, #0C2120)",
-                    }}
-                  />
+            {filtered.map((c) => {
+              const badge = categoryBadgeStyle[c.categoria] || {
+                bg: "bg-[#0B1B47]/10",
+                text: "text-[#0B1B47]",
+                border: "border-[#0B1B47]/20",
+              };
 
-                  {/* Category Pill Badge */}
-                  <span
-                    className={`absolute left-3.5 top-3.5 rounded-full border px-3 py-1 text-[10px] font-mono font-semibold tracking-widest uppercase backdrop-blur-md ${
-                      categoryStyle[c.categoria] || "bg-white/10 text-[#F3EBDD] border-white/20"
-                    }`}
-                  >
-                    {c.categoria}
-                  </span>
+              return (
+                <motion.article
+                  key={c.slug}
+                  layout
+                  initial={{ opacity: 0, scale: 0.96, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.96, y: 16 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 24 }}
+                  className="group relative col-span-12 md:col-span-6 lg:col-span-4 rounded-[1.8rem] border border-[#0B1B47]/12 bg-white overflow-hidden flex flex-col shadow-[0_4px_24px_rgba(11,27,71,0.04)] hover:shadow-[0_24px_50px_rgba(11,27,71,0.12)] hover:border-[#0B1B47]/30 transition-all duration-500"
+                  aria-label={`${c.cliente} — ${c.disciplina || c.categoria}`}
+                >
+                  {/* Visual Mockup Container com Aspect Ratio 16:10 */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-[#0B1B47] border-b border-[#0B1B47]/08">
+                    {/* Imagem Retina do Case */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={c.midia}
+                      alt={c.cliente}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+                    />
 
-                  {/* Identifier Slug */}
-                  <span className="absolute right-3.5 bottom-3.5 rounded-full bg-[#102C2B]/80 backdrop-blur-md border border-white/20 text-[#F3EBDD] text-[10px] font-mono px-2.5 py-0.5">
-                    {c.slug}
-                  </span>
-                </div>
+                    {/* Gradiente de proteção sutil para legibilidade dos badges */}
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/30 pointer-events-none"
+                      aria-hidden
+                    />
 
-                {/* Conteúdo textual */}
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-display font-bold leading-snug text-[#102C2B] text-[1.15rem] group-hover:text-[#D63A2F] transition-colors">
-                    {c.cliente}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#102C2B]/80 line-clamp-3 flex-1 font-body">
-                    {c.resumo}
-                  </p>
+                    {/* Top Bar sobre a imagem: Categoria e Ano */}
+                    <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
+                      <span
+                        className={`rounded-full border px-3 py-1 text-[10px] font-mono font-bold tracking-widest uppercase backdrop-blur-md bg-white/90 shadow-sm ${badge.text} ${badge.border}`}
+                      >
+                        {c.disciplina || c.categoria}
+                      </span>
 
-                  <div className="mt-5 pt-4 border-t border-[#102C2B]/10 flex items-center justify-between">
-                    <span className="text-xs font-mono text-[#102C2B]/70 font-medium">
-                      Estudo de Caso 360
-                    </span>
-
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-mono text-[#58734A] bg-[#58734A]/10 border border-[#58734A]/25 rounded-full px-2.5 py-0.5 font-semibold">
-                      Projeto Conceitual
-                    </span>
+                      {c.ano && (
+                        <span className="rounded-full bg-black/40 backdrop-blur-md px-2.5 py-0.5 text-[10px] font-mono text-white/90 border border-white/20 font-semibold">
+                          {c.ano}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </motion.article>
-            ))}
+
+                  {/* Conteúdo Textual com Hierarquia Editorial Rigorosa */}
+                  <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between">
+                    <div>
+                      <h3 className="font-['Commune',serif] font-bold text-[1.35rem] leading-[1.1] text-[#0B1B47] group-hover:text-[#6E1016] transition-colors duration-300">
+                        {c.cliente}
+                      </h3>
+
+                      <p className="mt-3 text-sm leading-[1.6] text-[#0B1B47]/80 font-body">
+                        {c.resumo}
+                      </p>
+                    </div>
+
+                    <div className="mt-6 pt-5 border-t border-[#0B1B47]/08 flex flex-col gap-3">
+                      {/* Selo de Impacto / Métrica Real */}
+                      {c.impacto && (
+                        <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#2F7C4B] bg-[#2F7C4B]/08 border border-[#2F7C4B]/20 rounded-lg px-3 py-1.5 w-fit">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#2F7C4B] animate-pulse" />
+                          <span>{c.impacto}</span>
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#0B1B47] group-hover:text-[#E27908] transition-colors flex items-center gap-1.5">
+                          <span>Ver Estudo de Caso</span>
+                          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                        </span>
+                        <span className="text-[11px] font-mono text-[#0B1B47]/40">
+                          Sotaque 360°
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
           </AnimatePresence>
         </motion.div>
 
         {filtered.length === 0 && (
-          <p className="text-center text-sm font-mono text-[#102C2B]/75 py-16">
-            Nenhum projeto registrado nesta categoria no momento.
+          <p className="text-center text-sm font-mono text-[#0B1B47]/75 py-20">
+            Nenhum projeto encontrado nesta categoria no momento.
           </p>
         )}
-
-        <div className="mt-8 flex items-center justify-between text-xs font-mono text-[#102C2B]/70 border-t border-[#102C2B]/10 pt-4">
-          <span>{/* JSON-driven: alimentado por content/cases.json */}Casos clínicos com narrativa autoral e estratégia médica.</span>
-          <span className="hidden sm:inline">{/* AnimatePresence • Física de Cursor Ativa */}Identidade visual, posicionamento e resultados éticos</span>
-        </div>
       </div>
     </section>
   );

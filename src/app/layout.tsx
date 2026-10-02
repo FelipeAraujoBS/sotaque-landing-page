@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import SmoothScroll from "@/components/motion/SmoothScroll";
+import SotaquePreloader from "@/components/ui/SotaquePreloader";
 import { CONTACT_INFO } from "@/lib/contact";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sotaquecom.com.br";
@@ -31,35 +32,35 @@ const chromaVenue = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Sotaque — Marketing Médico 360 | Branding & Estratégia para Clínicas",
+    default: "Sotaque — Estúdio 360 | Branding, Estratégia & Audiovisual",
     template: "%s | Sotaque",
   },
   description:
-    "Comunicação e marketing 360 com sotaque regional e olhar contemporâneo — foco no setor médico e saúde. Branding, conteúdo, mídia e audiovisual para clínicas e profissionais de saúde.",
+    "Comunicação e estratégia 360 com sotaque autoral, raiz regional e acabamento contemporâneo. Branding, redes, audiovisual e presença digital para marcas e criadores.",
   keywords: [
-    "comunicação médica",
-    "marketing médico",
-    "marketing para clínicas",
-    "branding saúde",
-    "agência saúde",
-    "comunicação 360 saúde",
-    "conteúdo médico",
-    "mídia saúde",
-    "audiovisual saúde",
+    "comunicação 360",
+    "branding",
+    "estratégia de marca",
+    "design autoral",
+    "audiovisual",
+    "produção cultural",
+    "redes sociais",
+    "estúdio criativo",
     "Sotaque",
-    "estúdio 360",
+    "Salvador",
+    "Bahia",
   ],
   authors: [{ name: "Sotaque Estúdio" }],
   creator: "Sotaque",
-  category: "Marketing e Comunicação em Saúde",
+  category: "Design, Branding e Comunicação",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Sotaque — Marketing Médico 360 | Branding & Estratégia para Clínicas",
+    title: "Sotaque — Estúdio 360 | Branding, Estratégia & Audiovisual",
     description:
-      "Comunicação que entende de gente e de saúde. Branding, conteúdo, mídia e audiovisual com sotaque regional — sem template genérico.",
+      "Comunicação com alma e sotaque regional. Branding, conteúdo, audiovisual e design autoral sem templates genéricos.",
     locale: "pt_BR",
     type: "website",
     siteName: "Sotaque",
@@ -67,9 +68,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sotaque — Marketing Médico 360 | Branding & Estratégia para Clínicas",
+    title: "Sotaque — Estúdio 360 | Branding, Estratégia & Audiovisual",
     description:
-      "Marketing médico com raiz regional e ferramentas de inovação.",
+      "Design e estratégia com raiz regional, olhar contemporâneo e voz própria.",
   },
   robots: {
     index: true,
@@ -90,8 +91,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#102C2B",
-  colorScheme: "dark",
+  themeColor: "#F4F1E5",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -114,9 +115,9 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "ProfessionalService",
               name: "Sotaque Estúdio",
-              alternateName: "Sotaque Comunicação e Marketing em Saúde",
+              alternateName: "Sotaque Estúdio 360",
               description:
-                "Comunicação e marketing médico 360 com foco em especialistas e clínicas médicas. Branding autoral, estratégia de conteúdo ético, tráfego qualificado e produção audiovisual de alto padrão.",
+                "Comunicação estratégica, branding autoral e produção audiovisual 360 com raiz regional e acabamento contemporâneo para marcas, criadores e empresas.",
               url: siteUrl,
               logo: `${siteUrl}/android-chrome-512x512.png`,
               image: `${siteUrl}/android-chrome-512x512.png`,
@@ -133,11 +134,11 @@ export default function RootLayout({
                 name: "Brasil",
               },
               serviceType: [
-                "Marketing Médico 360",
-                "Branding para Clínicas",
-                "Posicionamento Médico",
-                "Produção Audiovisual em Saúde",
-                "Gestão de Tráfego e Mídia Ética CFM",
+                "Comunicação Estratégica 360",
+                "Branding e Identidade Visual",
+                "Design Autoral",
+                "Produção Audiovisual e Videocast",
+                "Gestão de Redes Sociais e Mídia",
               ],
               sameAs: [CONTACT_INFO.instagram, CONTACT_INFO.linkedin],
             }),
@@ -145,6 +146,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased bg-background text-foreground">
+        <SotaquePreloader />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:rounded bg-ink text-cream px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-accent"

@@ -13,6 +13,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     let ScrollTrigger: any = null;
     let tickerCallback: ((time: number) => void) | null = null;
     let onLoad: (() => void) | null = null;
+    let handleAnchorClick: ((e: MouseEvent) => void) | null = null;
     let isMounted = true;
 
     Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([gsapMod, stMod]) => {
@@ -43,6 +44,29 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
       onLoad = () => ScrollTrigger.refresh();
       window.addEventListener("load", onLoad);
+
+      // Suporte global a âncoras para scroll suave instantâneo em todo o site
+      handleAnchorClick = (e: MouseEvent) => {
+        const anchor = (e.target as HTMLElement).closest("a");
+        if (!anchor) return;
+        const href = anchor.getAttribute("href");
+        if (href && href.startsWith("#") && href.length > 1) {
+          const targetId = href.substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement && lenis) {
+            e.preventDefault();
+            lenis.scrollTo(targetElement, {
+              offset: targetId === "hero" ? 0 : -20,
+              duration: 1.2,
+            });
+            if (window.history && window.history.pushState) {
+              window.history.pushState(null, "", href);
+            }
+          }
+        }
+      };
+
+      document.addEventListener("click", handleAnchorClick);
     });
 
     const handleReducedMotionChange = (e: MediaQueryListEvent) => {
@@ -57,6 +81,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       isMounted = false;
       mediaQuery.removeEventListener("change", handleReducedMotionChange);
       if (onLoad) window.removeEventListener("load", onLoad);
+      if (handleAnchorClick) document.removeEventListener("click", handleAnchorClick);
       if (lenis && ScrollTrigger) {
         try {
           lenis.off("scroll", ScrollTrigger.update);

@@ -1,41 +1,63 @@
-/* PLACEHOLDER — substituir com brand kit oficial quando o time de design entregar */
-/* Design tokens provisórios Sotaque — centralizados aqui para troca trivial futura */
-/* Filosofia: regional (tons terrosos/quentes) + inovação (acento teal saturado) */
+/* ==========================================================================
+   PALETA VISUAL OFICIAL SOTAQUE ESTÚDIO 360
+   Extraída do Guia Oficial de Marca (referências/Cores-Paletas)
+   Harmonia: Base Editorial Quente + Destaque Cinematográfico + Acentos Vivos
+   ========================================================================== */
 
 :root {
-  /* === Paleta Visual Oficial SOTAQUE === */
-  /* 01. Azul Petróleo Noturno (45%) — Base estrutural, profundidade, autoridade */
-  --sotaque-petroleo: #102C2B;
-  --sotaque-petroleo-surface: #163A39;
-  --sotaque-petroleo-card: #1D4645;
-  --sotaque-petroleo-border: rgba(243, 235, 221, 0.12);
-  --sotaque-petroleo-border-hover: rgba(243, 235, 221, 0.24);
+  /* === 01. Cores de Base Estrutural === */
+  --sotaque-azul-meia-noite: #0B1B47; /* Base estrutural, autoridade executiva, nobreza */
+  --sotaque-petroleo: #0B1B47;
+  --sotaque-petroleo-surface: #0E2259;
+  --sotaque-petroleo-card: #122B6E;
+  --sotaque-petroleo-border: rgba(244, 241, 229, 0.15);
+  --sotaque-petroleo-border-hover: rgba(244, 241, 229, 0.28);
 
-  /* 02. Areia / Marfim (35%) — Fundo alternativo, respiro, negativos e luz */
-  --sotaque-areia: #F3EBDD;
-  --sotaque-areia-soft: #ECE3D3;
+  --sotaque-creme: #F4F1E5; /* Papel Creme Editorial — calor autêntico, leitura nobre */
+  --sotaque-areia: #F4F1E5;
+  --sotaque-areia-soft: #EAE6D8;
   --sotaque-areia-surface: #FFFFFF;
-  --sotaque-areia-card: #E8DEC9;
-  --sotaque-areia-border: rgba(16, 44, 43, 0.12);
-  --sotaque-areia-border-hover: rgba(16, 44, 43, 0.25);
+  --sotaque-areia-card: #FFFFFF;
+  --sotaque-areia-border: rgba(11, 27, 71, 0.10);
+  --sotaque-areia-border-hover: rgba(11, 27, 71, 0.22);
+  --sotaque-paper: #F4F1E5;
 
-  /* 03. Vermelho Goiaba (10%) — Voz da marca, CTA, assinatura */
-  --sotaque-goiaba: #D63A2F;
-  --sotaque-goiaba-hover: #BA2E24;
-  --sotaque-goiaba-glow: rgba(214, 58, 47, 0.35);
+  /* === 02. Destaques Principais (15% - 20%) === */
+  --sotaque-vinho: #6E1016; /* Vinho Profundo Oficial — sofisticação madura, raízes */
+  --sotaque-vinho-profundo: #6E1016;
+  --sotaque-goiaba: #6E1016;
+  --sotaque-vermelho: #6E1016;
+  --sotaque-vermelho-hover: #5A0D12;
+  --sotaque-vermelho-soft: rgba(110, 16, 22, 0.14);
+  --sotaque-goiaba-glow: rgba(110, 16, 22, 0.35);
 
-  /* 04. Solar / Mostarda (5%) — Energia, detalhes, luz e interação */
-  --sotaque-solar: #E7A92B;
-  --sotaque-solar-hover: #CF9520;
-  --sotaque-solar-glow: rgba(231, 169, 43, 0.3);
+  --sotaque-vermelho-vivo: #CF000F; /* Vermelho Vivo — acento de urgência, calor, ousadia */
 
-  /* 05. Verde Folha (3%) — Saúde, natureza, apoio contextual */
-  --sotaque-folha: #58734A;
-  --sotaque-folha-soft: rgba(88, 115, 74, 0.15);
+  /* === 03. Cores de Apoio, Luz e Território (10% - 15%) === */
+  --sotaque-solar: #E27908; /* Laranja Solar — energia, calor do meio-dia, botões de ação */
+  --sotaque-laranja-solar: #E27908;
+  --sotaque-solar-glow: rgba(226, 121, 8, 0.32);
 
-  /* 06. Terracota (2%) — Raiz, cultura, terra, calor brasileiro */
+  --sotaque-mostarda: #A3721B; /* Mostarda/Ocre — artesanato, terra fértil, patrimônio */
+  --sotaque-amarelo: #E27908;
+  --sotaque-amarelo-hover: #C96B07;
+
+  --sotaque-verde-tropical: #2F7C4B; /* Verde Tropical — vitalidade, floresta, crescimento sustentável */
+  --sotaque-verde-plumagem: #2F7C4B;
+  --sotaque-folha: #2F7C4B;
+  --sotaque-verde-soft: rgba(47, 124, 75, 0.15);
+
+  --sotaque-verde-musgo: #47611F; /* Verde Musgo — densidade orgânica, ecologia */
+  --sotaque-azul-poeira: #5C86A6; /* Azul Poeira / Céu Empoeirado — calma, respiro editorial */
+
+  /* Transição de Penas & Terracota */
   --sotaque-terracota: #B85C42;
   --sotaque-terracota-soft: rgba(184, 92, 66, 0.15);
+
+  /* Palco Hero Cinematográfico (Amostragem Reativa da Ave) */
+  --sotaque-salvia: #B6C3B0;
+  --sotaque-ghost: #ADBAA7;
+  --sotaque-ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Aliases retrocompatíveis mapeados para a paleta oficial */
   --sotaque-midnight: var(--sotaque-petroleo);
@@ -57,16 +79,19 @@
   --sotaque-border: var(--sotaque-areia-border);
   --sotaque-surface: var(--sotaque-petroleo-surface);
 
-  /* Derivados semânticos */
-  --color-background: var(--sotaque-petroleo);
-  --color-foreground: var(--sotaque-areia);
+  /* 08. Paper / Creme Claro Oficial */
+  --sotaque-paper: #F4F1E5;
+
+  /* Derivados semânticos para base clara Areia / Verde */
+  --color-background: var(--sotaque-areia);
+  --color-foreground: var(--sotaque-petroleo);
   --color-primary: var(--sotaque-goiaba);
-  --color-primary-foreground: var(--sotaque-areia);
+  --color-primary-foreground: #FFFFFF;
   --color-accent: var(--sotaque-solar);
   --color-accent-foreground: var(--sotaque-petroleo);
-  --color-muted: var(--sotaque-petroleo-card);
-  --color-border: var(--sotaque-petroleo-border);
-  --color-surface: var(--sotaque-petroleo-surface);
+  --color-muted: var(--sotaque-areia-soft);
+  --color-border: var(--sotaque-areia-border);
+  --color-surface: #FFFFFF;
 
   /* === Tipografia === */
   --font-display: var(--font-fraunces), Georgia, serif;

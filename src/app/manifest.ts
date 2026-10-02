@@ -2,14 +2,14 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Sotaque — Marketing Médico 360",
+    name: "Sotaque — Estúdio 360",
     short_name: "Sotaque",
     description:
-      "Comunicação e marketing 360 com sotaque regional e olhar contemporâneo — foco no setor médico e saúde.",
+      "Estúdio 360 de branding, comunicação estratégica e audiovisual autoral.",
     start_url: "/",
     display: "standalone",
-    background_color: "#102C2B",
-    theme_color: "#102C2B",
+    background_color: "#F4F1E5",
+    theme_color: "#0B1B47",
     icons: [
       {
         src: "/android-chrome-192x192.png",

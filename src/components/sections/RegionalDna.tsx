@@ -86,24 +86,33 @@ export default function RegionalDna() {
     <section
       id="dna"
       ref={sectionRef}
-      className="relative overflow-hidden bg-[#F3EBDD] text-[#102C2B]"
+      className="relative overflow-hidden bg-[#F4F1E5] text-[#0B1B47]"
       aria-label="Por que Sotaque — DNA regional"
     >
-      {/* Fundo parallax — textura terrosa muito sutil, duas camadas */}
+      {/* Fundo parallax — Papel Creme Oficial #F4F1E5 */}
       <div ref={bgRef} className="absolute inset-0 pointer-events-none will-change-transform" aria-hidden>
-        <div className="absolute inset-0 bg-[#F3EBDD]" />
+        <div className="absolute inset-0 bg-[#F4F1E5]" />
+
+        {/* Rajadas de luz orgânica quente e solar */}
         <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 22% 30%, #B85C42 0%, transparent 46%), radial-gradient(circle at 88% 78%, #E7A92B 0%, transparent 38%)`,
-          }}
+          className="absolute top-1/4 right-0 w-[550px] h-[550px] rounded-full bg-[#E27908]/10 blur-[140px] pointer-events-none"
+          aria-hidden
+        />
+        <div
+          className="absolute bottom-10 -left-20 w-[500px] h-[500px] rounded-full bg-[#E27908]/08 blur-[140px] pointer-events-none"
+          aria-hidden
         />
         {/* Linhas horizontais orgânicas */}
-        <div className="absolute left-0 right-0 top-[18%] h-px bg-[#102C2B]/10 hidden lg:block" />
-        <div className="absolute left-0 right-0 bottom-[22%] h-px bg-[#102C2B]/10 hidden lg:block" />
-        {/* Grande marca d'água */}
-        <div className="absolute -right-[6%] top-[12%] font-display font-black text-[20vw] leading-none tracking-tighter text-[#102C2B]/[0.03] select-none hidden xl:block">
-          360
+        <div className="absolute left-0 right-0 top-[18%] h-px bg-[#0B1B47]/10 hidden lg:block" />
+        <div className="absolute left-0 right-0 bottom-[22%] h-px bg-[#0B1B47]/10 hidden lg:block" />
+        {/* Grande marca d'água oficial Sotaque (Ondas de Voz da Pasta de Marca) */}
+        <div className="absolute -right-10 top-[10%] w-[380px] lg:w-[480px] opacity-[0.06] pointer-events-none select-none">
+          <img
+            src="/brand/elements/ondas-de-voz.png"
+            alt=""
+            aria-hidden
+            className="w-full h-auto object-contain"
+          />
         </div>
       </div>
 
@@ -112,43 +121,42 @@ export default function RegionalDna() {
           {/* Coluna esquerda — narrativa principal, ritmo lento */}
           <div className="col-span-12 lg:col-span-7 xl:col-span-7">
             <div className="flex items-center gap-3 mb-6">
-              <span className="h-px w-8 bg-[#D63A2F]" aria-hidden />
-              <span className="text-xs tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">Por que Sotaque</span>
-              <span className="hidden sm:inline text-xs font-mono text-[#102C2B]/75 font-medium">• DNA regional & Escuta</span>
+              <span className="h-px w-8 bg-[#E27908]" aria-hidden />
+              <span className="text-xs tracking-[0.16em] uppercase font-bold text-[#E27908]">Nossa Essência</span>
             </div>
 
-            <h2 className="dna-reveal font-display font-bold leading-[0.92] tracking-[-0.03em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#102C2B]">
+            <h2 className="dna-reveal font-['Commune',serif] font-bold leading-[0.94] tracking-[-0.02em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#0B1B47]">
               Inovação sem perder
               <br />
-              <span className="font-light italic text-[#102C2B]/75">o chão onde pisa.</span>
+              <span className="font-light italic text-[#6E1016]">o chão onde pisa.</span>
             </h2>
 
             {/* Texto em parágrafos nobres e fluidos — sem cortes de linha artificiais */}
             <div className="mt-8 space-y-5">
-              <p className="dna-reveal font-display text-lg sm:text-xl lg:text-[1.35rem] leading-relaxed text-[#102C2B]/90 font-medium">
+              <p className="dna-reveal font-display text-lg sm:text-xl lg:text-[1.35rem] leading-relaxed text-[#0B1B47]/90 font-medium">
                 A gente acredita que comunicação boa tem sotaque. Não é sobre falar &ldquo;diferente&rdquo; por marketing — é sobre não soar igual a todo mundo.
               </p>
 
-              <p className="dna-reveal font-body text-base sm:text-lg leading-relaxed text-[#102C2B]/80">
-                Enquanto o mercado tenta parecer global e asséptico, a gente escolhe ficar perto: entender o balcão, a sala de espera e o jeito acolhedor de dizer &ldquo;pode entrar&rdquo;.
+              <p className="dna-reveal font-body text-base sm:text-lg leading-relaxed text-[#0B1B47]/80">
+                Enquanto o mercado tenta parecer global e pasteurizado, a gente escolhe a proximidade: entender a cultura, o território e o jeito genuíno de dialogar com as pessoas.
               </p>
 
-              <p className="dna-reveal font-body text-base sm:text-lg leading-relaxed text-[#102C2B]/80">
-                A Sotaque nasceu para ser o departamento de comunicação que clínicas e profissionais de saúde não têm — e não precisam montar do zero. Inovação nas ferramentas, raiz na escuta.
+              <p className="dna-reveal font-body text-base sm:text-lg leading-relaxed text-[#0B1B47]/80">
+                A Sotaque nasceu para ser o núcleo criativo e estratégico de marcas que buscam voz autêntica e relevância. Inovação nas ferramentas, sensibilidade na escuta.
               </p>
             </div>
 
             {/* Detalhe interativo — expressão regional */}
-            <div className="dna-reveal mt-8 rounded-xl border border-[#102C2B]/12 bg-white p-4 flex items-start gap-3 max-w-xl shadow-sm">
-              <span className="mt-0.5 h-7 w-7 rounded-full bg-[#102C2B] grid place-items-center text-[#F3EBDD] text-xs font-bold shrink-0">
+            <div className="dna-reveal mt-8 rounded-xl border border-[#0B1B47]/12 bg-white p-4 flex items-start gap-3 max-w-xl shadow-sm">
+              <span className="mt-0.5 h-7 w-7 rounded-full bg-[#0B1B47] grid place-items-center text-[#F4F1E5] text-xs font-bold shrink-0">
                 ?
               </span>
               <div className="min-w-0">
-                <p className="font-display font-semibold text-[#102C2B] text-sm leading-tight">
+                <p className="font-display font-semibold text-[#0B1B47] text-sm leading-tight">
                   Expressão do estúdio:{" "}
                   <button
                     type="button"
-                    className="underline decoration-[#D63A2F] decoration-2 underline-offset-4 hover:text-[#D63A2F] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F] rounded"
+                    className="underline decoration-[#E27908] decoration-2 underline-offset-4 hover:text-[#0B1B47] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1B47] rounded"
                     onMouseEnter={() => setShowGlossary(true)}
                     onMouseLeave={() => setShowGlossary(false)}
                     onFocus={() => setShowGlossary(true)}
@@ -168,68 +176,59 @@ export default function RegionalDna() {
                   aria-hidden={!showGlossary}
                 >
                   <div className="overflow-hidden">
-                    <p className="text-sm leading-relaxed text-[#102C2B]/75">
-                      Quer dizer que a gente adapta o tom, o vocabulário e o ritmo da comunicação à cultura local do paciente, sem cair em caricatura. Regionalidade como método e escuta, nunca fantasia.
+                    <p className="text-sm leading-relaxed text-[#0B1B47]/75">
+                      Quer dizer que a gente adapta o tom, a linguagem e o ritmo da comunicação ao território e contexto de cada projeto, sem cair em caricatura. Regionalidade como estética e escuta autoral.
                     </p>
                   </div>
                 </div>
-                <p className="text-xs text-[#102C2B]/70 font-medium mt-1">Passe o mouse ou clique para ver o significado.</p>
               </div>
             </div>
-
-            <p className="dna-reveal mt-6 text-xs text-[#102C2B]/70 font-mono">
-              Manifesto autoral Sotaque — comunicação em saúde com profundidade e precisão.
-            </p>
           </div>
 
           {/* Coluna direita — cartão editorial sticky, assimétrico */}
           <div className="col-span-12 lg:col-span-5 xl:col-span-5 lg:sticky lg:top-24">
             <div className="relative max-w-[420px] lg:ml-auto">
-              {/* Moldura */}
-              <div className="absolute -inset-2 border border-[#102C2B]/10 rounded-[1.4rem] hidden md:block" aria-hidden />
-              <div className="relative bg-white text-[#102C2B] rounded-[1.2rem] overflow-hidden shadow-xl border border-[#102C2B]/10">
-                <div className="h-1.5 w-full bg-[#D63A2F]" />
-                <div className="p-6">
-                  <p className="text-xs tracking-[0.14em] uppercase font-semibold text-[#102C2B]/70">Manifesto curto</p>
-                  <blockquote className="mt-3 font-display text-[18px] leading-snug tracking-tight text-[#102C2B] text-balance">
-                    “A gente não quer ser a agência que fala <em className="font-light italic text-[#D63A2F]">sobre</em> saúde.
-                    Quer ser a que fala <em className="text-[#102C2B] font-semibold">com</em> quem vive de saúde.”
+              <div className="relative bg-white text-[#0B1B47] rounded-[1.4rem] overflow-hidden shadow-2xl border border-[#0B1B47]/12">
+                <div className="h-1.5 w-full bg-gradient-to-r from-[#6E1016] via-[#E27908] to-[#0B1B47]" />
+                <div className="p-7">
+                  <blockquote className="font-['Commune',serif] text-[20px] sm:text-[22px] leading-snug tracking-[-0.02em] text-[#0B1B47] text-balance">
+                    “A gente não cria marcas para parecerem cópias globais.
+                    Cria marcas com <em className="text-[#E27908] font-bold not-italic">alma</em>, história viva e <em className="font-light italic text-[#6E1016]">personalidade própria</em>.”
                   </blockquote>
-                  <div className="mt-4 flex items-center gap-3">
-                    <span className="h-8 w-8 rounded-full bg-[#102C2B] text-[#F3EBDD] grid place-items-center font-display font-bold text-xs">
-                      S
-                    </span>
+                  <div className="mt-6 flex items-center gap-3.5">
+                    <div className="h-10 w-10 rounded-full bg-[#0B1B47] p-2 flex items-center justify-center shrink-0 shadow-md">
+                      <img
+                        src="/brand/logos/sotaque_simbolo_creme.png"
+                        alt="Sotaque"
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                     <div className="text-xs leading-tight">
-                      <p className="font-semibold text-[#102C2B]">Sotaque Estúdio 360</p>
-                      <p className="text-[#102C2B]/75 font-medium">direção de criação & estratégia</p>
+                      <p className="font-bold text-[#0B1B47] tracking-wide">Sotaque Estúdio 360</p>
+                      <p className="text-[#0B1B47]/70 font-mono text-[11px] mt-0.5">direção de criação & estratégia</p>
                     </div>
                   </div>
                 </div>
-                <div className="px-6 py-3 bg-[#F3EBDD]/60 border-t border-[#102C2B]/10 flex items-center justify-between text-xs">
-                  <span className="text-[#102C2B]/70 font-medium">Manifesto Autoral</span>
-                  <span className="font-mono text-[#102C2B]/70 font-medium">Salvador • Brasil</span>
+                <div className="px-7 py-3.5 bg-[#FAF8F2] border-t border-[#0B1B47]/10 flex items-center justify-between text-xs">
+                  <span className="text-[#0B1B47]/80 font-mono font-semibold tracking-wider uppercase text-[10px]">Manifesto Autoral</span>
+                  <span className="font-mono text-[#0B1B47]/60 text-[11px]">Salvador • Brasil</span>
                 </div>
-              </div>
-
-              {/* Etiqueta de Raiz em Terracota */}
-              <div className="absolute -bottom-3 -left-3 hidden md:inline-flex items-center gap-2 rounded-full bg-[#B85C42] text-[#F3EBDD] px-3.5 py-1.5 text-xs font-semibold shadow-md rotate-[-1deg]">
-                Raiz regional • 360
               </div>
             </div>
 
             {/* Pilares qualitativos e autoridade da marca */}
-            <div className="mt-8 grid grid-cols-3 gap-3 max-w-[420px] lg:ml-auto">
-              <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
-                <p className="font-display font-bold text-[#102C2B] text-lg">360°</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/75 font-semibold mt-1">Visão Integrada</p>
+            <div className="mt-6 grid grid-cols-3 gap-3 max-w-[420px] lg:ml-auto">
+              <div className="rounded-xl bg-white/90 border border-[#0B1B47]/12 p-3.5 text-center shadow-sm hover:border-[#0B1B47]/30 transition-colors">
+                <p className="font-['Commune',serif] font-bold text-[#0B1B47] text-xl">360°</p>
+                <p className="text-[10px] font-mono tracking-widest uppercase text-[#0B1B47]/70 font-semibold mt-1">Visão Total</p>
               </div>
-              <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
-                <p className="font-display font-bold text-[#58734A] text-lg">CFM</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/75 font-semibold mt-1">Rigor Ético</p>
+              <div className="rounded-xl bg-white/90 border border-[#6E1016]/20 p-3.5 text-center shadow-sm hover:border-[#6E1016]/40 transition-colors">
+                <p className="font-['Commune',serif] font-bold text-[#6E1016] text-xl">Raiz</p>
+                <p className="text-[10px] font-mono tracking-widest uppercase text-[#0B1B47]/70 font-semibold mt-1">Cultura Viva</p>
               </div>
-              <div className="rounded-lg bg-white border border-[#102C2B]/10 p-3 text-center shadow-sm">
-                <p className="font-display font-bold text-[#D63A2F] text-lg">≠</p>
-                <p className="text-[11px] tracking-wide uppercase text-[#102C2B]/75 font-semibold mt-1">Design Autoral</p>
+              <div className="rounded-xl bg-white/90 border border-[#E27908]/25 p-3.5 text-center shadow-sm hover:border-[#E27908]/50 transition-colors">
+                <p className="font-['Commune',serif] font-bold text-[#E27908] text-xl">≠</p>
+                <p className="text-[10px] font-mono tracking-widest uppercase text-[#0B1B47]/70 font-semibold mt-1">Design Autoral</p>
               </div>
             </div>
           </div>

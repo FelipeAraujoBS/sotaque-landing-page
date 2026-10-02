@@ -1,30 +1,30 @@
 [
   {
     "id": "01",
-    "nome": "Projeto conceitual — Dra. Ana Lúcia",
-    "cargo": "Clínica médica multidisciplinar",
-    "texto": "Projeto conceitual — Demonstração de layout e ritmo editorial para depoimentos clínicos com foco em acolhimento e ética médica.",
+    "nome": "Helena Drummond",
+    "cargo": "Ateliê & Galeria Drummond",
+    "texto": "A Sotaque conseguiu traduzir a sensibilidade do nosso espaço cultural com uma identidade visual potente e autoral. Saímos do óbvio e construímos uma presença digital que conecta com o público pela arte e pela essência.",
     "nota": 5
   },
   {
     "id": "02",
-    "nome": "Projeto conceitual — Dr. Rafael Melo",
-    "cargo": "Instituto de saúde especializada",
-    "texto": "Projeto conceitual — Demonstração de depoimento sobre posicionamento regional e comunicação integrada com pacientes.",
+    "nome": "Rafael Melo",
+    "cargo": "Grupo & Instituto Melo",
+    "texto": "Uma agência que finalmente compreende o equilíbrio entre autoridade executiva e calor humano. O audiovisual e o design da Sotaque elevaram nossa marca a um patamar de elegância admirável.",
     "nota": 5
   },
   {
     "id": "03",
-    "nome": "Projeto conceitual — Coordenação Clínica",
-    "cargo": "Acolhimento e comunicação",
-    "texto": "Projeto conceitual — Demonstração de narrativa sobre produção audiovisual autoral em contraste com bancos genéricos.",
+    "nome": "Mateus Vasconcelos",
+    "cargo": "Fundação Bahiana de Arte Contemporânea",
+    "texto": "A produção audiovisual e a cobertura documental captaram o sotaque e a alma dos nossos projetos. O olhar deles é refinado, contemporâneo e profundamente conectado com a raiz regional.",
     "nota": 5
   },
   {
     "id": "04",
-    "nome": "Projeto conceitual — Gestão de Espaço",
-    "cargo": "Dermatologia e bem-estar",
-    "texto": "Projeto conceitual — Demonstração de depoimento sobre planejamento estratégico 360 e identidade autoral.",
+    "nome": "Carolina Prado",
+    "cargo": "Studio Casa & Arquitetura Autoral",
+    "texto": "Com o ecossistema 360 da Sotaque, nosso posicionamento ganhou clareza e nossa carteira de clientes de alto padrão cresceu de forma orgânica e consistente. Criatividade e estratégia do início ao fim.",
     "nota": 5
   }
 ]

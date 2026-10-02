@@ -54,15 +54,15 @@ export default function MagneticButton({
   };
 
   const baseStyles =
-    "inline-flex items-center justify-center gap-2 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F] disabled:opacity-50 cursor-pointer";
+    "inline-flex items-center justify-center gap-2 rounded-full font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1B47] disabled:opacity-50 cursor-pointer";
 
   const variantStyles = {
     primary:
-      "bg-[#D63A2F] text-[#F3EBDD] hover:bg-[#BA2E24] shadow-lg shadow-[#D63A2F]/25 px-7 py-3.5",
+      "bg-gradient-to-r from-[#E27908] to-[#0B1B47] text-[#F4F1E5] hover:opacity-95 shadow-lg shadow-[#E27908]/25 px-7 py-3.5",
     accent:
-      "bg-[#58734A] text-[#F3EBDD] hover:bg-[#475E3B] shadow-lg shadow-[#58734A]/25 px-7 py-3.5",
+      "bg-[#2F7C4B] text-[#F4F1E5] hover:bg-[#24633B] shadow-lg shadow-[#2F7C4B]/25 px-7 py-3.5",
     ghost:
-      "bg-white border border-[#102C2B]/15 text-[#102C2B] hover:bg-[#F3EBDD] px-6 py-3",
+      "bg-white border border-[#0B1B47]/15 text-[#0B1B47] hover:bg-[#F4F1E5] px-6 py-3",
   };
 
   const motionStyle = reducedMotion

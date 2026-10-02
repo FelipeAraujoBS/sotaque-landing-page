@@ -1,33 +1,16 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { CONTACT_INFO } from "@/lib/contact";
+import { useState, useEffect, useRef, useCallback } from "react";
 
-interface SotaqueNavbarProps {
-  isPlayingSound?: boolean;
-  onToggleSound?: () => void;
-}
-
-export default function SotaqueNavbar({
-  isPlayingSound: externalIsPlaying,
-  onToggleSound,
-}: SotaqueNavbarProps = {}) {
+export default function SotaqueNavbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [internalIsPlaying, setInternalIsPlaying] = useState(false);
+
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const drawerRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const wasOpenRef = useRef(false);
 
-  const isPlayingSound =
-    externalIsPlaying !== undefined ? externalIsPlaying : internalIsPlaying;
-  const handleToggleSound =
-    onToggleSound ||
-    (() => {
-      // TEMPORARIAMENTE DESATIVADO PARA TESTE — equalizador sonoro desacoplado quando sem áudio real
-    });
-
-  // Gerenciamento de foco do Drawer (P-105)
+  // Gerenciamento de foco do Drawer (A11y)
   useEffect(() => {
     if (isOpen) {
       wasOpenRef.current = true;
@@ -52,6 +35,7 @@ export default function SotaqueNavbar({
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
         );
         if (focusableElements.length === 0) return;
+
         const first = focusableElements[0];
         const last = focusableElements[focusableElements.length - 1];
 
@@ -73,124 +57,145 @@ export default function SotaqueNavbar({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
-  // Previne scroll do body quando menu estiver aberto
+  // Previne scroll do body quando menu estiver aberto e sincroniza com o Lenis
   useEffect(() => {
+    const lenis = (window as any).__lenis;
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      if (lenis?.stop) lenis.stop();
     } else {
       document.body.style.overflow = "";
+      if (lenis?.start) lenis.start();
     }
     return () => {
       document.body.style.overflow = "";
+      if (lenis?.start) lenis.start();
     };
   }, [isOpen]);
 
+  // Navegação suave integrada com o Lenis
+  const handleNavigate = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      setIsOpen(false);
+
+      document.body.style.overflow = "";
+      const lenis = (window as any).__lenis;
+      if (lenis?.start) lenis.start();
+
+      const targetId = href.replace("#", "");
+
+      setTimeout(() => {
+        const targetElement = document.getElementById(targetId);
+        if (!targetElement) {
+          window.location.hash = href;
+          return;
+        }
+
+        if (lenis && typeof lenis.scrollTo === "function") {
+          lenis.scrollTo(targetElement, {
+            offset: targetId === "hero" ? 0 : -30,
+            duration: 1.2,
+          });
+        } else {
+          targetElement.scrollIntoView({ behavior: "smooth" });
+        }
+
+        if (window.history && window.history.pushState) {
+          window.history.pushState(null, "", href);
+        }
+      }, 100);
+    },
+    []
+  );
+
   return (
     <>
-      {/* Top Navbar Suspensa com Identidade Oficial SOTAQUE */}
-      <header className="fixed top-0 left-0 right-0 z-50 pointer-events-auto px-4 sm:px-10 lg:px-14 py-5 sm:py-6 transition-all duration-300">
-        <div className="w-full flex items-center justify-between">
-          {/* Esquerda: Botão Menu em Pílula */}
-          <div>
-            <button
-              ref={menuButtonRef}
-              onClick={() => setIsOpen(true)}
-              aria-label="Abrir Menu de Navegação Sotaque"
-              aria-expanded={isOpen}
-              aria-controls="drawer-menu"
-              className="group flex items-center gap-2 rounded-full border border-[#F3EBDD]/25 px-4 sm:px-5 py-2 text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD] backdrop-blur-md bg-[#102C2B]/60 hover:bg-[#F3EBDD] hover:text-[#102C2B] transition-all duration-300 cursor-pointer shadow-lg"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E7A92B] group-hover:bg-[#D63A2F] transition-colors" />
-              <span>Menu</span>
-            </button>
-          </div>
-
-          {/* Centro: Logotipo Oficial SOTAQUE com ponto Goiaba */}
-          <div className="flex items-center justify-center">
+      {/* Top Navbar Suspensa — Grid único alinhado exatamente com o Hero e seções */}
+      <header className="fixed top-0 left-0 right-0 z-50 pointer-events-auto py-5 sm:py-6 bg-transparent border-none">
+        <div className="mx-auto max-w-content w-full px-6 lg:px-8 flex items-center justify-between">
+          {/* Esquerda: Logotipo Oficial SOTAQUE */}
+          <div className="flex items-center">
             <a
               href="#hero"
+              onClick={(e) => handleNavigate(e, "#hero")}
               aria-label="Sotaque — Início"
-              className="text-[#F3EBDD] hover:opacity-90 transition-opacity flex items-center gap-1 group"
+              className="hover:opacity-85 transition-opacity flex items-center group cursor-pointer"
             >
-              <span className="font-['Chroma_Venue'] font-chroma tracking-[-0.03em] text-xl sm:text-2xl lg:text-[26px] text-[#F3EBDD]">
-                Sotaque
-              </span>
-              <span className="w-2 h-2 rounded-full bg-[#D63A2F] shadow-[0_0_10px_#D63A2F] group-hover:scale-125 transition-transform" />
+              <img
+                src="/brand/logos/sotaque_simbolo-e-nome_azul-meia-noite.png"
+                alt="Sotaque Estúdio 360"
+                className="h-8 sm:h-9 w-auto object-contain transition-transform group-hover:scale-105"
+              />
             </a>
           </div>
 
-          {/* Direita: Equalizador de Som + Botão Iniciar Projeto */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            {/* Toggle de som interativo — Pílula Acessível */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleToggleSound();
-              }}
-              aria-label={
-                isPlayingSound
-                  ? "Desativar ambientação sonora"
-                  : "Ativar ambientação sonora"
-              }
-              title={isPlayingSound ? "Pausar som" : "Ativar som"}
-              className={`group flex items-center gap-2 rounded-full border px-3 sm:px-3.5 py-1.5 transition-all duration-300 cursor-pointer shadow-md ${
-                isPlayingSound
-                  ? "border-[#E7A92B]/50 bg-[#E7A92B]/12 text-[#F3EBDD] shadow-[#E7A92B]/20"
-                  : "border-[#F3EBDD]/20 bg-[#102C2B]/60 text-[#F3EBDD]/70 hover:border-[#F3EBDD]/40 hover:text-[#F3EBDD]"
-              }`}
-            >
-              <div className="flex items-center gap-[2.5px] h-3.5">
-                <span
-                  className={`w-[2px] bg-[#E7A92B] rounded-full transition-all duration-300 ${
-                    isPlayingSound ? "h-3.5 animate-pulse" : "h-1 opacity-50"
-                  }`}
-                />
-                <span
-                  className={`w-[2px] bg-[#D63A2F] rounded-full transition-all duration-300 ${
-                    isPlayingSound ? "h-2 animate-pulse [animation-delay:150ms]" : "h-2 opacity-50"
-                  }`}
-                />
-                <span
-                  className={`w-[2px] bg-[#58734A] rounded-full transition-all duration-300 ${
-                    isPlayingSound ? "h-3.5 animate-pulse [animation-delay:300ms]" : "h-3 opacity-50"
-                  }`}
-                />
-                <span
-                  className={`w-[2px] bg-[#B85C42] rounded-full transition-all duration-300 ${
-                    isPlayingSound ? "h-2.5 animate-pulse [animation-delay:450ms]" : "h-1.5 opacity-50"
-                  }`}
-                />
-              </div>
-              <span className="text-[10px] sm:text-[11px] font-mono tracking-wider uppercase font-medium">
-                {isPlayingSound ? "Som: On" : "Som: Off"}
-              </span>
-            </button>
+          {/* Centro/Direita: Links de âncora visíveis no desktop */}
+          <nav
+            className="hidden md:flex items-center gap-7 lg:gap-9 text-xs font-mono tracking-widest uppercase font-semibold text-[#0B1B47]/80"
+            aria-label="Navegação Principal"
+          >
+            {[
+              { label: "Pilares", href: "#pilares" },
+              { label: "Manifesto", href: "#dna" },
+              { label: "Portfólio", href: "#work" },
+              { label: "Contato", href: "#contact" },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleNavigate(e, link.href)}
+                className="hover:text-[#E27908] transition-colors py-1 relative group"
+              >
+                {link.label}
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-0.5 bg-[#E27908]" />
+              </a>
+            ))}
+          </nav>
 
-            {/* Botão de Ação Primário: Vermelho Goiaba (10% - Signature CTA) */}
+          {/* Direita: CTA Único no Desktop + Botão Menu Mobile */}
+          <div className="flex items-center gap-3">
+            {/* CTA Desktop: Rótulo "Iniciar projeto" (diferente do Hero) */}
             <a
               href="#contact"
-              className="rounded-full border border-[#D63A2F] bg-[#D63A2F] px-4 sm:px-5 py-2 text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD] font-semibold hover:bg-[#BA2E24] hover:border-[#BA2E24] transition-all duration-300 cursor-pointer shadow-lg shadow-[#D63A2F]/25"
+              onClick={(e) => handleNavigate(e, "#contact")}
+              className="hidden md:inline-flex items-center justify-center rounded-full bg-[#E27908] hover:bg-[#C96B07] text-[#F4F1E5] px-5 py-2.5 text-xs font-mono font-bold tracking-widest uppercase shadow-sm transition-all duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908]"
             >
-              Iniciar Projeto
+              Iniciar projeto
             </a>
+
+            {/* Botão Menu Mobile (Gaveta) */}
+            <div className="md:hidden">
+              <button
+                ref={menuButtonRef}
+                onClick={() => setIsOpen(true)}
+                aria-label="Abrir Menu de Navegação Sotaque"
+                aria-expanded={isOpen}
+                aria-controls="drawer-menu"
+                className="group flex items-center gap-2 rounded-full border border-[#0B1B47]/20 px-3.5 py-1.5 text-[11px] font-mono tracking-widest uppercase text-[#0B1B47] bg-white/70 hover:bg-[#0B1B47] hover:text-[#F4F1E5] transition-all duration-200 shadow-sm"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E27908]" />
+                <span className="font-semibold">Menu</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Slide-out Menu Drawer Sotaque */}
+      {/* Slide-out Menu Drawer Mobile */}
       <div
         aria-hidden={!isOpen}
-        className={`fixed inset-0 z-[999] transition-all duration-500 ${
+        className={`fixed inset-0 z-[999] transition-all duration-300 md:hidden ${
           isOpen
             ? "opacity-100 pointer-events-auto visible"
             : "opacity-0 pointer-events-none invisible"
         }`}
       >
-        {/* Backdrop escuro com blur em Azul Petróleo Noturno */}
+        {/* Backdrop suave */}
         <div
           onClick={() => setIsOpen(false)}
           aria-hidden="true"
-          className="absolute inset-0 bg-[#102C2B]/85 backdrop-blur-xl"
+          className="absolute inset-0 bg-[#0B1B47]/60 backdrop-blur-sm cursor-pointer"
         />
 
         {/* Painel lateral do Menu */}
@@ -201,15 +206,15 @@ export default function SotaqueNavbar({
           aria-modal="true"
           aria-hidden={!isOpen}
           aria-label="Menu de Navegação Sotaque"
-          className={`relative z-10 w-full max-w-lg h-full bg-[#102C2B] border-r border-[#F3EBDD]/15 p-8 sm:p-12 flex flex-col justify-between overflow-y-auto transform transition-transform duration-500 ease-out shadow-2xl ${
+          className={`relative z-10 w-full max-w-sm h-full bg-[#F4F1E5] border-r border-[#0B1B47]/15 p-7 flex flex-col justify-between overflow-y-auto transform transition-transform duration-300 ease-out shadow-2xl text-[#0B1B47] ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
           {/* Topo do Drawer */}
-          <div className="flex items-center justify-between pb-8 border-b border-[#F3EBDD]/15">
-            <div className="flex items-center gap-2.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#D63A2F] shadow-[0_0_8px_#D63A2F]" />
-              <span className="font-mono text-xs uppercase tracking-widest text-[#E7A92B] font-semibold">
+          <div className="flex items-center justify-between pb-6 border-b border-[#0B1B47]/15">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#6E1016]" />
+              <span className="font-mono text-xs uppercase tracking-widest text-[#0B1B47] font-semibold">
                 Sotaque • Estúdio 360
               </span>
             </div>
@@ -217,7 +222,7 @@ export default function SotaqueNavbar({
               ref={closeButtonRef}
               onClick={() => setIsOpen(false)}
               aria-label="Fechar menu"
-              className="w-10 h-10 rounded-full border border-[#F3EBDD]/20 flex items-center justify-center text-[#F3EBDD]/80 hover:text-[#F3EBDD] hover:border-[#D63A2F] hover:bg-[#D63A2F]/10 transition-colors cursor-pointer"
+              className="w-9 h-9 rounded-full border border-[#0B1B47]/20 text-[#0B1B47] hover:bg-[#0B1B47] hover:text-[#F4F1E5] flex items-center justify-center transition-all cursor-pointer shadow-sm"
             >
               <svg
                 width="14"
@@ -228,7 +233,7 @@ export default function SotaqueNavbar({
               >
                 <path
                   d="M12 4L4 12M4 4L12 12"
-                  strokeWidth="1.5"
+                  strokeWidth="1.6"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -244,68 +249,39 @@ export default function SotaqueNavbar({
               { label: "Manifesto & Raiz", href: "#dna", tag: "03" },
               { label: "Portfólio Vivo", href: "#work", tag: "04" },
               { label: "Depoimentos", href: "#depoimentos", tag: "05" },
-              { label: "Instagram ao Vivo", href: "#instagram", tag: "06" },
-              { label: "Contato & Diagnóstico", href: "#contact", tag: "07" },
+              { label: "Contato & Diagnóstico", href: "#contact", tag: "06" },
             ].map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="group flex items-center justify-between text-xl sm:text-2xl font-display font-medium text-[#F3EBDD]/85 hover:text-[#F3EBDD] transition-colors py-1"
+                onClick={(e) => handleNavigate(e, item.href)}
+                className="group flex items-center justify-between text-lg font-['Commune',serif] font-medium text-[#0B1B47] hover:text-[#E27908] transition-colors py-1 cursor-pointer"
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-[#E7A92B] group-hover:text-[#D63A2F] transition-colors">
+                  <span className="text-xs font-mono text-[#0B1B47]/50 font-semibold">
                     {item.tag}
                   </span>
-                  <span className="group-hover:translate-x-2 transition-transform duration-300">
-                    {item.label}
-                  </span>
+                  <span>{item.label}</span>
                 </div>
-                <span className="text-sm font-mono text-[#F3EBDD]/60 group-hover:text-[#D63A2F] group-hover:translate-x-1 transition-all duration-300">
-                  ↗
+                <span className="text-sm font-mono text-[#0B1B47]/40 group-hover:text-[#E27908] transition-colors">
+                  →
                 </span>
               </a>
             ))}
           </nav>
 
-          {/* Rodapé do Menu com Contato e Redes */}
-          <div className="pt-8 border-t border-[#F3EBDD]/15 flex flex-col gap-4">
-            <div className="text-xs text-[#F3EBDD]/85 font-body leading-relaxed">
-              Comunicação médica e marketing em saúde com calor humano, precisão
-              cirúrgica e sotaque autêntico.
-            </div>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs font-mono text-[#F3EBDD]/70 pt-2">
-              <a
-                href={CONTACT_INFO.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#E7A92B] transition-colors"
-              >
-                Instagram
-              </a>
-              <a
-                href={CONTACT_INFO.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#E7A92B] transition-colors"
-              >
-                LinkedIn
-              </a>
-              <a
-                href={CONTACT_INFO.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#58734A] transition-colors"
-              >
-                WhatsApp
-              </a>
-              <a
-                href={`mailto:${CONTACT_INFO.email}`}
-                className="hover:text-[#D63A2F] transition-colors"
-              >
-                {CONTACT_INFO.email}
-              </a>
-            </div>
+          {/* Rodapé do Drawer */}
+          <div className="pt-6 border-t border-[#0B1B47]/15">
+            <a
+              href="#contact"
+              onClick={(e) => handleNavigate(e, "#contact")}
+              className="w-full inline-flex items-center justify-center rounded-full bg-[#E27908] text-[#F4F1E5] py-3 text-xs font-mono font-bold tracking-widest uppercase shadow-sm"
+            >
+              Iniciar projeto
+            </a>
+            <p className="text-[11px] font-mono text-[#0B1B47]/60 text-center mt-3">
+              Salvador · Bahia · Brasil
+            </p>
           </div>
         </div>
       </div>

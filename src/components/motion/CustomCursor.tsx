@@ -53,7 +53,7 @@ export default function CustomCursor({ active, label = "ver case" }: Props) {
     >
       {/* Offset de -50% para centralizar no cursor — usa transform CSS, não style translate* inválido */}
       <motion.div
-        className="rounded-full bg-[#D63A2F] text-[#F3EBDD] px-4 py-2 text-xs font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5 border border-[#F3EBDD]/20 -translate-x-1/2 -translate-y-1/2"
+        className="rounded-full bg-[#0B1B47] text-[#F4F1E5] px-4 py-2 text-xs font-mono font-bold tracking-wider uppercase shadow-xl flex items-center gap-1.5 border border-[#F4F1E5]/20 -translate-x-1/2 -translate-y-1/2"
         initial={{ scale: 0.7, opacity: 0 }}
         animate={{
           scale: active ? 1 : 0.7,

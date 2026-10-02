@@ -1,158 +1,114 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import Image from "next/image";
 
 type Pillar = {
   id: string;
   number: string;
   title: string;
+  discipline: string;
+  motto: string;
   phrase: string;
   metric: string;
   metricLabel: string;
   accentColor: string;
   accentText: string;
   badgeBg: string;
+  cardImage: string;
 };
 
-const pillarsRow1: Pillar[] = [
+const pillars: Pillar[] = [
   {
     id: "branding",
     number: "01",
-    title: "Branding & Identidade Médica",
-    phrase: "Identidade visual autoral, naming e tom de voz que constroem autoridade imediata sem o visual frio hospitalar.",
-    metric: "Design Autoral",
-    metricLabel: "Identidade sem templates",
-    accentColor: "#D63A2F",
-    accentText: "text-[#D63A2F]",
-    badgeBg: "bg-[#D63A2F]/10 text-[#D63A2F] border-[#D63A2F]/25",
+    title: "Branding, ID Visual & Papelaria",
+    discipline: "Arquitetura de Marca",
+    motto: "Marcas com espinha dorsal e voz inconfundível.",
+    phrase: "Concepção de naming, tipografia autoral, paleta de choque e manuais completos. Da expressão digital à papelaria tátil em alta gramatura que impõe respeito no primeiro contato.",
+    metric: "Design & Tangibilidade",
+    metricLabel: "Identidade autoral sem concessões",
+    accentColor: "#6E1016", // Vinho Profundo
+    accentText: "text-[#6E1016]",
+    badgeBg: "bg-[#6E1016]/10 text-[#6E1016] border-[#6E1016]/25",
+    cardImage: "/brand/servicos/branding-id-visual.jpg",
   },
-  {
-    id: "conteudo",
-    number: "02",
-    title: "Conteúdo & Educação Clínica",
-    phrase: "Rotina editorial médica com respaldo científico e linguagem humana. Transforma dúvidas em consultas marcadas.",
-    metric: "Foco Editorial",
-    metricLabel: "Rigor científico e humano",
-    accentColor: "#58734A",
-    accentText: "text-[#58734A]",
-    badgeBg: "bg-[#58734A]/12 text-[#58734A] border-[#58734A]/25",
-  },
-];
-
-const pillarsRow2: Pillar[] = [
   {
     id: "audiovisual",
+    number: "02",
+    title: "Filmmaker, Cinema & IA",
+    discipline: "Produção Audiovisual",
+    motto: "Cinema com alma autoral e tecnologia de ponta.",
+    phrase: "Roteiros ousados, direção de fotografia em 4K e captação presencial. Edição ágil acelerada por inteligência artificial com refinamento artesanal de diretor para documentários e campanhas.",
+    metric: "4K Cinema & IA",
+    metricLabel: "Narrativa documental & alta retenção",
+    accentColor: "#0B1B47", // Azul Meia-Noite
+    accentText: "text-[#0B1B47]",
+    badgeBg: "bg-[#0B1B47]/10 text-[#0B1B47] border-[#0B1B47]/25",
+    cardImage: "/brand/servicos/storymaker-filmmaker.jpg",
+  },
+  {
+    id: "redes",
     number: "03",
-    title: "Audiovisual Cinematográfico",
-    phrase: "Vídeo de estrutura, rotina clínica e procedimentos com iluminação de estúdio e narrativa ética aprovada pelo CFM.",
-    metric: "Padrão Cinema",
-    metricLabel: "Registro documental acolhedor",
-    accentColor: "#E7A92B",
-    accentText: "text-[#E7A92B]",
-    badgeBg: "bg-[#E7A92B]/15 text-[#E7A92B] border-[#E7A92B]/30",
+    title: "Gestão de Presença & Comunidade",
+    discipline: "Estratégia de Redes",
+    motto: "Não publicamos para preencher feed. Criamos obsessão.",
+    phrase: "Linha editorial magnética com a densidade cultural da sua marca. Conteúdo que constrói audiência proprietária, autoridade indiscutível e conexão real com o público.",
+    metric: "Comunidade 360°",
+    metricLabel: "Engajamento com peso cultural",
+    accentColor: "#2F7C4B", // Verde Tropical
+    accentText: "text-[#2F7C4B]",
+    badgeBg: "bg-[#2F7C4B]/12 text-[#2F7C4B] border-[#2F7C4B]/30",
+    cardImage: "/brand/servicos/redes-sociais.jpg",
   },
   {
-    id: "midia",
+    id: "web",
     number: "04",
-    title: "Tráfego & Captação Particular",
-    phrase: "Campanhas hiper-segmentadas de Google e Meta focadas em atrair pacientes qualificados para procedimentos particulares.",
-    metric: "Captação Ética",
-    metricLabel: "Foco em pacientes particulares",
-    accentColor: "#58734A",
-    accentText: "text-[#58734A]",
-    badgeBg: "bg-[#58734A]/12 text-[#58734A] border-[#58734A]/25",
+    title: "Plataformas Web & Experiências",
+    discipline: "Design & Engenharia Web",
+    motto: "Seu território digital sem limitações de templates.",
+    phrase: "Interfaces contemporâneas de alto padrão, código limpo, micro-interações fluidas e carregamento instantâneo. Feito para marcas que exigem elegância máxima e conversão real.",
+    metric: "Web & Conversão",
+    metricLabel: "Arquitetura viva e interativa",
+    accentColor: "#E27908", // Laranja Solar
+    accentText: "text-[#E27908]",
+    badgeBg: "bg-[#E27908]/15 text-[#E27908] border-[#E27908]/30",
+    cardImage: "/brand/servicos/sites-landing-pages.jpg",
   },
   {
-    id: "estrategia",
+    id: "podcast",
     number: "05",
-    title: "Estratégia 360 & Governança",
-    phrase: "Do primeiro anúncio até a experiência no consultório. Alinhamento contínuo em dashboards claros e objetivos.",
-    metric: "Gestão 360°",
-    metricLabel: "Governança e visão unificada",
-    accentColor: "#B85C42",
-    accentText: "text-[#B85C42]",
-    badgeBg: "bg-[#B85C42]/12 text-[#B85C42] border-[#B85C42]/25",
+    title: "Podcast, Videocast & Mesacast",
+    discipline: "Estúdio Multimídia",
+    motto: "Conversas que viram referência e pauta.",
+    phrase: "Estrutura completa de gravação com captação multicâmera, direção de palco, pós-produção acústica, vinhetas originais e distribuição estratégica nas principais plataformas.",
+    metric: "Estúdio & Cortes",
+    metricLabel: "Autoridade amplificada em áudio e vídeo",
+    accentColor: "#A3721B", // Mostarda Ocre
+    accentText: "text-[#A3721B]",
+    badgeBg: "bg-[#A3721B]/15 text-[#A3721B] border-[#A3721B]/30",
+    cardImage: "/brand/servicos/podcast-videocast.jpg",
+  },
+  {
+    id: "imprensa",
+    number: "06",
+    title: "Assessoria & Relações Culturais",
+    discipline: "Comunicação Institucional",
+    motto: "Toda marca tem uma verdade que merece manchete.",
+    phrase: "Posicionamento estratégico nos veículos que moldam opinião e conexão com formadores de mercado. Para dentro de casa: alinhamento de lideranças e fortalecimento da cultura de time.",
+    metric: "RP & Cultura",
+    metricLabel: "Repercussão nacional & time alinhado",
+    accentColor: "#6E1016", // Vinho Profundo
+    accentText: "text-[#6E1016]",
+    badgeBg: "bg-[#6E1016]/10 text-[#6E1016] border-[#6E1016]/25",
+    cardImage: "/brand/servicos/assessoria-imprensa.jpg",
   },
 ];
-
-const cardIndexMap: Record<string, number> = {
-  branding: 0,
-  conteudo: 1,
-  audiovisual: 2,
-  midia: 3,
-  estrategia: 4,
-};
 
 export default function Pillars() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [isMounted, setIsMounted] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [activeFolderModal, setActiveFolderModal] = useState<Pillar | null>(null);
   const [mousePos, setMousePos] = useState<{ [key: string]: { x: number; y: number } }>({});
-
-  useEffect(() => {
-    setIsMounted(true);
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  useEffect(() => {
-    if (!isMounted) return;
-
-    if (reducedMotion) {
-      cardsRef.current.forEach((el) => {
-        if (el) {
-          el.style.opacity = "1";
-          el.style.transform = "none";
-        }
-      });
-      return;
-    }
-
-    let ctx: any = null;
-    let cancelled = false;
-
-    Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([gsapMod, stMod]) => {
-      if (cancelled || !containerRef.current) return;
-      const gsap = gsapMod.default;
-      const ScrollTrigger = stMod.ScrollTrigger;
-      gsap.registerPlugin(ScrollTrigger);
-
-      ctx = gsap.context(() => {
-        cardsRef.current.forEach((el, i) => {
-          if (!el) return;
-          gsap.fromTo(
-            el,
-            { opacity: 0, y: 24 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.7,
-              delay: i * 0.08,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 85%",
-                once: true,
-              },
-            }
-          );
-        });
-      }, containerRef);
-
-      requestAnimationFrame(() => ScrollTrigger.refresh());
-    });
-
-    return () => {
-      cancelled = true;
-      if (ctx) ctx.revert();
-    };
-  }, [isMounted, reducedMotion]);
 
   const handleMouseMove = (id: string, e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -165,290 +121,190 @@ export default function Pillars() {
     }));
   };
 
-  const isHoveredRow1 = hoveredId === "branding" || hoveredId === "conteudo";
-  const isHoveredRow2 =
-    hoveredId === "audiovisual" || hoveredId === "midia" || hoveredId === "estrategia";
-  const isAnyHovered = isHoveredRow1 || isHoveredRow2;
-
-  // Proporções de largura da Linha 1 (Bento padrão 7 : 5 = 58.3% : 41.7%)
-  const getFlexGrowRow1 = (id: string, currentHoveredId: string | null) => {
-    if (!currentHoveredId) {
-      return id === "branding" ? 7 : 5;
-    }
-    if (currentHoveredId === "branding") {
-      return id === "branding" ? 8.2 : 3.8; // 68.3% : 31.7%
-    }
-    if (currentHoveredId === "conteudo") {
-      return id === "conteudo" ? 8.0 : 4.0; // 66.7% : 33.3%
-    }
-    // Hover ativo na Linha 2 — mantém proporção padrão na Linha 1
-    return id === "branding" ? 7 : 5;
-  };
-
-  // Proporções de largura da Linha 2 (Bento padrão 4 : 4.8 : 3.2 = 33.3% : 40% : 26.7%)
-  const getFlexGrowRow2 = (id: string, currentHoveredId: string | null) => {
-    if (!currentHoveredId) {
-      return id === "audiovisual" ? 4 : id === "midia" ? 4.8 : 3.2;
-    }
-    if (currentHoveredId === "audiovisual") {
-      return id === "audiovisual" ? 7.2 : 2.4; // 60% : 20% : 20%
-    }
-    if (currentHoveredId === "midia") {
-      return id === "midia" ? 7.2 : 2.4; // 20% : 60% : 20%
-    }
-    if (currentHoveredId === "estrategia") {
-      return id === "estrategia" ? 7.2 : 2.4; // 20% : 20% : 60%
-    }
-    // Hover ativo na Linha 1 — mantém proporção padrão na Linha 2
-    return id === "audiovisual" ? 4 : id === "midia" ? 4.8 : 3.2;
-  };
-
-  const renderCard = (p: Pillar, flexGrow: number) => {
-    const isHovered = hoveredId === p.id;
-    const isDimmed = isAnyHovered && !isHovered;
-    const pos = mousePos[p.id] || { x: 200, y: 150 };
-
-    return (
-      <div
-        key={p.id}
-        ref={(el) => {
-          cardsRef.current[cardIndexMap[p.id]] = el;
-        }}
-        role="button"
-        tabIndex={0}
-        aria-expanded={isHovered}
-        aria-label={`Pilar ${p.number}: ${p.title}`}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            setHoveredId(hoveredId === p.id ? null : p.id);
-          }
-        }}
-        onMouseEnter={() => setHoveredId(p.id)}
-        onClick={() => setHoveredId(hoveredId === p.id ? null : p.id)}
-        onMouseMove={(e) => handleMouseMove(p.id, e)}
-        style={{
-          flexGrow,
-          flexShrink: 1,
-          flexBasis: "0%",
-          minWidth: isAnyHovered && !isHovered ? "190px" : undefined,
-          transition:
-            "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms, border-color 300ms, opacity 300ms",
-        }}
-        className={`group relative rounded-[1.6rem] border overflow-hidden flex flex-col cursor-pointer transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F] ${
-          isHovered
-            ? "bg-[#1D4645] border-[#F3EBDD]/25 shadow-2xl z-20"
-            : isDimmed
-              ? "bg-[#163A39]/80 border-[#F3EBDD]/5 shadow-sm opacity-80 hover:opacity-100"
-              : "bg-[#163A39] border-[#F3EBDD]/10 shadow-md hover:shadow-lg"
-        }`}
-      >
-        {/* Dynamic Webflow Spotlight Effect */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            background: `radial-gradient(420px circle at ${pos.x}px ${pos.y}px, ${p.accentColor}20, transparent 70%)`,
-          }}
-          aria-hidden
-        />
-
-        {/* Top Border Hairline Highlight */}
-        <div
-          className={`w-full transition-all duration-300 ${isHovered ? "h-2" : "h-1"}`}
-          style={{
-            backgroundColor: p.accentColor,
-            opacity: isDimmed ? 0.6 : 1,
-          }}
-        />
-
-        <div
-          className={`relative flex flex-col flex-1 z-10 min-w-0 transition-all duration-300 ${
-            isDimmed ? "p-4 sm:p-5 lg:p-5" : "p-6 sm:p-7 lg:p-8"
-          }`}
-        >
-          {/* Top Bar do Card */}
-          <div className="flex items-center justify-between gap-2 mb-3 min-w-0">
-            <div className="flex items-center gap-2 shrink-0">
-              <div
-                className={`h-8 w-8 sm:h-9 sm:w-9 rounded-xl border grid place-items-center font-mono font-bold text-xs shrink-0 transition-colors duration-300 ${
-                  isHovered
-                    ? "border-[#D63A2F] bg-[#D63A2F] text-[#F3EBDD]"
-                    : "border-[#F3EBDD]/15 bg-[#102C2B]/60 text-[#F3EBDD]"
-                }`}
-              >
-                {p.number}
-              </div>
-              <span
-                className={`text-[11px] font-mono tracking-widest uppercase text-[#F3EBDD]/75 font-semibold transition-opacity duration-300 ${
-                  isDimmed ? "hidden" : "hidden sm:inline"
-                }`}
-              >
-                Pilar 360
-              </span>
-            </div>
-
-            <span
-              className={`font-mono uppercase font-semibold border rounded-full transition-all duration-300 shrink-0 ${p.badgeBg} ${
-                isDimmed
-                  ? "text-[10px] tracking-tight px-2 py-0.5 scale-95 origin-right max-w-[125px] truncate"
-                  : "text-[11px] tracking-wider px-3 py-1 scale-100 whitespace-nowrap"
-              }`}
-              title={p.metric}
-            >
-              {p.metric}
-            </span>
-          </div>
-
-          {/* Título */}
-          <h3
-            className={`font-display font-bold leading-tight tracking-tight text-[#F3EBDD] transition-all duration-300 min-w-0 ${
-              isHovered
-                ? "text-xl sm:text-2xl lg:text-[1.7rem]"
-                : isDimmed
-                  ? "text-sm sm:text-base lg:text-lg line-clamp-2"
-                  : "text-base sm:text-lg lg:text-[1.25rem] line-clamp-2"
-            }`}
-          >
-            {p.title}
-          </h3>
-
-          {/* Frase / Descrição */}
-          <div
-            className={`transition-all duration-500 overflow-hidden flex-1 ${
-              isHovered
-                ? "opacity-100 max-h-56 mt-3.5"
-                : isDimmed
-                  ? "opacity-50 max-h-16 mt-2 line-clamp-2"
-                  : "opacity-80 max-h-36 mt-2.5 line-clamp-2 sm:line-clamp-3"
-            }`}
-          >
-            <p
-              className={`font-body leading-relaxed text-[#F3EBDD]/80 ${
-                isHovered ? "text-sm sm:text-base" : "text-xs"
-              }`}
-            >
-              {p.phrase}
-            </p>
-          </div>
-
-          {/* Rodapé do Card — com label de métrica autoritária (sem link vazio) */}
-          <div className="mt-auto pt-3 border-t border-[#F3EBDD]/10 flex items-center justify-between gap-2 min-w-0">
-            <span
-              className={`text-xs font-mono font-semibold tracking-wide transition-colors duration-300 truncate min-w-0 ${
-                isHovered ? p.accentText : "text-[#F3EBDD]/75"
-              }`}
-            >
-              {p.metricLabel}
-            </span>
-
-            <span
-              className={`text-[11px] font-mono text-[#F3EBDD]/70 font-semibold shrink-0 ${
-                isDimmed ? "hidden sm:inline" : "inline"
-              }`}
-            >
-              {p.number} / 05
-            </span>
-          </div>
-        </div>
-
-        {/* Letra monumental sutil de fundo */}
-        <span
-          className={`absolute -bottom-4 -right-2 font-display font-black text-[6.5rem] leading-none tracking-tighter text-[#F3EBDD]/[0.04] select-none pointer-events-none transition-all duration-300 ${
-            isHovered ? "text-[#F3EBDD]/[0.08] scale-110" : ""
-          }`}
-          aria-hidden
-        >
-          {p.number}
-        </span>
-      </div>
-    );
-  };
-
   return (
     <section
       id="pilares"
       ref={containerRef}
-      className="relative bg-[#102C2B] text-[#F3EBDD] border-t border-[#F3EBDD]/10 overflow-hidden pt-20 lg:pt-28 pb-12 lg:pb-16"
-      aria-label="O que fazemos — pilares 360"
+      className="relative text-[#0B1B47] border-t border-[#0B1B47]/10 overflow-hidden pt-24 lg:pt-32 pb-20 lg:pb-28 bg-[#F4F1E5]"
+      aria-label="Serviços oferecidos — ecossistema criativo 360"
     >
-      {/* Luz ambiente difusa no fundo */}
+      {/* Luz ambiente difusa no topo */}
       <div
-        className="absolute -top-40 right-10 w-96 h-96 rounded-full bg-[#58734A]/15 blur-[130px] pointer-events-none"
+        className="absolute -top-32 right-1/4 w-[600px] h-[500px] rounded-full bg-[#E27908]/06 blur-[160px] pointer-events-none"
         aria-hidden
       />
       <div
-        className="absolute -bottom-40 left-10 w-96 h-96 rounded-full bg-[#B85C42]/15 blur-[130px] pointer-events-none"
+        className="absolute top-48 -left-20 w-96 h-96 rounded-full bg-[#E27908]/06 blur-[140px] pointer-events-none"
+        aria-hidden
+      />
+      <div
+        className="absolute -bottom-40 left-10 w-96 h-96 rounded-full bg-[#6E1016]/05 blur-[150px] pointer-events-none"
         aria-hidden
       />
 
-      <div className="mx-auto max-w-content px-6 lg:px-8 mb-14">
+      <div className="mx-auto max-w-content px-6 lg:px-8 mb-16">
         <div className="grid grid-cols-12 gap-6 items-end">
           <div className="col-span-12 lg:col-span-7">
             <div className="flex items-center gap-3 mb-4">
-              <span className="h-px w-8 bg-[#D63A2F]" aria-hidden />
-              <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">
-                Pilares 360 Integrados
-              </span>
-              <span className="text-xs font-mono tracking-wide text-[#F3EBDD]/75 font-medium hidden sm:inline">
-                • Precisão de Dados + Criatividade
+              <span className="h-px w-8 bg-[#E27908]" aria-hidden />
+              <span className="text-xs font-mono tracking-[0.2em] uppercase font-semibold text-[#E27908]">
+                Ateliê de Disciplinas 360°
               </span>
             </div>
 
-            <h2 className="font-display font-extrabold leading-[0.95] tracking-[-0.035em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#F3EBDD]">
-              Comunicação em saúde <br />
-              <span className="text-[#D63A2F]">sem fragmentação</span>.
+            <h2 className="font-['Commune',serif] font-normal leading-[0.94] tracking-[-0.03em] text-[clamp(2.4rem,4.8vw,4rem)] text-[#0B1B47]">
+              Ousadia criativa, <br />
+              <span className="italic text-[#6E1016]">rigor estratégico</span> e entrega de alto nível.
             </h2>
           </div>
 
           <div className="col-span-12 lg:col-span-5 lg:text-right">
-            <p className="font-body text-[15px] leading-relaxed text-[#F3EBDD]/80 max-w-[44ch] lg:ml-auto text-balance">
-              Esqueça a dor de contratar múltiplos fornecedores que não dialogam. Na Sotaque, cada pilar opera em harmonia cirúrgica para valorizar sua autoridade médica.
+            <p className="font-body text-[15px] leading-relaxed text-[#0B1B47]/80 max-w-[44ch] lg:ml-auto">
+              Operamos sem intermediários e sem fórmulas prontas. Cada disciplina é conduzida por criadores que pensam a comunicação como arte e instrumento de poder.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Bento Grid com Proporções Dinâmicas em 2 Níveis (Modo Verde Petróleo) */}
-      <div
-        className="mx-auto max-w-content px-6 lg:px-8 flex flex-col gap-4 lg:gap-5 min-h-[720px] lg:h-[720px]"
-        onMouseLeave={() => setHoveredId(null)}
-      >
-        {/* Nível 1 do Bento: 2 Cards (expande em altura quando focado e comprime quando o nível 2 é focado) */}
-        <div
-          style={{
-            flexGrow: isHoveredRow1 ? 2.2 : isHoveredRow2 ? 0.65 : 1,
-            flexShrink: 1,
-            flexBasis: "0%",
-            transition: "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms",
-          }}
-          className={`flex flex-col sm:flex-row gap-4 lg:gap-5 w-full transition-opacity duration-300 ${
-            isHoveredRow2 ? "opacity-75" : "opacity-100"
-          }`}
-        >
-          {pillarsRow1.map((p) => renderCard(p, getFlexGrowRow1(p.id, hoveredId)))}
-        </div>
+      {/* Grid Estável e Imersivo de 6 Pilares (Padrão Studio de Elite) */}
+      <div className="mx-auto max-w-content px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+          {pillars.map((p) => {
+            const pos = mousePos[p.id] || { x: 200, y: 150 };
 
-        {/* Nível 2 do Bento: 3 Cards (expande em altura quando focado e comprime quando o nível 1 é focado) */}
-        <div
-          style={{
-            flexGrow: isHoveredRow2 ? 2.3 : isHoveredRow1 ? 0.65 : 1.15,
-            flexShrink: 1,
-            flexBasis: "0%",
-            transition: "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms",
-          }}
-          className={`flex flex-col sm:flex-row gap-4 lg:gap-5 w-full transition-opacity duration-300 ${
-            isHoveredRow1 ? "opacity-75" : "opacity-100"
-          }`}
-        >
-          {pillarsRow2.map((p) => renderCard(p, getFlexGrowRow2(p.id, hoveredId)))}
-        </div>
+            return (
+              <div
+                key={p.id}
+                onMouseMove={(e) => handleMouseMove(p.id, e)}
+                className="group relative rounded-[1.8rem] border border-[#0B1B47]/10 bg-white/85 backdrop-blur-md overflow-hidden flex flex-col p-7 sm:p-8 transition-all duration-500 hover:-translate-y-1 hover:border-[#0B1B47]/30 hover:shadow-[0_24px_50px_rgba(11,27,71,0.10)] focus-within:ring-2 focus-within:ring-[#0B1B47]"
+              >
+                {/* Spotlight dinâmico acionado pela posição do mouse */}
+                <div
+                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `radial-gradient(460px circle at ${pos.x}px ${pos.y}px, ${p.accentColor}14, transparent 70%)`,
+                  }}
+                  aria-hidden
+                />
 
-        {/* Rodapé da Seção */}
-        <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#F3EBDD]/70 border-t border-[#F3EBDD]/10 pt-4 mt-2">
-          <span>Metodologia integrada: cada disciplina nutre a autoridade da clínica.</span>
-          <span className="hidden sm:inline">{/* Spotlight interativo • Bento Grid 2D */}Navegação integrada • Visão 360° em saúde</span>
+                {/* Hairline Superior com Cor de Acento */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:h-1.5"
+                  style={{ backgroundColor: p.accentColor }}
+                  aria-hidden
+                />
+
+                {/* Topo do Card: Número e Disciplina */}
+                <div className="relative z-10 flex items-center justify-between gap-3 mb-6">
+                  <div className="flex items-center gap-2.5">
+                    <span
+                      className="h-8 w-8 rounded-xl font-mono text-xs font-bold grid place-items-center border transition-colors duration-300"
+                      style={{
+                        backgroundColor: `${p.accentColor}12`,
+                        borderColor: `${p.accentColor}30`,
+                        color: p.accentColor,
+                      }}
+                    >
+                      {p.number}
+                    </span>
+                    <span className="text-[11px] font-mono tracking-widest uppercase text-[#0B1B47]/60 font-semibold">
+                      {p.discipline}
+                    </span>
+                  </div>
+
+                  <span
+                    className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full border font-bold ${p.badgeBg}`}
+                  >
+                    {p.metric}
+                  </span>
+                </div>
+
+                {/* Título Principal em Commune */}
+                <h3 className="relative z-10 font-['Commune',serif] font-bold text-xl sm:text-[1.38rem] leading-[1.12] text-[#0B1B47] group-hover:text-[#6E1016] transition-colors duration-300">
+                  {p.title}
+                </h3>
+
+                {/* Lema em Itálico Nobre */}
+                <p className="relative z-10 font-serif italic text-xs text-[#6E1016] mt-2 mb-4 leading-relaxed">
+                  “{p.motto}”
+                </p>
+
+                {/* Descrição Concisa e Ousada */}
+                <p className="relative z-10 font-body text-xs sm:text-[13.5px] leading-[1.65] text-[#0B1B47]/80 flex-1">
+                  {p.phrase}
+                </p>
+
+                {/* Rodapé do Card com Prévia Interativa da Pasta Oficial */}
+                <div className="relative z-10 mt-6 pt-5 border-t border-[#0B1B47]/08 flex items-center justify-between gap-3">
+                  <span className="text-xs font-mono font-medium text-[#0B1B47]/70">
+                    {p.metricLabel}
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveFolderModal(p)}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1B47]/06 hover:bg-[#0B1B47] hover:text-[#F4F1E5] text-[#0B1B47] text-[11px] font-mono tracking-wider uppercase font-semibold transition-all duration-300 cursor-pointer"
+                    aria-label={`Ver pasta de referência para ${p.title}`}
+                  >
+                    <span>Pasta</span>
+                    <span aria-hidden>↗</span>
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
+
+      {/* Modal / Gaveta de Exibição da Pasta Tátil Original */}
+      {activeFolderModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Pasta oficial: ${activeFolderModal.title}`}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-300"
+          onClick={() => setActiveFolderModal(null)}
+        >
+          <div
+            className="relative max-w-sm sm:max-w-md w-full bg-[#111827] text-[#F4F1E5] rounded-[2rem] p-6 border border-white/20 shadow-2xl overflow-hidden flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="w-full flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#E27908] font-bold">
+                  Documentação Original de Estúdio
+                </span>
+                <h4 className="font-['Commune',serif] text-lg font-bold">
+                  {activeFolderModal.title}
+                </h4>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setActiveFolderModal(null)}
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 grid place-items-center text-sm font-mono transition-colors"
+                aria-label="Fechar pasta"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="relative w-full max-h-[70vh] aspect-[9/16] rounded-xl overflow-hidden shadow-inner bg-black/40">
+              <Image
+                src={activeFolderModal.cardImage}
+                alt={activeFolderModal.title}
+                fill
+                sizes="(max-width: 640px) 90vw, 420px"
+                className="object-contain"
+              />
+            </div>
+
+            <p className="mt-4 text-xs font-mono text-center text-[#F4F1E5]/60">
+              Pasta tátil oficial criada pelo time de design da Sotaque.
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

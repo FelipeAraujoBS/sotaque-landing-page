@@ -82,31 +82,28 @@ export default function Testimonials() {
   return (
     <section
       id="depoimentos"
-      className="relative bg-[#102C2B] text-[#F3EBDD] border-t border-[#F3EBDD]/15 py-16 lg:py-24 overflow-hidden"
-      aria-label="Depoimentos — prova social em saúde"
+      className="relative text-[#0B1B47] border-t border-[#0B1B47]/10 py-20 lg:py-28 overflow-hidden bg-[#F4F1E5]"
+      aria-label="Depoimentos — parcerias e resultados"
     >
       <div className="mx-auto max-w-content px-6 lg:px-8">
         {/* Header dos Depoimentos */}
         <div className="grid grid-cols-12 gap-6 items-end mb-10">
           <div className="col-span-12 lg:col-span-8">
             <div className="flex items-center gap-3 mb-4">
-              <span className="h-px w-8 bg-[#D63A2F]" aria-hidden />
-              <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">
-                Demonstração de Prova Social
-              </span>
-              <span className="hidden sm:inline text-xs font-mono text-[#F3EBDD]/75">
-                • Projeto Conceitual
+              <span className="h-px w-8 bg-[#E27908]" aria-hidden />
+              <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#E27908]">
+                Depoimentos & Parcerias
               </span>
             </div>
 
-            <h2 className="font-display font-extrabold leading-[0.95] tracking-[-0.035em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#F3EBDD]">
-              Quem vive de <span className="text-[#D63A2F]">cuidado</span>, confia na Sotaque
+            <h2 className="font-['Commune',serif] font-bold leading-[0.95] tracking-[-0.025em] text-[clamp(2.2rem,4.5vw,3.6rem)] text-[#0B1B47]">
+              Parcerias que transformam <span className="text-[#6E1016] italic font-light">ideias em presença</span>
             </h2>
           </div>
 
           <div className="col-span-12 lg:col-span-4 lg:text-right">
-            <p className="text-sm font-body leading-relaxed text-[#F3EBDD]/75 max-w-[36ch] lg:ml-auto">
-              Simulação de depoimentos e estrutura editorial para validação de layout com clínicas e especialistas.
+            <p className="text-sm font-body leading-relaxed text-[#0B1B47]/80 max-w-[36ch] lg:ml-auto">
+              Relatos de profissionais e marcas que encontraram na Sotaque uma voz autoral e consistente.
             </p>
           </div>
         </div>
@@ -121,8 +118,8 @@ export default function Testimonials() {
                 aria-selected={activeIndex === i}
                 aria-label={`Ir para depoimento ${i + 1}`}
                 onClick={() => scrollToIndex(i)}
-                className={`h-1.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F] ${
-                  activeIndex === i ? "w-8 bg-[#D63A2F]" : "w-2 bg-[#F3EBDD]/20 hover:bg-[#F3EBDD]/40"
+                className={`h-1.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908] ${
+                  activeIndex === i ? "w-8 bg-[#E27908]" : "w-2 bg-[#0B1B47]/20 hover:bg-[#0B1B47]/40"
                 }`}
               />
             ))}
@@ -132,14 +129,14 @@ export default function Testimonials() {
             <button
               aria-label="Depoimento anterior"
               onClick={() => scrollToIndex(activeIndex - 1)}
-              className="h-9 w-9 grid place-items-center rounded-full border border-[#F3EBDD]/15 bg-[#163A39] hover:bg-[#1f4a49] text-[#F3EBDD] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F]"
+              className="h-9 w-9 grid place-items-center rounded-full border border-[#0B1B47]/15 bg-white hover:bg-[#0B1B47] hover:text-[#F4F1E5] text-[#0B1B47] shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908]"
             >
               ‹
             </button>
             <button
               aria-label="Próximo depoimento"
               onClick={() => scrollToIndex(activeIndex + 1)}
-              className="h-9 w-9 grid place-items-center rounded-full border border-[#F3EBDD]/15 bg-[#163A39] hover:bg-[#1f4a49] text-[#F3EBDD] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F]"
+              className="h-9 w-9 grid place-items-center rounded-full border border-[#0B1B47]/15 bg-white hover:bg-[#0B1B47] hover:text-[#F4F1E5] text-[#0B1B47] shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908]"
             >
               ›
             </button>
@@ -152,7 +149,7 @@ export default function Testimonials() {
           className="relative -mx-6 px-6 lg:mx-0 lg:px-0 overflow-hidden"
           onKeyDown={onKeyDown}
           tabIndex={0}
-          aria-label="Carrossel de depoimentos médicos"
+          aria-label="Carrossel de depoimentos de parceiros"
           aria-roledescription="carousel"
         >
           <motion.div
@@ -170,36 +167,32 @@ export default function Testimonials() {
               <motion.div
                 key={t.id}
                 data-card
-                className="shrink-0 w-[86%] sm:w-[54%] lg:w-[40%] xl:w-[32%] min-h-[300px] rounded-[1.6rem] border border-[#F3EBDD]/10 bg-[#163A39] p-7 lg:p-8 flex flex-col hover:border-[#F3EBDD]/25 transition-all duration-300 select-none shadow-xl text-[#F3EBDD]"
+                className="shrink-0 w-[86%] sm:w-[54%] lg:w-[40%] xl:w-[32%] min-h-[300px] rounded-[1.6rem] border border-[#0B1B47]/10 bg-white p-7 lg:p-8 flex flex-col hover:border-[#0B1B47]/30 hover:shadow-xl transition-all duration-300 select-none shadow-[0_4px_24px_rgba(11,27,71,0.06)] text-[#0B1B47]"
                 whileHover={{ y: -3 }}
                 transition={{ type: "spring", stiffness: 320, damping: 24 }}
               >
-                {/* Cabeçalho do Card Conceitual */}
+                {/* Cabeçalho do Card */}
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-mono tracking-wider uppercase px-2.5 py-0.5 rounded-full bg-[#F3EBDD]/10 border border-[#F3EBDD]/15 text-[#F3EBDD]/75 font-semibold">
-                    Depoimento Conceitual
-                  </span>
-
-                  <span className="text-[10px] font-mono tracking-wider text-[#E7A92B]">
-                    Layout Demo
-                  </span>
+                  <div className="flex items-center gap-1.5 text-[#E27908] text-sm tracking-tight" aria-label="Avaliação 5 estrelas">
+                    ★★★★★
+                  </div>
                 </div>
 
                 {/* Aspas e Citação */}
-                <blockquote className="font-body text-[15.5px] leading-relaxed text-[#F3EBDD]/90 flex-1">
+                <blockquote className="font-body text-[15.5px] leading-relaxed text-[#0B1B47]/85 flex-1">
                   “{t.texto}”
                 </blockquote>
 
                 {/* Autor */}
-                <div className="mt-6 pt-5 border-t border-[#F3EBDD]/10 flex items-center gap-3.5">
-                  <span className="h-10 w-10 rounded-xl bg-[#102C2B] text-[#F3EBDD] border border-[#F3EBDD]/15 grid place-items-center font-display font-bold text-sm shrink-0">
+                <div className="mt-6 pt-5 border-t border-[#0B1B47]/10 flex items-center gap-3.5">
+                  <span className="h-10 w-10 rounded-xl bg-[#0B1B47] text-[#F4F1E5] border border-[#0B1B47]/15 grid place-items-center font-display font-bold text-sm shrink-0">
                     {t.nome.slice(0, 1).toUpperCase()}
                   </span>
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold leading-tight text-[#F3EBDD] truncate">
+                    <p className="text-sm font-semibold leading-tight text-[#0B1B47] truncate">
                       {t.nome}
                     </p>
-                    <p className="text-xs text-[#F3EBDD]/80 font-medium mt-0.5">{t.cargo}</p>
+                    <p className="text-xs text-[#0B1B47]/70 font-medium mt-0.5">{t.cargo}</p>
                   </div>
                 </div>
               </motion.div>
@@ -207,7 +200,7 @@ export default function Testimonials() {
           </motion.div>
 
           <div
-            className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#102C2B] to-transparent hidden lg:block"
+            className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#F4F1E5] to-transparent hidden lg:block"
             aria-hidden
           />
         </div>

@@ -50,6 +50,13 @@ const config: Config = {
         folha: {
           DEFAULT: "var(--sotaque-folha)",
         },
+        turquesa: {
+          DEFAULT: "var(--sotaque-turquesa)",
+          hover: "var(--sotaque-turquesa-hover)",
+        },
+        salvia: {
+          DEFAULT: "var(--sotaque-salvia)",
+        },
         terracota: {
           DEFAULT: "var(--sotaque-terracota)",
         },

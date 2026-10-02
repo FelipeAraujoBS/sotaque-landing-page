@@ -11,7 +11,7 @@ type Status = "idle" | "loading" | "success" | "error";
 export default function ContactForm() {
   const [nome, setNome] = useState("");
   const [contato, setContato] = useState("");
-  const [clinica, setClinica] = useState("");
+  const [empresa, setEmpresa] = useState("");
   const [mensagem, setMensagem] = useState("");
   const [consentimento, setConsentimento] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
@@ -22,23 +22,23 @@ export default function ContactForm() {
   const validateField = (field: string, value: string) => {
     if (field === "nome" && value.trim().length > 0 && value.trim().length < 2) return "Muito curto";
     if (field === "contato" && value.trim().length > 0 && value.trim().length < 5) return "Informe e-mail ou telefone válido";
-    if (field === "clinica" && value.trim().length > 0 && value.trim().length < 2) return "Informe clínica/especialidade";
+    if (field === "empresa" && value.trim().length > 0 && value.trim().length < 2) return "Informe sua marca, empresa ou projeto";
     if (field === "mensagem" && value.trim().length > 0 && value.trim().length < 10) return "Mín. 10 caracteres";
     return "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setTouched({ nome: true, contato: true, clinica: true, mensagem: true, consentimento: true });
+    setTouched({ nome: true, contato: true, empresa: true, mensagem: true, consentimento: true });
 
     const newErrors: Errors = {};
     const nErr = validateField("nome", nome) || (!nome.trim() ? "Obrigatório" : "");
     const ctErr = validateField("contato", contato) || (!contato.trim() ? "Obrigatório para retorno" : "");
-    const cErr = validateField("clinica", clinica) || (!clinica.trim() ? "Obrigatório" : "");
+    const empErr = validateField("empresa", empresa) || (!empresa.trim() ? "Obrigatório" : "");
     const mErr = validateField("mensagem", mensagem) || (!mensagem.trim() ? "Obrigatório" : "");
     if (nErr) newErrors.nome = nErr;
     if (ctErr) newErrors.contato = ctErr;
-    if (cErr) newErrors.clinica = cErr;
+    if (empErr) newErrors.empresa = empErr;
     if (mErr) newErrors.mensagem = mErr;
     if (!consentimento) newErrors.consentimento = "Autorização obrigatória para envio";
     if (Object.keys(newErrors).length) {
@@ -52,7 +52,7 @@ export default function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, contato, clinica, mensagem, consentimento, website }),
+        body: JSON.stringify({ nome, contato, empresa, mensagem, consentimento, website }),
       });
       const json = await res.json();
       if (!res.ok || !json.ok) {
@@ -65,7 +65,7 @@ export default function ContactForm() {
       setStatus("success");
       setNome("");
       setContato("");
-      setClinica("");
+      setEmpresa("");
       setMensagem("");
       setConsentimento(false);
       setWebsite("");
@@ -82,36 +82,46 @@ export default function ContactForm() {
   const whatsappHref = CONTACT_INFO.whatsappHref;
 
   const fieldBase =
-    "w-full rounded-xl border bg-[#102C2B]/60 px-4 py-3 text-sm text-[#F3EBDD] placeholder:text-[#F3EBDD]/35 focus:outline-none focus:ring-2 focus:ring-[#D63A2F]/30 focus:border-[#D63A2F] transition-all";
+    "w-full rounded-xl border bg-[#0B1B47]/80 px-4 py-3 text-sm text-[#F4F1E5] placeholder:text-[#F4F1E5]/40 focus:outline-none focus:ring-2 focus:ring-[#E27908]/30 focus:border-[#E27908] focus:bg-[#0B1B47] transition-all";
   const getFieldClass = (field: string, value: string) => {
     const hasError = !!errors[field];
     const isValid = touched[field] && value.trim().length > 0 && !validateField(field, value) && !hasError;
-    if (hasError) return `${fieldBase} border-[#D63A2F]/80 bg-[#D63A2F]/15`;
-    if (isValid) return `${fieldBase} border-[#58734A]/70 bg-[#58734A]/20`;
-    return `${fieldBase} border-[#F3EBDD]/15 hover:border-[#F3EBDD]/30`;
+    if (hasError) return `${fieldBase} border-[#CF000F] bg-[#6E1016]/20`;
+    if (isValid) return `${fieldBase} border-[#2F7C4B]/60 bg-[#0B1B47]/90`;
+    return `${fieldBase} border-white/15 hover:border-white/30`;
   };
 
   return (
     <section
       id="contact"
-      className="relative bg-[#102C2B] border-t border-[#F3EBDD]/10 py-16 lg:py-24 text-[#F3EBDD]"
+      className="relative bg-[#0B1B47] text-[#F4F1E5] border-t border-white/10 py-20 lg:py-28 overflow-hidden"
       aria-label="Contato — fale com a Sotaque"
     >
-      <div className="mx-auto max-w-content px-6 lg:px-8">
+      {/* Luz ambiente arquitetônica */}
+      <div
+        className="absolute top-1/4 -right-20 w-[500px] h-[500px] rounded-full bg-[#E27908]/07 blur-[160px] pointer-events-none"
+        aria-hidden
+      />
+      <div
+        className="absolute bottom-10 -left-20 w-[500px] h-[500px] rounded-full bg-[#6E1016]/15 blur-[160px] pointer-events-none"
+        aria-hidden
+      />
+
+      <div className="relative mx-auto max-w-content px-6 lg:px-8">
         <div className="grid grid-cols-12 gap-8 lg:gap-12">
           {/* Coluna esquerda — copy + WhatsApp */}
           <div className="col-span-12 lg:col-span-5">
             <div className="flex items-center gap-3 mb-4">
-              <span className="h-px w-8 bg-[#D63A2F]" aria-hidden />
-              <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#D63A2F]">Contato Direto</span>
+              <span className="h-px w-8 bg-[#E27908]" aria-hidden />
+              <span className="text-xs font-mono tracking-[0.16em] uppercase font-semibold text-[#E27908]">Contato Direto</span>
             </div>
-            <h2 className="font-display font-bold leading-[0.92] tracking-[-0.03em] text-[clamp(2rem,4vw,2.9rem)] text-[#F3EBDD]">
-              Vamos dar <span className="text-[#D63A2F]">sotaque</span>
+            <h2 className="font-['Commune',serif] font-bold leading-[0.92] tracking-[-0.03em] text-[clamp(2rem,4vw,2.9rem)] text-[#F4F1E5]">
+              Vamos dar <span className="text-[#E27908] italic font-light">sotaque</span>
               <br />
               ao seu próximo passo?
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-[#F3EBDD]/80 max-w-[42ch]">
-              Retorno direto por e-mail ou WhatsApp médico. Sem intermediários. Sigilo garantido e resposta em até 1 dia útil.
+            <p className="mt-4 text-sm leading-relaxed text-[#F4F1E5]/80 max-w-[42ch]">
+              Retorno direto por e-mail ou WhatsApp. Sem intermediários. Sigilo e resposta em até 1 dia útil.
             </p>
 
             <div className="mt-8 flex flex-col gap-4">
@@ -121,22 +131,22 @@ export default function ContactForm() {
                 </span>
                 Conversar no WhatsApp
               </MagneticButton>
-              <p className="text-xs text-[#F3EBDD]/75">
-                Ou envie pelo formulário ao lado — validação imediata e confidencialidade médica.
+              <p className="text-xs text-[#F4F1E5]/70">
+                Ou envie pelo formulário ao lado — validação imediata e confidencialidade garantida.
               </p>
 
-              <div className="mt-2 rounded-xl border border-[#F3EBDD]/10 bg-[#163A39] p-4 flex gap-3 shadow-sm">
-                <span className="h-8 w-8 rounded-full bg-[#102C2B] text-[#F3EBDD] border border-[#F3EBDD]/15 grid place-items-center text-xs shrink-0">
+              <div className="mt-2 rounded-xl border border-white/10 bg-[#0E2259]/60 p-4 flex gap-3 shadow-md backdrop-blur-sm">
+                <span className="h-8 w-8 rounded-full bg-[#E27908]/20 text-[#E27908] border border-[#E27908]/30 grid place-items-center text-xs shrink-0">
                   ✉
                 </span>
                 <div className="text-sm">
+                  <span className="block text-[11px] font-mono uppercase text-[#F4F1E5]/50">E-mail Corporativo</span>
                   <a
                     href={`mailto:${CONTACT_INFO.email}`}
-                    className="font-semibold text-[#F3EBDD] hover:text-[#E7A92B] transition-colors"
+                    className="font-semibold text-[#F4F1E5] hover:text-[#E27908] transition-colors"
                   >
                     {CONTACT_INFO.email}
                   </a>
-                  <p className="text-xs text-[#F3EBDD]/75">atendimento a clínicas e especialistas</p>
                 </div>
               </div>
             </div>
@@ -147,18 +157,17 @@ export default function ContactForm() {
             <form
               onSubmit={handleSubmit}
               noValidate
-              className="rounded-[1.4rem] border border-[#F3EBDD]/15 bg-[#163A39] shadow-2xl p-6 lg:p-8 space-y-5"
+              className="rounded-[1.6rem] border border-white/15 bg-[#0E2259]/80 backdrop-blur-xl shadow-2xl p-6 lg:p-8 space-y-5"
               aria-describedby="form-status"
             >
-              <div className="flex items-center justify-between">
-                <p className="text-sm font-semibold text-[#F3EBDD]">Diagnóstico inicial</p>
-                <span className="text-xs text-[#F3EBDD]/75 font-mono">4 campos • 1 min</span>
+              <div>
+                <p className="text-base font-display font-bold text-[#F4F1E5]">Diagnóstico inicial</p>
               </div>
 
               {/* Nome */}
               <div>
-                <label htmlFor="nome" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F3EBDD]/70 mb-1.5">
-                  Nome <span className="text-[#D63A2F]">*</span>
+                <label htmlFor="nome" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/75 mb-1.5">
+                  Nome <span className="text-[#E27908]">*</span>
                 </label>
                 <motion.input
                   id="nome"
@@ -186,7 +195,7 @@ export default function ContactForm() {
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
-                        className="text-xs text-[#FF8F87] flex items-center gap-1"
+                        className="text-xs text-[#F87171] flex items-center gap-1 font-medium"
                         role="alert"
                       >
                         <span aria-hidden>⚠</span> {errors.nome}
@@ -196,7 +205,7 @@ export default function ContactForm() {
                         key="ok-nome"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-xs text-[#86A675] flex items-center gap-1"
+                        className="text-xs text-[#4ADE80] flex items-center gap-1 font-medium"
                       >
                         <span aria-hidden>✓</span> Parece bom
                       </motion.p>
@@ -207,8 +216,8 @@ export default function ContactForm() {
 
               {/* E-mail ou WhatsApp para retorno */}
               <div>
-                <label htmlFor="contato" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F3EBDD]/70 mb-1.5">
-                  E-mail ou WhatsApp para retorno <span className="text-[#D63A2F]">*</span>
+                <label htmlFor="contato" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/75 mb-1.5">
+                  E-mail ou WhatsApp para retorno <span className="text-[#E27908]">*</span>
                 </label>
                 <motion.input
                   id="contato"
@@ -220,7 +229,7 @@ export default function ContactForm() {
                     if (touched.contato) setErrors((prev) => ({ ...prev, contato: validateField("contato", e.target.value) }));
                   }}
                   onBlur={() => setTouched((p) => ({ ...p, contato: true }))}
-                  placeholder="Ex: doutor@clinica.com.br ou (71) 99999-0000"
+                  placeholder="Ex: seuemail@empresa.com.br ou (71) 99999-0000"
                   className={getFieldClass("contato", contato)}
                   aria-invalid={!!errors.contato}
                   aria-describedby={errors.contato ? "err-contato" : undefined}
@@ -236,7 +245,7 @@ export default function ContactForm() {
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
-                        className="text-xs text-[#FF8F87] flex items-center gap-1"
+                        className="text-xs text-[#F87171] flex items-center gap-1 font-medium"
                         role="alert"
                       >
                         <span aria-hidden>⚠</span> {errors.contato}
@@ -246,7 +255,7 @@ export default function ContactForm() {
                         key="ok-contato"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-xs text-[#86A675] flex items-center gap-1"
+                        className="text-xs text-[#4ADE80] flex items-center gap-1 font-medium"
                       >
                         <span aria-hidden>✓</span> Contato válido
                       </motion.p>
@@ -255,48 +264,48 @@ export default function ContactForm() {
                 </div>
               </div>
 
-              {/* Clínica / Especialidade */}
+              {/* Marca, Empresa ou Projeto */}
               <div>
-                <label htmlFor="clinica" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F3EBDD]/70 mb-1.5">
-                  Clínica / Especialidade <span className="text-[#D63A2F]">*</span>
+                <label htmlFor="empresa" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/75 mb-1.5">
+                  Marca, Empresa ou Projeto <span className="text-[#E27908]">*</span>
                 </label>
                 <motion.input
-                  id="clinica"
-                  name="clinica"
+                  id="empresa"
+                  name="empresa"
                   autoComplete="organization"
-                  value={clinica}
+                  value={empresa}
                   onChange={(e) => {
-                    setClinica(e.target.value);
-                    if (touched.clinica) setErrors((prev) => ({ ...prev, clinica: validateField("clinica", e.target.value) }));
+                    setEmpresa(e.target.value);
+                    if (touched.empresa) setErrors((prev) => ({ ...prev, empresa: validateField("empresa", e.target.value) }));
                   }}
-                  onBlur={() => setTouched((p) => ({ ...p, clinica: true }))}
-                  placeholder="Ex: Clínica Aurora — Dermatologia"
-                  className={getFieldClass("clinica", clinica)}
-                  aria-invalid={!!errors.clinica}
-                  aria-describedby={errors.clinica ? "err-clinica" : undefined}
-                  animate={errors.clinica ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
+                  onBlur={() => setTouched((p) => ({ ...p, empresa: true }))}
+                  placeholder="Ex: Sua Marca, Empresa ou Projeto"
+                  className={getFieldClass("empresa", empresa)}
+                  aria-invalid={!!errors.empresa}
+                  aria-describedby={errors.empresa ? "err-empresa" : undefined}
+                  animate={errors.empresa ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
                   transition={{ duration: 0.42 }}
                 />
                 <div className="min-h-[18px] mt-1 flex items-center gap-1.5">
                   <AnimatePresence mode="wait">
-                    {errors.clinica ? (
+                    {errors.empresa ? (
                       <motion.p
-                        key="err-clinica"
-                        id="err-clinica"
+                        key="err-empresa"
+                        id="err-empresa"
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
-                        className="text-xs text-[#FF8F87] flex items-center gap-1"
+                        className="text-xs text-[#F87171] flex items-center gap-1 font-medium"
                         role="alert"
                       >
-                        <span aria-hidden>⚠</span> {errors.clinica}
+                        <span aria-hidden>⚠</span> {errors.empresa}
                       </motion.p>
-                    ) : touched.clinica && clinica.trim().length >= 2 ? (
+                    ) : touched.empresa && empresa.trim().length >= 2 ? (
                       <motion.p
-                        key="ok-clinica"
+                        key="ok-empresa"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-xs text-[#86A675] flex items-center gap-1"
+                        className="text-xs text-[#4ADE80] flex items-center gap-1 font-medium"
                       >
                         <span aria-hidden>✓</span> Perfeito
                       </motion.p>
@@ -307,8 +316,8 @@ export default function ContactForm() {
 
               {/* Mensagem */}
               <div>
-                <label htmlFor="mensagem" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F3EBDD]/70 mb-1.5">
-                  Mensagem <span className="text-[#D63A2F]">*</span>
+                <label htmlFor="mensagem" className="block text-xs font-mono font-semibold tracking-wide uppercase text-[#F4F1E5]/75 mb-1.5">
+                  Mensagem <span className="text-[#E27908]">*</span>
                 </label>
                 <motion.textarea
                   id="mensagem"
@@ -320,14 +329,14 @@ export default function ContactForm() {
                     if (touched.mensagem) setErrors((prev) => ({ ...prev, mensagem: validateField("mensagem", e.target.value) }));
                   }}
                   onBlur={() => setTouched((p) => ({ ...p, mensagem: true }))}
-                  placeholder="Conte em poucas linhas o que sua clínica precisa estruturar"
+                  placeholder="Conte em poucas linhas o que sua marca ou projeto precisa estruturar"
                   className={`${getFieldClass("mensagem", mensagem)} resize-none`}
                   aria-invalid={!!errors.mensagem}
                   aria-describedby={errors.mensagem ? "err-mensagem" : "help-mensagem"}
                   animate={errors.mensagem ? { x: [0, -6, 6, -4, 4, 0] } : { x: 0 }}
                   transition={{ duration: 0.42 }}
                 />
-                <p id="help-mensagem" className="mt-1 text-xs text-[#F3EBDD]/75">
+                <p id="help-mensagem" className="mt-1 text-xs text-[#F4F1E5]/60">
                   Mín. 10 caracteres — quanto mais direto, melhor.
                 </p>
                 <div className="min-h-[18px] mt-1 flex items-center gap-1.5">
@@ -339,7 +348,7 @@ export default function ContactForm() {
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -4 }}
-                        className="text-xs text-[#FF8F87] flex items-center gap-1"
+                        className="text-xs text-[#F87171] flex items-center gap-1 font-medium"
                         role="alert"
                       >
                         <span aria-hidden>⚠</span> {errors.mensagem}
@@ -349,7 +358,7 @@ export default function ContactForm() {
                         key="ok-mensagem"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="text-xs text-[#86A675] flex items-center gap-1"
+                        className="text-xs text-[#4ADE80] flex items-center gap-1 font-medium"
                       >
                         <span aria-hidden>✓</span> Mensagem pronta
                       </motion.p>
@@ -376,14 +385,14 @@ export default function ContactForm() {
                         });
                       }
                     }}
-                    className="mt-1 h-4 w-4 rounded border-[#F3EBDD]/25 bg-[#102C2B]/80 text-[#D63A2F] focus:ring-2 focus:ring-[#D63A2F] accent-[#D63A2F]"
+                    className="mt-1 h-4 w-4 rounded border-white/30 bg-[#0B1B47] text-[#E27908] focus:ring-2 focus:ring-[#E27908] accent-[#E27908]"
                   />
-                  <span className="text-xs text-[#F3EBDD]/80 leading-snug select-none group-hover:text-[#F3EBDD]">
-                    Concordo em receber contato da equipe Sotaque para apresentação de diagnóstico e proposta comercial. Sigilo médico garantido.
+                  <span className="text-xs text-[#F4F1E5]/75 leading-snug select-none group-hover:text-[#F4F1E5]">
+                    Concordo em receber contato da equipe Sotaque para apresentação de diagnóstico e proposta comercial. Confidencialidade garantida.
                   </span>
                 </label>
                 {errors.consentimento && (
-                  <p className="mt-1.5 text-xs text-[#FF8F87] flex items-center gap-1" role="alert">
+                  <p className="mt-1.5 text-xs text-[#F87171] flex items-center gap-1 font-medium" role="alert">
                     <span aria-hidden>⚠</span> {errors.consentimento}
                   </p>
                 )}
@@ -410,7 +419,7 @@ export default function ContactForm() {
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className="rounded-xl bg-[#58734A]/25 border border-[#58734A]/40 text-[#A3C793] text-sm px-4 py-2.5 flex items-center gap-2 font-medium"
+                      className="rounded-xl bg-[#2F7C4B]/25 border border-[#2F7C4B]/50 text-[#4ADE80] text-sm px-4 py-2.5 flex items-center gap-2 font-medium"
                     >
                       <span>✓</span> Mensagem enviada com sucesso! Retornaremos em breve.
                     </motion.p>
@@ -420,7 +429,7 @@ export default function ContactForm() {
                       key="server-err"
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="rounded-xl bg-[#D63A2F]/20 border border-[#D63A2F]/40 text-[#FF8F87] text-sm px-4 py-2.5"
+                      className="rounded-xl bg-[#6E1016]/40 border border-[#CF000F]/50 text-[#FCA5A5] text-sm px-4 py-2.5 font-medium"
                       role="alert"
                     >
                       ⚠ {errors._server}
@@ -433,25 +442,25 @@ export default function ContactForm() {
                 <motion.button
                   type="submit"
                   disabled={status === "loading"}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#D63A2F] text-[#F3EBDD] px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase hover:bg-[#BA2E24] shadow-lg shadow-[#D63A2F]/30 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D63A2F]"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#E27908] via-[#CF000F] to-[#6E1016] text-[#F4F1E5] px-8 py-3.5 text-xs font-mono font-bold tracking-widest uppercase hover:brightness-110 shadow-lg shadow-[#E27908]/25 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908] transition-all"
                   whileTap={status !== "loading" ? { scale: 0.98 } : undefined}
                 >
                   {status === "loading" ? (
                     <>
-                      <span className="h-4 w-4 rounded-full border-2 border-[#F3EBDD]/30 border-t-[#F3EBDD] animate-spin" aria-hidden />
+                      <span className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" aria-hidden />
                       Enviando...
                     </>
                   ) : (
                     <>
-                      Enviar mensagem <span aria-hidden>↗</span>
+                      Enviar mensagem <span className="text-[#F4F1E5] font-bold" aria-hidden>↗</span>
                     </>
                   )}
                 </motion.button>
               </div>
             </form>
 
-            <p className="mt-3 text-xs text-[#F3EBDD]/75 text-center lg:text-left">
-              Ao enviar, você concorda com contato direto da equipe Sotaque. Sigilo médico garantido.
+            <p className="mt-3 text-xs text-[#F4F1E5]/60 text-center lg:text-left">
+              Ao enviar, você concorda com contato direto da equipe Sotaque. Confidencialidade garantida.
             </p>
           </div>
         </div>

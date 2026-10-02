@@ -5,6 +5,7 @@ export const dynamic = "force-dynamic";
 type Payload = {
   nome?: string;
   contato?: string;
+  empresa?: string;
   clinica?: string;
   mensagem?: string;
   consentimento?: boolean;
@@ -19,8 +20,9 @@ function validate(data: Payload) {
   if (!data.contato || data.contato.trim().length < 5) {
     errors.contato = "Informe seu e-mail ou WhatsApp para retorno.";
   }
-  if (!data.clinica || data.clinica.trim().length < 2) {
-    errors.clinica = "Informe sua clínica ou especialidade.";
+  const empresaVal = data.empresa || data.clinica;
+  if (!empresaVal || empresaVal.trim().length < 2) {
+    errors.empresa = "Informe sua marca, empresa ou projeto.";
   }
   if (!data.mensagem || data.mensagem.trim().length < 10) {
     errors.mensagem = "Mensagem muito curta — conte em 10+ caracteres.";
@@ -47,7 +49,7 @@ export async function POST(req: Request) {
     const leadInfo = {
       nome: data.nome?.trim(),
       contato: data.contato?.trim(),
-      clinica: data.clinica?.trim(),
+      empresa: (data.empresa || data.clinica)?.trim(),
       mensagem: data.mensagem?.trim()?.slice(0, 500),
       consentimento: !!data.consentimento,
       at: new Date().toISOString(),
@@ -71,15 +73,21 @@ export async function POST(req: Request) {
           body: JSON.stringify({
             from: "Sotaque Leads <onboarding@resend.dev>",
             to: [notificationEmail],
-            subject: `Novo Contato Médico: ${leadInfo.nome} (${leadInfo.clinica})`,
+            subject: `Novo Contato Sotaque: ${leadInfo.nome} (${leadInfo.empresa})`,
             html: `
-              <h2>Novo contato recebido pelo site Sotaque</h2>
-              <p><strong>Nome:</strong> ${leadInfo.nome}</p>
-              <p><strong>Contato (Email/WhatsApp):</strong> ${leadInfo.contato}</p>
-              <p><strong>Clínica / Especialidade:</strong> ${leadInfo.clinica}</p>
-              <p><strong>Mensagem:</strong></p>
-              <p>${leadInfo.mensagem}</p>
-              <p><small>Consentimento LGPD confirmado em: ${leadInfo.at}</small></p>
+              <div style="font-family: sans-serif; color: #0B1B47; max-width: 600px; padding: 24px; border: 1px solid #e0e0e0; border-radius: 12px;">
+                <h2 style="color: #0B1B47; margin-top: 0;">Novo contato recebido pelo site Sotaque</h2>
+                <p><strong>Nome:</strong> ${leadInfo.nome}</p>
+                <p><strong>Contato (Email/WhatsApp):</strong> ${leadInfo.contato}</p>
+                <p><strong>Marca, Empresa ou Projeto:</strong> ${leadInfo.empresa}</p>
+                <p><strong>Mensagem:</strong></p>
+                <div style="background: #F4F6F2; padding: 16px; border-radius: 8px; font-style: italic;">
+                  ${leadInfo.mensagem}
+                </div>
+                <p style="margin-top: 24px; font-size: 12px; color: #666;">
+                  Consentimento confirmado em: ${leadInfo.at}
+                </p>
+              </div>
             `,
           }),
         });
