@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { CaseItem } from "./Portfolio";
 
 const categories = [
-  { id: "todos", label: "Todos os Cases" },
+  { id: "todos", label: "Todos" },
   { id: "branding", label: "Branding, ID & Gestão de Redes", color: "verde" },
   { id: "conteudo", label: "Narrativa, Conteúdo & Assessoria", color: "vinho" },
   { id: "midia", label: "Desenvolvimento Web & Performance", color: "azul" },
@@ -211,11 +211,11 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
             </div>
           ))}
         </div>
-        <div className="mx-auto max-w-content px-6 mt-3.5 flex justify-end">
-          <p className="text-xs text-[#0B1B47]/60 font-mono text-right max-w-xl leading-relaxed">
-            * As marcas exibidas foram atendidas ou representadas por membros da
-            nossa equipe ao longo de suas carreiras. Não foram clientes diretas
-            da Sotaque nem possuem contrato vigente conosco.
+        <div className="w-full px-6 lg:px-10 mt-3 flex justify-end">
+          <p className="text-xs text-[#0B1B47]/60 font-mono text-right max-w-2xl leading-tight sm:leading-snug">
+            * As marcas exibidas foram atendidas por membros da nossa equipe ao longo de suas carreiras.
+            <br className="hidden sm:inline" />
+            {" "}Não foram clientes diretas da Sotaque nem possuem contrato vigente conosco.
           </p>
         </div>
       </div>
@@ -332,8 +332,12 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
                     {/* Top Bar sobre a imagem: Categoria com cor do pilar e Ano */}
                     <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                      <span className={`rounded-full border px-3 py-1 text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md shadow-sm inline-flex items-center gap-1.5 ${theme.badge}`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`} />
+                      <span
+                        className={`rounded-full border px-3 py-1 text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md shadow-sm inline-flex items-center gap-1.5 ${theme.badge}`}
+                      >
+                        <span
+                          className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`}
+                        />
                         <span>{c.disciplina || c.categoria}</span>
                       </span>
 
@@ -348,7 +352,9 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                   {/* Conteúdo Textual com Hierarquia Editorial Rigorosa */}
                   <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between">
                     <div>
-                      <h3 className={`font-['Commune',serif] font-bold text-[1.35rem] leading-[1.1] text-[#0B1B47] ${theme.titleHover} transition-colors duration-300`}>
+                      <h3
+                        className={`font-['Commune',serif] font-bold text-[1.35rem] leading-[1.1] text-[#0B1B47] ${theme.titleHover} transition-colors duration-300`}
+                      >
                         {c.cliente}
                       </h3>
 
@@ -360,14 +366,20 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                     <div className="mt-6 pt-5 border-t border-[#0B1B47]/08 flex flex-col gap-3">
                       {/* Selo de Impacto / Métrica com a cor do pilar */}
                       {c.impacto && (
-                        <div className={`inline-flex items-center gap-2 text-xs font-mono font-medium rounded-lg px-3 py-1.5 w-fit border ${theme.impactBg}`}>
-                          <span className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`} />
+                        <div
+                          className={`inline-flex items-center gap-2 text-xs font-mono font-medium rounded-lg px-3 py-1.5 w-fit border ${theme.impactBg}`}
+                        >
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`}
+                          />
                           <span>{c.impacto}</span>
                         </div>
                       )}
 
                       <div className="flex items-center justify-between pt-1">
-                        <span className={`text-xs font-mono font-bold uppercase tracking-wider text-[#0B1B47] ${theme.ctaHover} transition-colors flex items-center gap-1.5`}>
+                        <span
+                          className={`text-xs font-mono font-bold uppercase tracking-wider text-[#0B1B47] ${theme.ctaHover} transition-colors flex items-center gap-1.5`}
+                        >
                           <span>Ver Estudo de Caso</span>
                           <span className="transition-transform duration-300 group-hover:translate-x-1">
                             →
