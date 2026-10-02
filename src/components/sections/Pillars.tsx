@@ -169,8 +169,9 @@ export default function Pillars() {
 
   const isHoveredRow1 = pillarsRow1.some((p) => p.id === hoveredId);
   const isHoveredRow2 = pillarsRow2.some((p) => p.id === hoveredId);
+  const isAnyHovered = isHoveredRow1 || isHoveredRow2;
 
-  // Proporções ultra-suaves de expansão do Bento Grid
+  // Proporções de largura fluidas inspiradas no padrão icônico da versão main (7.2 : 2.4 : 2.4 = 60% : 20% : 20%)
   const getFlexGrow = (
     id: string,
     currentHoveredId: string | null,
@@ -181,35 +182,47 @@ export default function Pillars() {
       return 1;
     }
     if (currentHoveredId === id) {
-      return 2.3;
+      return 7.2;
     }
-    return 0.85;
+    return 2.4;
   };
 
   const renderCard = (p: Pillar, flexGrow: number) => {
     const isHovered = hoveredId === p.id;
-    const isDimmed = hoveredId !== null && !isHovered;
+    const isDimmed = isAnyHovered && !isHovered;
     const pos = mousePos[p.id] || { x: 200, y: 150 };
 
     return (
       <div
         key={p.id}
+        role="button"
+        tabIndex={0}
+        aria-expanded={isHovered}
+        aria-label={`Pilar ${p.number}: ${p.title}`}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setHoveredId(hoveredId === p.id ? null : p.id);
+          }
+        }}
         onMouseEnter={() => setHoveredId(p.id)}
+        onClick={() => setHoveredId(hoveredId === p.id ? null : p.id)}
         onMouseMove={(e) => handleMouseMove(p.id, e)}
         style={{
           flexGrow,
           flexShrink: 1,
           flexBasis: "0%",
+          minWidth: isAnyHovered && !isHovered ? "180px" : undefined,
           willChange: "flex-grow",
           transition:
-            "flex-grow 700ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 500ms cubic-bezier(0.22, 1, 0.36, 1), border-color 400ms ease, opacity 400ms ease, background-color 400ms ease",
+            "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms ease, opacity 300ms ease, background-color 300ms ease",
         }}
-        className={`group relative rounded-[1.8rem] border overflow-hidden flex flex-col p-6 sm:p-7 lg:p-8 cursor-pointer select-none ${
+        className={`group relative rounded-[1.6rem] sm:rounded-[1.8rem] border overflow-hidden flex flex-col cursor-pointer select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E27908] ${
           isHovered
-            ? "bg-white border-[#0B1B47]/25 shadow-[0_24px_55px_rgba(11,27,71,0.12)] z-20"
+            ? "bg-white border-[#0B1B47]/25 shadow-[0_24px_55px_rgba(11,27,71,0.12)] z-20 p-6 sm:p-7 lg:p-8"
             : isDimmed
-            ? "bg-white/85 border-[rgba(11,27,71,0.06)] shadow-sm opacity-85 hover:opacity-100"
-            : "bg-white/95 border-[rgba(11,27,71,0.08)] shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)]"
+            ? "bg-white/85 border-[rgba(11,27,71,0.06)] shadow-sm opacity-85 hover:opacity-100 p-4 sm:p-5 lg:p-6"
+            : "bg-white/95 border-[rgba(11,27,71,0.08)] shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] p-6 sm:p-7 lg:p-8"
         }`}
       >
         {/* Spotlight dinâmico acionado pela posição do mouse */}
@@ -223,16 +236,16 @@ export default function Pillars() {
 
         {/* Linha superior com cor de acento do pilar */}
         <div
-          className="absolute top-0 left-0 right-0 h-1 transition-all duration-500 group-hover:h-1.5"
+          className="absolute top-0 left-0 right-0 h-1 transition-all duration-300 group-hover:h-1.5"
           style={{ backgroundColor: p.accentColor }}
           aria-hidden
         />
 
         {/* Topo do Card: Número e Disciplina */}
-        <div className="relative z-10 flex items-center justify-between gap-2 mb-4">
+        <div className="relative z-10 flex items-center justify-between gap-2 mb-3 min-w-0">
           <div className="flex items-center gap-2.5 min-w-0">
             <span
-              className="h-8 w-8 rounded-xl font-mono text-xs font-bold grid place-items-center border shrink-0 transition-colors duration-400"
+              className="h-8 w-8 rounded-xl font-mono text-xs font-bold grid place-items-center border shrink-0 transition-colors duration-300"
               style={{
                 backgroundColor: `${p.accentColor}12`,
                 borderColor: `${p.accentColor}30`,
@@ -242,8 +255,8 @@ export default function Pillars() {
               {p.number}
             </span>
             <span
-              className={`text-[11px] font-mono tracking-widest uppercase font-semibold truncate transition-colors duration-400 ${
-                isDimmed ? "text-[#0B1B47]/50" : "text-[#0B1B47]/70"
+              className={`text-[11px] font-mono tracking-widest uppercase font-semibold truncate transition-colors duration-300 ${
+                isDimmed ? "hidden sm:inline text-[#0B1B47]/50" : "text-[#0B1B47]/70"
               }`}
             >
               {p.discipline}
@@ -251,7 +264,7 @@ export default function Pillars() {
           </div>
 
           <span
-            className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full border font-bold shrink-0 transition-all duration-400 ${
+            className={`font-mono text-[10px] tracking-wider uppercase px-2.5 py-1 rounded-full border font-bold shrink-0 transition-all duration-300 ${
               p.badgeBg
             } ${isDimmed ? "hidden sm:inline-block scale-95" : ""}`}
           >
@@ -259,26 +272,42 @@ export default function Pillars() {
           </span>
         </div>
 
-        {/* Título Principal em Commune */}
+        {/* Título Principal em Commune com scale suave sem quebra forçada */}
         <h3
-          className={`relative z-10 font-['Commune',serif] font-bold text-xl sm:text-[1.35rem] leading-[1.14] text-[#0B1B47] transition-colors duration-400 ${
-            isHovered ? "text-[#6E1016]" : ""
+          className={`relative z-10 font-['Commune',serif] font-bold leading-[1.14] text-[#0B1B47] transition-all duration-300 min-w-0 ${
+            isHovered
+              ? "text-xl sm:text-2xl lg:text-[1.55rem] text-[#6E1016]"
+              : isDimmed
+              ? "text-sm sm:text-base lg:text-lg line-clamp-1"
+              : "text-base sm:text-lg lg:text-[1.28rem] line-clamp-2"
           }`}
         >
           {p.title}
         </h3>
 
         {/* Lema em Itálico Nobre */}
-        <p className="relative z-10 font-serif italic text-xs text-[#6E1016] mt-2 mb-3 leading-relaxed">
+        <p
+          className={`relative z-10 font-serif italic text-xs text-[#6E1016] mt-2 mb-2 leading-relaxed transition-all duration-300 ${
+            isDimmed ? "line-clamp-1 opacity-70" : "opacity-100"
+          }`}
+        >
           “{p.motto}”
         </p>
 
-        {/* Tags / Serviços Oferecidos — Lista dinâmica elegante */}
-        <div className="relative z-10 flex flex-wrap gap-1.5 sm:gap-2 my-auto py-2">
+        {/* Tags / Serviços Oferecidos — Expansão elegante em acordeão */}
+        <div
+          className={`relative z-10 flex flex-wrap gap-1.5 sm:gap-2 my-auto transition-all duration-500 overflow-hidden ${
+            isHovered
+              ? "opacity-100 max-h-48 py-2.5"
+              : isDimmed
+              ? "opacity-60 max-h-16 py-1 overflow-hidden"
+              : "opacity-90 max-h-36 py-2"
+          }`}
+        >
           {p.tags.map((tag) => (
             <span
               key={tag}
-              className={`text-[11px] font-mono tracking-tight px-2.5 py-1 rounded-full border transition-all duration-400 ${
+              className={`text-[11px] font-mono tracking-tight px-2.5 py-1 rounded-full border transition-all duration-300 ${
                 isHovered
                   ? "bg-[#0B1B47]/06 border-[#0B1B47]/15 text-[#0B1B47] font-semibold"
                   : "bg-[#0B1B47]/03 border-[#0B1B47]/07 text-[#0B1B47]/70"
@@ -290,9 +319,9 @@ export default function Pillars() {
         </div>
 
         {/* Rodapé do Card com Prévia Interativa da Pasta Oficial */}
-        <div className="relative z-10 mt-5 pt-4 border-t border-[#0B1B47]/08 flex items-center justify-between gap-3">
+        <div className="relative z-10 mt-auto pt-3 border-t border-[#0B1B47]/08 flex items-center justify-between gap-3 min-w-0">
           <span
-            className={`text-xs font-mono font-medium transition-colors duration-400 truncate ${
+            className={`text-xs font-mono font-medium transition-colors duration-300 truncate min-w-0 ${
               isHovered ? "text-[#E27908] font-semibold" : "text-[#0B1B47]/70"
             }`}
           >
@@ -305,7 +334,7 @@ export default function Pillars() {
               e.stopPropagation();
               setActiveFolderModal(p);
             }}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1B47]/06 hover:bg-[#E27908] hover:text-[#F4F1E5] text-[#0B1B47] text-[11px] font-mono tracking-wider uppercase font-semibold transition-all duration-300 cursor-pointer shrink-0"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0B1B47]/06 hover:bg-[#E27908] hover:text-[#F4F1E5] text-[#0B1B47] text-[11px] font-mono tracking-wider uppercase font-semibold transition-all duration-200 cursor-pointer shrink-0"
             aria-label={`Ver pasta de referência para ${p.title}`}
           >
             <span>Pasta</span>
@@ -315,8 +344,8 @@ export default function Pillars() {
 
         {/* Marca d'água monumental sutil de fundo */}
         <span
-          className={`absolute -bottom-4 -right-2 font-['Commune',serif] font-black text-[6.5rem] leading-none tracking-tighter text-[#0B1B47]/[0.03] select-none pointer-events-none transition-all duration-600 ${
-            isHovered ? "text-[#0B1B47]/[0.07] scale-110" : ""
+          className={`absolute -bottom-4 -right-2 font-['Commune',serif] font-black text-[6.5rem] leading-none tracking-tighter text-[#0B1B47]/[0.03] select-none pointer-events-none transition-all duration-300 ${
+            isHovered ? "text-[#0B1B47]/[0.08] scale-110" : ""
           }`}
           aria-hidden
         >
@@ -371,38 +400,38 @@ export default function Pillars() {
         </div>
       </div>
 
-      {/* Bento Grid Dinâmico com Expansão Ultra-Smooth no Hover */}
+      {/* Bento Grid Dinâmico com Expansão Fluida em 2 Níveis (Inspirado no modelo fluido da versão main) */}
       <div
-        className="mx-auto max-w-content px-6 lg:px-8 flex flex-col gap-5 lg:gap-6 min-h-[760px] lg:h-[760px]"
+        className="mx-auto max-w-content px-6 lg:px-8 flex flex-col gap-4 lg:gap-5 min-h-[720px] lg:h-[740px]"
         onMouseLeave={() => setHoveredId(null)}
       >
-        {/* Nível 1 do Bento: 3 Cards */}
+        {/* Nível 1 do Bento: 3 Cards (expande em altura para 2.2 quando focado, e comprime para 0.65 quando o nível 2 é focado) */}
         <div
           style={{
-            flexGrow: isHoveredRow1 ? 1.35 : isHoveredRow2 ? 0.78 : 1,
+            flexGrow: isHoveredRow1 ? 2.2 : isHoveredRow2 ? 0.65 : 1,
             flexShrink: 1,
             flexBasis: "0%",
             willChange: "flex-grow",
-            transition: "flex-grow 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms ease",
+            transition: "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms ease",
           }}
-          className={`flex flex-col md:flex-row gap-5 lg:gap-6 w-full transition-opacity duration-500 ${
-            isHoveredRow2 ? "opacity-85" : "opacity-100"
+          className={`flex flex-col md:flex-row gap-4 lg:gap-5 w-full transition-opacity duration-300 ${
+            isHoveredRow2 ? "opacity-75" : "opacity-100"
           }`}
         >
           {pillarsRow1.map((p) => renderCard(p, getFlexGrow(p.id, hoveredId, pillarsRow1)))}
         </div>
 
-        {/* Nível 2 do Bento: 3 Cards */}
+        {/* Nível 2 do Bento: 3 Cards (expande em altura para 2.2 quando focado, e comprime para 0.65 quando o nível 1 é focado) */}
         <div
           style={{
-            flexGrow: isHoveredRow2 ? 1.35 : isHoveredRow1 ? 0.78 : 1,
+            flexGrow: isHoveredRow2 ? 2.2 : isHoveredRow1 ? 0.65 : 1,
             flexShrink: 1,
             flexBasis: "0%",
             willChange: "flex-grow",
-            transition: "flex-grow 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 500ms ease",
+            transition: "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms ease",
           }}
-          className={`flex flex-col md:flex-row gap-5 lg:gap-6 w-full transition-opacity duration-500 ${
-            isHoveredRow1 ? "opacity-85" : "opacity-100"
+          className={`flex flex-col md:flex-row gap-4 lg:gap-5 w-full transition-opacity duration-300 ${
+            isHoveredRow1 ? "opacity-75" : "opacity-100"
           }`}
         >
           {pillarsRow2.map((p) => renderCard(p, getFlexGrow(p.id, hoveredId, pillarsRow2)))}
@@ -411,7 +440,7 @@ export default function Pillars() {
         {/* Rodapé da Seção */}
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#0B1B47]/60 border-t border-[#0B1B47]/10 pt-4 mt-2">
           <span>Metodologia integrada: cada disciplina nutre a autoridade e a alma da marca.</span>
-          <span className="hidden sm:inline">Bento Grid Dinâmico • Visão 360° Sotaque</span>
+          <span className="hidden sm:inline">Navegação Integrada • Visão 360° Sotaque</span>
         </div>
       </div>
 
