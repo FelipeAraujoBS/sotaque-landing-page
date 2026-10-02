@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import VoiceWaves from "@/components/motion/VoiceWaves";
+import BonfimRibbons from "@/components/motion/BonfimRibbons";
 import { HERO_CONTENT } from "@/content/hero";
 
 export default function Hero() {
@@ -109,9 +109,9 @@ export default function Hero() {
       className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-between pt-28 sm:pt-32 pb-8 overflow-hidden bg-[var(--sotaque-creme,#F4F1E5)] text-[#0B1B47]"
       aria-label="Apresentação — Sotaque Estúdio 360"
     >
-      {/* Ondas de Voz Estruturais — Posicionadas atrás e à direita do título */}
-      <div className="absolute right-[-5%] top-[14%] sm:top-[12%] w-[85%] sm:w-[65%] max-w-[780px] pointer-events-none z-0">
-        <VoiceWaves
+      {/* Fitinhas do Bonfim — Ondulando no vento atrás e à direita do título */}
+      <div className="absolute right-[-4%] top-[10%] sm:top-[8%] w-[88%] sm:w-[68%] max-w-[840px] pointer-events-none z-0">
+        <BonfimRibbons
           isPlayingSound={isPlayingSound}
           analyser={analyserRef.current}
           className="w-full"

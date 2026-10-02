@@ -122,9 +122,9 @@ export default function SotaqueNavbar() {
 
   return (
     <>
-      {/* Top Navbar Suspensa — Gradiente Vertical Azul Meia-Noite / Creme (de cima para baixo) */}
+      {/* Top Navbar Suspensa — Gradiente Vertical Azul Meia-Noite / Creme (de cima para baixo, sem borda) */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 pointer-events-auto transition-all duration-300 border-b border-[#0B1B47]/10 ${
+        className={`fixed top-0 left-0 right-0 z-50 pointer-events-auto transition-all duration-300 border-none ${
           isScrolled ? "py-3 sm:py-3.5 shadow-sm" : "py-4 sm:py-5"
         } bg-gradient-to-b from-[#0B1B47] to-[#F4F1E5] backdrop-blur-md`}
       >
