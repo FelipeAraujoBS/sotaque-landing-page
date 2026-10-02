@@ -22,15 +22,17 @@ const pillars: Pillar[] = [
   {
     id: "estrategia-branding",
     number: "01",
-    title: "Estratégia & Branding",
+    title: "Branding e Identidade",
     discipline: "Estratégia de Marca",
-    motto: "Posicionamento claro, identidade inconfundível.",
+    motto:
+      "Criamos marcas com personalidade: branding, identidade visual e papelaria que falam por você.",
     tags: [
       "Posicionamento",
       "Identidade",
       "Direção de Marca",
       "Naming",
       "Estratégia de Comunicação",
+      "Papelaria",
     ],
     metric: "Branding 360°",
     metricLabel: "Arquitetura autoral & posicionamento",
@@ -44,7 +46,8 @@ const pillars: Pillar[] = [
     number: "02",
     title: "Conteúdo & Audiovisual",
     discipline: "Cinema & Narrativa",
-    motto: "Cinema com alma autoral, direção fina e inteligência artificial.",
+    motto:
+      "Storymaking, filmmaking, motion graphics e edição com IA para sua marca ganhar movimento.",
     tags: [
       "Conteúdo",
       "Fotografia",
@@ -64,9 +67,10 @@ const pillars: Pillar[] = [
   {
     id: "presenca-comunidade",
     number: "03",
-    title: "Presença & Comunidade",
+    title: "Gestão de Redes e Comunidades",
     discipline: "Comunidade & Influência",
-    motto: "Construção de audiência proprietária e conexão real.",
+    motto:
+      "Gestão completa das suas redes, com conteúdo que conversa com seu público e cria comunidade.",
     tags: [
       "Redes Sociais",
       "Gestão de Comunidade",
@@ -84,9 +88,10 @@ const pillars: Pillar[] = [
   {
     id: "digital-experiencias",
     number: "04",
-    title: "Digital & Experiências",
+    title: "Digital e Dados",
     discipline: "Engenharia & UX/UI",
-    motto: "Territórios digitais fluidos, velozes e sem limitações.",
+    motto:
+      "Sites, landing pages e análise de dados para transformar presença em resultado.",
     tags: [
       "Sites",
       "Landing Pages",
@@ -107,7 +112,8 @@ const pillars: Pillar[] = [
     number: "05",
     title: "Produção & Broadcast",
     discipline: "Estúdio Multimídia",
-    motto: "Voz, imagem e presença para liderar a conversa.",
+    motto:
+      "Clipes musicais, visualizers, podcasts e videocasts para quem tem voz e quer ser ouvido.",
     tags: [
       "Podcasts",
       "Videocasts",
@@ -127,9 +133,10 @@ const pillars: Pillar[] = [
   {
     id: "relacoes-reputacao",
     number: "06",
-    title: "Relações & Reputação",
+    title: "Assessoria e Comunicação",
     discipline: "PR & Institucional",
-    motto: "A verdade da sua marca no centro da pauta cultural.",
+    motto:
+      "Assessoria de imprensa e comunicação interna para sua marca falar bem, dentro e fora de casa.",
     tags: [
       "Assessoria",
       "PR",
@@ -149,12 +156,17 @@ const pillars: Pillar[] = [
 
 export default function Pillars() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeFolderModal, setActiveFolderModal] = useState<Pillar | null>(null);
+  const [activeFolderModal, setActiveFolderModal] = useState<Pillar | null>(
+    null,
+  );
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty(
+      "--mouse-x",
+      `${e.clientX - rect.left}px`,
+    );
     e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
   };
 
@@ -169,7 +181,7 @@ export default function Pillars() {
   const getFlexGrow = (
     id: string,
     currentHoveredId: string | null,
-    row: Pillar[]
+    row: Pillar[],
   ) => {
     const isAnyInRowHovered = row.some((p) => p.id === currentHoveredId);
     if (!isAnyInRowHovered) {
@@ -214,8 +226,8 @@ export default function Pillars() {
           isHovered
             ? "bg-white border-[#0B1B47]/25 shadow-[0_24px_55px_rgba(11,27,71,0.12)] z-20 p-6 sm:p-7 lg:p-8"
             : isDimmed
-            ? "bg-white/85 border-[rgba(11,27,71,0.06)] shadow-sm opacity-85 hover:opacity-100 p-4 sm:p-5 lg:p-6"
-            : "bg-white/95 border-[rgba(11,27,71,0.08)] shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] p-6 sm:p-7 lg:p-8"
+              ? "bg-white/85 border-[rgba(11,27,71,0.06)] shadow-sm opacity-85 hover:opacity-100 p-4 sm:p-5 lg:p-6"
+              : "bg-white/95 border-[rgba(11,27,71,0.08)] shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] p-6 sm:p-7 lg:p-8"
         }`}
       >
         {/* Spotlight dinâmico acionado pela posição do mouse via CSS Custom Property (sem re-render do React) */}
@@ -249,7 +261,9 @@ export default function Pillars() {
             </span>
             <span
               className={`text-[11px] font-mono tracking-widest uppercase font-semibold truncate transition-colors duration-300 ${
-                isDimmed ? "hidden sm:inline text-[#0B1B47]/50" : "text-[#0B1B47]/70"
+                isDimmed
+                  ? "hidden sm:inline text-[#0B1B47]/50"
+                  : "text-[#0B1B47]/70"
               }`}
             >
               {p.discipline}
@@ -271,8 +285,8 @@ export default function Pillars() {
             isHovered
               ? "text-xl sm:text-2xl lg:text-[1.55rem] text-[#6E1016]"
               : isDimmed
-              ? "text-sm sm:text-base lg:text-lg line-clamp-1"
-              : "text-base sm:text-lg lg:text-[1.28rem] line-clamp-2"
+                ? "text-sm sm:text-base lg:text-lg line-clamp-1"
+                : "text-base sm:text-lg lg:text-[1.28rem] line-clamp-2"
           }`}
         >
           {p.title}
@@ -293,8 +307,8 @@ export default function Pillars() {
             isHovered
               ? "opacity-100 max-h-48 py-2.5"
               : isDimmed
-              ? "opacity-60 max-h-16 py-1 overflow-hidden"
-              : "opacity-90 max-h-36 py-2"
+                ? "opacity-60 max-h-16 py-1 overflow-hidden"
+                : "opacity-90 max-h-36 py-2"
           }`}
         >
           {p.tags.map((tag) => (
@@ -380,14 +394,20 @@ export default function Pillars() {
             </div>
 
             <h2 className="font-['Commune',serif] font-normal leading-[0.94] tracking-[-0.03em] text-[clamp(2.4rem,4.8vw,4rem)] text-[#0B1B47]">
-              Ousadia criativa, <br />
-              <span className="italic text-[#6E1016]">rigor estratégico</span> e entrega de alto nível.
+              <br />
+              <span className="italic text-[#6E1016]">
+                Comunicação que não passa batida.
+              </span>{" "}
+              <br />
+              Nós falamos a língua da sua marca.
             </h2>
           </div>
 
           <div className="col-span-12 lg:col-span-5 lg:text-right">
             <p className="font-body text-[15px] leading-relaxed text-[#0B1B47]/80 max-w-[44ch] lg:ml-auto">
-              Operamos sem intermediários e sem fórmulas prontas. Cada disciplina é conduzida por criadores que pensam a comunicação como arte e instrumento de poder.
+              Na Sotaque, cada pilar é pensado de forma integrada por um time
+              que atua em um modelo 360. Pensamos em conjunto para que sua marca
+              possa falar com uma só voz.
             </p>
           </div>
         </div>
@@ -405,13 +425,16 @@ export default function Pillars() {
             flexShrink: 1,
             flexBasis: "0%",
             willChange: "flex-grow",
-            transition: "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms ease",
+            transition:
+              "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms ease",
           }}
           className={`flex flex-col md:flex-row gap-4 lg:gap-5 w-full transition-opacity duration-300 ${
             isHoveredRow2 ? "opacity-75" : "opacity-100"
           }`}
         >
-          {pillarsRow1.map((p) => renderCard(p, getFlexGrow(p.id, hoveredId, pillarsRow1)))}
+          {pillarsRow1.map((p) =>
+            renderCard(p, getFlexGrow(p.id, hoveredId, pillarsRow1)),
+          )}
         </div>
 
         {/* Nível 2 do Bento: 3 Cards (expande em altura para 2.2 quando focado, e comprime para 0.65 quando o nível 1 é focado) */}
@@ -421,19 +444,27 @@ export default function Pillars() {
             flexShrink: 1,
             flexBasis: "0%",
             willChange: "flex-grow",
-            transition: "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms ease",
+            transition:
+              "flex-grow 550ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms ease",
           }}
           className={`flex flex-col md:flex-row gap-4 lg:gap-5 w-full transition-opacity duration-300 ${
             isHoveredRow1 ? "opacity-75" : "opacity-100"
           }`}
         >
-          {pillarsRow2.map((p) => renderCard(p, getFlexGrow(p.id, hoveredId, pillarsRow2)))}
+          {pillarsRow2.map((p) =>
+            renderCard(p, getFlexGrow(p.id, hoveredId, pillarsRow2)),
+          )}
         </div>
 
         {/* Rodapé da Seção */}
         <div className="flex flex-wrap items-center justify-between gap-3 text-xs font-mono text-[#0B1B47]/60 border-t border-[#0B1B47]/10 pt-4 mt-2">
-          <span>Metodologia integrada: cada disciplina nutre a autoridade e a alma da marca.</span>
-          <span className="hidden sm:inline">Navegação Integrada • Visão 360° Sotaque</span>
+          <span>
+            Metodologia integrada: cada disciplina nutre a autoridade e a alma
+            da marca.
+          </span>
+          <span className="hidden sm:inline">
+            Navegação Integrada • Visão 360° Sotaque
+          </span>
         </div>
       </div>
 

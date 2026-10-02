@@ -26,7 +26,7 @@ export const HERO_CONTENT: HeroContent = {
   rotatingWords: ["sotaque", "ritmo", "tempero", "jeito"],
   // TODO(humano): Frase de posicionamento editorial proposta para validação
   subtitle:
-    "Comunicação 360° para negócios brasileiros que querem uma marca com identidade própria.",
+    "Sotaque é a agência de comunicação 360º que faz a precisão da estratégia conversar com a pluralidade brasileira para marcas que querem falar com voz própria.",
   ctaPrimary: {
     label: "Ver cases",
     href: "#work",

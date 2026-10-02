@@ -69,10 +69,17 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Subtítulo de Posicionamento Centralizado */}
-          {/* TODO(humano): Subtítulo candidato definido em content/hero.ts */}
-          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-[#0B1B47]/85 max-w-[52ch] mx-auto font-body font-normal text-center">
-            {HERO_CONTENT.subtitle}
+          {/* Subtítulo de Posicionamento com Destaques Editoriais */}
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg lg:text-[1.12rem] leading-relaxed text-[#0B1B47]/80 max-w-[56ch] mx-auto font-body font-normal text-center">
+            Sotaque é a agência de comunicação 360º que faz{" "}
+            <span className="font-semibold text-[#0B1B47] underline decoration-[#E27908] decoration-2 underline-offset-[5px]">
+              a precisão da estratégia
+            </span>{" "}
+            conversar com{" "}
+            <span className="font-semibold text-[#6E1016] underline decoration-[#E27908] decoration-2 underline-offset-[5px]">
+              a pluralidade brasileira
+            </span>{" "}
+            para marcas que querem falar com voz própria.
           </p>
 
           {/* Grupo de CTAs Centralizados */}
