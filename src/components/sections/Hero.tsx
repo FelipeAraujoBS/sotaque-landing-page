@@ -122,6 +122,16 @@ export default function Hero() {
       {/* Grid Principal — Margens alinhadas exatamente com navbar e seções */}
       <div className="relative z-10 mx-auto max-w-content w-full px-5 sm:px-6 lg:px-8 my-auto">
         <div className="max-w-3xl">
+          {/* MOBILE: 5 Fitinhas ACIMA da frase 'Sua marca tem voz.' (de ponta a ponta da tela) */}
+          <div className="md:hidden w-[calc(100%+2.5rem)] -mx-5 mb-5 overflow-hidden pointer-events-none z-0">
+            <BonfimRibbons
+              variant="mobile-top"
+              isPlayingSound={isPlayingSound}
+              analyser={analyserRef.current}
+              className="w-full"
+            />
+          </div>
+
           {/* H1 Monumental em Commune Inktrap Oficial — Mobile First */}
           <h1
             aria-label="Sua marca tem voz. Nós damos o sotaque."
@@ -150,18 +160,8 @@ export default function Hero() {
             {HERO_CONTENT.subtitle}
           </p>
 
-          {/* MOBILE: 3 Fitinhas ACIMA do CTA — De ponta a ponta da tela (entrando de um lado e saindo do outro) */}
-          <div className="md:hidden w-[calc(100%+2.5rem)] -mx-5 my-4 overflow-hidden pointer-events-none z-0">
-            <BonfimRibbons
-              variant="mobile-top"
-              isPlayingSound={isPlayingSound}
-              analyser={analyserRef.current}
-              className="w-full"
-            />
-          </div>
-
           {/* Grupo de CTAs — Mobile First: largura total no mobile, flex-row no desktop */}
-          <div className="mt-2 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto z-10 relative">
+          <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto z-10 relative">
             {/* CTA Primário: Sólido em Laranja Solar */}
             <a
               href={HERO_CONTENT.ctaPrimary.href}
@@ -179,8 +179,8 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* MOBILE: 3 Fitinhas ABAIXO dos botões CTA — De ponta a ponta da tela (entrando de um lado e saindo do outro) */}
-          <div className="md:hidden w-[calc(100%+2.5rem)] -mx-5 my-4 overflow-hidden pointer-events-none z-0">
+          {/* MOBILE: 5 Fitinhas ABAIXO dos botões CTA (de ponta a ponta da tela) */}
+          <div className="md:hidden w-[calc(100%+2.5rem)] -mx-5 mt-6 mb-2 overflow-hidden pointer-events-none z-0">
             <BonfimRibbons
               variant="mobile-bottom"
               isPlayingSound={isPlayingSound}

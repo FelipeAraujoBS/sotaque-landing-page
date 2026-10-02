@@ -24,7 +24,7 @@ interface RibbonConfig {
   opacity: number;
 }
 
-// Configuração Desktop: 11 fitas em cascata completa
+// Configuração Desktop: 11 fitas em cascata completa à direita
 const DESKTOP_RIBBONS: RibbonConfig[] = [
   {
     id: "bonfim-laranja-1",
@@ -182,18 +182,18 @@ const DESKTOP_RIBBONS: RibbonConfig[] = [
   },
 ];
 
-// Mobile Top: 3 fitas de ponta a ponta acima dos CTAs
+// Mobile Top: 5 fitas de ponta a ponta acima da frase "Sua marca tem voz."
 const MOBILE_TOP_RIBBONS: RibbonConfig[] = [
   {
     id: "m-top-laranja",
     name: "Laranja Solar",
-    baseY: 30,
+    baseY: 24,
     color: "#E27908",
     textColor: "#FFFFFF",
-    strokeWidth: 14.5,
-    speed: 3.4,
-    freq: 2.05,
-    amplitude: 20,
+    strokeWidth: 13.5,
+    speed: 3.5,
+    freq: 2.1,
+    amplitude: 17,
     phaseOffset: 0.0,
     textOffset: "0%",
     opacity: 0.95,
@@ -201,13 +201,13 @@ const MOBILE_TOP_RIBBONS: RibbonConfig[] = [
   {
     id: "m-top-azul",
     name: "Azul Meia-Noite",
-    baseY: 76,
+    baseY: 62,
     color: "#0B1B47",
     textColor: "#F4F1E5",
-    strokeWidth: 14.5,
-    speed: 3.0,
+    strokeWidth: 13.5,
+    speed: 3.1,
     freq: 1.85,
-    amplitude: 22,
+    amplitude: 19,
     phaseOffset: 1.6,
     textOffset: "3%",
     opacity: 0.92,
@@ -215,62 +215,118 @@ const MOBILE_TOP_RIBBONS: RibbonConfig[] = [
   {
     id: "m-top-vinho",
     name: "Vinho Profundo",
-    baseY: 122,
+    baseY: 100,
     color: "#6E1016",
     textColor: "#FFFFFF",
-    strokeWidth: 14.5,
-    speed: 3.6,
-    freq: 2.2,
-    amplitude: 19,
+    strokeWidth: 13.5,
+    speed: 3.7,
+    freq: 2.25,
+    amplitude: 16,
     phaseOffset: 3.2,
     textOffset: "1%",
-    opacity: 0.93,
-  },
-];
-
-// Mobile Bottom: 3 fitas de ponta a ponta abaixo dos CTAs
-const MOBILE_BOTTOM_RIBBONS: RibbonConfig[] = [
-  {
-    id: "m-bot-verde",
-    name: "Verde Esperança",
-    baseY: 30,
-    color: "#1E6838",
-    textColor: "#FFFFFF",
-    strokeWidth: 14.5,
-    speed: 3.2,
-    freq: 1.95,
-    amplitude: 21,
-    phaseOffset: 4.7,
-    textOffset: "2%",
-    opacity: 0.92,
-  },
-  {
-    id: "m-bot-amarelo",
-    name: "Amarelo Ouro",
-    baseY: 76,
-    color: "#DF9307",
-    textColor: "#0B1B47",
-    strokeWidth: 14.5,
-    speed: 3.8,
-    freq: 2.25,
-    amplitude: 19,
-    phaseOffset: 0.9,
-    textOffset: "4%",
     opacity: 0.94,
   },
   {
+    id: "m-top-verde",
+    name: "Verde Esperança",
+    baseY: 138,
+    color: "#1E6838",
+    textColor: "#FFFFFF",
+    strokeWidth: 13.5,
+    speed: 3.2,
+    freq: 1.95,
+    amplitude: 18,
+    phaseOffset: 4.7,
+    textOffset: "4%",
+    opacity: 0.92,
+  },
+  {
+    id: "m-top-amarelo",
+    name: "Amarelo Ouro",
+    baseY: 176,
+    color: "#DF9307",
+    textColor: "#0B1B47",
+    strokeWidth: 13.5,
+    speed: 3.9,
+    freq: 2.3,
+    amplitude: 16,
+    phaseOffset: 5.9,
+    textOffset: "2%",
+    opacity: 0.95,
+  },
+];
+
+// Mobile Bottom: 5 fitas de ponta a ponta abaixo dos botões CTA
+const MOBILE_BOTTOM_RIBBONS: RibbonConfig[] = [
+  {
     id: "m-bot-branco",
     name: "Branco Paz",
-    baseY: 122,
+    baseY: 24,
     color: "#FFFFFF",
     textColor: "#0B1B47",
-    strokeWidth: 14.5,
+    strokeWidth: 13.5,
     speed: 3.3,
-    freq: 2.1,
-    amplitude: 20,
-    phaseOffset: 2.4,
+    freq: 2.05,
+    amplitude: 17,
+    phaseOffset: 1.1,
     textOffset: "1%",
+    opacity: 0.96,
+  },
+  {
+    id: "m-bot-vinho",
+    name: "Vinho Profundo",
+    baseY: 62,
+    color: "#6E1016",
+    textColor: "#FFFFFF",
+    strokeWidth: 13.5,
+    speed: 3.6,
+    freq: 2.2,
+    amplitude: 18,
+    phaseOffset: 2.5,
+    textOffset: "3%",
+    opacity: 0.94,
+  },
+  {
+    id: "m-bot-laranja",
+    name: "Laranja Solar",
+    baseY: 100,
+    color: "#E27908",
+    textColor: "#FFFFFF",
+    strokeWidth: 13.5,
+    speed: 3.8,
+    freq: 2.15,
+    amplitude: 19,
+    phaseOffset: 4.1,
+    textOffset: "0%",
     opacity: 0.95,
+  },
+  {
+    id: "m-bot-azul",
+    name: "Azul Meia-Noite",
+    baseY: 138,
+    color: "#0B1B47",
+    textColor: "#F4F1E5",
+    strokeWidth: 13.5,
+    speed: 3.0,
+    freq: 1.9,
+    amplitude: 18,
+    phaseOffset: 5.4,
+    textOffset: "4%",
+    opacity: 0.92,
+  },
+  {
+    id: "m-bot-verde",
+    name: "Verde Esperança",
+    baseY: 176,
+    color: "#1E6838",
+    textColor: "#FFFFFF",
+    strokeWidth: 13.5,
+    speed: 3.4,
+    freq: 2.0,
+    amplitude: 17,
+    phaseOffset: 0.8,
+    textOffset: "2%",
+    opacity: 0.92,
   },
 ];
 
@@ -415,7 +471,7 @@ export default function BonfimRibbons({
       : DESKTOP_RIBBONS;
 
   const viewBoxWidth = isEdgeToEdge ? 940 : 900;
-  const viewBoxHeight = isEdgeToEdge ? 156 : 645;
+  const viewBoxHeight = isEdgeToEdge ? 202 : 645;
   const viewBoxX = isEdgeToEdge ? -20 : 0;
 
   // Rastreamento amortecido do mouse
@@ -559,7 +615,7 @@ export default function BonfimRibbons({
         if (!pathEl) return;
 
         const soundAmpBoost = isPlayingSound
-          ? (isEdgeToEdge ? 14 : 26) + audioEnergy * (isEdgeToEdge ? 35 : 65) + bassEnergy * (isEdgeToEdge ? 24 : 45)
+          ? (isEdgeToEdge ? 12 : 26) + audioEnergy * (isEdgeToEdge ? 30 : 65) + bassEnergy * (isEdgeToEdge ? 20 : 45)
           : 0;
 
         const dynamicAmp = ribbon.amplitude + soundAmpBoost;
@@ -633,7 +689,7 @@ export default function BonfimRibbons({
       >
         <defs>
           <filter id={`bonfim-shadow-${variant}`} x="-5%" y="-25%" width="115%" height="150%">
-            <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#0B1B47" floodOpacity="0.12" />
+            <feDropShadow dx="0" dy="3.5" stdDeviation="4" floodColor="#0B1B47" floodOpacity="0.12" />
           </filter>
 
           {ribbons.map((ribbon, index) => (
@@ -664,30 +720,30 @@ export default function BonfimRibbons({
               <use
                 href={`#path-${variant}-${ribbon.id}`}
                 stroke={ribbon.color === "#FFFFFF" ? "#0B1B47" : "#FFFFFF"}
-                strokeWidth={ribbon.color === "#FFFFFF" ? 0.8 : 1.4}
+                strokeWidth={ribbon.color === "#FFFFFF" ? 0.7 : 1.3}
                 strokeLinecap="butt"
                 opacity={ribbon.color === "#FFFFFF" ? 0.15 : 0.30}
-                transform="translate(0, -4.5)"
+                transform="translate(0, -4)"
               />
 
               {/* Sombra suave de dobra na borda inferior do tecido */}
               <use
                 href={`#path-${variant}-${ribbon.id}`}
                 stroke="#000000"
-                strokeWidth={1.1}
+                strokeWidth={1.0}
                 strokeLinecap="butt"
                 opacity={0.14}
-                transform="translate(0, 4.5)"
+                transform="translate(0, 4)"
               />
 
               {/* Estampa Tipográfica Tradicional das Fitinhas do Bonfim */}
               <text
                 fill={ribbon.textColor}
-                fontSize={isEdgeToEdge ? "7.8" : "8.4"}
+                fontSize={isEdgeToEdge ? "7.4" : "8.4"}
                 fontWeight="900"
                 fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'DM Sans', sans-serif"
-                letterSpacing={isEdgeToEdge ? "2.1px" : "2.4px"}
-                dy={isEdgeToEdge ? "2.7" : "3.0"}
+                letterSpacing={isEdgeToEdge ? "2.0px" : "2.4px"}
+                dy={isEdgeToEdge ? "2.5" : "3.0"}
                 className="select-none pointer-events-none"
               >
                 <textPath
