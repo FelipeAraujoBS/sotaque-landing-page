@@ -109,8 +109,8 @@ export default function Hero() {
       className="relative min-h-[92vh] sm:min-h-screen flex flex-col justify-between pt-28 sm:pt-32 pb-8 overflow-hidden bg-[var(--sotaque-creme,#F4F1E5)] text-[#0B1B47]"
       aria-label="Apresentação — Sotaque Estúdio 360"
     >
-      {/* Fitinhas do Bonfim — Ondulando no vento atrás e à direita do título */}
-      <div className="absolute right-[-4%] top-[10%] sm:top-[8%] w-[88%] sm:w-[68%] max-w-[840px] pointer-events-none z-0">
+      {/* Fitinhas do Bonfim — Ondulando no vento niveladas com o título */}
+      <div className="absolute right-[-4%] top-[21%] sm:top-[19%] lg:top-[21%] w-[88%] sm:w-[68%] max-w-[840px] pointer-events-none z-0">
         <BonfimRibbons
           isPlayingSound={isPlayingSound}
           analyser={analyserRef.current}

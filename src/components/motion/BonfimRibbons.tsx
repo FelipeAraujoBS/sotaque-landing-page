@@ -27,7 +27,7 @@ const RIBBONS: RibbonConfig[] = [
   {
     id: "bonfim-laranja",
     name: "Laranja Solar (Criatividade)",
-    baseY: 65,
+    baseY: 75,
     color: "#E27908",
     textColor: "#FFFFFF",
     strokeWidth: 17,
@@ -41,7 +41,7 @@ const RIBBONS: RibbonConfig[] = [
   {
     id: "bonfim-azul",
     name: "Azul Meia-Noite (Fé & Serenidade)",
-    baseY: 125,
+    baseY: 135,
     color: "#0B1B47",
     textColor: "#F4F1E5",
     strokeWidth: 17,
@@ -55,7 +55,7 @@ const RIBBONS: RibbonConfig[] = [
   {
     id: "bonfim-vinho",
     name: "Vinho Profundo (Paixão & Raiz)",
-    baseY: 185,
+    baseY: 195,
     color: "#6E1016",
     textColor: "#FFFFFF",
     strokeWidth: 17,
@@ -69,7 +69,7 @@ const RIBBONS: RibbonConfig[] = [
   {
     id: "bonfim-verde",
     name: "Verde Esperança (Cura & Oxóssi)",
-    baseY: 245,
+    baseY: 255,
     color: "#1E6838",
     textColor: "#FFFFFF",
     strokeWidth: 17,
@@ -83,7 +83,7 @@ const RIBBONS: RibbonConfig[] = [
   {
     id: "bonfim-amarelo",
     name: "Amarelo Ouro (Prosperidade & Oxum)",
-    baseY: 305,
+    baseY: 315,
     color: "#DF9307",
     textColor: "#0B1B47",
     strokeWidth: 17,
@@ -179,7 +179,9 @@ export default function BonfimRibbons({
     amp: number,
     freq: number,
     phase: number,
-    steps = 45
+    audioEnergy = 0,
+    bassEnergy = 0,
+    steps = 50
   ) => {
     const points: [number, number][] = [];
     const stepX = width / steps;
@@ -188,13 +190,18 @@ export default function BonfimRibbons({
       const x = i * stepX;
       const t = x / width; // 0.0 na raiz -> 1.0 na ponta livre
 
-      // Na ponta livre da fita o vento chacoalha mais forte
-      const localAmp = amp * (0.25 + 0.75 * Math.pow(t, 1.25));
+      // Na ponta livre da fita o vento e a música chacoalham mais forte
+      const localAmp = amp * (0.2 + 0.8 * Math.pow(t, 1.2));
 
-      // Onda principal + harmônica secundária suave de flutter
+      // Onda principal
       const primaryAngle = t * Math.PI * 2 * freq + phase;
-      const flutterAngle = t * Math.PI * 5 - phase * 1.5;
-      const y = baseY + Math.sin(primaryAngle) * localAmp + Math.sin(flutterAngle) * (localAmp * 0.15);
+
+      // Harmônica de flutter musical (vibração rápida que responde dinamicamente às frequências)
+      const flutterFreq = 4.0 + audioEnergy * 3.5;
+      const flutterAngle = t * Math.PI * flutterFreq - phase * (1.6 + bassEnergy * 1.4);
+      const flutterAmp = localAmp * (0.15 + audioEnergy * 0.45 + bassEnergy * 0.35);
+
+      const y = baseY + Math.sin(primaryAngle) * localAmp + Math.sin(flutterAngle) * flutterAmp;
 
       points.push([x, y]);
     }
@@ -215,7 +222,7 @@ export default function BonfimRibbons({
     return d;
   };
 
-  // Loop de animação das fitinhas ondulando no vento + áudio reativo
+  // Loop de animação das fitinhas ondulando no vento + áudio reativo vibrante
   useEffect(() => {
     if (reducedMotion || !isVisible) return;
 
@@ -224,18 +231,35 @@ export default function BonfimRibbons({
     const dataArray = analyser ? new Uint8Array(analyser.frequencyBinCount) : null;
 
     const animate = () => {
-      time += 0.016; // ~60fps
-
       let audioEnergy = 0;
+      let bassEnergy = 0;
+
       if (isPlayingSound && analyser && dataArray) {
         analyser.getByteFrequencyData(dataArray);
-        let sum = 0;
-        const count = Math.min(48, dataArray.length);
-        for (let i = 0; i < count; i++) {
-          sum += dataArray[i];
+
+        // Faixa de graves/percussão (tambor, surdo, batida): bins 1 a 10
+        let bassSum = 0;
+        const bassCount = Math.min(10, dataArray.length);
+        for (let i = 1; i < bassCount; i++) {
+          bassSum += dataArray[i];
         }
-        audioEnergy = sum / count / 255;
+        bassEnergy = bassSum / Math.max(1, bassCount - 1) / 255;
+
+        // Faixa musical geral (voz, violão, harmônicos, ritmo): bins 2 a 60
+        let totalSum = 0;
+        const totalCount = Math.min(60, dataArray.length);
+        for (let i = 2; i < totalCount; i++) {
+          totalSum += dataArray[i];
+        }
+        audioEnergy = totalSum / Math.max(1, totalCount - 2) / 255;
       }
+
+      // Quando a música está ligada, o movimento e flutter aceleram com o ritmo
+      const speedMultiplier = isPlayingSound
+        ? 1.0 + audioEnergy * 3.2 + bassEnergy * 2.6
+        : 1.0;
+
+      time += 0.016 * speedMultiplier;
 
       const svgWidth = 860;
 
@@ -243,8 +267,12 @@ export default function BonfimRibbons({
         const pathEl = pathRefs.current[index];
         if (!pathEl) return;
 
-        // Amplitude base + flutter natural do vento + energia sonora sutil
-        const dynamicAmp = ribbon.amplitude + audioEnergy * 24;
+        // Amplitude reforçada: quando o som está ON, a onda salta expressivamente (+22px até +95px nos picos)
+        const soundAmpBoost = isPlayingSound
+          ? 22 + audioEnergy * 70 + bassEnergy * 50
+          : 0;
+
+        const dynamicAmp = ribbon.amplitude + soundAmpBoost;
         const currentPhase = time * ribbon.speed + ribbon.phaseOffset;
 
         const pathData = generateRibbonPath(
@@ -252,7 +280,9 @@ export default function BonfimRibbons({
           ribbon.baseY,
           dynamicAmp,
           ribbon.freq,
-          currentPhase
+          currentPhase,
+          audioEnergy,
+          bassEnergy
         );
 
         pathEl.setAttribute("d", pathData);
@@ -280,7 +310,7 @@ export default function BonfimRibbons({
       aria-hidden="true"
     >
       <svg
-        viewBox="0 0 860 370"
+        viewBox="0 0 860 400"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="w-full h-auto overflow-visible"
