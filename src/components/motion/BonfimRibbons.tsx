@@ -27,13 +27,13 @@ const TOP_RIBBONS: RibbonConfig[] = [
   {
     id: "top-laranja",
     name: "Laranja Solar",
-    baseY: 18,
+    baseY: 24,
     color: "#E27908",
     textColor: "#FFFFFF",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 3.2,
     freq: 2.1,
-    amplitude: 10.5,
+    amplitude: 9.5,
     phaseOffset: 0.0,
     textOffset: "0%",
     opacity: 0.96,
@@ -41,13 +41,13 @@ const TOP_RIBBONS: RibbonConfig[] = [
   {
     id: "top-azul",
     name: "Azul Meia-Noite",
-    baseY: 46,
+    baseY: 48,
     color: "#0B1B47",
     textColor: "#F4F1E5",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 2.8,
     freq: 1.85,
-    amplitude: 11.5,
+    amplitude: 10.5,
     phaseOffset: 1.6,
     textOffset: "3%",
     opacity: 0.94,
@@ -55,13 +55,13 @@ const TOP_RIBBONS: RibbonConfig[] = [
   {
     id: "top-vinho",
     name: "Vinho Profundo",
-    baseY: 74,
+    baseY: 72,
     color: "#6E1016",
     textColor: "#FFFFFF",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 3.3,
     freq: 2.25,
-    amplitude: 10.0,
+    amplitude: 9.5,
     phaseOffset: 3.2,
     textOffset: "1%",
     opacity: 0.95,
@@ -69,13 +69,13 @@ const TOP_RIBBONS: RibbonConfig[] = [
   {
     id: "top-verde",
     name: "Verde Esperança",
-    baseY: 102,
+    baseY: 96,
     color: "#1E6838",
     textColor: "#FFFFFF",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 2.9,
     freq: 1.95,
-    amplitude: 11.0,
+    amplitude: 10.0,
     phaseOffset: 4.7,
     textOffset: "4%",
     opacity: 0.94,
@@ -83,13 +83,13 @@ const TOP_RIBBONS: RibbonConfig[] = [
   {
     id: "top-amarelo",
     name: "Amarelo Ouro",
-    baseY: 130,
+    baseY: 120,
     color: "#DF9307",
     textColor: "#0B1B47",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 3.5,
     freq: 2.3,
-    amplitude: 10.0,
+    amplitude: 9.5,
     phaseOffset: 5.9,
     textOffset: "2%",
     opacity: 0.96,
@@ -101,13 +101,13 @@ const BOTTOM_RIBBONS: RibbonConfig[] = [
   {
     id: "bot-branco",
     name: "Branco Paz",
-    baseY: 18,
+    baseY: 24,
     color: "#FFFFFF",
     textColor: "#0B1B47",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 3.0,
     freq: 2.05,
-    amplitude: 10.5,
+    amplitude: 9.5,
     phaseOffset: 1.1,
     textOffset: "1%",
     opacity: 0.97,
@@ -115,13 +115,13 @@ const BOTTOM_RIBBONS: RibbonConfig[] = [
   {
     id: "bot-vinho",
     name: "Vinho Profundo",
-    baseY: 46,
+    baseY: 48,
     color: "#6E1016",
     textColor: "#FFFFFF",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 3.2,
     freq: 2.2,
-    amplitude: 11.0,
+    amplitude: 10.0,
     phaseOffset: 2.5,
     textOffset: "3%",
     opacity: 0.95,
@@ -129,13 +129,13 @@ const BOTTOM_RIBBONS: RibbonConfig[] = [
   {
     id: "bot-laranja",
     name: "Laranja Solar",
-    baseY: 74,
+    baseY: 72,
     color: "#E27908",
     textColor: "#FFFFFF",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 3.4,
     freq: 2.15,
-    amplitude: 11.5,
+    amplitude: 10.5,
     phaseOffset: 4.1,
     textOffset: "0%",
     opacity: 0.96,
@@ -143,13 +143,13 @@ const BOTTOM_RIBBONS: RibbonConfig[] = [
   {
     id: "bot-azul",
     name: "Azul Meia-Noite",
-    baseY: 102,
+    baseY: 96,
     color: "#0B1B47",
     textColor: "#F4F1E5",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 2.7,
     freq: 1.9,
-    amplitude: 11.0,
+    amplitude: 10.0,
     phaseOffset: 5.4,
     textOffset: "4%",
     opacity: 0.94,
@@ -157,13 +157,13 @@ const BOTTOM_RIBBONS: RibbonConfig[] = [
   {
     id: "bot-verde",
     name: "Verde Esperança",
-    baseY: 130,
+    baseY: 120,
     color: "#1E6838",
     textColor: "#FFFFFF",
-    strokeWidth: 12.5,
+    strokeWidth: 12.0,
     speed: 3.1,
     freq: 2.0,
-    amplitude: 10.5,
+    amplitude: 9.5,
     phaseOffset: 0.8,
     textOffset: "2%",
     opacity: 0.94,
@@ -182,11 +182,11 @@ function generateRibbonPath(
   phase: number,
   time = 0,
   smoothMouse: { x: number; y: number; active: boolean },
-  steps = 30
+  steps = 32
 ) {
   const points: [number, number][] = [];
-  const startX = -50;
-  const endX = width + 50;
+  const startX = -60;
+  const endX = width + 60;
   const totalSpan = endX - startX;
   const stepX = totalSpan / steps;
 
@@ -194,7 +194,7 @@ function generateRibbonPath(
     const x = startX + i * stepX;
     const t = (x - startX) / totalSpan;
 
-    // Envelope uniforme e suave para atravessar a tela inteira com ondulação natural
+    // Envelope suave para travessia contínua da tela
     const envelope = 0.90 + 0.10 * Math.sin(t * Math.PI);
     const localAmp = amp * envelope;
 
@@ -251,9 +251,11 @@ export default function BonfimRibbons({
 
   const ribbons: RibbonConfig[] = variant === "top" ? TOP_RIBBONS : BOTTOM_RIBBONS;
 
-  const viewBoxWidth = 1200;
-  const viewBoxHeight = 148;
-  const viewBoxX = -20;
+  // ViewBox com margens verticais generosas para NUNCA cortar as ondas no topo ou na base do eixo Y
+  const viewBoxWidth = 1440;
+  const viewBoxHeight = 180;
+  const viewBoxX = -40;
+  const viewBoxY = -18;
 
   // Rastreamento amortecido do mouse
   const targetMouseRef = useRef<{ x: number; y: number; active: boolean }>({
@@ -312,7 +314,7 @@ export default function BonfimRibbons({
         const scaleY = viewBoxHeight / rect.height;
         targetMouseRef.current = {
           x: x * scaleX + viewBoxX,
-          y: y * scaleY,
+          y: y * scaleY + viewBoxY,
           active: true,
         };
       } else {
@@ -331,7 +333,7 @@ export default function BonfimRibbons({
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [viewBoxWidth, viewBoxHeight, viewBoxX]);
+  }, [viewBoxWidth, viewBoxHeight, viewBoxX, viewBoxY]);
 
   // Loop de animação travado a 60-120 FPS via delta-time real
   useEffect(() => {
@@ -367,7 +369,7 @@ export default function BonfimRibbons({
         }
       }
 
-      const svgWidth = 1200;
+      const svgWidth = 1440;
 
       ribbons.forEach((ribbon, index) => {
         const pathEl = pathRefs.current[index];
@@ -401,7 +403,7 @@ export default function BonfimRibbons({
   // Caminho estático para SSR
   const getStaticPath = (ribbon: RibbonConfig) => {
     return generateRibbonPath(
-      1200,
+      1440,
       ribbon.baseY,
       ribbon.amplitude * 0.9,
       ribbon.freq,
@@ -414,19 +416,17 @@ export default function BonfimRibbons({
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none select-none relative ${className}`}
+      className={`pointer-events-none select-none relative overflow-visible ${className}`}
       style={{
         filter: "drop-shadow(0px 3px 5px rgba(11, 27, 71, 0.10))",
-        willChange: "contents",
       }}
       aria-hidden="true"
     >
       <svg
-        viewBox={`${viewBoxX} 0 ${viewBoxWidth} ${viewBoxHeight}`}
+        viewBox={`${viewBoxX} ${viewBoxY} ${viewBoxWidth} ${viewBoxHeight}`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-auto overflow-visible"
-        preserveAspectRatio="none"
+        className="w-full h-auto overflow-visible block"
       >
         <defs>
           {ribbons.map((ribbon, index) => (
@@ -460,7 +460,7 @@ export default function BonfimRibbons({
                 strokeWidth={ribbon.color === "#FFFFFF" ? 0.7 : 1.2}
                 strokeLinecap="butt"
                 opacity={ribbon.color === "#FFFFFF" ? 0.15 : 0.28}
-                transform="translate(0, -3.4)"
+                transform="translate(0, -3.2)"
               />
 
               {/* Estampa Tipográfica Tradicional das Fitinhas do Bonfim */}

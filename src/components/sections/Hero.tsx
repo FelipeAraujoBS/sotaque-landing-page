@@ -36,16 +36,16 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] flex flex-col justify-between pt-16 sm:pt-20 pb-4 sm:pb-6 overflow-hidden bg-[var(--sotaque-creme,#F4F1E5)] text-[#0B1B47]"
+      className="relative min-h-[100dvh] flex flex-col justify-between pt-14 sm:pt-18 pb-3 sm:pb-5 overflow-hidden bg-[var(--sotaque-creme,#F4F1E5)] text-[#0B1B47]"
       aria-label="Apresentação — Sotaque Estúdio 360"
     >
-      {/* 5 Fitinhas Superiores: De ponta a ponta da tela (Desktop & Mobile) */}
-      <div className="w-full overflow-hidden pointer-events-none select-none z-0 max-h-[110px] sm:max-h-[135px] md:max-h-[155px]">
+      {/* 5 Fitinhas Superiores: De ponta a ponta da tela sem barreiras de corte no eixo Y */}
+      <div className="w-full overflow-visible pointer-events-none select-none z-0">
         <BonfimRibbons variant="top" className="w-full" />
       </div>
 
       {/* Conteúdo Centralizado do Hero — Horizontal e Verticalmente no centro */}
-      <div className="relative z-10 w-full px-5 sm:px-6 lg:px-8 my-auto flex flex-col items-center text-center">
+      <div className="relative z-10 w-full px-5 sm:px-6 lg:px-8 my-auto py-2 sm:py-3 flex flex-col items-center text-center">
         <div className="max-w-4xl mx-auto flex flex-col items-center">
           {/* H1 Monumental em Commune Inktrap Oficial — Mobile First & Desktop Centrado */}
           <h1
@@ -71,12 +71,12 @@ export default function Hero() {
 
           {/* Subtítulo de Posicionamento Centralizado */}
           {/* TODO(humano): Subtítulo candidato definido em content/hero.ts */}
-          <p className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-[#0B1B47]/85 max-w-[52ch] mx-auto font-body font-normal text-center">
+          <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-[#0B1B47]/85 max-w-[52ch] mx-auto font-body font-normal text-center">
             {HERO_CONTENT.subtitle}
           </p>
 
-          {/* Grupo de CTAs Centralizados — Alinhamento harmonioso no centro */}
-          <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto z-10 relative">
+          {/* Grupo de CTAs Centralizados */}
+          <div className="mt-6 sm:mt-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 sm:gap-4 w-full sm:w-auto z-10 relative">
             {/* CTA Primário: Sólido em Laranja Solar */}
             <a
               href={HERO_CONTENT.ctaPrimary.href}
@@ -96,13 +96,13 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* 5 Fitinhas Inferiores: De ponta a ponta da tela (Desktop & Mobile) */}
-      <div className="w-full overflow-hidden pointer-events-none select-none z-0 max-h-[110px] sm:max-h-[135px] md:max-h-[155px]">
+      {/* 5 Fitinhas Inferiores: De ponta a ponta da tela sem barreiras de corte no eixo Y */}
+      <div className="w-full overflow-visible pointer-events-none select-none z-0">
         <BonfimRibbons variant="bottom" className="w-full" />
       </div>
 
       {/* Faixa Inferior Discreta — Localização Salvador · Bahia Centralizada */}
-      <div className="relative z-10 w-full text-center pb-1 sm:pb-2 pt-2">
+      <div className="relative z-10 w-full text-center pb-2 pt-1">
         <span className="tracking-widest uppercase text-[10px] sm:text-xs font-mono text-[#0B1B47]/55">
           {HERO_CONTENT.location}
         </span>
