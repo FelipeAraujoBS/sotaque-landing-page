@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface BonfimRibbonsProps {
   isPlayingSound?: boolean;
@@ -8,113 +8,97 @@ interface BonfimRibbonsProps {
   className?: string;
 }
 
-interface RibbonStyle {
+interface RibbonConfig {
   id: string;
   name: string;
   baseY: number;
-  width: number;
-  primaryColor: string;
-  darkColor: string;
-  highlightColor: string;
+  color: string;
   textColor: string;
+  strokeWidth: number;
   speed: number;
   freq: number;
   amplitude: number;
   phaseOffset: number;
-  twistFreq: number;
-  twistSpeed: number;
-  twistPhase: number;
+  textOffset: string;
+  opacity: number;
 }
 
-const RIBBONS: RibbonStyle[] = [
+// 5 Fitinhas com frequências e velocidades vivas, garantindo que todas se movam com amplitude e vida
+const RIBBONS: RibbonConfig[] = [
   {
-    id: "laranja",
+    id: "bonfim-laranja",
     name: "Laranja Solar (Criatividade & Sotaque)",
-    baseY: 72,
-    width: 18,
-    primaryColor: "#E27908",
-    darkColor: "#8F4400",
-    highlightColor: "#FFB04D",
+    baseY: 68,
+    color: "#E27908",
     textColor: "#FFFFFF",
-    speed: 1.25,
-    freq: 0.0068,
-    amplitude: 22,
+    strokeWidth: 18,
+    speed: 3.6,
+    freq: 2.1,
+    amplitude: 44,
     phaseOffset: 0.0,
-    twistFreq: 0.0052,
-    twistSpeed: 0.95,
-    twistPhase: 0.4,
+    textOffset: "1%",
+    opacity: 0.96,
   },
   {
-    id: "azul",
+    id: "bonfim-azul",
     name: "Azul Meia-Noite (Fé & Iemanjá)",
-    baseY: 138,
-    width: 18,
-    primaryColor: "#0B1B47",
-    darkColor: "#040B22",
-    highlightColor: "#2F4A8E",
+    baseY: 132,
+    color: "#0B1B47",
     textColor: "#F4F1E5",
-    speed: 1.05,
-    freq: 0.0060,
-    amplitude: 26,
-    phaseOffset: 1.7,
-    twistFreq: 0.0048,
-    twistSpeed: 0.85,
-    twistPhase: 2.1,
+    strokeWidth: 18,
+    speed: 3.1,
+    freq: 1.85,
+    amplitude: 48,
+    phaseOffset: 1.6,
+    textOffset: "4%",
+    opacity: 0.94,
   },
   {
-    id: "vinho",
+    id: "bonfim-vinho",
     name: "Vinho Profundo (Paixão & Raiz)",
-    baseY: 204,
-    width: 18,
-    primaryColor: "#6E1016",
-    darkColor: "#3D070B",
-    highlightColor: "#A6252E",
+    baseY: 196,
+    color: "#6E1016",
     textColor: "#FFFFFF",
-    speed: 1.18,
-    freq: 0.0072,
-    amplitude: 21,
-    phaseOffset: 3.4,
-    twistFreq: 0.0055,
-    twistSpeed: 1.1,
-    twistPhase: 4.2,
+    strokeWidth: 18,
+    speed: 3.8,
+    freq: 2.25,
+    amplitude: 42,
+    phaseOffset: 3.2,
+    textOffset: "2%",
+    opacity: 0.95,
   },
   {
-    id: "verde",
+    id: "bonfim-verde",
     name: "Verde Esperança (Cura & Oxóssi)",
-    baseY: 270,
-    width: 18,
-    primaryColor: "#1E6838",
-    darkColor: "#0D381D",
-    highlightColor: "#349955",
+    baseY: 260,
+    color: "#1E6838",
     textColor: "#FFFFFF",
-    speed: 0.95,
-    freq: 0.0058,
-    amplitude: 24,
-    phaseOffset: 4.8,
-    twistFreq: 0.0044,
-    twistSpeed: 0.8,
-    twistPhase: 1.0,
+    strokeWidth: 18,
+    speed: 3.3,
+    freq: 1.95,
+    amplitude: 46,
+    phaseOffset: 4.7,
+    textOffset: "3%",
+    opacity: 0.94,
   },
   {
-    id: "amarelo",
+    id: "bonfim-amarelo",
     name: "Amarelo Ouro (Prosperidade & Oxum)",
-    baseY: 334,
-    width: 18,
-    primaryColor: "#DF9307",
-    darkColor: "#825300",
-    highlightColor: "#FED35B",
+    baseY: 324,
+    color: "#DF9307",
     textColor: "#0B1B47",
-    speed: 1.3,
-    freq: 0.0075,
-    amplitude: 20,
-    phaseOffset: 6.0,
-    twistFreq: 0.0060,
-    twistSpeed: 1.15,
-    twistPhase: 3.3,
+    strokeWidth: 18,
+    speed: 4.1,
+    freq: 2.35,
+    amplitude: 40,
+    phaseOffset: 5.9,
+    textOffset: "5%",
+    opacity: 0.95,
   },
 ];
 
-const BONFIM_TEXT = "† LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †";
+const BONFIM_PHRASE =
+  "† LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †";
 
 export default function BonfimRibbons({
   isPlayingSound = false,
@@ -122,13 +106,14 @@ export default function BonfimRibbons({
   className = "",
 }: BonfimRibbonsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const pathRefs = useRef<(SVGPathElement | null)[]>([]);
+  const frayRefs = useRef<(SVGPathElement | null)[]>([]);
 
   const [reducedMotion, setReducedMotion] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
-  // Posição suave do mouse no hero para deslocamento de ar realista
-  const mouseRef = useRef<{ x: number; y: number; active: boolean }>({
+  // Rastreamento da posição do mouse no hero para vento reativo
+  const mousePosRef = useRef<{ x: number; y: number; active: boolean }>({
     x: -9999,
     y: -9999,
     active: false,
@@ -143,7 +128,7 @@ export default function BonfimRibbons({
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  // IntersectionObserver para suspender renderização fora de tela
+  // IntersectionObserver para pausar animação fora da tela
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
@@ -159,38 +144,36 @@ export default function BonfimRibbons({
     return () => observer.disconnect();
   }, []);
 
-  // Rastreamento global de movimento do cursor sobre o Hero
+  // Ouvinte de mouse global no hero para sopro de ar interativo
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+      const container = containerRef.current;
+      if (!container) return;
 
-      const rect = canvas.getBoundingClientRect();
+      const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // Se o mouse estiver nas imediações do canvas (com margem de 150px)
       if (
-        x >= -100 &&
-        x <= rect.width + 100 &&
-        y >= -100 &&
-        y <= rect.height + 100
+        x >= -80 &&
+        x <= rect.width + 80 &&
+        y >= -80 &&
+        y <= rect.height + 80
       ) {
-        // Normaliza para o espaço de coordenadas lógicas do canvas (largura 920, altura 420)
-        const scaleX = 920 / rect.width;
-        const scaleY = 420 / rect.height;
-        mouseRef.current = {
+        const scaleX = 900 / rect.width;
+        const scaleY = 400 / rect.height;
+        mousePosRef.current = {
           x: x * scaleX,
           y: y * scaleY,
           active: true,
         };
       } else {
-        mouseRef.current.active = false;
+        mousePosRef.current.active = false;
       }
     };
 
     const handleMouseLeave = () => {
-      mouseRef.current.active = false;
+      mousePosRef.current.active = false;
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -202,7 +185,7 @@ export default function BonfimRibbons({
     };
   }, []);
 
-  // Parallax suave atrelado ao scroll com GSAP
+  // Parallax suave atrelado ao scroll com GSAP ScrollTrigger
   useEffect(() => {
     if (reducedMotion || !containerRef.current) return;
 
@@ -219,7 +202,7 @@ export default function BonfimRibbons({
         ctx = gsap.context(() => {
           gsap.to(containerRef.current, {
             y: -35,
-            x: -12,
+            x: -15,
             ease: "none",
             scrollTrigger: {
               trigger: containerRef.current,
@@ -238,291 +221,122 @@ export default function BonfimRibbons({
     };
   }, [reducedMotion]);
 
-  // Função principal de renderização do Canvas
+  // Função para calcular o caminho de fita ondulando com vento, amplitude e física de ponta
+  const generateRibbonPath = (
+    width: number,
+    baseY: number,
+    amp: number,
+    freq: number,
+    phase: number,
+    audioEnergy = 0,
+    bassEnergy = 0,
+    time = 0,
+    steps = 55
+  ) => {
+    const points: [number, number][] = [];
+    const stepX = width / steps;
+
+    for (let i = 0; i <= steps; i++) {
+      const x = i * stepX;
+      const t = x / width; // 0.0 na amarração (esquerda) -> 1.0 na ponta livre (direita)
+
+      // Envelope físico de amplitude: no nó à esquerda a fita é firme; no meio e ponta flutua com liberdade total
+      const envelope = 0.15 + 0.85 * Math.pow(t, 1.15);
+      const localAmp = amp * envelope;
+
+      // Onda primária com propagação viva da esquerda para a direita (vento da Baía de Todos os Santos)
+      const primaryAngle = t * Math.PI * 2 * freq - phase;
+
+      // Harmônica de turbulência marítima (ondulação secundária realista)
+      const turbAngle = t * Math.PI * 3.8 - phase * 1.35;
+      const turbAmp = localAmp * 0.24;
+
+      // Flutter de alta frequência reativo à música
+      const flutterFreq = 5.2 + audioEnergy * 4.0;
+      const flutterAngle = t * Math.PI * flutterFreq - phase * (1.8 + bassEnergy * 2.2);
+      const flutterAmp = localAmp * (0.08 + audioEnergy * 0.5 + bassEnergy * 0.4);
+
+      let y =
+        baseY +
+        Math.sin(primaryAngle) * localAmp +
+        Math.sin(turbAngle) * turbAmp +
+        Math.sin(flutterAngle) * flutterAmp;
+
+      // Deslocamento aerodinâmico interativo ao aproximar o cursor do mouse
+      if (mousePosRef.current.active) {
+        const dx = x - mousePosRef.current.x;
+        const dy = y - mousePosRef.current.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const radius = 130;
+        if (dist < radius) {
+          const force = 1 - dist / radius;
+          y += (dy >= 0 ? 1 : -1) * force * 38;
+        }
+      }
+
+      points.push([x, y]);
+    }
+
+    if (points.length < 2) return { path: "", lastPoint: [width, baseY] as [number, number], lastAngle: 0 };
+
+    let d = `M ${points[0][0].toFixed(1)} ${points[0][1].toFixed(1)}`;
+    for (let i = 1; i < points.length; i++) {
+      const prev = points[i - 1];
+      const curr = points[i];
+      const midX = (prev[0] + curr[0]) / 2;
+      const midY = (prev[1] + curr[1]) / 2;
+      d += ` Q ${prev[0].toFixed(1)} ${prev[1].toFixed(1)}, ${midX.toFixed(1)} ${midY.toFixed(1)}`;
+    }
+    const last = points[points.length - 1];
+    d += ` T ${last[0].toFixed(1)} ${last[1].toFixed(1)}`;
+
+    const penultimate = points[points.length - 2];
+    const lastAngle = Math.atan2(last[1] - penultimate[1], last[0] - penultimate[0]);
+
+    return { path: d, lastPoint: last, lastAngle };
+  };
+
+  // Gera os caminhos dos microdesfiados na ponta da fita
+  const generateFrayedThreadsPath = (
+    endPoint: [number, number],
+    endAngle: number,
+    halfWidth: number,
+    time: number,
+    ribbonIndex: number
+  ) => {
+    let d = "";
+    const perp = endAngle + Math.PI / 2;
+    const numThreads = 10;
+
+    for (let k = 0; k < numThreads; k++) {
+      const ratio = (k / (numThreads - 1)) * 2 - 1; // -1 até +1
+      const startX = endPoint[0] + Math.cos(perp) * (halfWidth * ratio);
+      const startY = endPoint[1] + Math.sin(perp) * (halfWidth * ratio);
+
+      // Comprimento variado do fio desfiado
+      const len = 9 + ((k * 3.7 + ribbonIndex * 2) % 11) + Math.sin(time * 8 + k) * 3;
+      const flutter = Math.sin(time * 14 + k * 1.5 + ribbonIndex) * 4.5;
+
+      const midX = startX + Math.cos(endAngle) * (len * 0.5);
+      const midY = startY + Math.sin(endAngle) * (len * 0.5) + flutter * 0.5;
+
+      const endX = startX + Math.cos(endAngle) * len;
+      const endY = startY + Math.sin(endAngle) * len + flutter;
+
+      d += ` M ${startX.toFixed(1)} ${startY.toFixed(1)} Q ${midX.toFixed(1)} ${midY.toFixed(1)}, ${endX.toFixed(1)} ${endY.toFixed(1)}`;
+    }
+
+    return d;
+  };
+
+  // Loop principal de animação a 60-120 FPS
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: true });
-    if (!ctx) return;
-
-    const logicalWidth = 920;
-    const logicalHeight = 420;
-
-    // Configuração de alta densidade (Retina display)
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = logicalWidth * dpr;
-    canvas.height = logicalHeight * dpr;
-    ctx.scale(dpr, dpr);
+    if (reducedMotion || !isVisible) return;
 
     let rafId: number;
     let time = 0;
     const dataArray = analyser ? new Uint8Array(analyser.frequencyBinCount) : null;
 
-    // Renderizador de um único quadro
-    const renderFrame = (t: number, audioEnergy: number, bassEnergy: number) => {
-      ctx.clearRect(0, 0, logicalWidth, logicalHeight);
-
-      // 1. DESENHO DO NÓ TRADICIONAL DOS TRÊS PEDIDOS (Amarração à esquerda)
-      const knotX = 28;
-      const knotCenterY = 200;
-
-      // Sombra projetada do nó
-      ctx.save();
-      ctx.shadowColor = "rgba(11, 27, 71, 0.16)";
-      ctx.shadowBlur = 10;
-      ctx.shadowOffsetY = 6;
-
-      // Anéis de tecido cruzados formando o nó
-      ctx.fillStyle = "#8F4400";
-      ctx.beginPath();
-      ctx.ellipse(knotX, knotCenterY - 14, 8, 16, 0.15, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = "#0B1B47";
-      ctx.beginPath();
-      ctx.ellipse(knotX + 3, knotCenterY + 4, 9, 20, -0.2, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.fillStyle = "#6E1016";
-      ctx.beginPath();
-      ctx.ellipse(knotX - 2, knotCenterY + 22, 8, 18, 0.1, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Friso superior de destaque no nó
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      ctx.restore();
-
-      // 2. RENDERIZAÇÃO DAS 5 FITINHAS COM FÍSICA VOLUMÉTRICA 3D
-      const numSegments = 70;
-      const ribbonLength = logicalWidth - knotX - 30; // Termina antes da borda com desfiado
-      const segmentLen = ribbonLength / numSegments;
-
-      RIBBONS.forEach((ribbon) => {
-        // Pontos de coluna (spine), borda superior e borda inferior
-        const spine: { x: number; y: number; normalY: number; twist: number }[] = [];
-
-        // Efeito do som na velocidade e amplitude
-        const soundAmp = isPlayingSound ? 20 + audioEnergy * 65 + bassEnergy * 45 : 0;
-        const totalAmp = ribbon.amplitude + soundAmp;
-
-        for (let i = 0; i <= numSegments; i++) {
-          const x = knotX + i * segmentLen;
-          const progress = i / numSegments; // 0.0 na amarração -> 1.0 na ponta livre
-
-          // Envelope físico: no nó a fita quase não mexe; na ponta livre chicoteia solta no vento
-          const envelope = 0.06 + 0.94 * Math.pow(progress, 1.25);
-
-          // Onda primária com propagação para a direita (vento marítimo de Salvador)
-          const wave1 = Math.sin(x * ribbon.freq - t * ribbon.speed + ribbon.phaseOffset);
-
-          // Onda secundária harmônica (turbulência orgânica)
-          const wave2 = Math.sin(x * (ribbon.freq * 1.85) - t * (ribbon.speed * 1.4) + ribbon.phaseOffset * 1.6) * 0.35;
-
-          // Flutter rápido nas pontas ativado pelo som
-          const flutter = Math.sin(x * 0.038 - t * (ribbon.speed * 2.8 + bassEnergy * 2)) * (0.08 + audioEnergy * 0.45) * Math.pow(progress, 1.6);
-
-          let y = ribbon.baseY + (wave1 + wave2 + flutter) * totalAmp * envelope;
-
-          // Efeito de deslocamento pelo cursor do mouse (brisa gerada pelo mouse)
-          if (mouseRef.current.active) {
-            const dx = x - mouseRef.current.x;
-            const dy = y - mouseRef.current.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const maxDist = 135;
-            if (dist < maxDist) {
-              const force = (1 - dist / maxDist);
-              // O cursor empurra a fita suavemente para cima ou para baixo
-              y += (dy > 0 ? 1 : -1) * force * 35;
-            }
-          }
-
-          // Ângulo de torção 3D da fita (revela frente e verso com sombreamento real)
-          const twistAngle =
-            Math.sin(x * ribbon.twistFreq - t * ribbon.twistSpeed + ribbon.twistPhase) *
-            Math.PI *
-            0.85 *
-            Math.pow(progress, 0.9);
-
-          spine.push({
-            x,
-            y,
-            normalY: Math.cos(twistAngle), // 1.0 = frente chapada, 0 = canto de lado, -1.0 = verso chapado
-            twist: twistAngle,
-          });
-        }
-
-        // --- A. DESENHO DO CORPO DE CETIM VOLUMÉTRICO DA FITA (Quads com gradientes) ---
-        ctx.save();
-
-        // Sombra de profundidade suave sobre o fundo do site
-        ctx.shadowColor = "rgba(11, 27, 71, 0.12)";
-        ctx.shadowBlur = 8;
-        ctx.shadowOffsetY = 4;
-
-        for (let i = 0; i < numSegments; i++) {
-          const p1 = spine[i];
-          const p2 = spine[i + 1];
-
-          // Tangente da curva para calcular a normal de largura
-          const dx = p2.x - p1.x;
-          const dy = p2.y - p1.y;
-          const angle = Math.atan2(dy, dx);
-          const perpAngle = angle + Math.PI / 2;
-
-          // Largura projetada no espaço 3D (encolhe na torção)
-          const halfW1 = (ribbon.width / 2) * Math.abs(p1.normalY);
-          const halfW2 = (ribbon.width / 2) * Math.abs(p2.normalY);
-
-          // Borda superior e inferior no ponto 1
-          const x1Top = p1.x + Math.cos(perpAngle) * halfW1;
-          const y1Top = p1.y + Math.sin(perpAngle) * halfW1;
-          const x1Bot = p1.x - Math.cos(perpAngle) * halfW1;
-          const y1Bot = p1.y - Math.sin(perpAngle) * halfW1;
-
-          // Borda superior e inferior no ponto 2
-          const x2Top = p2.x + Math.cos(perpAngle) * halfW2;
-          const y2Top = p2.y + Math.sin(perpAngle) * halfW2;
-          const x2Bot = p2.x - Math.cos(perpAngle) * halfW2;
-          const y2Bot = p2.y - Math.sin(perpAngle) * halfW2;
-
-          // Cria quad poligonal do segmento
-          ctx.beginPath();
-          ctx.moveTo(x1Top, y1Top);
-          ctx.lineTo(x2Top, y2Top);
-          ctx.lineTo(x2Bot, y2Bot);
-          ctx.lineTo(x1Bot, y1Bot);
-          ctx.closePath();
-
-          // Iluminação dinâmica de cetim (Satin Specular Sheen)
-          const isFront = p1.normalY >= 0;
-          const grad = ctx.createLinearGradient(x1Top, y1Top, x1Bot, y1Bot);
-
-          if (isFront) {
-            // Face frontal: cor solar brilhante com feixe de cetim superior
-            grad.addColorStop(0, ribbon.highlightColor);
-            grad.addColorStop(0.3, ribbon.primaryColor);
-            grad.addColorStop(0.85, ribbon.primaryColor);
-            grad.addColorStop(1, ribbon.darkColor);
-          } else {
-            // Face traseira (verso): tom mais escuro e fosco da fita virada
-            grad.addColorStop(0, ribbon.darkColor);
-            grad.addColorStop(0.5, ribbon.darkColor);
-            grad.addColorStop(1, "#050B1B");
-          }
-
-          ctx.fillStyle = grad;
-          ctx.fill();
-
-          // Friso sutil nas bordas tecidas (orla de reforço da fita de poliéster)
-          ctx.strokeStyle = isFront
-            ? "rgba(255, 255, 255, 0.18)"
-            : "rgba(0, 0, 0, 0.25)";
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-
-        ctx.restore();
-
-        // --- B. ESTAMPA TIPOGRÁFICA ORIGINAL DO SENHOR DO BONFIM ---
-        // Desenhada ao longo da curva apenas nas seções onde a face frontal está visível
-        ctx.save();
-        ctx.font = "900 8.2px -apple-system, BlinkMacSystemFont, 'DM Sans', sans-serif";
-        ctx.textBaseline = "middle";
-        ctx.textAlign = "center";
-        ctx.fillStyle = ribbon.textColor;
-
-        const phraseLen = BONFIM_TEXT.length;
-        const charSpacing = 7.6; // Espaçamento típico do carimbo em bloco
-        const phrasePixelWidth = phraseLen * charSpacing;
-
-        // Repete o carimbo ao longo de toda a extensão da fita
-        const totalSpineLen = ribbonLength;
-        const numPhrases = Math.ceil(totalSpineLen / (phrasePixelWidth + 35));
-
-        for (let phraseIdx = 0; phraseIdx < numPhrases; phraseIdx++) {
-          const phraseStartDist = 45 + phraseIdx * (phrasePixelWidth + 32);
-
-          for (let charIdx = 0; charIdx < phraseLen; charIdx++) {
-            const charDist = phraseStartDist + charIdx * charSpacing;
-            if (charDist >= ribbonLength - 10) break;
-
-            const segFloat = charDist / segmentLen;
-            const segIndex = Math.min(Math.floor(segFloat), numSegments - 1);
-            const subT = segFloat - segIndex;
-
-            const pA = spine[segIndex];
-            const pB = spine[Math.min(segIndex + 1, numSegments)];
-
-            // Ponto interpolado
-            const cx = pA.x + (pB.x - pA.x) * subT;
-            const cy = pA.y + (pB.y - pA.y) * subT;
-            const normalY = pA.normalY + (pB.normalY - pA.normalY) * subT;
-
-            // Só desenha se a face frontal estiver visível (evita texto de ponta cabeça no verso)
-            if (normalY > 0.22) {
-              const dx = pB.x - pA.x;
-              const dy = pB.y - pA.y;
-              const tangentAngle = Math.atan2(dy, dx);
-
-              ctx.save();
-              ctx.translate(cx, cy);
-              ctx.rotate(tangentAngle);
-
-              // Projeção 3D da altura da letra (achata quando a fita gira)
-              ctx.scale(1, Math.max(0.2, normalY));
-
-              const char = BONFIM_TEXT[charIdx];
-              ctx.fillText(char, 0, 0);
-
-              ctx.restore();
-            }
-          }
-        }
-        ctx.restore();
-
-        // --- C. CORTE RETO COM MICRODESFIADO TRADICIONAL NAS PONTAS ---
-        // A extremidade direita da fita tem o corte reto a tesoura com pequenos fios de cetim soltos
-        ctx.save();
-        const tipPoint = spine[numSegments];
-        const prevTipPoint = spine[numSegments - 1];
-        const tipAngle = Math.atan2(tipPoint.y - prevTipPoint.y, tipPoint.x - prevTipPoint.x);
-        const tipPerp = tipAngle + Math.PI / 2;
-        const tipHalfW = (ribbon.width / 2) * Math.abs(tipPoint.normalY);
-
-        // Fios de tecido desfiados (14 filamentos finos e orgânicos)
-        const numThreads = 14;
-        for (let k = 0; k < numThreads; k++) {
-          const ratio = (k / (numThreads - 1)) * 2 - 1; // -1 a +1
-          const startX = tipPoint.x + Math.cos(tipPerp) * (tipHalfW * ratio);
-          const startY = tipPoint.y + Math.sin(tipPerp) * (tipHalfW * ratio);
-
-          // Cada fio tem comprimento diferente e vibra no vento
-          const threadLen = 8 + (Math.sin(k * 2.3 + t * 4) * 0.5 + 0.5) * 16;
-          const threadFlutter = Math.sin(t * 12 + k * 1.8) * 3.5;
-
-          const endX = startX + Math.cos(tipAngle) * threadLen;
-          const endY = startY + Math.sin(tipAngle) * threadLen + threadFlutter;
-
-          ctx.beginPath();
-          ctx.moveTo(startX, startY);
-          ctx.quadraticCurveTo(
-            (startX + endX) / 2,
-            (startY + endY) / 2 + threadFlutter * 0.5,
-            endX,
-            endY
-          );
-          ctx.strokeStyle = k % 2 === 0 ? ribbon.highlightColor : ribbon.textColor;
-          ctx.lineWidth = 0.8;
-          ctx.globalAlpha = 0.75;
-          ctx.stroke();
-        }
-        ctx.restore();
-      });
-    };
-
-    // Loop de Animação a 60-120 FPS
     const animate = () => {
       let audioEnergy = 0;
       let bassEnergy = 0;
@@ -530,7 +344,7 @@ export default function BonfimRibbons({
       if (isPlayingSound && analyser && dataArray) {
         analyser.getByteFrequencyData(dataArray);
 
-        // Faixa de graves/percussão (tambor, surdo, batida): bins 1 a 10
+        // Faixa de graves/percussão (tambor, surdo, batida)
         let bassSum = 0;
         const bassCount = Math.min(10, dataArray.length);
         for (let i = 1; i < bassCount; i++) {
@@ -538,7 +352,7 @@ export default function BonfimRibbons({
         }
         bassEnergy = bassSum / Math.max(1, bassCount - 1) / 255;
 
-        // Faixa musical geral (voz, violão, harmônicos, ritmo): bins 2 a 60
+        // Faixa musical geral (voz, harmonia, ritmo)
         let totalSum = 0;
         const totalCount = Math.min(60, dataArray.length);
         for (let i = 2; i < totalCount; i++) {
@@ -547,31 +361,67 @@ export default function BonfimRibbons({
         audioEnergy = totalSum / Math.max(1, totalCount - 2) / 255;
       }
 
-      // Velocidade do vento da Baía de Todos os Santos + aceleração musical
+      // Quando a música está ligada, acelera o ritmo do vento
       const speedMultiplier = isPlayingSound
-        ? 1.0 + audioEnergy * 3.0 + bassEnergy * 2.4
+        ? 1.0 + audioEnergy * 2.2 + bassEnergy * 1.8
         : 1.0;
 
       time += 0.016 * speedMultiplier;
 
-      renderFrame(time, audioEnergy, bassEnergy);
+      const svgWidth = 900;
 
-      if (!reducedMotion && isVisible) {
-        rafId = requestAnimationFrame(animate);
-      }
+      RIBBONS.forEach((ribbon, index) => {
+        const pathEl = pathRefs.current[index];
+        const frayEl = frayRefs.current[index];
+        if (!pathEl) return;
+
+        // Amplitude expressiva: mesmo sem som tem presença marcante; com som tem impulsos vibrantes
+        const soundAmpBoost = isPlayingSound
+          ? 26 + audioEnergy * 65 + bassEnergy * 45
+          : 0;
+
+        const dynamicAmp = ribbon.amplitude + soundAmpBoost;
+        const currentPhase = time * ribbon.speed + ribbon.phaseOffset;
+
+        const { path, lastPoint, lastAngle } = generateRibbonPath(
+          svgWidth,
+          ribbon.baseY,
+          dynamicAmp,
+          ribbon.freq,
+          currentPhase,
+          audioEnergy,
+          bassEnergy,
+          time
+        );
+
+        pathEl.setAttribute("d", path);
+
+        if (frayEl) {
+          const frayPath = generateFrayedThreadsPath(
+            lastPoint,
+            lastAngle,
+            ribbon.strokeWidth / 2,
+            time,
+            index
+          );
+          frayEl.setAttribute("d", frayPath);
+        }
+      });
+
+      rafId = requestAnimationFrame(animate);
     };
 
-    if (reducedMotion) {
-      // Snapshot elegante e estático com drapeado perfeito
-      renderFrame(1.8, 0, 0);
-    } else if (isVisible) {
-      rafId = requestAnimationFrame(animate);
-    }
+    rafId = requestAnimationFrame(animate);
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
+      cancelAnimationFrame(rafId);
     };
   }, [isPlayingSound, analyser, isVisible, reducedMotion]);
+
+  // Caminhos estáticos para SSR e prefers-reduced-motion
+  const getStaticPath = (ribbon: RibbonConfig) => {
+    return generateRibbonPath(900, ribbon.baseY, ribbon.amplitude * 0.9, ribbon.freq, ribbon.phaseOffset).path;
+  };
 
   return (
     <div
@@ -579,15 +429,110 @@ export default function BonfimRibbons({
       className={`pointer-events-none select-none relative ${className}`}
       aria-hidden="true"
     >
-      <canvas
-        ref={canvasRef}
-        style={{
-          width: "100%",
-          height: "auto",
-          aspectRatio: "920 / 420",
-          display: "block",
-        }}
-      />
+      <svg
+        viewBox="0 0 900 395"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-auto overflow-visible"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          {/* Sombra de profundidade realista projetada pelas fitas */}
+          <filter id="bonfim-shadow-filter" x="-5%" y="-35%" width="115%" height="180%">
+            <feDropShadow dx="0" dy="5" stdDeviation="5" floodColor="#0B1B47" floodOpacity="0.14" />
+          </filter>
+
+          {/* Caminhos SVG referenciados pelo textPath */}
+          {RIBBONS.map((ribbon, index) => (
+            <path
+              key={`def-${ribbon.id}`}
+              id={`path-${ribbon.id}`}
+              ref={(el) => {
+                pathRefs.current[index] = el;
+              }}
+              d={getStaticPath(ribbon)}
+            />
+          ))}
+        </defs>
+
+        {/* Camada das 5 Fitinhas do Bonfim com Sombra e Tipografia em Curva */}
+        <g filter="url(#bonfim-shadow-filter)">
+          {RIBBONS.map((ribbon, index) => (
+            <g key={`ribbon-group-${ribbon.id}`} opacity={ribbon.opacity}>
+              {/* O corpo de tecido da Fita — corte reto e quadrado tradicional */}
+              <use
+                href={`#path-${ribbon.id}`}
+                stroke={ribbon.color}
+                strokeWidth={ribbon.strokeWidth}
+                strokeLinecap="butt"
+                strokeLinejoin="miter"
+              />
+
+              {/* Friso sutil de brilho superior do cetim (Satin Specular Sheen) */}
+              <use
+                href={`#path-${ribbon.id}`}
+                stroke="#FFFFFF"
+                strokeWidth={1.5}
+                strokeLinecap="butt"
+                opacity={0.32}
+                transform="translate(0, -5.5)"
+              />
+
+              {/* Sombra suave de dobra na borda inferior do tecido */}
+              <use
+                href={`#path-${ribbon.id}`}
+                stroke="#000000"
+                strokeWidth={1.2}
+                strokeLinecap="butt"
+                opacity={0.16}
+                transform="translate(0, 5.5)"
+              />
+
+              {/* Estampa Tipográfica Tradicional das Fitinhas do Bonfim */}
+              <text
+                fill={ribbon.textColor}
+                fontSize="8.4"
+                fontWeight="900"
+                fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'DM Sans', sans-serif"
+                letterSpacing="2.4px"
+                dy="3.0"
+                className="select-none pointer-events-none"
+              >
+                <textPath
+                  href={`#path-${ribbon.id}`}
+                  startOffset={ribbon.textOffset}
+                >
+                  {BONFIM_PHRASE}
+                </textPath>
+              </text>
+
+              {/* Microdesfiados tradicionais na ponta da fita (fios soltos cortados à tesoura) */}
+              <path
+                ref={(el) => {
+                  frayRefs.current[index] = el;
+                }}
+                stroke={ribbon.textColor}
+                strokeWidth={0.85}
+                opacity={0.7}
+                strokeLinecap="round"
+              />
+            </g>
+          ))}
+        </g>
+
+        {/* Nó dos Três Pedidos — Amarração tradicional na raiz das fitas à esquerda */}
+        <g id="bonfim-knot" transform="translate(6, 196)">
+          <ellipse cx="6" cy="-14" rx="7" ry="15" fill="#8F4400" transform="rotate(12, 6, -14)" />
+          <ellipse cx="9" cy="4" rx="8" ry="18" fill="#0B1B47" transform="rotate(-15, 9, 4)" />
+          <ellipse cx="4" cy="22" rx="7" ry="16" fill="#6E1016" transform="rotate(8, 4, 22)" />
+          <path
+            d="M 2 -26 Q 16 4, 2 36"
+            stroke="rgba(255, 255, 255, 0.3)"
+            strokeWidth="1.8"
+            fill="none"
+          />
+        </g>
+      </svg>
     </div>
   );
 }
