@@ -16,6 +16,7 @@
   html {
     scroll-behavior: auto;
     scrollbar-gutter: stable;
+    overflow-x: clip;
   }
 
   body {
@@ -24,6 +25,7 @@
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: clip;
   }
 
   /* Seleção com cor de marca oficial */
