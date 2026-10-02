@@ -7,52 +7,159 @@ import type { CaseItem } from "./Portfolio";
 
 const categories = [
   { id: "todos", label: "Todos os Cases" },
-  { id: "branding", label: "Branding & ID" },
-  { id: "conteudo", label: "Narrativa & Conteúdo" },
-  { id: "midia", label: "Web & Performance" },
-  { id: "audiovisual", label: "Audiovisual Cinema" },
+  { id: "branding", label: "Branding, ID & Gestão de Redes", color: "verde" },
+  { id: "conteudo", label: "Narrativa, Conteúdo & Assessoria", color: "vinho" },
+  { id: "midia", label: "Desenvolvimento Web & Performance", color: "azul" },
+  { id: "audiovisual", label: "Produção Audiovisual", color: "dourado" },
 ] as const;
 
 type CategoryId = (typeof categories)[number]["id"];
 
-const categoryBadgeStyle: Record<string, { bg: string; text: string; border: string }> = {
-  branding: {
-    bg: "bg-[#6E1016]/12",
-    text: "text-[#6E1016]",
-    border: "border-[#6E1016]/30",
+// Mapa dinâmico de cores dos pilares extraído diretamente da propriedade "color" de categories
+const categoryColorLookup: Record<string, string> = {};
+for (const cat of categories) {
+  if ("color" in cat) {
+    categoryColorLookup[cat.id] = cat.color;
+  }
+}
+
+export type PillarTheme = {
+  hex: string;
+  badge: string;
+  topLine: string;
+  cardHoverBorder: string;
+  cardGlow: string;
+  titleHover: string;
+  impactBg: string;
+  dotBg: string;
+  ctaHover: string;
+};
+
+const pillarColorThemes: Record<string, PillarTheme> = {
+  verde: {
+    hex: "#1E6838",
+    badge: "bg-white/95 text-[#1E6838] border-[#1E6838]/30",
+    topLine: "bg-[#1E6838]",
+    cardHoverBorder: "hover:border-[#1E6838]/40",
+    cardGlow: "hover:shadow-[0_12px_32px_rgba(30,104,56,0.12)]",
+    titleHover: "group-hover:text-[#1E6838]",
+    impactBg: "bg-[#1E6838]/08 border-[#1E6838]/20 text-[#1E6838]",
+    dotBg: "bg-[#1E6838]",
+    ctaHover: "group-hover:text-[#1E6838]",
   },
-  conteudo: {
-    bg: "bg-[#0B1B47]/10",
-    text: "text-[#0B1B47]",
-    border: "border-[#0B1B47]/25",
+  vinho: {
+    hex: "#6E1016",
+    badge: "bg-white/95 text-[#6E1016] border-[#6E1016]/30",
+    topLine: "bg-[#6E1016]",
+    cardHoverBorder: "hover:border-[#6E1016]/40",
+    cardGlow: "hover:shadow-[0_12px_32px_rgba(110,16,22,0.12)]",
+    titleHover: "group-hover:text-[#6E1016]",
+    impactBg: "bg-[#6E1016]/08 border-[#6E1016]/20 text-[#6E1016]",
+    dotBg: "bg-[#6E1016]",
+    ctaHover: "group-hover:text-[#6E1016]",
   },
-  midia: {
-    bg: "bg-[#E27908]/15",
-    text: "text-[#E27908]",
-    border: "border-[#E27908]/30",
+  azul: {
+    hex: "#0B1B47",
+    badge: "bg-white/95 text-[#0B1B47] border-[#0B1B47]/30",
+    topLine: "bg-[#0B1B47]",
+    cardHoverBorder: "hover:border-[#0B1B47]/40",
+    cardGlow: "hover:shadow-[0_12px_32px_rgba(11,27,71,0.14)]",
+    titleHover: "group-hover:text-[#0B1B47]",
+    impactBg: "bg-[#0B1B47]/08 border-[#0B1B47]/20 text-[#0B1B47]",
+    dotBg: "bg-[#0B1B47]",
+    ctaHover: "group-hover:text-[#0B1B47]",
   },
-  audiovisual: {
-    bg: "bg-[#2F7C4B]/15",
-    text: "text-[#2F7C4B]",
-    border: "border-[#2F7C4B]/30",
+  dourado: {
+    hex: "#A3721B",
+    badge: "bg-white/95 text-[#A3721B] border-[#A3721B]/30",
+    topLine: "bg-[#A3721B]",
+    cardHoverBorder: "hover:border-[#A3721B]/40",
+    cardGlow: "hover:shadow-[0_12px_32px_rgba(163,114,27,0.14)]",
+    titleHover: "group-hover:text-[#A3721B]",
+    impactBg: "bg-[#A3721B]/10 border-[#A3721B]/25 text-[#A3721B]",
+    dotBg: "bg-[#A3721B]",
+    ctaHover: "group-hover:text-[#A3721B]",
   },
 };
 
+const defaultTheme: PillarTheme = pillarColorThemes.azul;
+
+function getCaseTheme(categoria: string): PillarTheme {
+  const color = categoryColorLookup[categoria];
+  return (color && pillarColorThemes[color]) || defaultTheme;
+}
+
 const partnerLogos = [
-  { name: "Avon", src: "/logos/avon.svg", className: "h-7 sm:h-8 max-w-[120px]" },
-  { name: "MRV Engenharia", src: "/logos/mrv.webp", className: "h-7 sm:h-8 max-w-[120px]" },
-  { name: "Sicoob", src: "/logos/sicoob.webp", className: "h-7 sm:h-8 max-w-[130px]" },
-  { name: "Budweiser", src: "/logos/budweiser.svg", className: "h-7 sm:h-8 max-w-[130px]" },
-  { name: "Outback", src: "/logos/outback.svg", className: "h-7 sm:h-8 max-w-[120px]" },
-  { name: "Bayer", src: "/logos/bayer.svg", className: "h-10 sm:h-12 max-w-[80px]" },
-  { name: "McDonald's", src: "/logos/mcdonalds.svg", className: "h-9 sm:h-11 max-w-[70px]" },
-  { name: "Esporte Clube Bahia", src: "/logos/ec-bahia.webp", className: "h-11 sm:h-12 max-w-[95px]" },
-  { name: "CCR Metrô Bahia", src: "/logos/ccr-metro.png", className: "h-10 sm:h-11 max-w-[105px]" },
-  { name: "DemocracyLab", src: "/logos/democracylab.svg", className: "h-8 sm:h-9 max-w-[130px]" },
-  { name: "Workana", src: "/logos/workana.svg", className: "h-7 sm:h-8 max-w-[120px]" },
-  { name: "Grau Técnico", src: "/logos/grau-tecnico.png", className: "h-9 sm:h-10 max-w-[110px]" },
-  { name: "Natura", src: "/logos/natura.png", className: "h-9 sm:h-10 max-w-[100px]" },
-  { name: "ALLOS", src: "/logos/allos.webp", className: "h-8 sm:h-9 max-w-[110px]" },
+  {
+    name: "Avon",
+    src: "/logos/avon.svg",
+    className: "h-7 sm:h-8 max-w-[120px]",
+  },
+  {
+    name: "MRV Engenharia",
+    src: "/logos/mrv.webp",
+    className: "h-7 sm:h-8 max-w-[120px]",
+  },
+  {
+    name: "Sicoob",
+    src: "/logos/sicoob.webp",
+    className: "h-7 sm:h-8 max-w-[130px]",
+  },
+  {
+    name: "Budweiser",
+    src: "/logos/budweiser.svg",
+    className: "h-7 sm:h-8 max-w-[130px]",
+  },
+  {
+    name: "Outback",
+    src: "/logos/outback.svg",
+    className: "h-7 sm:h-8 max-w-[120px]",
+  },
+  {
+    name: "Bayer",
+    src: "/logos/bayer.svg",
+    className: "h-10 sm:h-12 max-w-[80px]",
+  },
+  {
+    name: "McDonald's",
+    src: "/logos/mcdonalds.svg",
+    className: "h-9 sm:h-11 max-w-[70px]",
+  },
+  {
+    name: "Esporte Clube Bahia",
+    src: "/logos/ec-bahia.webp",
+    className: "h-11 sm:h-12 max-w-[95px]",
+  },
+  {
+    name: "CCR Metrô Bahia",
+    src: "/logos/ccr-metro.png",
+    className: "h-10 sm:h-11 max-w-[105px]",
+  },
+  {
+    name: "DemocracyLab",
+    src: "/logos/democracylab.svg",
+    className: "h-8 sm:h-9 max-w-[130px]",
+  },
+  {
+    name: "Workana",
+    src: "/logos/workana.svg",
+    className: "h-7 sm:h-8 max-w-[120px]",
+  },
+  {
+    name: "Grau Técnico",
+    src: "/logos/grau-tecnico.png",
+    className: "h-9 sm:h-10 max-w-[110px]",
+  },
+  {
+    name: "Natura",
+    src: "/logos/natura.png",
+    className: "h-9 sm:h-10 max-w-[100px]",
+  },
+  {
+    name: "ALLOS",
+    src: "/logos/allos.webp",
+    className: "h-8 sm:h-9 max-w-[110px]",
+  },
 ];
 
 export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
@@ -79,13 +186,10 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
       {/* Marquee de Clientes e Parceiros — Curadoria Monocromática Padrão Refokus */}
       <div className="mb-16 lg:mb-24 overflow-hidden border-y border-[#0B1B47]/10 bg-[#ECE8DC]/80 py-6 sm:py-7 backdrop-blur-sm">
-        <div className="mx-auto max-w-content px-6 mb-3.5 flex flex-col md:flex-row md:items-center justify-between gap-2">
-          <span className="text-xs font-mono tracking-[0.16em] uppercase text-[#0B1B47] font-bold">
+        <div className="mx-auto max-w-content px-6 mb-3 flex items-center justify-between">
+          <span className="text-xs font-mono tracking-[0.16em] uppercase text-[#0B1B47]/80 font-bold">
             Experiência & Trajetória
           </span>
-          <p className="text-[11px] sm:text-xs text-[#0B1B47]/80 font-mono max-w-2xl leading-relaxed">
-            * As marcas exibidas foram atendidas ou representadas por membros da nossa equipe ao longo de suas carreiras. Não foram clientes diretas da Sotaque nem possuem contrato vigente conosco.
-          </p>
         </div>
         <div className="flex items-center gap-12 sm:gap-16 md:gap-20 whitespace-nowrap animate-marquee">
           {[...partnerLogos, ...partnerLogos].map((logo, index) => (
@@ -107,6 +211,13 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
             </div>
           ))}
         </div>
+        <div className="mx-auto max-w-content px-6 mt-3.5 flex justify-end">
+          <p className="text-xs text-[#0B1B47]/60 font-mono text-right max-w-xl leading-relaxed">
+            * As marcas exibidas foram atendidas ou representadas por membros da
+            nossa equipe ao longo de suas carreiras. Não foram clientes diretas
+            da Sotaque nem possuem contrato vigente conosco.
+          </p>
+        </div>
       </div>
 
       <div className="mx-auto max-w-content px-6 lg:px-8">
@@ -122,18 +233,20 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
 
             <h2 className="font-['Commune',serif] font-normal leading-[1.04] tracking-[-0.03em] text-[clamp(2rem,3.8vw,3.2rem)] text-[#0B1B47]">
               Trabalhos com alma, <br />
-              <span className="italic text-[#6E1016]">ousadia</span> e acabamento de estúdio.
+              <span className="italic text-[#6E1016]">ousadia</span> e
+              acabamento de estúdio.
             </h2>
           </div>
 
           <div className="col-span-12 lg:col-span-5 lg:text-right">
             <p className="text-[15px] font-body leading-relaxed text-[#0B1B47]/80 max-w-[42ch] lg:ml-auto">
-              Cada projeto nasce da fusão entre a riqueza da cultura brasileira e a disciplina rigorosa do design e da narrativa contemporânea.
+              Cada projeto nasce da fusão entre a riqueza da cultura brasileira
+              e a disciplina rigorosa do design e da narrativa contemporânea.
             </p>
           </div>
         </div>
 
-        {/* Filtros em Pílula Estilo Galeria */}
+        {/* Filtros em Pílula Estilo Galeria com Indicador de Cor do Pilar */}
         <div
           className="flex flex-wrap items-center gap-2.5 mb-12"
           role="group"
@@ -141,19 +254,28 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
         >
           {categories.map((cat) => {
             const isActive = active === cat.id;
+            const colorKey = "color" in cat ? cat.color : undefined;
+            const catTheme = colorKey ? pillarColorThemes[colorKey] : null;
+
             return (
               <button
                 key={cat.id}
                 onClick={() => setActive(cat.id)}
                 aria-pressed={isActive}
                 aria-label={`Filtrar por ${cat.label}`}
-                className={`relative rounded-full border px-5 py-2.5 text-xs font-mono tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1B47] cursor-pointer ${
+                className={`relative rounded-full border px-5 py-2.5 text-xs font-mono tracking-wider transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1B47] cursor-pointer inline-flex items-center gap-2 ${
                   isActive
                     ? "bg-[#0B1B47] text-[#F4F1E5] border-[#0B1B47] shadow-lg shadow-[#0B1B47]/15 font-semibold"
                     : "bg-white/80 text-[#0B1B47]/75 border-[#0B1B47]/12 hover:bg-white hover:text-[#0B1B47] hover:border-[#0B1B47]/30"
                 }`}
               >
-                {cat.label}
+                {catTheme && (
+                  <span
+                    className={`w-2 h-2 rounded-full ${catTheme.dotBg} shrink-0`}
+                    aria-hidden
+                  />
+                )}
+                <span>{cat.label}</span>
                 {isActive && (
                   <motion.span
                     layoutId="portfolio-active"
@@ -167,15 +289,14 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
           })}
         </div>
 
-        {/* Grid de Cards de Alta Fidelidade (Padrão Studio Showcase) */}
-        <motion.div layout className="grid grid-cols-12 gap-7 lg:gap-8 auto-rows-fr">
+        {/* Grid de Cards de Alta Fidelidade (Padrão Studio Showcase com Cores dos Pilares) */}
+        <motion.div
+          layout
+          className="grid grid-cols-12 gap-7 lg:gap-8 auto-rows-fr"
+        >
           <AnimatePresence mode="popLayout">
             {filtered.map((c) => {
-              const badge = categoryBadgeStyle[c.categoria] || {
-                bg: "bg-[#0B1B47]/10",
-                text: "text-[#0B1B47]",
-                border: "border-[#0B1B47]/20",
-              };
+              const theme = getCaseTheme(c.categoria);
 
               return (
                 <motion.article
@@ -185,9 +306,12 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96, y: 16 }}
                   transition={{ type: "spring", stiffness: 260, damping: 24 }}
-                  className="group relative col-span-12 md:col-span-6 lg:col-span-4 rounded-[1.6rem] border border-[rgba(11,27,71,0.08)] bg-white overflow-hidden flex flex-col shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] hover:border-[rgba(11,27,71,0.22)] transition-all duration-300"
+                  className={`group relative col-span-12 md:col-span-6 lg:col-span-4 rounded-[1.6rem] border border-[rgba(11,27,71,0.08)] bg-white overflow-hidden flex flex-col shadow-[0_1px_1px_rgba(11,27,71,0.04),0_4px_8px_rgba(11,27,71,0.04),0_16px_32px_rgba(11,27,71,0.06)] ${theme.cardHoverBorder} ${theme.cardGlow} transition-all duration-300`}
                   aria-label={`${c.cliente} — ${c.disciplina || c.categoria}`}
                 >
+                  {/* Linha superior indicadora da cor do pilar correspondente */}
+                  <div className={`h-[3.5px] w-full ${theme.topLine}`} />
+
                   {/* Visual Mockup Container com Aspect Ratio 16:10 */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-[#0B1B47] border-b border-[#0B1B47]/08">
                     {/* Imagem Retina do Case Otimizada (AVIF/WebP) */}
@@ -206,10 +330,11 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                       aria-hidden
                     />
 
-                    {/* Top Bar sobre a imagem: Categoria e Ano */}
+                    {/* Top Bar sobre a imagem: Categoria com cor do pilar e Ano */}
                     <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none">
-                      <span className="rounded-full border border-white/20 px-3 py-1 text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md bg-white/95 text-[#0B1B47] shadow-sm">
-                        {c.disciplina || c.categoria}
+                      <span className={`rounded-full border px-3 py-1 text-xs font-mono font-bold tracking-wider uppercase backdrop-blur-md shadow-sm inline-flex items-center gap-1.5 ${theme.badge}`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`} />
+                        <span>{c.disciplina || c.categoria}</span>
                       </span>
 
                       {c.ano && (
@@ -223,7 +348,7 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                   {/* Conteúdo Textual com Hierarquia Editorial Rigorosa */}
                   <div className="p-6 sm:p-7 flex flex-col flex-1 justify-between">
                     <div>
-                      <h3 className="font-['Commune',serif] font-bold text-[1.35rem] leading-[1.1] text-[#0B1B47] group-hover:text-[#6E1016] transition-colors duration-300">
+                      <h3 className={`font-['Commune',serif] font-bold text-[1.35rem] leading-[1.1] text-[#0B1B47] ${theme.titleHover} transition-colors duration-300`}>
                         {c.cliente}
                       </h3>
 
@@ -233,18 +358,20 @@ export default function PortfolioClient({ cases }: { cases: CaseItem[] }) {
                     </div>
 
                     <div className="mt-6 pt-5 border-t border-[#0B1B47]/08 flex flex-col gap-3">
-                      {/* Selo de Impacto / Métrica */}
+                      {/* Selo de Impacto / Métrica com a cor do pilar */}
                       {c.impacto && (
-                        <div className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#0B1B47]/85 bg-[#0B1B47]/05 border border-[#0B1B47]/10 rounded-lg px-3 py-1.5 w-fit">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#E27908]" />
+                        <div className={`inline-flex items-center gap-2 text-xs font-mono font-medium rounded-lg px-3 py-1.5 w-fit border ${theme.impactBg}`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${theme.dotBg}`} />
                           <span>{c.impacto}</span>
                         </div>
                       )}
 
                       <div className="flex items-center justify-between pt-1">
-                        <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#0B1B47] group-hover:text-[#E27908] transition-colors flex items-center gap-1.5">
+                        <span className={`text-xs font-mono font-bold uppercase tracking-wider text-[#0B1B47] ${theme.ctaHover} transition-colors flex items-center gap-1.5`}>
                           <span>Ver Estudo de Caso</span>
-                          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                          <span className="transition-transform duration-300 group-hover:translate-x-1">
+                            →
+                          </span>
                         </span>
                       </div>
                     </div>
