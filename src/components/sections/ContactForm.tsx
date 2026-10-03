@@ -225,7 +225,7 @@ export default function ContactForm() {
                 <motion.input
                   id="contato"
                   name="contato"
-                  autoComplete="email"
+                  autoComplete="on"
                   value={contato}
                   onChange={(e) => {
                     setContato(e.target.value);
