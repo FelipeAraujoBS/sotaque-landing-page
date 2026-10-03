@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import Lenis from "lenis";
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mediaQuery.matches) return;
 
-    let lenis: Lenis | null = null;
+    let lenis: any = null;
     let gsap: any = null;
     let ScrollTrigger: any = null;
     let tickerCallback: ((time: number) => void) | null = null;
@@ -16,15 +15,20 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     let handleAnchorClick: ((e: MouseEvent) => void) | null = null;
     let isMounted = true;
 
-    Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([gsapMod, stMod]) => {
+    Promise.all([
+      import("gsap"),
+      import("gsap/ScrollTrigger"),
+      import("lenis"),
+    ]).then(([gsapMod, stMod, lenisMod]) => {
       if (!isMounted) return;
+      const Lenis = lenisMod.default;
       gsap = gsapMod.default;
       ScrollTrigger = stMod.ScrollTrigger;
       gsap.registerPlugin(ScrollTrigger);
 
       lenis = new Lenis({
         duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,

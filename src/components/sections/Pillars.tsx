@@ -200,18 +200,8 @@ export default function Pillars() {
     return (
       <div
         key={p.id}
-        role="button"
-        tabIndex={0}
-        aria-expanded={isHovered}
         aria-label={`Pilar ${p.number}: ${p.title}`}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            setHoveredId(hoveredId === p.id ? null : p.id);
-          }
-        }}
         onMouseEnter={() => setHoveredId(p.id)}
-        onClick={() => setHoveredId(hoveredId === p.id ? null : p.id)}
         onMouseMove={handleMouseMove}
         style={{
           flexGrow,
@@ -473,12 +463,18 @@ export default function Pillars() {
           role="dialog"
           aria-modal="true"
           aria-label={`Pasta oficial: ${activeFolderModal.title}`}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-300"
-          onClick={() => setActiveFolderModal(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
         >
+          {/* Backdrop acessível */}
+          <button
+            type="button"
+            aria-label="Fechar pasta oficial"
+            className="fixed inset-0 bg-black/60 backdrop-blur-md animate-in fade-in duration-300 w-full h-full border-none cursor-default"
+            onClick={() => setActiveFolderModal(null)}
+          />
+
           <div
-            className="relative max-w-sm sm:max-w-md w-full bg-[#111827] text-[#F4F1E5] rounded-[2rem] p-6 border border-white/20 shadow-2xl overflow-hidden flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()}
+            className="relative z-10 max-w-sm sm:max-w-md w-full bg-[#111827] text-[#F4F1E5] rounded-[2rem] p-6 border border-white/20 shadow-2xl overflow-hidden flex flex-col items-center"
           >
             <div className="w-full flex items-center justify-between pb-4 border-b border-white/10 mb-4">
               <div>

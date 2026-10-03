@@ -178,7 +178,10 @@ export default function ContactForm() {
                     setNome(e.target.value);
                     if (touched.nome) setErrors((prev) => ({ ...prev, nome: validateField("nome", e.target.value) }));
                   }}
-                  onBlur={() => setTouched((p) => ({ ...p, nome: true }))}
+                  onBlur={() => {
+                    setTouched((p) => ({ ...p, nome: true }));
+                    setErrors((prev) => ({ ...prev, nome: validateField("nome", nome) }));
+                  }}
                   placeholder="Seu nome"
                   className={getFieldClass("nome", nome)}
                   aria-invalid={!!errors.nome}
@@ -222,13 +225,16 @@ export default function ContactForm() {
                 <motion.input
                   id="contato"
                   name="contato"
-                  autoComplete="email tel"
+                  autoComplete="email"
                   value={contato}
                   onChange={(e) => {
                     setContato(e.target.value);
                     if (touched.contato) setErrors((prev) => ({ ...prev, contato: validateField("contato", e.target.value) }));
                   }}
-                  onBlur={() => setTouched((p) => ({ ...p, contato: true }))}
+                  onBlur={() => {
+                    setTouched((p) => ({ ...p, contato: true }));
+                    setErrors((prev) => ({ ...prev, contato: validateField("contato", contato) }));
+                  }}
                   placeholder="Ex: seuemail@empresa.com.br ou (71) 99999-0000"
                   className={getFieldClass("contato", contato)}
                   aria-invalid={!!errors.contato}
@@ -278,7 +284,10 @@ export default function ContactForm() {
                     setEmpresa(e.target.value);
                     if (touched.empresa) setErrors((prev) => ({ ...prev, empresa: validateField("empresa", e.target.value) }));
                   }}
-                  onBlur={() => setTouched((p) => ({ ...p, empresa: true }))}
+                  onBlur={() => {
+                    setTouched((p) => ({ ...p, empresa: true }));
+                    setErrors((prev) => ({ ...prev, empresa: validateField("empresa", empresa) }));
+                  }}
                   placeholder="Ex: Sua Marca, Empresa ou Projeto"
                   className={getFieldClass("empresa", empresa)}
                   aria-invalid={!!errors.empresa}
@@ -328,7 +337,10 @@ export default function ContactForm() {
                     setMensagem(e.target.value);
                     if (touched.mensagem) setErrors((prev) => ({ ...prev, mensagem: validateField("mensagem", e.target.value) }));
                   }}
-                  onBlur={() => setTouched((p) => ({ ...p, mensagem: true }))}
+                  onBlur={() => {
+                    setTouched((p) => ({ ...p, mensagem: true }));
+                    setErrors((prev) => ({ ...prev, mensagem: validateField("mensagem", mensagem) }));
+                  }}
                   placeholder="Conte em poucas linhas o que sua marca ou projeto precisa estruturar"
                   className={`${getFieldClass("mensagem", mensagem)} resize-none`}
                   aria-invalid={!!errors.mensagem}

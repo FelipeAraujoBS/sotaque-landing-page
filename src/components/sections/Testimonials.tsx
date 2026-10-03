@@ -110,7 +110,13 @@ export default function Testimonials() {
 
         {/* Controles do Carrossel */}
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2" role="tablist" aria-label="Navegar depoimentos">
+          <div
+            className="flex items-center gap-2"
+            role="tablist"
+            aria-label="Navegar depoimentos"
+            tabIndex={0}
+            onKeyDown={onKeyDown}
+          >
             {testimonials.map((_, i) => (
               <button
                 key={i}
@@ -147,8 +153,6 @@ export default function Testimonials() {
         <div
           ref={viewportRef}
           className="relative -mx-6 px-6 lg:mx-0 lg:px-0 overflow-hidden"
-          onKeyDown={onKeyDown}
-          tabIndex={0}
           aria-label="Carrossel de depoimentos de parceiros"
           aria-roledescription="carousel"
         >
