@@ -2,7 +2,18 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
-import testimonials from "@/content/testimonials.json";
+import testimonialsData from "@/content/testimonials.json";
+
+interface Testimonial {
+  id: string;
+  nome: string;
+  cargo: string;
+  texto: string;
+  nota: number;
+  foto?: string;
+}
+
+const testimonials: Testimonial[] = testimonialsData as Testimonial[];
 
 export default function Testimonials() {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -182,9 +193,17 @@ export default function Testimonials() {
 
                 {/* Autor: Nome, Cargo / Empresa */}
                 <div className="mt-6 pt-5 border-t border-[rgba(11,27,71,0.08)] flex items-center gap-3.5">
-                  <span className="h-10 w-10 rounded-xl bg-[#0B1B47] text-[#F4F1E5] border border-[rgba(11,27,71,0.08)] grid place-items-center font-['Commune',serif] font-bold text-sm shrink-0">
-                    {t.nome.slice(0, 1).toUpperCase()}
-                  </span>
+                  {t.foto ? (
+                    <img 
+                      src={t.foto} 
+                      alt={t.nome} 
+                      className="h-10 w-10 rounded-xl object-cover shrink-0 border border-[rgba(11,27,71,0.08)]"
+                    />
+                  ) : (
+                    <span className="h-10 w-10 rounded-xl bg-[#0B1B47] text-[#F4F1E5] border border-[rgba(11,27,71,0.08)] grid place-items-center font-['Commune',serif] font-bold text-sm shrink-0">
+                      {t.nome.slice(0, 1).toUpperCase()}
+                    </span>
+                  )}
                   <div className="min-w-0">
                     <p className="text-sm font-semibold leading-tight text-[#0B1B47] truncate">
                       {t.nome}

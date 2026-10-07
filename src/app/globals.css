@@ -190,6 +190,29 @@
   .animate-marquee:hover {
     animation-play-state: paused;
   }
+
+  /* Friso Marquee Infinito de Azulejos Sotaque — Deslize ultra-lento e solene */
+  @keyframes mosaic-glide {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  .animate-mosaic-glide {
+    display: inline-flex;
+    width: max-content;
+    animation: mosaic-glide var(--mosaic-speed, 95s) linear infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-mosaic-glide {
+      animation: none !important;
+    }
+  }
 }
 
 /* Lenis recomendado */

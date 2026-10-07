@@ -356,7 +356,7 @@ export default function Pillars() {
     <section
       id="pilares"
       ref={containerRef}
-      className="relative text-[#0B1B47] border-t border-[#0B1B47]/10 overflow-hidden pt-24 lg:pt-32 pb-20 lg:pb-28 bg-[#F4F1E5]"
+      className="relative text-[#0B1B47] overflow-hidden pt-20 lg:pt-28 pb-20 lg:pb-28 bg-[#F4F1E5]"
       aria-label="Serviços oferecidos — ecossistema criativo 360"
     >
       {/* Luz ambiente difusa no topo */}

@@ -23,20 +23,21 @@ interface RibbonConfig {
 }
 
 // -------------------------------------------------------------
-// CONFIGURAÇÕES DESKTOP (Viewport ≥ 768px - Base: 1440x180)
+// CONFIGURAÇÕES DESKTOP (Viewport ≥ 768px - Base: 1440x90)
+// 2 fitas com espaçamento orgânico e névoa (fog) de 25%
 // -------------------------------------------------------------
 const DESKTOP_VIEWBOX = {
   x: -40,
-  y: -18,
+  y: -4,
   width: 1440,
-  height: 180,
+  height: 90,
 };
 
 const TOP_RIBBONS_DESKTOP: RibbonConfig[] = [
   {
     id: "top-laranja",
     name: "Laranja Solar",
-    baseY: 24,
+    baseY: 28,
     color: "#E27908",
     textColor: "#FFFFFF",
     strokeWidth: 12.0,
@@ -45,12 +46,12 @@ const TOP_RIBBONS_DESKTOP: RibbonConfig[] = [
     amplitude: 9.5,
     phaseOffset: 0.0,
     textOffset: "0%",
-    opacity: 0.96,
+    opacity: 0.75, // Fog de 25% (visibilidade atenuada)
   },
   {
     id: "top-azul",
     name: "Azul Meia-Noite",
-    baseY: 48,
+    baseY: 58,
     color: "#0B1B47",
     textColor: "#F4F1E5",
     strokeWidth: 12.0,
@@ -59,49 +60,7 @@ const TOP_RIBBONS_DESKTOP: RibbonConfig[] = [
     amplitude: 10.5,
     phaseOffset: 1.6,
     textOffset: "3%",
-    opacity: 0.94,
-  },
-  {
-    id: "top-vinho",
-    name: "Vinho Profundo",
-    baseY: 72,
-    color: "#6E1016",
-    textColor: "#FFFFFF",
-    strokeWidth: 12.0,
-    speed: 3.3,
-    freq: 2.25,
-    amplitude: 9.5,
-    phaseOffset: 3.2,
-    textOffset: "1%",
-    opacity: 0.95,
-  },
-  {
-    id: "top-verde",
-    name: "Verde Esperança",
-    baseY: 96,
-    color: "#1E6838",
-    textColor: "#FFFFFF",
-    strokeWidth: 12.0,
-    speed: 2.9,
-    freq: 1.95,
-    amplitude: 10.0,
-    phaseOffset: 4.7,
-    textOffset: "4%",
-    opacity: 0.94,
-  },
-  {
-    id: "top-amarelo",
-    name: "Amarelo Ouro",
-    baseY: 120,
-    color: "#DF9307",
-    textColor: "#0B1B47",
-    strokeWidth: 12.0,
-    speed: 3.5,
-    freq: 2.3,
-    amplitude: 9.5,
-    phaseOffset: 5.9,
-    textOffset: "2%",
-    opacity: 0.96,
+    opacity: 0.75, // Fog de 25% (visibilidade atenuada)
   },
 ];
 
@@ -109,7 +68,7 @@ const BOTTOM_RIBBONS_DESKTOP: RibbonConfig[] = [
   {
     id: "bot-branco",
     name: "Branco Paz",
-    baseY: 24,
+    baseY: 28,
     color: "#FFFFFF",
     textColor: "#0B1B47",
     strokeWidth: 12.0,
@@ -118,12 +77,12 @@ const BOTTOM_RIBBONS_DESKTOP: RibbonConfig[] = [
     amplitude: 9.5,
     phaseOffset: 1.1,
     textOffset: "1%",
-    opacity: 0.97,
+    opacity: 0.75, // Fog de 25% (visibilidade atenuada)
   },
   {
     id: "bot-vinho",
     name: "Vinho Profundo",
-    baseY: 48,
+    baseY: 58,
     color: "#6E1016",
     textColor: "#FFFFFF",
     strokeWidth: 12.0,
@@ -132,68 +91,26 @@ const BOTTOM_RIBBONS_DESKTOP: RibbonConfig[] = [
     amplitude: 10.0,
     phaseOffset: 2.5,
     textOffset: "3%",
-    opacity: 0.95,
-  },
-  {
-    id: "bot-laranja",
-    name: "Laranja Solar",
-    baseY: 72,
-    color: "#E27908",
-    textColor: "#FFFFFF",
-    strokeWidth: 12.0,
-    speed: 3.4,
-    freq: 2.15,
-    amplitude: 10.5,
-    phaseOffset: 4.1,
-    textOffset: "0%",
-    opacity: 0.96,
-  },
-  {
-    id: "bot-azul",
-    name: "Azul Meia-Noite",
-    baseY: 96,
-    color: "#0B1B47",
-    textColor: "#F4F1E5",
-    strokeWidth: 12.0,
-    speed: 2.7,
-    freq: 1.9,
-    amplitude: 10.0,
-    phaseOffset: 5.4,
-    textOffset: "4%",
-    opacity: 0.94,
-  },
-  {
-    id: "bot-verde",
-    name: "Verde Esperança",
-    baseY: 120,
-    color: "#1E6838",
-    textColor: "#FFFFFF",
-    strokeWidth: 12.0,
-    speed: 3.1,
-    freq: 2.0,
-    amplitude: 9.5,
-    phaseOffset: 0.8,
-    textOffset: "2%",
-    opacity: 0.94,
+    opacity: 0.75, // Fog de 25% (visibilidade atenuada)
   },
 ];
 
 // -------------------------------------------------------------
-// CONFIGURAÇÕES MOBILE (Viewport < 768px - Base: 420x118)
-// Proporção física idêntica ao desktop: fita grossa (~11px) e texto legível (~7px)
+// CONFIGURAÇÕES MOBILE (Viewport < 768px - Base: 420x62)
+// Proporção física idêntica ao desktop: 2 fitas com fog de 25%
 // -------------------------------------------------------------
 const MOBILE_VIEWBOX = {
   x: -20,
-  y: -6,
+  y: -4,
   width: 420,
-  height: 118,
+  height: 62,
 };
 
 const TOP_RIBBONS_MOBILE: RibbonConfig[] = [
   {
     id: "top-laranja",
     name: "Laranja Solar",
-    baseY: 14,
+    baseY: 18,
     color: "#E27908",
     textColor: "#FFFFFF",
     strokeWidth: 11.0,
@@ -202,12 +119,12 @@ const TOP_RIBBONS_MOBILE: RibbonConfig[] = [
     amplitude: 5.6,
     phaseOffset: 0.0,
     textOffset: "0%",
-    opacity: 0.96,
+    opacity: 0.75, // Fog de 25% (visibilidade atenuada)
   },
   {
     id: "top-azul",
     name: "Azul Meia-Noite",
-    baseY: 34,
+    baseY: 42,
     color: "#0B1B47",
     textColor: "#F4F1E5",
     strokeWidth: 11.0,
@@ -216,49 +133,7 @@ const TOP_RIBBONS_MOBILE: RibbonConfig[] = [
     amplitude: 6.0,
     phaseOffset: 1.6,
     textOffset: "3%",
-    opacity: 0.94,
-  },
-  {
-    id: "top-vinho",
-    name: "Vinho Profundo",
-    baseY: 54,
-    color: "#6E1016",
-    textColor: "#FFFFFF",
-    strokeWidth: 11.0,
-    speed: 3.3,
-    freq: 1.45,
-    amplitude: 5.6,
-    phaseOffset: 3.2,
-    textOffset: "1%",
-    opacity: 0.95,
-  },
-  {
-    id: "top-verde",
-    name: "Verde Esperança",
-    baseY: 74,
-    color: "#1E6838",
-    textColor: "#FFFFFF",
-    strokeWidth: 11.0,
-    speed: 2.9,
-    freq: 1.25,
-    amplitude: 5.8,
-    phaseOffset: 4.7,
-    textOffset: "4%",
-    opacity: 0.94,
-  },
-  {
-    id: "top-amarelo",
-    name: "Amarelo Ouro",
-    baseY: 94,
-    color: "#DF9307",
-    textColor: "#0B1B47",
-    strokeWidth: 11.0,
-    speed: 3.5,
-    freq: 1.40,
-    amplitude: 5.6,
-    phaseOffset: 5.9,
-    textOffset: "2%",
-    opacity: 0.96,
+    opacity: 0.75, // Fog de 25% (visibilidade atenuada)
   },
 ];
 
@@ -266,7 +141,7 @@ const BOTTOM_RIBBONS_MOBILE: RibbonConfig[] = [
   {
     id: "bot-branco",
     name: "Branco Paz",
-    baseY: 14,
+    baseY: 18,
     color: "#FFFFFF",
     textColor: "#0B1B47",
     strokeWidth: 11.0,
@@ -275,12 +150,12 @@ const BOTTOM_RIBBONS_MOBILE: RibbonConfig[] = [
     amplitude: 5.6,
     phaseOffset: 1.1,
     textOffset: "1%",
-    opacity: 0.97,
+    opacity: 0.75, // Fog de 25% (visibilidade atenuada)
   },
   {
     id: "bot-vinho",
     name: "Vinho Profundo",
-    baseY: 34,
+    baseY: 42,
     color: "#6E1016",
     textColor: "#FFFFFF",
     strokeWidth: 11.0,
@@ -289,54 +164,12 @@ const BOTTOM_RIBBONS_MOBILE: RibbonConfig[] = [
     amplitude: 5.8,
     phaseOffset: 2.5,
     textOffset: "3%",
-    opacity: 0.95,
-  },
-  {
-    id: "bot-laranja",
-    name: "Laranja Solar",
-    baseY: 54,
-    color: "#E27908",
-    textColor: "#FFFFFF",
-    strokeWidth: 11.0,
-    speed: 3.4,
-    freq: 1.35,
-    amplitude: 6.0,
-    phaseOffset: 4.1,
-    textOffset: "0%",
-    opacity: 0.96,
-  },
-  {
-    id: "bot-azul",
-    name: "Azul Meia-Noite",
-    baseY: 74,
-    color: "#0B1B47",
-    textColor: "#F4F1E5",
-    strokeWidth: 11.0,
-    speed: 2.7,
-    freq: 1.25,
-    amplitude: 5.8,
-    phaseOffset: 5.4,
-    textOffset: "4%",
-    opacity: 0.94,
-  },
-  {
-    id: "bot-verde",
-    name: "Verde Esperança",
-    baseY: 94,
-    color: "#1E6838",
-    textColor: "#FFFFFF",
-    strokeWidth: 11.0,
-    speed: 3.1,
-    freq: 1.30,
-    amplitude: 5.6,
-    phaseOffset: 0.8,
-    textOffset: "2%",
-    opacity: 0.94,
+    opacity: 0.75, // Fog de 25% (visibilidade atenuada)
   },
 ];
 
 const BONFIM_PHRASE =
-  "† LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †";
+  "† LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †   † LEMBRANÇA DO SENHOR DO BONFIM DA BAHIA †";
 
 // Função para calcular o caminho de fita ondulando de ponta a ponta
 function generateRibbonPath(
@@ -636,10 +469,19 @@ export default function BonfimRibbons({
       ref={containerRef}
       className={`pointer-events-none select-none relative overflow-visible ${className}`}
       style={{
-        filter: "drop-shadow(0px 3px 5px rgba(11, 27, 71, 0.10))",
+        filter: "drop-shadow(0px 2px 4px rgba(11, 27, 71, 0.06))",
       }}
       aria-hidden="true"
     >
+      {/* Fog atmosférico de 25% (névoa suave que integra as fitas com o fundo creme) */}
+      <div
+        className={`absolute inset-0 pointer-events-none z-10 ${
+          variant === "top"
+            ? "bg-gradient-to-b from-[#F4F1E5]/25 via-[#F4F1E5]/10 to-transparent"
+            : "bg-gradient-to-t from-[#F4F1E5]/25 via-[#F4F1E5]/10 to-transparent"
+        }`}
+        aria-hidden="true"
+      />
       {/* ========================================================= */}
       {/* VERSÃO DESKTOP (≥ 768px): Proporções amplas em 1440x180   */}
       {/* ========================================================= */}
