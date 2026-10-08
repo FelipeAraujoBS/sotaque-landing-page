@@ -4,6 +4,7 @@ import "./globals.css";
 
 import SmoothScroll from "@/components/motion/SmoothScroll";
 import SotaquePreloader from "@/components/ui/SotaquePreloader";
+import SoundToggle from "@/components/audio/SoundToggle";
 import { CONTACT_INFO } from "@/lib/contact";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://sotaquecom.com.br";
@@ -152,6 +153,7 @@ export default function RootLayout({
           Pular para conteúdo
         </a>
         <SmoothScroll>{children}</SmoothScroll>
+        <SoundToggle />
       </body>
     </html>
   );
