@@ -218,13 +218,12 @@ function TileFace({ state, uid, hx, hy, sx, sy }: TileFaceProps) {
           className="w-full h-full drop-shadow-[0_2px_4px_rgba(0,0,0,0.18)]"
           aria-hidden="true"
         >
-          <g transform="translate(0, 2476) scale(0.1, -0.1)">
-            <path
-              d={PARROT_PATH}
-              className="transition-[fill] duration-[600ms] ease-out"
-              style={{ fill: state.logo }}
-            />
-          </g>
+          <path
+            d={PARROT_PATH}
+            fillRule="evenodd"
+            className="transition-[fill] duration-[600ms] ease-out"
+            style={{ fill: state.logo }}
+          />
         </svg>
       </motion.div>
 
